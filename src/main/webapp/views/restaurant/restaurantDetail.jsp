@@ -5,17 +5,17 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <%@ include file="views/common/head.jsp"%>
+    <%@ include file="/views/common/head.jsp"%>
   
   </head>
-  <body>
-    
-  <%@ include file="views/common/header.jsp"%>
-
-
-  <%@ include file="views/common/footer.jsp"%>
-
-
+  <body>  
+  <%@ include file="/views/common/header.jsp"%>
+  
+  
+  
+  
+  
+  <%@ include file="/views/common/footer.jsp"%>
     <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
 
   </body>

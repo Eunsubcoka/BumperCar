@@ -4,7 +4,7 @@
   <div class="navbar navbar-dark bg-white shadow-sm">
     <div class="container">
       <a href="#" class="navbar-brand d-flex align-items-center">
-        <img src="assets/image/logo.png" width="220" height="100" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2" viewBox="0 0 24 24"></img>
+        <img src="/assets/image/logo.png" width="220" height="100" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2" viewBox="0 0 24 24"></img>
       </a>
       <form action="/freeBoard/list.do" method = "get" >
 		<input type = "hidden" name = "cpage" value = "1">
@@ -33,8 +33,8 @@
       </div>
     </div>
   </section>
-
-
+가게번호 메뉴번호 예약번호
+4       
  --> 
  
 </header>
