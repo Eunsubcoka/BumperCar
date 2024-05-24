@@ -5,12 +5,12 @@
 <!doctype html>
 <html lang="en">
 <head>
-<%@ include file="views/common/head.jsp"%>
+<%@ include file="/views/common/head.jsp"%>
 
 </head>
 <body>
 
-	<%@ include file="views/common/header.jsp"%>
+	<%@ include file="/views/common/header.jsp"%>
 
 
 	<nav class="unique-nav">
@@ -124,7 +124,7 @@
 	
 
 
-	<%@ include file="views/common/footer.jsp"%>
+	<%@ include file="/views/common/footer.jsp"%>
 
 	<script src = "/assets/js/main.js"></script>
 	<script src="/assets/js/bootstrap.bundle.min.js"></script>
