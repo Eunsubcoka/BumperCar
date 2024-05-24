@@ -55,7 +55,13 @@ body {
 }
 
 .unique-main {
+	  display: flex;
+    justify-content: center;
     padding: 20px;
+    flex-wrap: wrap;
+    flex-direction: column;
+       align-items: center;
+    
 }
 
 .unique-food-category {
@@ -91,8 +97,8 @@ body {
 }
 
 .unique-image {
-    width: 200px;
-    height: 150px;
+    width: 370px;
+    height: 250px;
     background-color: #ddd;
     display: flex;
     align-items: center;
