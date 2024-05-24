@@ -1,0 +1,117 @@
+@charset "UTF-8";
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.unique-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #f8f8f8;
+}
+
+.unique-logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.unique-search-bar {
+    display: flex;
+    align-items: center;
+}
+
+.unique-search-bar input {
+    padding: 5px;
+    font-size: 16px;
+}
+
+.unique-search-bar button {
+    padding: 5px 10px;
+    font-size: 16px;
+}
+
+.unique-user-links a {
+    margin-left: 15px;
+    text-decoration: none;
+    color: #333;
+}
+
+.unique-nav {
+    display: flex;
+    justify-content: center;
+    background-color: #ececec;
+    padding: 10px 0;
+}
+
+.unique-nav a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: #333;
+}
+
+.unique-main {
+	  display: flex;
+    justify-content: center;
+    padding: 20px;
+    flex-wrap: wrap;
+    flex-direction: column;
+       align-items: center;
+    
+}
+
+.unique-food-category {
+    margin-bottom: 40px;
+}
+
+.unique-food-category h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.unique-carousel {
+    display: flex;
+    align-items: center;
+}
+
+.unique-carousel-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.unique-carousel-images {
+    display: flex;
+    overflow-x: auto;
+}
+
+.unique-carousel-item {
+    min-width: 200px;
+    margin: 0 10px;
+    text-align: center;
+}
+
+.unique-image {
+    width: 370px;
+    height: 250px;
+    background-color: #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+
+.unique-title {
+    margin-top: 5px;
+}
+
+.unique-footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #f8f8f8;
+}
