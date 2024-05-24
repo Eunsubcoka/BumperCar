@@ -11,7 +11,7 @@
 </head>
 <body>
 
-	<%@ include file="views/common/header.jsp"%>
+	<%@ include file="/views/common/header.jsp"%>
 
 
 
@@ -122,7 +122,7 @@
 	
 
 
-	<%@ include file="views/common/footer.jsp"%>
+	<%@ include file="/views/common/footer.jsp"%>
 
 	<script src = "/assets/js/main.js"></script>
 	<script src="/assets/js/bootstrap.bundle.min.js"></script>
