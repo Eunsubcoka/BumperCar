@@ -16,7 +16,7 @@ import org.mindrot.jbcrypt.BCrypt;
 import kr.co.tastyroad.member.model.dto.Member;
 import kr.co.tastyroad.member.model.service.MemberServiceImpl;
 
-@WebServlet("/member/register.do")
+@WebServlet("/tastyForm/register.do")
 public class RegisterController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
