@@ -1,117 +1,184 @@
 @charset "UTF-8";
 
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
 .unique-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    background-color: #f8f8f8;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px;
+	background-color: #f8f8f8;
 }
 
 .unique-logo {
-    font-size: 24px;
-    font-weight: bold;
+	font-size: 24px;
+	font-weight: bold;
 }
 
 .unique-search-bar {
-    display: flex;
-    align-items: center;
+	display: flex;
+	align-items: center;
 }
 
 .unique-search-bar input {
-    padding: 5px;
-    font-size: 16px;
+	padding: 5px;
+	font-size: 16px;
 }
 
 .unique-search-bar button {
-    padding: 5px 10px;
-    font-size: 16px;
+	padding: 5px 10px;
+	font-size: 16px;
 }
 
 .unique-user-links a {
-    margin-left: 15px;
-    text-decoration: none;
-    color: #333;
+	margin-left: 15px;
+	text-decoration: none;
+	color: #333;
 }
 
 .unique-nav {
-    display: flex;
-    justify-content: center;
-    background-color: #ececec;
-    padding: 10px 0;
+	display: flex;
+	justify-content: center;
+	background-color: #ececec;
+	padding: 10px 0;
 }
 
 .unique-nav a {
-    margin: 0 15px;
-    text-decoration: none;
-    color: #333;
+	margin: 0 15px;
+	text-decoration: none;
+	color: #333;
 }
 
 .unique-main {
-	  display: flex;
-    justify-content: center;
-    padding: 20px;
-    flex-wrap: wrap;
-    flex-direction: column;
-       align-items: center;
-    
+	display: flex;
+	justify-content: center;
+	padding: 20px;
+	flex-wrap: wrap;
+	flex-direction: column;
+	align-items: center;
 }
 
 .unique-food-category {
-    margin-bottom: 40px;
+	margin-bottom: 40px;
 }
 
 .unique-food-category h2 {
-    font-size: 24px;
-    margin-bottom: 10px;
+	font-size: 24px;
+	margin-bottom: 10px;
 }
 
 .unique-carousel {
-    display: flex;
-    align-items: center;
+	display: flex;
+	align-items: center;
 }
 
 .unique-carousel-btn {
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
+	background: none;
+	border: none;
+	font-size: 24px;
+	cursor: pointer;
 }
 
 .unique-carousel-images {
-    display: flex;
-    overflow-x: auto;
+	display: flex;
+	overflow-x: auto;
 }
 
 .unique-carousel-item {
-    min-width: 200px;
-    margin: 0 10px;
-    text-align: center;
+	min-width: 200px;
+	margin: 0 10px;
+	text-align: center;
 }
 
 .unique-image {
-    width: 370px;
-    height: 250px;
-    background-color: #ddd;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
+	width: 400px;
+	height: 400px;
+	background-color: #ddd;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 16px;
 }
 
 .unique-title {
-    margin-top: 5px;
+	margin-top: 5px;
 }
 
 .unique-footer {
-    text-align: center;
-    padding: 20px;
-    background-color: #f8f8f8;
+	text-align: center;
+	padding: 20px;
+	background-color: #f8f8f8;
 }
+
+/*  -------------------*/
+         * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .slider {
+            position: relative;
+            max-width: 100%;
+            height: 400px;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slide img {
+            max-width: 400px;
+            max-height: 400px;
+            object-fit: contain;
+            margin : 10px;
+        }
+
+        .prev, .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: auto;
+            padding: 16px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            cursor: pointer;
+            background-color: rgba(0, 0, 0, 0.5);
+            border: none;
+            user-select: none;
+            z-index: 10;
+        }
+
+        .prev {
+            left: 10px;
+            border-radius: 0 3px 3px 0;
+        }
+
+        .next {
+            right: 10px;
+            border-radius: 3px 0 0 3px;
+        }
+
+        .prev:hover, .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
