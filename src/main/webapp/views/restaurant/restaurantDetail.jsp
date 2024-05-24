@@ -16,7 +16,9 @@
   
     <div class="container" style="margin-top : 50px ; width: 700px;">
         <div class="header" >
-            <img src="" alt="대한옥">
+            <img src="/assets/image/logo.png" alt="대한옥">
+            <img src="/assets/image/logo.png" alt="대한옥">
+        </div>
             <div class="details">
                 <h1>띵호</h1>
                 <div class="rating">
@@ -29,7 +31,6 @@
                 <p class="features">다코숨은맛집, 술모임</p>
                 <p class="features">서민적인, 점심식사, 저녁식사, 좌식테이블</p>
             </div>
-        </div>
         <div class="map">
             <img src="map-image.png" alt="지도">
         </div>

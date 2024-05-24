@@ -5,14 +5,11 @@
 <!doctype html>
 <html lang="en">
 <head>
-<%@ include file="views/common/head.jsp"%>
+<%@ include file="/views/common/head.jsp"%>
 
 </head>
 <body>
-
-	<%@ include file="views/common/header.jsp"%>
-
-
+	<%@ include file="/views/common/header.jsp"%>
 	<nav class="unique-nav">
 		<a href="#">카테고리</a> <a href="#">공지사항</a>
 	</nav>
@@ -22,16 +19,16 @@
 			<div class="slider">
 				<div class="slides">
 					<div class="slide">
-						<img src="/assets/image/restaurant_images/김볶스.jpg" alt="Image 1"> <img src="/assets/image/restaurant_images/24시한방전주콩나물국밥.jpg"
-							alt="Image 2"> <img src="/assets/image/restaurant_images/김밥스토리.jpg" alt="Image 3">
+					<a href="/tastyForm/restaurantDetail.do" data-value="">	<img src="/assets/image/restaurant_images/김볶스.jpg" alt="Image 1"></a> <a href="" data-value=""><img src="/assets/image/restaurant_images/24시한방전주콩나물국밥.jpg"
+							alt="Image 2"></a><a href="" data-value=""> <img src="/assets/image/restaurant_images/김밥스토리.jpg" alt="Image 3"></a>
 					</div>
 					<div class="slide">
-						<img src="/assets/image/restaurant_images/비아김밥.jpg" alt="Image 4"> <img src="/assets/image/restaurant_images/안양 감자탕.jpg"
-							alt="Image 5"> <img src="/assets/image/restaurant_images/형제들감자탕 안양점.jpg" alt="Image 6">
+						<a href="" data-value=""><img src="/assets/image/restaurant_images/비아김밥.jpg" alt="Image 4"></a><a href="" data-value=""> <img src="/assets/image/restaurant_images/안양 감자탕.jpg"
+							alt="Image 5"></a><a href="" data-value=""> <img src="/assets/image/restaurant_images/형제들감자탕 안양점.jpg" alt="Image 6"></a>
 					</div>
 					<div class="slide">
-						<img src="/assets/image/restaurant_images/하남돼지집.jpg" alt="Image 7"> <img src="/assets/image/restaurant_images/고향맛손칼국수.jpg"
-							alt="Image 8"> <img src="/assets/image/restaurant_images/고인돌 김치떡삼겹.jpg" alt="Image 9">
+						<a href="" data-value=""><img src="/assets/image/restaurant_images/하남돼지집.jpg" alt="Image 7"></a><a href="" data-value=""> <img src="/assets/image/restaurant_images/고향맛손칼국수.jpg"
+							alt="Image 8"></a> <a href="" data-value=""><img src="/assets/image/restaurant_images/고인돌 김치떡삼겹.jpg" alt="Image 9"></a>
 					</div>
 					<!-- 필요시 추가 -->
 				</div>
@@ -49,16 +46,16 @@
 		<div class="slider">
 				<div class="slides">
 					<div class="slide">
-						<img src="/assets/image/restaurant_images/마약떡볶이.jpg" alt="Image 1"> <img src="/assets/image/restaurant_images/신전떡볶이.jpg"
-							alt="Image 2"> <img src="/assets/image/restaurant_images/두끼떡볶이.jpg" alt="Image 3">
+					<a href="" data-value="">	<img src="/assets/image/restaurant_images/마약떡볶이.jpg" alt="Image 1"></a><a href="" data-value=""> <img src="/assets/image/restaurant_images/신전떡볶이.jpg"
+							alt="Image 2"></a><a href="" data-value=""> <img src="/assets/image/restaurant_images/두끼떡볶이.jpg" alt="Image 3"></a>
 					</div>
 					<div class="slide">
-						<img src="/assets/image/restaurant_images/홍미집.jpg" alt="Image 4"> <img src="/assets/image/restaurant_images/역전우동0410 안양일번가점.jpg"
-							alt="Image 5"> <img src="/assets/image/restaurant_images/버섯칼국수.jpg" alt="Image 6">
+					<a href="" data-value="">	<img src="/assets/image/restaurant_images/홍미집.jpg" alt="Image 4"><a href="" data-value=""> </a><img src="/assets/image/restaurant_images/역전우동0410 안양일번가점.jpg"
+							alt="Image 5"></a><a href="" data-value=""> <img src="/assets/image/restaurant_images/버섯칼국수.jpg" alt="Image 6"></a>
 					</div>
 					<div class="slide">
-						<img src="/assets/image/restaurant_images/로렌스308.jpg" alt="Image 7"> <img src="/assets/image/restaurant_images/모이세분식.jpg"
-							alt="Image 8"> <img src="/assets/image/restaurant_images/롤링파스타 안양일번가점.jpg" alt="Image 9">
+					<a href="" data-value="">	<img src="/assets/image/restaurant_images/로렌스308.jpg" alt="Image 7"></a><a href="" data-value=""> <img src="/assets/image/restaurant_images/모이세분식.jpg"
+							alt="Image 8"><a href="" data-value=""></a> <img src="/assets/image/restaurant_images/롤링파스타 안양일번가점.jpg" alt="Image 9"></a>
 					</div>
 					<!-- 필요시 추가 -->
 				</div>
@@ -73,16 +70,16 @@
 			<div class="slider">
 				<div class="slides">
 					<div class="slide">
-						<img src="/assets/image/restaurant_images/김볶스.jpg" alt="Image 1"> <img src="/assets/image/restaurant_images/24시한방전주콩나물국밥.jpg"
-							alt="Image 2"> <img src="/assets/image/restaurant_images/김밥스토리.jpg" alt="Image 3">
+					<a href="" data-value="">	<img src="/assets/image/restaurant_images/김볶스.jpg" alt="Image 1"> </a><a href="" data-value=""> <img src="/assets/image/restaurant_images/24시한방전주콩나물국밥.jpg"
+							alt="Image 2"></a><a href="" data-value=""> <img src="/assets/image/restaurant_images/김밥스토리.jpg" alt="Image 3"></a>
 					</div>
 					<div class="slide">
-						<img src="/assets/image/restaurant_images/비아김밥.jpg" alt="Image 4"> <img src="/assets/image/restaurant_images/안양 감자탕.jpg"
-							alt="Image 5"> <img src="/assets/image/restaurant_images/형제들감자탕 안양점.jpg" alt="Image 6">
+					<a href="" data-value="">	<img src="/assets/image/restaurant_images/비아김밥.jpg" alt="Image 4"></a><a href="" data-value=""> <img src="/assets/image/restaurant_images/안양 감자탕.jpg"
+							alt="Image 5"></a><a href="" data-value=""> <img src="/assets/image/restaurant_images/형제들감자탕 안양점.jpg" alt="Image 6"></a>
 					</div>
 					<div class="slide">
-						<img src="/assets/image/restaurant_images/하남돼지집.jpg" alt="Image 7"> <img src="/assets/image/restaurant_images/고향맛손칼국수.jpg"
-							alt="Image 8"> <img src="/assets/image/restaurant_images/고인돌 김치떡삼겹.jpg" alt="Image 9">
+					<a href="" data-value="">	<img src="/assets/image/restaurant_images/하남돼지집.jpg" alt="Image 7"></a><a href="" data-value=""> <img src="/assets/image/restaurant_images/고향맛손칼국수.jpg"
+							alt="Image 8"></a><a href="" data-value=""> <img src="/assets/image/restaurant_images/고인돌 김치떡삼겹.jpg" alt="Image 9"></a>
 					</div>
 					<!-- 필요시 추가 -->
 				</div>
@@ -96,16 +93,16 @@
 			<div class="slider">
 				<div class="slides">
 					<div class="slide">
-						<img src="/assets/image/restaurant_images/김볶스.jpg" alt="Image 1"> <img src="/assets/image/restaurant_images/24시한방전주콩나물국밥.jpg"
-							alt="Image 2"> <img src="/assets/image/restaurant_im	ages/김밥스토리.jpg" alt="Image 3">
+					<a href="" data-value="">	<img src="/assets/image/restaurant_images/김볶스.jpg" alt="Image 1"></a><a href="" data-value=""> <img src="/assets/image/restaurant_images/24시한방전주콩나물국밥.jpg"
+							alt="Image 2"></a><a href="" data-value=""> <img src="/assets/image/restaurant_im	ages/김밥스토리.jpg" alt="Image 3"></a>
 					</div>
 					<div class="slide">
-						<img src="/assets/image/restaurant_images/비아김밥.jpg" alt="Image 4"> <img src="/assets/image/restaurant_images/안양 감자탕.jpg"
-							alt="Image 5"> <img src="/assets/image/restaurant_images/형제들감자탕 안양점.jpg" alt="Image 6">
+					<a href="" data-value="">	<img src="/assets/image/restaurant_images/비아김밥.jpg" alt="Image 4"></a><a href="" data-value=""> <img src="/assets/image/restaurant_images/안양 감자탕.jpg"
+							alt="Image 5"></a><a href="" data-value=""> <img src="/assets/image/restaurant_images/형제들감자탕 안양점.jpg" alt="Image 6"></a>
 					</div>
 					<div class="slide">
-						<img src="/assets/image/restaurant_images/하남돼지집.jpg" alt="Image 7"> <img src="/assets/image/restaurant_images/고향맛손칼국수.jpg"
-							alt="Image 8"> <img src="/assets/image/restaurant_images/고인돌 김치떡삼겹.jpg" alt="Image 9">
+					<a href="" data-value="">	<img src="/assets/image/restaurant_images/하남돼지집.jpg" alt="Image 7"></a><a href="" data-value=""> <img src="/assets/image/restaurant_images/고향맛손칼국수.jpg"
+							alt="Image 8"></a><a href="" data-value=""> <img src="/assets/image/restaurant_images/고인돌 김치떡삼겹.jpg" alt="Image 9"></a>
 					</div>
 					<!-- 필요시 추가 -->
 				</div>
@@ -120,7 +117,7 @@
 	
 
 
-	<%@ include file="views/common/footer.jsp"%>
+	<%@ include file="/views/common/footer.jsp"%>
 
 	<script src = "/assets/js/main.js"></script>
 	<script src="/assets/js/bootstrap.bundle.min.js"></script>
