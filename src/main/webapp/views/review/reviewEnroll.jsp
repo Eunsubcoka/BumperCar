@@ -6,13 +6,14 @@
 <html lang="en">
 <head>
 <%@ include file="/views/common/head.jsp"%>
-<link rel="stylesheet" href="/assets/css/review.css">
+	<link rel="stylesheet" href="/assets/css/reviewEnroll.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+
 
 </head>
 <body>
 
 	<%@ include file="/views/common/header.jsp"%>
-	<link rel="stylesheet" href="/assets/css/reviewEnroll.css">
 
 <!-- review enroll section -->
 <section>
@@ -20,10 +21,18 @@
         <h1>맛나분식 리뷰</h1>
         <div class="container-review">
             <div class="review">
-                <div class="rating">
+                <div class="rating-box">
                     <p class="text"><strong>음식점의 만족도를 별점으로 표현해주세요!</strong></p>
                     <p class="rating-text">5.0점(만족)</p>
-                    <span class="rating-star">★★★★★</span>
+                    <div class="rating">
+                        <span class="rating__result"></span> 
+                        <i class="rating__star far fa-star"></i>
+                        <i class="rating__star far fa-star"></i>
+                        <i class="rating__star far fa-star"></i>
+                        <i class="rating__star far fa-star"></i>
+                        <i class="rating__star far fa-star"></i>
+                    </div>
+                    <!-- <span class="rating-star">★★★★★</span> -->
                 </div>
                 <div class="content">
                     <textarea>
@@ -33,16 +42,13 @@
                 </div>
                 <!-- 버튼 -->
                 <div class="btn">
-                    <div class="review-photo-add">
-                        <button>
-                            이미지 추가 버튼
-                        </button>
-                    </div>
-                    <div class="rating-submit">
-                        <button>
-                           작성완료
-                        </button>
-                    </div>
+                    <label for="file">
+                        <div class="btn-upload">이미지추가</div>
+                    </label>
+                    <input type="file" name="file" id="file">
+                    <button>
+                       작성완료
+                    </button>
                 </div>
             </div>
         </div>

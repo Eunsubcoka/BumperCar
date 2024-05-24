@@ -30,20 +30,52 @@ h1 {
     color: #333;
 }
 
-.review .content {
-    margin-top: 10px;
-}
-
-.rating-text {
+/* 별점 */
+/* 1~5점 만족 */
+.rating-text { 
     font-size: small;
 }
 
-.rating {
+.rating-box {
     text-align: center;
 }
 
-.rating-star {
-    color: #ff9800;
+/* 별 묶음 */
+.rating {
+    margin: auto;
+    width: 180px;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .3em;
+    padding: 5px;
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: 0 0 2px #b3acac;
+ }
+ 
+ .rating__result {
+    position: relative; /* 절대 위치에서 상대 위치로 변경 */
+    font-size: 3em;
+    color: #ebebeb8e;
+    pointer-events: none;
+    margin-top: -10px; /* 수정된 위치 조정값 */
+ }
+ 
+ .rating__star {
+    font-size: 1.3em;
+    cursor: pointer;
+    color:  #ff9800;
+
+ }
+ .rating__star:hover {
+    filter: drop-shadow(1px 1px 4px  #ff9800);
+ }
+ /* 별점 끝*/
+
+.review, .content {
+    margin-top: 10px;
 }
 
 .content {
@@ -51,6 +83,10 @@ h1 {
     width: 700px;
 }
 
+textarea {
+    width: 100%; /* textarea의 너비를 최대로 설정 */
+    padding: 10px; /* 텍스트 영역 내부의 여백 설정 */
+}
 
 /* 리뷰 사진추가 링크 */
 .btn {
@@ -58,16 +94,26 @@ h1 {
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center; /* 수평 가운데 정렬 */
 }
 
-button {
+button, .btn-upload {
     width: 250px;
     height: 30px;
+    cursor: pointer;
     border-radius: 15px;
     border-color: #ff9800;
     background-color: #ff9800;
+    text-align: center;
     color: #fff;
+    font-size: medium;
     margin: 7px;
+    display: flex;
+    align-items: center; /* 텍스트 수직 가운데 정렬 */
+    justify-content: center; /* 텍스트 수평 가운데 정렬 */
 }
+
+#file {
+    display: none;
+  }
 
