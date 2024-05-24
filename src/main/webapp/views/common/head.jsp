@@ -10,7 +10,8 @@
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/album/">
     <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="stylesheet" href="/assets/css/test.css">
+    
+   
 
     
 
