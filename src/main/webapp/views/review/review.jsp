@@ -88,16 +88,16 @@
                 </div>
                 <div class="review-photos">
                     <div class="review-photo">
-                        <img class="photo" src="/assets/image/KakaoTalk_20240425_152622598.jpg" alt="리뷰 사진 1">
+                        <img class="photo" src="/assets/image/food.jpg" alt="리뷰 사진 1">
                     </div>
                     <div class="review-photo">
-                        <img class="photo" src="/assets/image/KakaoTalk_20240425_152622598.jpg" alt="리뷰 사진 2">
+                        <img class="photo" src="/assets/image/food.jpg" alt="리뷰 사진 2">
                     </div>
                     <div class="review-photo">
-                        <img class="photo" src="/assets/image/KakaoTalk_20240425_152622598.jpg" alt="리뷰 사진 1">
+                        <img class="photo" src="/assets/image/food.jpg" alt="리뷰 사진 1">
                     </div>
                     <div class="review-photo">
-                        <img class="photo" src="/assets/image/KakaoTalk_20240425_152622598.jpg" alt="리뷰 사진 2">
+                        <img class="photo" src="/assets/image/food.jpg" alt="리뷰 사진 2">
                     </div>
                 </div>
             </div>

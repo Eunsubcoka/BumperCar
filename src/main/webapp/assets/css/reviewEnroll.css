@@ -1,4 +1,4 @@
-@charset "UTF-8";
+
 body {
     margin: 0;
     padding: 0;
@@ -30,56 +30,44 @@ h1 {
     color: #333;
 }
 
-
-/* 사용자 프로필 */
-.user-img {
-    border-radius: 50px;
-    margin-right: 10px;
-    margin-bottom: 5px;
-    width: 60px;
-    height: 60px;
-}
-.review .date {
-    font-size: 0.8em;
-    color: #777;
-}
 .review .content {
     margin-top: 10px;
 }
 
-.user-container {
-    display: flex;
-    align-items: center;
-}
-.user-info {
-    display: flex;
-    flex-direction: column;
-}
-.review .rating {
-    color: #ff9800;
-    font-size: 1.2em;
+.rating-text {
+    font-size: small;
 }
 
-/* 리뷰 사진 */
-.review-photos {
+.rating {
+    text-align: center;
+}
+
+.rating-star {
+    color: #ff9800;
+}
+
+.content {
+    height: 100px;
+    width: 700px;
+}
+
+
+/* 리뷰 사진추가 링크 */
+.btn {
     margin-top: 15px;
     border-radius: 10px;
-    display: grid; 
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 15px;
     display: flex;
-    justify-content: center; /* 사진들을 중앙 정렬 */
+    flex-direction: column;
+    align-items: center;
 }
 
-.review-photo {
-    width: 150px;
-    height: 150px;
-    overflow: hidden;
+button {
+    width: 250px;
+    height: 30px;
     border-radius: 15px;
-    position: relative;
-}
-
-.photo {
-    width: 100%;
+    border-color: #ff9800;
+    background-color: #ff9800;
+    color: #fff;
+    margin: 7px;
 }
 

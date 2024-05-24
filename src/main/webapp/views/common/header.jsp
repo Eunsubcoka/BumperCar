@@ -12,6 +12,23 @@
 				class="form-control" name="search-text" placeholder="검색어를 입력해주세요."
 				aria-label="Recipient's username" aria-describedby="button-addon2">
 		</form>
+	<div class="login-signup">
+     <!--  <a href="/views/member/login.jsp">로그인</a> --> 
+    <!--  <a href="/views/member/register.jsp">회원가입</a> -->  
+    	<c:choose>
+		<c:when test ="${sessionScope.userName == null}">
+      <a href="/form/loginForm.do">로그인</a> 
+      <a href="/form/registerForm.do">회원가입</a>
+		
+		</c:when>
+		<c:otherwise>
+      <a href="/member/logout.do">로그아웃</a> 
+		</c:otherwise>
+		</c:choose>
+    
+    
+    </div>
+    
     </div>
   </div>
 
