@@ -1,7 +1,6 @@
 package kr.co.tastyroad.member.controller;
 
 import java.io.IOException;
-import java.util.Objects;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,10 +12,10 @@ import javax.servlet.http.HttpSession;
 
 import org.mindrot.jbcrypt.BCrypt;
 
-import kr.co.green.member.model.dto.Member;
-import kr.co.green.member.model.service.MemberServiceImpl;
+import kr.co.tastyroad.member.model.dto.Member;
+import kr.co.tastyroad.member.model.service.MemberServiceImpl;
 
-@WebServlet("/member/login.do")
+@WebServlet("/tastyForm/login.do")
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
