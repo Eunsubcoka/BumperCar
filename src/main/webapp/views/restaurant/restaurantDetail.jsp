@@ -31,6 +31,7 @@
                 <p class="features">다코숨은맛집, 술모임</p>
                 <p class="features">서민적인, 점심식사, 저녁식사, 좌식테이블</p>
             </div>
+
         <div class="map">
             <img src="map-image.png" alt="지도">
         </div>

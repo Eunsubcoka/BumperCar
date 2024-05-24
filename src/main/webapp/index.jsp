@@ -7,6 +7,7 @@
 <head>
 <%@ include file="/views/common/head.jsp"%>
 
+
 </head>
 <body>
 
