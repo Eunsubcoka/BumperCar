@@ -9,7 +9,10 @@
 
 </head>
 <body>
+
 	<%@ include file="/views/common/header.jsp"%>
+
+
 	<nav class="unique-nav">
 		<a href="#">카테고리</a> <a href="#">공지사항</a>
 	</nav>
@@ -31,9 +34,10 @@
 							alt="Image 8"></a> <a href="" data-value=""><img src="/assets/image/restaurant_images/고인돌 김치떡삼겹.jpg" alt="Image 9"></a>
 					</div>
 					<!-- 필요시 추가 -->
-				</div>
 				<button class="prev" onclick="changeOneSlide(-1)">&#10094;</button>
 				<button class="next" onclick="changeOneSlide(1)">&#10095;</button>
+				</div>
+
 			</div>
 
 
@@ -58,9 +62,10 @@
 							alt="Image 8"><a href="" data-value=""></a> <img src="/assets/image/restaurant_images/롤링파스타 안양일번가점.jpg" alt="Image 9"></a>
 					</div>
 					<!-- 필요시 추가 -->
+					<button class="prev" onclick="changeTwoSlide(-1)">&#10094;</button>
+					<button class="next" onclick="changeTwoSlide(1)">&#10095;</button>
 				</div>
-				<button class="prev" onclick="changeTwoSlide(-1)">&#10094;</button>
-				<button class="next" onclick="changeTwoSlide(1)">&#10095;</button>
+				
 			</div>
 			</section>
 		
@@ -82,9 +87,10 @@
 							alt="Image 8"></a><a href="" data-value=""> <img src="/assets/image/restaurant_images/고인돌 김치떡삼겹.jpg" alt="Image 9"></a>
 					</div>
 					<!-- 필요시 추가 -->
+					<button class="prev" onclick="changeThreeSlide(-1)">&#10094;</button>
+					<button class="next" onclick="changeThreeSlide(1)">&#10095;</button>
 				</div>
-				<button class="prev" onclick="changeThreeSlide(-1)">&#10094;</button>
-				<button class="next" onclick="changeThreeSlide(1)">&#10095;</button>
+				
 			</div>
 		</section>
 
@@ -93,8 +99,13 @@
 			<div class="slider">
 				<div class="slides">
 					<div class="slide">
+<<<<<<< HEAD
 					<a href="" data-value="">	<img src="/assets/image/restaurant_images/김볶스.jpg" alt="Image 1"></a><a href="" data-value=""> <img src="/assets/image/restaurant_images/24시한방전주콩나물국밥.jpg"
 							alt="Image 2"></a><a href="" data-value=""> <img src="/assets/image/restaurant_im	ages/김밥스토리.jpg" alt="Image 3"></a>
+=======
+						<img src="/assets/image/restaurant_images/김볶스.jpg" alt="Image 1"> <img src="/assets/image/restaurant_images/24시한방전주콩나물국밥.jpg"
+							alt="Image 2"> <img src="/assets/image/restaurant_images/김밥스토리.jpg" alt="Image 3">
+>>>>>>> branch 'AhTae' of https://github.com/Eunsubcoka/BumperCar.git
 					</div>
 					<div class="slide">
 					<a href="" data-value="">	<img src="/assets/image/restaurant_images/비아김밥.jpg" alt="Image 4"></a><a href="" data-value=""> <img src="/assets/image/restaurant_images/안양 감자탕.jpg"
@@ -105,9 +116,10 @@
 							alt="Image 8"></a><a href="" data-value=""> <img src="/assets/image/restaurant_images/고인돌 김치떡삼겹.jpg" alt="Image 9"></a>
 					</div>
 					<!-- 필요시 추가 -->
+					<button class="prev" onclick="changeFourSlide(-1)">&#10094;</button>
+					<button class="next" onclick="changeFourSlide(1)">&#10095;</button>
 				</div>
-				<button class="prev" onclick="changeFourSlide(-1)">&#10094;</button>
-				<button class="next" onclick="changeFourSlide(1)">&#10095;</button>
+				
 			</div>
 		</section>
 		
