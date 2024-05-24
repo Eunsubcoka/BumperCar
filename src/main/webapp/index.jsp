@@ -23,7 +23,7 @@
 			<div class="slider">
 				<div class="slides">
 					<div class="slide">
-					<a href="/tastyForm/restaurantDetail.do" data-value="">	<img src="/assets/image/restaurant_images/김볶스.jpg" alt="Image 1"></a> <a href="" data-value=""><img src="/assets/image/restaurant_images/24시한방전주콩나물국밥.jpg"
+					<a href="/restaurantDetail.do" data-value="1">	<img src="/assets/image/restaurant_images/김볶스.jpg" alt="Image 1"></a> <a href="" data-value=""><img src="/assets/image/restaurant_images/24시한방전주콩나물국밥.jpg"
 							alt="Image 2"></a><a href="" data-value=""> <img src="/assets/image/restaurant_images/김밥스토리.jpg" alt="Image 3"></a>
 					</div>
 					<div class="slide">
