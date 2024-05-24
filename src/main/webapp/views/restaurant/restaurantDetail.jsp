@@ -26,9 +26,9 @@
                     <img src="" alt="Dining image">
                     <span>review 갯수</span>
                 </div>
-                <p class="address">서울특별시 영등포구 영등포동2가 221-1</p>
-                <p class="contact">전화: 02-2633-5052</p>
-                <p class="features">다코숨은맛집, 술모임</p>
+                <p class="address">${result.location }</p>
+                <p class="contact">전화: ${result.restaurantPhone }</p>
+                <p class="features"></p>
                 <p class="features">서민적인, 점심식사, 저녁식사, 좌식테이블</p>
             </div>
 
