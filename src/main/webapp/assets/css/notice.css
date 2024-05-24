@@ -1,0 +1,46 @@
+.notice-main{
+	margin: 20px;
+	padding:20px;
+	border : 1px solid #ccc;
+	border-radius : 5px;
+}
+
+.notice-container{
+	position : relative;
+}
+
+table{
+	width : 100%
+	margin-top = 40px;
+}
+
+th,td {
+	border : 1px solid black;
+	padding : 10px;
+	text-align: left;
+}
+th {
+	background-color : #333;
+	color : black;
+}
+
+button {
+	background-color: #333;
+	color: white;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 3px;
+	cursor: pointer;
+}
+
+.card{
+	    --bs-card-border-width : 0px;
+}
+
+#editorTxt, #editTxt {
+        width: 85%; /* 텍스트 영역의 너비를 100%로 설정 */
+        height: 300px; /* 텍스트 영역의 높이를 300px로 설정 (원하는 높이로 조절) */
+        padding: 10px; /* 내부 여백 설정 */
+        box-sizing: border-box; /* padding 값이 요소의 크기에 포함되도록 box-sizing 속성을 border-box로 설정 */
+    }
+    
