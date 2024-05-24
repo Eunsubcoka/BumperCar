@@ -1,0 +1,114 @@
+@charset "UTF-8";
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header img {
+    width: 50%;
+    max-width: 300px;
+}
+
+.header .details {
+    width: 45%;
+    text-align: left;
+}
+
+.details h1 {
+    margin: 0;
+    font-size: 24px;
+    color: #333333;
+}
+
+.details .rating {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.details .rating span {
+    margin-right: 5px;
+    font-size: 18px;
+    color: #333333;
+}
+
+.details .rating img {
+    width: 20px;
+    height: 20px;
+}
+
+.details .address {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #555555;
+}
+
+.details .contact {
+    margin-top: 5px;
+    font-size: 16px;
+    color: #555555;
+}
+
+.map {
+    margin-top: 20px;
+}
+
+.map img {
+    width: 100%;
+    height: auto;
+}
+
+.recommendations {
+    margin-top: 20px;
+}
+
+.recommendations h2 {
+    font-size: 20px;
+    color: #333333;
+    margin-bottom: 10px;
+}
+
+.recommendations .item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.recommendations .item img {
+    width: 60px;
+    height: 60px;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+.recommendations .item .info {
+    font-size: 16px;
+    color: #333333;
+}
+
+.recommendations .item .info span {
+    display: block;
+    color: #777777;
+}
+.mapContainer{
+	display : inline;
+
+}
