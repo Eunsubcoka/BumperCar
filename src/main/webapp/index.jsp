@@ -100,13 +100,9 @@
 			<div class="slider">
 				<div class="slides">
 					<div class="slide">
-<<<<<<< HEAD
 					<a href="" data-value="">	<img src="/assets/image/restaurant_images/김볶스.jpg" alt="Image 1"></a><a href="" data-value=""> <img src="/assets/image/restaurant_images/24시한방전주콩나물국밥.jpg"
 							alt="Image 2"></a><a href="" data-value=""> <img src="/assets/image/restaurant_im	ages/김밥스토리.jpg" alt="Image 3"></a>
-=======
-						<img src="/assets/image/restaurant_images/김볶스.jpg" alt="Image 1"> <img src="/assets/image/restaurant_images/24시한방전주콩나물국밥.jpg"
-							alt="Image 2"> <img src="/assets/image/restaurant_images/김밥스토리.jpg" alt="Image 3">
->>>>>>> branch 'AhTae' of https://github.com/Eunsubcoka/BumperCar.git
+
 					</div>
 					<div class="slide">
 					<a href="" data-value="">	<img src="/assets/image/restaurant_images/비아김밥.jpg" alt="Image 4"></a><a href="" data-value=""> <img src="/assets/image/restaurant_images/안양 감자탕.jpg"

@@ -6,10 +6,10 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.104.2">
-    <title>Album example · Bootstrap v5.2</title>
+    <title>Tastyroad Homepage</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/album/">
-    <link rel="stylesheet" href="/assets/css/main.css">
+   
     
    
 
@@ -18,7 +18,7 @@
     
 
 <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
-
+ <link rel="stylesheet" href="/assets/css/main.css">
     <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
