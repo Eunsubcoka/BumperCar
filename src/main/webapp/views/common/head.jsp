@@ -9,12 +9,15 @@
     <title>Album example · Bootstrap v5.2</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/album/">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/test.css">
+   
 
     
 
     
 
-<link href="/assets/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="/assets/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
       .bd-placeholder-img {
