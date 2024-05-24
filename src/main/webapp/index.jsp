@@ -34,9 +34,10 @@
 							alt="Image 8"> <img src="/assets/image/restaurant_images/고인돌 김치떡삼겹.jpg" alt="Image 9">
 					</div>
 					<!-- 필요시 추가 -->
-				</div>
 				<button class="prev" onclick="changeOneSlide(-1)">&#10094;</button>
 				<button class="next" onclick="changeOneSlide(1)">&#10095;</button>
+				</div>
+
 			</div>
 
 
@@ -61,9 +62,10 @@
 							alt="Image 8"> <img src="/assets/image/restaurant_images/롤링파스타 안양일번가점.jpg" alt="Image 9">
 					</div>
 					<!-- 필요시 추가 -->
+					<button class="prev" onclick="changeTwoSlide(-1)">&#10094;</button>
+					<button class="next" onclick="changeTwoSlide(1)">&#10095;</button>
 				</div>
-				<button class="prev" onclick="changeTwoSlide(-1)">&#10094;</button>
-				<button class="next" onclick="changeTwoSlide(1)">&#10095;</button>
+				
 			</div>
 			</section>
 		
@@ -85,9 +87,10 @@
 							alt="Image 8"> <img src="/assets/image/restaurant_images/고인돌 김치떡삼겹.jpg" alt="Image 9">
 					</div>
 					<!-- 필요시 추가 -->
+					<button class="prev" onclick="changeThreeSlide(-1)">&#10094;</button>
+					<button class="next" onclick="changeThreeSlide(1)">&#10095;</button>
 				</div>
-				<button class="prev" onclick="changeThreeSlide(-1)">&#10094;</button>
-				<button class="next" onclick="changeThreeSlide(1)">&#10095;</button>
+				
 			</div>
 		</section>
 
@@ -108,9 +111,10 @@
 							alt="Image 8"> <img src="/assets/image/restaurant_images/고인돌 김치떡삼겹.jpg" alt="Image 9">
 					</div>
 					<!-- 필요시 추가 -->
+					<button class="prev" onclick="changeFourSlide(-1)">&#10094;</button>
+					<button class="next" onclick="changeFourSlide(1)">&#10095;</button>
 				</div>
-				<button class="prev" onclick="changeFourSlide(-1)">&#10094;</button>
-				<button class="next" onclick="changeFourSlide(1)">&#10095;</button>
+				
 			</div>
 		</section>
 		
