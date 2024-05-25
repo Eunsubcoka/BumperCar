@@ -14,8 +14,9 @@
   <body>  
   <%@ include file="/views/common/header.jsp"%>
   
-    <div class="container" style="margin-top : 50px ; width: 700px;">
-        <div class="header" >
+  <div class = "res_content">
+    <div class="res_left_container" style="margin-top : 50px ; width: 700px;">
+        <div class="res_header" >
             <img src="/assets/image/logo.png" alt="대한옥">
             <img src="/assets/image/logo.png" alt="대한옥">
         </div>
@@ -32,9 +33,6 @@
                 <p class="features">서민적인, 점심식사, 저녁식사, 좌식테이블</p>
             </div>
 
-        <div class="map">
-            <img src="map-image.png" alt="지도">
-        </div>
         <div class="recommendations">
             <h2>'대한옥' 주변 추천 맛집</h2>
             <div class="item">
@@ -59,14 +57,19 @@
                 </div>
                 
             </div>
+        </div>
+    </div>
+    
+<div class = "res_right_container">
     <div class="mapContainer" >
                 <div id="map" style="width:300px;height:200px;"></div>
     </div>
-        </div>
-    </div>
-    <br>
 
+</div>
 
+  
+  </div>
+  
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=597a12321ce91d26c9101324b5955ebd&libraries=services"></script>
 <script>
@@ -113,8 +116,7 @@ geocoder.addressSearch('경기도 안양시 만안구 안양4동 707-25', functi
 
 
 
-</body>
-</html>
+
 
   	
   

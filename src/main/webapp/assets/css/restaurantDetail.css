@@ -7,22 +7,27 @@ body {
     padding: 0;
 }
 
-.container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
+.res_content{
+	display: block;
+    unicode-bidi: isolate;
+}
+
+.res_left_container {
+	
+    width: 700;
     padding: 20px;
     background-color: #ffffff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    float:left;
 }
 
-.header {
+.res_header {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.header img {
+.res_header img {
     width: 50%;
     max-width: 350px;
 }
@@ -65,6 +70,11 @@ body {
     margin-top: 5px;
     font-size: 16px;
     color: #555555;
+}
+.res_right_container{
+	max-width: 300px;
+	float: right;
+	
 }
 
 .map {
