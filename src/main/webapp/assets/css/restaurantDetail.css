@@ -1,8 +1,7 @@
 @charset "UTF-8";
 
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
+	margin: 0;
     padding: 0;
     background: #f0f0f3 !important;
 }
@@ -29,39 +28,57 @@ body {
 
 /* 레스토랑 left*/
 .res_left_container {
-	
+    min-width: 700;
+    float:left;
+}
+
+
+/* 레스토랑 info wrap*/
+.res_info_wrap {
     min-width: 700;
     background-color: #ffffff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
     border-radius: 10px;
     float:left;
     padding : 20px;
 }
 
+
+
 .res_header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    width: 710px;
 }
 
 .res_header img {
     width: 50%;
     max-width: 350px;
+    border-radius: 10px;
 }
 
 .header .details {
     width: 45%;
     text-align: left;
+    
 }
 
 .details h1 {
-    margin: 0;
-    font-size: 24px;
-    color: #333333;
+    font-size: 35px;
+    color: #202020;
+    line-height: 44px;
+    font-weight: 600;
+    float: left;
+    letter-spacing: -0.095px;
+    margin-left: 4px;
+    
 }
 
 .details .rating {
     display: flex;
+    float:right;
     align-items: center;
     margin-top: 10px;
 }
@@ -76,6 +93,76 @@ body {
     width: 20px;
     height: 20px;
 }
+.details .share{
+	float:right;
+    background-color: #efefef;
+    border-radius: 17px;
+    padding: 7px 12px 7px 12px;
+    font-size: 14px;
+        cursor: pointer;
+    
+}
+
+
+#share_pop{
+}
+#share_pop > img{
+	position: fixed;
+    right: 3px;
+    top: 3px;
+    width: 10px;
+    height: 10px;
+	margin: 10px;
+}
+.layer_pop{
+    width: 400px;
+    height: 200px;
+	backdrop-filter: blur(4px);
+	background: rgba(0, 0, 0, .7);
+	background-color: #efefef;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 17px;
+	display: none;
+    position: fixed;
+    top: 50%;
+    left: 25%;
+    z-index: 9999;
+    
+}
+
+.share_flex > ul{
+	list-style: none;
+    display: flex;
+    list-style: none;
+    align-items: center;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    padding: 0;
+}
+.share_flex > h4{
+	margin-top: 40px;
+	font-weight: bold;
+	text-align: center;
+}
+
+.share_flex >ul > li{
+	float: left;
+	width: 60px;
+    height: 60px;
+    display: inline-block;
+    margin: 0px 10px
+}
+.share_flex >ul > li > img{
+	width: 60px;
+    height: 60px;
+}
+
+.share_flex >ul > li > p{
+	font-size:small;
+	
+    margin: 0px 10px
+}
+
 
 .details .address {
     margin-top: 10px;
@@ -165,9 +252,10 @@ border-bottom: 1px #c0c0c0 solid;
 word-wrap: break-word;
 	}
 /* 레스토랑 메뉴 컨테이너 */
-.res_menu_container {
-	
-    min-width: 700;
+.res_menu_wrap{
+	display : inline-flex;
+	margin-top:20px;
+    min-width: 750px;
     background-color: #ffffff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
