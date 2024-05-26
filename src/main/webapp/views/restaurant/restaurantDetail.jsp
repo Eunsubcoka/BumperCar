@@ -35,9 +35,6 @@
                     <img src="" alt="Dining image">
                     <span>review 갯수</span>
                 </div>
-                <div class="share" onclick="openPop()">
-                링크
-                </div>
                 <div id="share_pop" class="layer_pop">
                 		<img alt="" src="/assets/image/close.png" onclick="closePop()">
                 	<div class="share_flex">
@@ -50,13 +47,15 @@
                 	</div>
                 </div>
                 <p class="address">${result.location }</p>
-                <p class="contact">전화: ${result.restaurantPhone }</p>
-                <p class="features"></p>
-                <p class="features">서민적인, 점심식사, 저녁식사, 좌식테이블</p>
+                <p class="contact">&nbsp 전화: ${result.restaurantPhone }</p>
+                <p class="features">&nbsp 서민적인, 점심식사, 저녁식사, 좌식테이블</p>
+                <div class="share" onclick="openPop()">
+                링크
+                </div>
             </div>
 
         <div class="recommendations">
-            <h2>'대한옥' 주변 추천 맛집</h2>
+            <h2>'띵호'같은 중식 맛집</h2>
             <div class="item">
             <img src="/assets/image/logo.png" alt="대한옥">
                 <div class="info">
@@ -84,39 +83,31 @@
   <div class="res_menu_wrap" >
         
             <div class="details">
-                <h1>띵호</h1>
+                <h1>메뉴 정보</h1>
                 <div class="rating">
                     <span>3.1</span>
                     <img src="" alt="Dining image">
                     <span>review 갯수</span>
-                </div>
-                
-                <p class="address">${result.location }</p>
-                <p class="contact">메뉴: ${result.restaurantPhone }</p>
-                <p class="features"></p>
+                </div>                
             </div>
 
         <div class="recommendations">
-            <h2>'대한옥' 주변 추천 맛집</h2>
             <div class="item">
-            <img src="/assets/image/logo.png" alt="대한옥">
                 <div class="info">
                     <span>짜장면</span>
                     <span>9000원</span>
                 </div>
             </div>
             <div class="item">
-            <img src="/assets/image/logo.png" alt="대한옥">
                 <div class="info">
-                    <span>승남집</span>
-                    <span>우삼겹, 야채 꽃살</span>
+                    <span>짬뽕</span>
+                    <span>8000원</span>
                 </div>
             </div>
             <div class="item">
-            <img src="/assets/image/logo.png" alt="대한옥">
                 <div class="info">
-                    <span>부일갈비</span>
-                    <span>돼지갈비, 숯불갈비</span>
+                    <span>탕수육</span>
+                    <span>15000원</span>
                 </div>
                 
             </div>
