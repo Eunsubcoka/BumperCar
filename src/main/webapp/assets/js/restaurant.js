@@ -4,17 +4,21 @@
 
 function openPop() {
 	const popEle = document.getElementsByClassName("layer_pop")[0];
+	const bg = document.getElementsByClassName("bg")[0];
 	const body = document.getElementById("body");
 	popEle.style.display = "block";
-	body.style.backgroundColor = "rgba(0, 0, 0, .7)";
-
+	body.style.overflow = "hidden";
+	bg.style.display= "block";
+	bg.style.zIndex= "10";
+	
 }
 function closePop() {
 	const popEle = document.getElementsByClassName("layer_pop")[0];
 	const body = document.getElementById("body");
+	const bg = document.getElementsByClassName("bg")[0];
 	popEle.style.display = "none";
-	body.style.backgroundColor = "rgba(0, 0, 0, .7)";
-
+	body.style.overflow = "auto";
+	bg.style.display = "none";
 }
 
 

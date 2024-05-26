@@ -16,7 +16,7 @@
     <%@ include file="/views/common/head.jsp"%>
   
   </head>
-  <body id="body" style="font-family: 'GmarketSans'">  
+  <body id="body"  style="font-family: 'GmarketSans'">  
   <%@ include file="/views/common/header.jsp"%>
   
   
@@ -55,7 +55,7 @@
             </div>
 
         <div class="recommendations">
-            <h2>'띵호'같은 중식 맛집</h2>
+            <h2>'띵호' 같은 중식 맛집</h2>
             <div class="item">
             <img src="/assets/image/logo.png" alt="대한옥">
                 <div class="info">
@@ -205,6 +205,6 @@ geocoder.addressSearch('경기도 안양시 만안구 안양4동 707-25', functi
   
    	<script src="/assets/js/bootstrap.bundle.min.js"></script>
    
-
+<div class="bg"></div>
   </body>
 </html>
