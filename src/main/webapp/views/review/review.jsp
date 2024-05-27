@@ -51,7 +51,7 @@
                 <div class="user-container">
                     <img class="user-img" src="/assets/image/bom.jpg" alt="사용자프로필">
                         <div class="user-info">
-                            <span class="user-name"><strong>닉네임</strong></span>
+                            <span class="user-name"><strong>작성자</strong></span>
                             <span class="rating">★5점</span>
                         </div>
                 </div>           
