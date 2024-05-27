@@ -5,29 +5,25 @@
 <head>
 <%@ include file="/views/common/head.jsp"%>
  <link rel="stylesheet" href="/assets/css/reservation.css">
- <link rel="stylesheet" href="/assets/css/calender.css">
- <script type="text/javascript" src="/assets/js/calender.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 	<%@ include file="/views/common/header.jsp"%>
 
 
-<form class="quick-reservation" action="/reservation/resEnroll.do" method = "post">
+<form class="quick-reservation" action="/reservation/resEnroll.do" method = "get">
    
 <div class="container">
    <header class="quick-reservation__header">
       <h2 class="title">
-      <input type="hidden" value="나" name="test">
          가계명
       </h2>
       
-      <div class="close-icon" onclick="location.href='http://localhost:80';">
+      <div class="close-icon" onclick="location.href='/views/restaurant/restaurantDetail.jsp';">
          <span></span>
          <span></span>
       </div>
    </header>
-   <button type="submit">dad</button>
    <div class="quick-reservation__form">
       <section class="form__content">
          <div class="row-wrapper">
@@ -66,7 +62,7 @@
          <div class="row-wrapper">
             <div class="ele first-name">
                <label for="firstName">이름</label>
-               <input type="text" value="" name="name" placeholder="" id="firstName">
+               <input type="text" name="name" placeholder="" id="firstName">
             </div>
          </div>
          <div class="row-wrapper">
