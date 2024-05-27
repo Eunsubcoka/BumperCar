@@ -1,4 +1,4 @@
-package kr.co.tastyroad.notice.dao;
+package kr.co.tastyroad.notice.model.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import kr.co.tastyroad.common.PageInfo;
-import kr.co.tastyroad.notice.dto.noticeDto;
+import kr.co.tastyroad.notice.model.dto.noticeDto;
 import kr.co.tastyroad.common.DatabaseConnection;
 
 public class noticeDao {

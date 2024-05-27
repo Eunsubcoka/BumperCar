@@ -1,4 +1,4 @@
-package kr.co.tastyroad.notice.dto;
+package kr.co.tastyroad.notice.model.dto;
 
 public class noticeDto {
 	private int noticeNo;

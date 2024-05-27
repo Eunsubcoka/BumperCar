@@ -1,9 +1,9 @@
-package kr.co.tastyroad.notice.service;
+package kr.co.tastyroad.notice.model.service;
 
 import java.util.ArrayList;
 
 import kr.co.tastyroad.common.PageInfo;
-import kr.co.tastyroad.notice.dto.noticeDto;
+import kr.co.tastyroad.notice.model.dto.noticeDto;
 
 
 

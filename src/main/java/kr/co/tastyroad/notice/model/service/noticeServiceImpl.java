@@ -1,7 +1,7 @@
-package kr.co.tastyroad.notice.service;
+package kr.co.tastyroad.notice.model.service;
 
-import kr.co.tastyroad.notice.dao.noticeDao;
-import kr.co.tastyroad.notice.dto.noticeDto;
+import kr.co.tastyroad.notice.model.dao.noticeDao;
+import kr.co.tastyroad.notice.model.dto.noticeDto;
 
 import java.util.ArrayList;
 
