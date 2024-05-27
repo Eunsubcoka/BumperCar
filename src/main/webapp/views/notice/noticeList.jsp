@@ -29,9 +29,8 @@
 					style="width: 100px; height: 46px; flex: 0 0 auto;">
 					<option value="fb_title" selected>제목</option>
 					<option value="fb_content">내용</option>
-					<option value="fb_name">작성자</option>
-					
-				</select> <input type="text" style="width: 300px; flex: 0 0 auto;"
+				</select>
+				 <input type="text" style="width: 300px; flex: 0 0 auto;"
 					class="form-control" name="search-text" placeholder="검색어를 입력해주세요."
 					aria-label="Recipient's username" aria-describedby="button-addon2">
 				<button class="btn btn-outline-secondary" type="submit"
