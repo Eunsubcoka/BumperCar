@@ -12,12 +12,28 @@
   	<div class="res_content">
   		<div class="res_left_container">
   			<div class = "res_info_wrap">
-  			ㅇㄴ
-  			
+				10  							
+  			</div>
+  			<div class = "res_info_wrap">
+				10  							
+  			</div>
+  			<div class = "res_info_wrap">
+				10  							
+  			</div>
+  			<div class = "res_info_wrap">
+				10  							
+  			</div>
+  			<div class = "res_info_wrap">
+				10  							
+  			</div>
+  			<div class = "res_info_wrap">
+				10  							
+  			</div>
+  			<div class = "res_info_wrap">
+				10  							
   			</div>
   		</div>
   	</div>
-
  </div>
 
 
