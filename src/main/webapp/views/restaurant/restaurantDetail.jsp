@@ -84,10 +84,8 @@
         
             <div class="details">
                 <h1>메뉴 정보</h1>
-                <div class="rating">
-                    <span>3.1</span>
-                    <img src="" alt="Dining image">
-                    <span>review 갯수</span>
+                <div class="share" onclick="">
+                예약하기
                 </div>                
             </div>
 

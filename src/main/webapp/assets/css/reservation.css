@@ -1,0 +1,279 @@
+@charset "UTF-8";
+
+body {
+	margin: 0;
+    padding: 0;
+    background: #f0f0f3 !important;
+}
+
+
+/* 레스토랑 컨텐츠 wrap*/
+.res_con_wrap{
+
+	max-width: 940px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* 레스토랑 컨텐츠 wrap*/
+.res_content{
+	display: flex;
+	min-width: 800px;
+	height: 100%;
+    margin-top : 50px;
+    unicode-bidi: isolate;
+	justify-content: center;
+	
+}
+
+/* 레스토랑 left*/
+.res_left_container {
+    min-width: 700;
+    float:left;
+}
+
+
+/* 레스토랑 info wrap*/
+.res_info_wrap {
+    min-width: 700;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+    border-radius: 10px;
+    float:left;
+    padding : 20px;
+}
+
+
+
+.res_header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 710px;
+}
+
+.res_header img {
+    width: 50%;
+    max-width: 350px;
+    border-radius: 10px;
+}
+
+.header .details {
+    width: 45%;
+    text-align: left;
+    
+}
+
+.details h1 {
+    font-size: 35px;
+    color: #202020;
+    line-height: 44px;
+    font-weight: 600;
+    float: left;
+    letter-spacing: -0.095px;
+    margin-left: 4px;
+    
+}
+
+.details .rating {
+    display: flex;
+    float:right;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.details .rating span {
+    margin-right: 5px;
+    font-size: 18px;
+    color: #333333;
+}
+
+.details .rating img {
+    width: 20px;
+    height: 20px;
+}
+.details .share{
+	float:right;
+    background-color: #efefef;
+    border-radius: 17px;
+    padding: 7px 12px 7px 12px;
+    font-size: 14px;
+        cursor: pointer;
+    
+}
+
+
+
+#share_pop{
+}
+#share_pop > img{
+	position: fixed;
+    right: 3px;
+    top: 3px;
+    width: 10px;
+    height: 10px;
+	margin: 10px;
+}
+.layer_pop{
+    width: 400px;
+    height: 200px;
+	backdrop-filter: blur(4px);
+	background: rgba(0, 0, 0, .7);
+	background-color: #efefef;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 17px;
+	display: none;
+    position: fixed;
+    top: 35%;
+    left: 25%;
+    z-index: 9999;
+    
+}
+
+.bg {
+	position:fixed;
+	display:none;
+	top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: 0.5;
+    filter: alpha(opacity = 50);
+    transition: all 0.3s ease-out;
+    z-index: -1;
+}
+
+.share_flex > ul{
+	list-style: none;
+    display: flex;
+    list-style: none;
+    align-items: center;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    padding: 0;
+}
+.share_flex > h4{
+	margin-top: 40px;
+	font-weight: bold;
+	text-align: center;
+}
+
+.share_flex >ul > li{
+	float: left;
+	width: 60px;
+    height: 60px;
+    display: inline-block;
+    margin: 0px 10px
+}
+.share_flex >ul > li > img{
+	width: 60px;
+    height: 60px;
+}
+
+.share_flex >ul > li > p{
+	font-size:small;
+	
+    margin: 0px 10px
+}
+
+
+.details .address {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #555555;
+}
+
+.details .contact {
+    margin-top: 5px;
+    font-size: 16px;
+    color: #555555;
+}
+
+
+
+.recommendations {
+    margin-top: 20px;
+}
+
+.recommendations h2 {
+    font-size: 20px;
+    color: #333333;
+    margin-bottom: 10px;
+}
+
+.recommendations .item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.recommendations .item img {
+    width: 60px;
+    height: 60px;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+.recommendations .item .info {
+    font-size: 16px;
+    color: #333333;
+}
+
+.recommendations .item .info span {
+    display: block;
+    color: #777777;
+}
+
+
+/* 레스토랑 right*/
+.res_right_container{
+	width: 220px;
+	float: left;
+	margin-left: 20px;
+}
+
+.mapContainer{
+	height: 220px;
+	padding: 10px 10px 0px 10px;
+    background: #fff;
+    margin-bottom: 10px;
+    box-shadow: 0px 1px 3px #d8d8d8;
+    border-radius: 10px;
+	
+	
+}
+.res_review_wrap{
+	
+	background: #fff;
+	box-shadow: 0px 1px 3px #d8d8d8;
+    border-radius: 10px;
+    padding: 10px;
+}
+.res_review_id{
+border-bottom: 1px #c0c0c0 solid;	
+	
+}
+
+.res_review_rating{}
+
+.res_review_img > img{
+	width: 200px;
+	height: 200px;
+}
+
+.res_review_content{
+word-wrap: break-word;
+	}
+/* 레스토랑 메뉴 컨테이너 */
+.res_menu_wrap{
+	display : inline-flex;
+	margin-top:20px;
+    min-width: 750px;
+    flex-direction: column;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding : 20px;
+}
