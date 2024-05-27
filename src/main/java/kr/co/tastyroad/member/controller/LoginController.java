@@ -38,7 +38,7 @@ public class LoginController extends HttpServlet {
 		member.setUserId(userId);
 		member.setUserPwd(userPwd);
 		
-		// 암호화된 패스워드 조회
+
 		Member hashPassword = memberService.getHashPassword(userId);
 		
 		//
@@ -51,9 +51,6 @@ public class LoginController extends HttpServlet {
 			RequestDispatcher view = request.getRequestDispatcher("/");
 			view.forward(request, response);
 		}
-		// 사용자가 입력한 비밀번호 Vs 데이터베이스에 들어있는 비밀번호
-		// select count(*) from member
-		// where userId = userid
-		// and userPwd = userPwd;
+	
 	}
 }
