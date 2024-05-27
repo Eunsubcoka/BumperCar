@@ -25,10 +25,13 @@ public class RegisterController extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // doGet 메서드 필요시 구현
+        RequestDispatcher view = request.getRequestDispatcher("/views/member/register.jsp");
+        view.forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+
         String userName = request.getParameter("new-username");
         String userId = request.getParameter("new-userid");
         String userEmail = request.getParameter("new-email");
@@ -38,56 +41,61 @@ public class RegisterController extends HttpServlet {
         String confirmPwd = request.getParameter("confirm-password");
         String duplicateCheck = request.getParameter("duplicateCheck");
 
-        if("unavailable".equals(duplicateCheck)) {
-            response.sendRedirect("/form/registerForm.do");
+        if ("unavailable".equals(duplicateCheck)) {
+            returnAlert(response, "아이디가 중복되었습니다. 다른 아이디를 사용해 주세요.");
             return;
         }
 
-        // 이름 유효성 검사
+        if (!userPwd.equals(confirmPwd)) {
+            returnAlert(response, "비밀번호가 일치하지 않습니다.");
+            return;
+        }
+
         String namePattern = "^[가-힣]+$";
         Pattern pattern = Pattern.compile(namePattern);
         Matcher nameMatcher = pattern.matcher(userName);
 
-        // 패스워드 유효성 검사
         String passwordPattern = "^(?=.*[A-Z])(?=.*[!@])[a-zA-Z0-9!@]{6,20}$";
         Pattern pwdPattern = Pattern.compile(passwordPattern);
         Matcher pwdMatcher = pwdPattern.matcher(userPwd);
 
-        // 패스워드 암호화
+        if (!nameMatcher.matches()) {
+            returnAlert(response, "이름은 한글만 가능합니다.");
+            return;
+        }
+
+        if (!pwdMatcher.matches()) {
+            returnAlert(response, "비밀번호는 최소 6자 이상이어야 하며, 대문자와 특수문자(!@)를 포함해야 합니다.");
+            return;
+        }
+
         String salt = BCrypt.gensalt(12);
         String hashPassword = BCrypt.hashpw(userPwd, salt);
 
-        if(nameMatcher.matches() && pwdMatcher.matches()) {
-            Member member = new Member();
-            member.setUserName(userName);
-            member.setUserId(userId);
-            member.setUserEmail(userEmail);
-            member.setUserAddress(userAddress);
-            member.setUserPhone(userPhone);
-            member.setUserPwd(hashPassword);
-            member.setConfirmPwd(confirmPwd);
+        Member member = new Member();
+        member.setUserName(userName);
+        member.setUserId(userId);
+        member.setUserEmail(userEmail);
+        member.setUserAddress(userAddress);
+        member.setUserPhone(userPhone);
+        member.setUserPwd(hashPassword);
 
-            MemberServiceImpl memberService = new MemberServiceImpl();
-            int result = memberService.register(member);
+        MemberServiceImpl memberService = new MemberServiceImpl();
+        int result = memberService.register(member);
 
-            if(result == 1) { // 성공
-                RequestDispatcher view = request.getRequestDispatcher("/views/member/login.jsp");
-                view.forward(request, response);
-            } else { // 실패
-                RequestDispatcher view = request.getRequestDispatcher("/views/member/register.jsp");
-                view.forward(request, response);
-            }
-        } else if(!nameMatcher.matches()) { // 이름이 한글이 아닐 때
-            returnAlert(response, "이름은 한글만 가능합니다.");
-        } else if(!pwdMatcher.matches()) { // 패스워드 조건에 맞지 않을 때
-            returnAlert(response, "패스워드 정책에 맞지 않습니다.");
+        if (result == 1) {
+            RequestDispatcher view = request.getRequestDispatcher("/views/member/login.jsp");
+            view.forward(request, response);
+        } else {
+            returnAlert(response, "회원가입에 실패했습니다. 다시 시도해 주세요.");
         }
     }
 
     private void returnAlert(HttpServletResponse response, String msg) throws IOException {
+        response.setContentType("text/html; charset=UTF-8");
         response.getWriter().write("<script>"
                 + "alert('" + msg + "');"
-                + "location.href='/form/registerForm.do';"
+                + "location.href='/member/register.do';"
                 + "</script>");
     }
 }
