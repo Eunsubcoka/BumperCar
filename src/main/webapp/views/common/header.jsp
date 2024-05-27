@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8" 
     pageEncoding="UTF-8"%>
-<header>
+<header> 
   <div class="navbar navbar-dark bg-white shadow-sm">
     <div class="container">
       <a href="#" class="navbar-brand d-flex align-items-center">

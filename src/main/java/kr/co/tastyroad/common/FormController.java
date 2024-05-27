@@ -7,11 +7,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.co.tastyroad.review.model.dto.ReviewDto;
+import kr.co.tastyroad.review.model.service.ReviewServiceImpl;
+
 @WebServlet("/tastyForm/*")
 public class FormController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-     public FormController() {
+    public FormController() {
         super();
     }
 
@@ -26,6 +29,15 @@ public class FormController extends HttpServlet {
 			nextPage = "/views/member/register.jsp";
 		} else if(action.equals("/restaurantDetail.do")) {
 			nextPage = "/views/member/register.jsp";
+		}
+		else if(action.equals("/editReviewForm.do")) { 
+//			int reviewNo = Integer.parseInt(request.getParameter("reviewNo"));
+//			
+//			ReviewServiceImpl reviewService = new ReviewServiceImpl();
+//			ReviewDto result = reviewService.ReviewEditForm(reviewNo);
+//			
+//			request.setAttribute("result", result);
+			nextPage = "/views/review/reviewEdit.jsp";
 		}
 	}
 

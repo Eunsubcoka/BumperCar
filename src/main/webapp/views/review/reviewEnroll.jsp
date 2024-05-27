@@ -47,7 +47,7 @@
                     </label>
                     <input type="file" name="file" id="file">
                     <button>
-                       작성완료
+                       작성
                     </button>
                 </div>
             </div>
