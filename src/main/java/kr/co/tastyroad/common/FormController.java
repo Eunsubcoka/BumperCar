@@ -10,9 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import kr.co.tastyroad.review.model.dto.ReviewDto;
 import kr.co.tastyroad.review.model.service.ReviewServiceImpl;
 
-/**
- * Servlet implementation class FormController
- */
 @WebServlet("/tastyForm/*")
 public class FormController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -26,11 +23,11 @@ public class FormController extends HttpServlet {
 		
 		String action = request.getPathInfo();
 		String nextPage = "";
+		
 		System.out.println("a : " + action);
 		if(action.equals("/registerForm.do")) {
 			nextPage = "/views/member/register.jsp";
-		}
-		else if(action.equals("/restaurantDetail.do")) {
+		} else if(action.equals("/restaurantDetail.do")) {
 			nextPage = "/views/member/register.jsp";
 		}
 		else if(action.equals("/editReviewForm.do")) { 
