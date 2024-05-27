@@ -15,7 +15,7 @@
 
 
 	<nav class="unique-nav">
-		<a href="#">카테고리</a> <a href="#">공지사항</a>
+		<a href="#">카테고리</a> <a href="/notice/list.do?cpage=1">공지사항</a>
 	</nav>
 	<main class="unique-main">
 		<section class="unique-food-category" id="slide1">
