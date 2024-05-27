@@ -75,33 +75,6 @@
                 </div>
             </div>
         </div>
-        <div class="container-review">
-            <div class="review">
-                <div>
-                    <img class="user-img" src="/assets/image/bom.jpg" alt="사용자프로필">
-                    <span class="user-name">닉네임</span>
-                    <span class="rating">★5점</span>
-                </div>
-                <div class="date">2024년 5월 24일</div>
-                <div class="content">
-                    이 제품 정말 좋네요! 다음에도 꼭 재구매할게요.이 제품 정말 좋네요! 다음에도 꼭 재구매할게요.이 제품 정말 좋네요! 다음에도 꼭 재구매할게요.이 제품 정말 좋네요! 다음에도 꼭 재구매할게요.이 제품 정말 좋네요! 다음에도 꼭 재구매할게요.이 제품 정말 좋네요! 다음에도 꼭 재구매할게요.이 제품 정말 좋네요! 다음에도 꼭 재구매할게요.이 제품 정말 좋네요! 다음에도 꼭 재구매할게요.
-                </div>
-                <div class="review-photos">
-                    <div class="review-photo">
-                        <img class="photo" src="/assets/image/food.jpg" alt="리뷰 사진 1">
-                    </div>
-                    <div class="review-photo">
-                        <img class="photo" src="/assets/image/food.jpg" alt="리뷰 사진 2">
-                    </div>
-                    <div class="review-photo">
-                        <img class="photo" src="/assets/image/food.jpg" alt="리뷰 사진 1">
-                    </div>
-                    <div class="review-photo">
-                        <img class="photo" src="/assets/image/food.jpg" alt="리뷰 사진 2">
-                    </div>
-                </div>
-            </div>
-        </div>      
     </div>
 </section> 
 
