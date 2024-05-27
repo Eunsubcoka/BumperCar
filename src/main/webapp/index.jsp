@@ -51,16 +51,19 @@
 		<div class="slider">
 				<div class="slides">
 					<div class="slide">
-					<a href="" data-value="">	<img src="/assets/image/restaurant_images/마약떡볶이.jpg" alt="Image 1"></a><a href="" data-value=""> <img src="/assets/image/restaurant_images/신전떡볶이.jpg"
-							alt="Image 2"></a><a href="" data-value=""> <img src="/assets/image/restaurant_images/두끼떡볶이.jpg" alt="Image 3"></a>
+						<a href="" data-value="">	<img src="/assets/image/restaurant_images/마약떡볶이.jpg" alt="Image 1"></a>
+						<a href="" data-value=""> <img src="/assets/image/restaurant_images/신전떡볶이.jpg" alt="Image 2"></a>
+						<a href="" data-value=""> <img src="/assets/image/restaurant_images/두끼떡볶이.jpg" alt="Image 3"></a>
 					</div>
 					<div class="slide">
-					<a href="" data-value="">	<img src="/assets/image/restaurant_images/홍미집.jpg" alt="Image 4"><a href="" data-value=""> </a><img src="/assets/image/restaurant_images/역전우동0410 안양일번가점.jpg"
-							alt="Image 5"></a><a href="" data-value=""> <img src="/assets/image/restaurant_images/버섯칼국수.jpg" alt="Image 6"></a>
+						<a href="" data-value="">	<img src="/assets/image/restaurant_images/홍미집.jpg" alt="Image 4"></a>
+						<a href="" data-value="">	<img src="/assets/image/restaurant_images/역전우동0410 안양일번가점.jpg" alt="Image 5"></a>
+						<a href="" data-value="">	<img src="/assets/image/restaurant_images/버섯칼국수.jpg" alt="Image 6"></a>
 					</div>
 					<div class="slide">
-					<a href="" data-value="">	<img src="/assets/image/restaurant_images/로렌스308.jpg" alt="Image 7"></a><a href="" data-value=""> <img src="/assets/image/restaurant_images/모이세분식.jpg"
-							alt="Image 8"><a href="" data-value=""></a> <img src="/assets/image/restaurant_images/롤링파스타 안양일번가점.jpg" alt="Image 9"></a>
+						<a href="" data-value="">	<img src="/assets/image/restaurant_images/로렌스308.jpg" alt="Image 7"></a>
+						<a href="" data-value=""> <img src="/assets/image/restaurant_images/모이세분식.jpg" alt="Image 8"></a>
+						<a href="" data-value=""> <img src="/assets/image/restaurant_images/롤링파스타 안양일번가점.jpg" alt="Image 9"></a>
 					</div>
 					<!-- 필요시 추가 -->
 					<button class="prev" onclick="changeTwoSlide(-1)">&#10094;</button>
@@ -128,8 +131,8 @@
 
 	<%@ include file="/views/common/footer.jsp"%>
 
-	<script src = "/assets/js/main.js"></script>
 	<script src="/assets/js/bootstrap.bundle.min.js"></script>
+	<script src = "/assets/js/main.js"></script>
 
 </body>
 </html>
