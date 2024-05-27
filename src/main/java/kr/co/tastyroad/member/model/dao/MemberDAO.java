@@ -19,18 +19,18 @@ public class MemberDAO {
     }
 
     public int register(Member member) {
-        String query = "INSERT INTO member (M_NO, M_NAME, M_ID, M_PWD, M_EMAIL, M_ADDRESS, M_PHONE,) "
-                     + "VALUES (member_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO Tasty_member (user_no, user_name, user_id, user_email, user_address, user_phone, user_pwd) "
+                     + "VALUES (Tasty_member_seq.nextval, ?, ?, ?, ?, ?, ?)";
         int result = 0;
 
         try {
             pstmt = con.prepareStatement(query);
             pstmt.setString(1, member.getUserName());
             pstmt.setString(2, member.getUserId());
-            pstmt.setString(3, member.getUserPwd());
-            pstmt.setString(4, member.getUserEmail());
-            pstmt.setString(5, member.getUserAddress());
-            pstmt.setString(6, member.getUserPhone());
+            pstmt.setString(3, member.getUserEmail());
+            pstmt.setString(4, member.getUserAddress());
+            pstmt.setString(5, member.getUserPhone());
+            pstmt.setString(6, member.getUserPwd());
 
             result = pstmt.executeUpdate();
         } catch (SQLException e) {
@@ -43,7 +43,7 @@ public class MemberDAO {
     }
 
     public Member login(Member member) {
-        String query = "SELECT M_NO, M_NAME, M_TYPE FROM MEMBER WHERE M_ID = ? AND M_PWD = ?";
+        String query = "SELECT user_no, user_name, user_type FROM Tasty_member WHERE user_id = ? AND user_pwd = ?";
         Member result = null;
 
         try {
@@ -54,9 +54,9 @@ public class MemberDAO {
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
                 result = new Member();
-                result.setUserNo(rs.getInt("M_NO"));
-                result.setUserName(rs.getString("M_NAME"));
-                result.setUserType(rs.getString("M_TYPE"));
+                result.setUserNo(rs.getInt("user_no"));
+                result.setUserName(rs.getString("user_name"));
+                result.setUserType(rs.getString("user_type"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -68,7 +68,7 @@ public class MemberDAO {
     }
 
     public int duplicateId(String id) {
-        String query = "SELECT count(*) AS cnt FROM member WHERE M_ID = ?";
+        String query = "SELECT count(*) AS cnt FROM Tasty_member WHERE user_id = ?";
         int result = 0;
 
         try {
@@ -89,7 +89,7 @@ public class MemberDAO {
     }
 
     public Member getHashPassword(String id) {
-        String query = "SELECT M_PWD, M_NO, M_NAME, M_TYPE FROM member WHERE M_ID = ?";
+        String query = "SELECT user_pwd, user_no, user_name, user_type FROM Tasty_member WHERE user_id = ?";
         Member result = null;
 
         try {
@@ -99,10 +99,10 @@ public class MemberDAO {
 
             if (rs.next()) {
                 result = new Member();
-                result.setUserNo(rs.getInt("M_NO"));
-                result.setUserName(rs.getString("M_NAME"));
-                result.setUserPwd(rs.getString("M_PWD"));
-                result.setUserType(rs.getString("M_TYPE"));
+                result.setUserNo(rs.getInt("user_no"));
+                result.setUserName(rs.getString("user_name"));
+                result.setUserPwd(rs.getString("user_pwd"));
+                result.setUserType(rs.getString("user_type"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
