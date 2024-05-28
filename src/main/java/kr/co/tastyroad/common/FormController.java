@@ -37,12 +37,6 @@ public class FormController extends HttpServlet {
 			nextPage = "/views/member/register.jsp";
 		} else if(action.equals("/profile.do")) { 
 			nextPage = "/views/member/profile.jsp";
-//			int reviewNo = Integer.parseInt(request.getParameter("reviewNo"));
-//			
-//			ReviewServiceImpl reviewService = new ReviewServiceImpl();
-//			ReviewDto result = reviewService.ReviewEditForm(reviewNo);
-//			
-//			request.setAttribute("result", result);
 		}
 		else if(action.equals("/editReviewForm.do")) { 
 			int reviewNo = Integer.parseInt(request.getParameter("reviewNo"));
@@ -70,8 +64,7 @@ public class FormController extends HttpServlet {
 		} else {
 			response.sendRedirect("/views/error.jsp");
 		}
-		RequestDispatcher view = request.getRequestDispatcher(nextPage);
-		view.forward(request, response);
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
