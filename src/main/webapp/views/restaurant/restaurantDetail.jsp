@@ -17,6 +17,7 @@
   </head>
   <body id="body"  style="font-family: 'GmarketSans'">  
   <%@ include file="/views/common/header.jsp"%>
+  <%@ include file="/views/common/nav.jsp"%>
   
   
  <div class="res_con_wrap">

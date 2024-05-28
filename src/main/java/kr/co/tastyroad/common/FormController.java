@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.co.tastyroad.notice.model.dto.noticeDto;
+import kr.co.tastyroad.notice.model.service.noticeServiceImpl;
 import kr.co.tastyroad.review.model.dto.ReviewDto;
 import kr.co.tastyroad.review.model.service.ReviewServiceImpl;
 
@@ -36,13 +38,30 @@ public class FormController extends HttpServlet {
 				nextPage = "/views/reservation/reservation.jsp";
 			}
 		else if(action.equals("/editReviewForm.do")) { 
-//			int reviewNo = Integer.parseInt(request.getParameter("reviewNo"));
-//			
-//			ReviewServiceImpl reviewService = new ReviewServiceImpl();
-//			ReviewDto result = reviewService.ReviewEditForm(reviewNo);
-//			
-//			request.setAttribute("result", result);
+			int reviewNo = Integer.parseInt(request.getParameter("reviewNo"));
+			
+			ReviewServiceImpl reviewService = new ReviewServiceImpl();
+			ReviewDto result = reviewService.ReviewEditForm(reviewNo);
+			
+			request.setAttribute("result", result);
 			nextPage = "/views/review/reviewEdit.jsp";
+		}else if(action.equals("/enrollForm.do")) {
+			nextPage = "/views/notice/noticeEnroll.jsp";
+		}else if(action.equals("/editForm.do")) {
+			int noticeNo = Integer.parseInt(request.getParameter("boardno"));
+			
+			noticeServiceImpl noticeService = new noticeServiceImpl();
+			noticeDto result = noticeService.getEditForm(noticeNo);
+			
+			request.setAttribute("result", result);
+			nextPage = "/views/notice/noticeEdit.jsp";
+		}
+		
+		if(nextPage != null && !nextPage.isEmpty()) {
+			RequestDispatcher view = request.getRequestDispatcher(nextPage);
+			view.forward(request, response);
+		} else {
+			response.sendRedirect("/views/error.jsp");
 		}
 		RequestDispatcher view = request.getRequestDispatcher(nextPage);
 		view.forward(request, response); 

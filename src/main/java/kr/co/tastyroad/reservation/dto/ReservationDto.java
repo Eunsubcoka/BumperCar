@@ -10,6 +10,13 @@ public class ReservationDto {
 	}
 
 	private int resNo;
+	private String phone;
+	private int headCount;
+	private String date;
+	private String reservationStatus;
+	private String paymentStatus;
+	private String userName;
+	private String userEmail;
 	public int getResNo() {
 		return resNo;
 	}
@@ -41,7 +48,6 @@ public class ReservationDto {
 		this.paymentStatus = paymentStatus;
 	}
 	
-	private String phone;
 	public String getPhone() {
 		return phone;
 	}
@@ -49,12 +55,6 @@ public class ReservationDto {
 		this.phone = phone;
 	}
 
-	private int headCount;
-	private String date;
-	private String reservationStatus;
-	private String paymentStatus;
-	private String userName;
-	private String userEmail;
 	public String getUserName() {
 		return userName;
 	}

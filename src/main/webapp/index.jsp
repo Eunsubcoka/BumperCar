@@ -40,6 +40,7 @@
             </div>
         </section>
 
+<<<<<<< HEAD
         <section class="unique-food-category" id="slide2">
             <h2>#양식</h2>
             <div class="slider">
