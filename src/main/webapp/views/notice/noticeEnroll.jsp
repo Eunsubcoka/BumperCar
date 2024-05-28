@@ -44,7 +44,7 @@
                     <!-- <input type="file" name="file"> -->
                     <div class="form-group text-center">
                         <button type="button" class="btn btn-secondary mx-2" onclick="window.history.back()">뒤로가기</button>
-                        <button type="submit" class="btn btn-primary" onclick="save()">작성</button>
+                        <button type="submit" class="btn btn-warning" style="color : white;" onclick="save()">작성</button>
                     </div>
                 </form>
             </div>

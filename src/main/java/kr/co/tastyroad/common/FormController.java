@@ -35,17 +35,17 @@ public class FormController extends HttpServlet {
 			nextPage = "/views/member/register.jsp";
 		}
 		else if(action.equals("/editReviewForm.do")) { 
-//			int reviewNo = Integer.parseInt(request.getParameter("reviewNo"));
-//			
-//			ReviewServiceImpl reviewService = new ReviewServiceImpl();
-//			ReviewDto result = reviewService.ReviewEditForm(reviewNo);
-//			
-//			request.setAttribute("result", result);
+			int reviewNo = Integer.parseInt(request.getParameter("reviewNo"));
+			
+			ReviewServiceImpl reviewService = new ReviewServiceImpl();
+			ReviewDto result = reviewService.ReviewEditForm(reviewNo);
+			
+			request.setAttribute("result", result);
 			nextPage = "/views/review/reviewEdit.jsp";
 		}else if(action.equals("/enrollForm.do")) {
 			nextPage = "/views/notice/noticeEnroll.jsp";
 		}else if(action.equals("/editForm.do")) {
-			int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
+			int noticeNo = Integer.parseInt(request.getParameter("boardno"));
 			
 			noticeServiceImpl noticeService = new noticeServiceImpl();
 			noticeDto result = noticeService.getEditForm(noticeNo);

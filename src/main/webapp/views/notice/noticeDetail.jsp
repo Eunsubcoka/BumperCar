@@ -53,7 +53,7 @@
 							<!-- 나중에 합쳤을때 주석부분 풀면 로그인한 유저의 타입이 A일때 버튼 등장  -->
 						<%-- <c:if test="${sessionScope.userType == 'A'}"> --%>
 							<button type="button" class="btn btn-primary mx-2"
-								onclick="location.href='/Tastyform/editForm.do?boardno=${result.noticeNo}'">수정</button>
+								onclick="location.href='/tastyForm/editForm.do?boardno=${result.noticeNo}'">수정</button>
 							<button type="submit" class="btn btn-danger mx-2">삭제</button>
 						<%-- </c:if> --%>
 					</div>
