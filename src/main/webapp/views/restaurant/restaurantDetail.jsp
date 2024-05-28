@@ -5,7 +5,6 @@
 <!doctype html>
 <html lang="en">
   <head>
-  <link href="https://webfontworld.github.io/gmarket/GmarketSans.css" rel="stylesheet">
  	<link rel="stylesheet" href="/assets/css/restaurantDetail.css">
  	<script type="text/javascript"src="/assets/js/restaurant.js"></script>
  	<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
@@ -84,7 +83,7 @@
         
             <div class="details">
                 <h1>메뉴 정보</h1>
-                <div class="share" onclick="">
+                <div class="share" onclick="location.href='/tastyForm/reservation.do'">
                 예약하기
                 </div>                
             </div>

@@ -1,6 +1,8 @@
 package kr.co.tastyroad.common;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,8 +30,11 @@ public class FormController extends HttpServlet {
 		if(action.equals("/registerForm.do")) {
 			nextPage = "/views/member/register.jsp";
 		} else if(action.equals("/restaurantDetail.do")) {
-			nextPage = "/views/member/register.jsp";
+			nextPage = "/views/restaurant/restaurant.jsp";
 		}
+		 else if(action.equals("/reservation.do")) {
+				nextPage = "/views/reservation/reservation.jsp";
+			}
 		else if(action.equals("/editReviewForm.do")) { 
 //			int reviewNo = Integer.parseInt(request.getParameter("reviewNo"));
 //			
@@ -39,6 +44,8 @@ public class FormController extends HttpServlet {
 //			request.setAttribute("result", result);
 			nextPage = "/views/review/reviewEdit.jsp";
 		}
+		RequestDispatcher view = request.getRequestDispatcher(nextPage);
+		view.forward(request, response); 
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
