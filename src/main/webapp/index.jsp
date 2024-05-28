@@ -14,9 +14,7 @@
 	<%@ include file="/views/common/header.jsp"%>
 
 
-	<nav class="unique-nav">
-		<a href="#">카테고리</a> <a href="/notice/list.do?cpage=1">공지사항</a>
-	</nav>
+	<%@ include file="/views/common/nav.jsp"%>
 	<main class="unique-main">
 		<section class="unique-food-category" id="slide1">
 			<h2>#한식</h2>

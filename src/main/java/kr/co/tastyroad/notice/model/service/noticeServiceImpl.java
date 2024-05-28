@@ -35,6 +35,7 @@ public class noticeServiceImpl implements noticeService{
 		noticeDto result = noticeDao.getDetail(noticeNo);
 		
 		noticeDao.getWriter(result);
+		noticeDao.getUserType(result);
 		
 		int resultView = noticeDao.setView(result.getNoticeNo());
 		
@@ -68,4 +69,26 @@ public class noticeServiceImpl implements noticeService{
 	public noticeDto selectNo(noticeDto noticeDto) {
 		return noticeDao.selectNo(noticeDto);
 	}
+	
+
+	@Override
+	public int fileUpload(noticeDto noticeDto) {
+		return noticeDao.fileUpload(noticeDto);
+	}
+
+	@Override
+	public void getFileName(noticeDto result) {
+		noticeDao.getFileName(result);
+	}
+
+	@Override
+	public int setFileDelete(int fileNo) {
+		return noticeDao.setFileDelete(fileNo);
+	}
+
+	@Override
+	public boolean deleteNotice(int noticeNo) {
+	    return noticeDao.deleteNotice(noticeNo);
+	}
+	
 }
