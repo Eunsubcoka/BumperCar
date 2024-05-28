@@ -14,18 +14,38 @@ public class ReviewDao {
 	private DatabaseConnection dc;
 	private PreparedStatement pstmt;
 
-	public ReviewDao() {
+	public ReviewDao() { // 리뷰 등록 쿼리문
 		dc = new DatabaseConnection();
 		con = dc.connDB();
 	}
 	
-	public ArrayList<ReviewDto> getReviewList() {
-		ArrayList<ReviewDto> result = new ArrayList<>();
-		
-		String query = "select * from reviews";
+	
+	public int enroll(ReviewDto reviewDto) {
+		String query = "INSERT INTO reviews VALUES(reviewsSeq.nextval, ?, ?, default, ?, ?, 3)";
+	
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, reviewDto.getReviewTitle());
+			pstmt.setString(2, reviewDto.getReviewContent());
+			pstmt.setInt(3, reviewDto.getRatings());
+			pstmt.setInt(4, reviewDto.getUserNo());
+//			pstmt.setInt(5, reviewDto.getRestaurantNo());
+			
+			int result = pstmt.executeUpdate();
+			return result;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	public ReviewDto reviewDetail(int userNo) {
+		String query = "select * from reviews where user_no = ? ";
+					 
 		
 		try {
 			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, userNo);
 			
 			ResultSet rs = pstmt.executeQuery();
 			
@@ -35,8 +55,7 @@ public class ReviewDao {
 				String reviewContent =rs.getString("reviewContent");
 				String reviewDate = rs.getString("reviewDate");
 				int ratings = rs.getInt("ratings"); 
-				int userNo = rs.getInt("userNo"); 
-				int restaurantNo = rs.getInt("restaurantNo"); 
+				int no = rs.getInt("user_no"); 
 				
 				ReviewDto reviewDto = new ReviewDto();
 				reviewDto.setReviewNo(reviewNo);
@@ -44,47 +63,7 @@ public class ReviewDao {
 				reviewDto.setReviewContent(reviewContent);
 				reviewDto.setReviewDate(reviewDate);
 				reviewDto.setRatings(ratings);
-				reviewDto.setUserNo(userNo);
-				reviewDto.setRestaurantNo(restaurantNo);
-				
-				result.add(reviewDto);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return null;
-	}
-	
-	
-	public ReviewDto reviewDetail(int reviewNo) {
-		String query = "select * from reviews r "
-					 + "join semiMember m on m.userNo = r.userNo "
-					 + "where reviewNo = ?";
-		
-		try {
-			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, reviewNo);
-			
-			ResultSet rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				int no = rs.getInt("reviewNo");
-				String reviewTitle = rs.getString("reviewTitle");
-				String reviewContent =rs.getString("reviewContent");
-				String reviewDate = rs.getString("reviewDate");
-				int ratings = rs.getInt("ratings"); 
-				int userNo = rs.getInt("userNo"); 
-				int restaurantNo = rs.getInt("restaurantNo"); 
-				
-				ReviewDto reviewDto = new ReviewDto();
-				reviewDto.setReviewNo(no);
-				reviewDto.setReviewTitle(reviewTitle);
-				reviewDto.setReviewContent(reviewContent);
-				reviewDto.setReviewDate(reviewDate);
-				reviewDto.setRatings(ratings);
-				reviewDto.setUserNo(userNo);
-				reviewDto.setRestaurantNo(restaurantNo);
+				reviewDto.setUserNo(no);
 				
 				return reviewDto;
 			}
@@ -92,6 +71,26 @@ public class ReviewDao {
 			e.printStackTrace();
 		}
 		
+		return null;
+	}
+	
+	public ReviewDto selectNo(ReviewDto reviewDto) {
+		String query = "SELECT user_no FROM reviews "
+				 	 + "WHERE user_no = (SELECT MAX(user_no) FROM reviews WHERE user_no = ?)"; //가장 최근에 작성된 게시물
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, reviewDto.getUserNo());
+		
+			ResultSet rs = pstmt.executeQuery();
+		
+			while(rs.next()) {
+				int userNo = rs.getInt("userNO");
+				reviewDto.setUserNo(userNo);
+				return reviewDto; 
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 }
