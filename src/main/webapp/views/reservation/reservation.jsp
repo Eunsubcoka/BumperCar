@@ -9,6 +9,7 @@
 </head>
 <body>
 	<%@ include file="/views/common/header.jsp"%>
+	<%@ include file="/views/common/nav.jsp"%>
 
 
 <form class="quick-reservation" action="/reservation/resEnroll.do" method = "get">

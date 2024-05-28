@@ -25,7 +25,7 @@ public class noticeDao {
 		
 		ArrayList<noticeDto> result = new ArrayList<>();
 		String query = "SELECT * FROM notice nt "
-				+ "JOIN member m ON m.userNo = nt.userNo "
+				+ "JOIN Tasty_member m ON m.user_no = nt.user_no "
 				+ "WHERE " + category + " LIKE '%'||?||'%'"
 				+ "ORDER BY nt.noticeDate DESC "
 				+ "OFFSET ? ROWS FETCH FIRST ? ROWS ONLY";
@@ -44,8 +44,8 @@ public class noticeDao {
 				String content = rs.getString("noticeContent");
 				int views = rs.getInt("noticeView");
 				String date = rs.getString("noticeDate");
-				int memberNo = rs.getInt("userNo");
-				String memberName = rs.getString("userName");
+				int memberNo = rs.getInt("user_no");
+				String memberName = rs.getString("user_name");
 				
 				noticeDto noticeDto = new noticeDto();
 				noticeDto.setNoticeNo(no);
@@ -53,8 +53,8 @@ public class noticeDao {
 				noticeDto.setNoticeContent(content);
 				noticeDto.setNoticeView(views);
 				noticeDto.setNoticeDate(date);
-				noticeDto.setMemberNo(userNo);
-				noticeDto.setMemberName(userName);
+				noticeDto.setUserNo(memberNo);
+				noticeDto.setUserName(memberName);
 				
 				result.add(noticeDto);
 			}
@@ -70,7 +70,7 @@ public class noticeDao {
 	
 	public int getListCount(String category, String searchText) {
 		String query = "SELECT count(*) AS cnt FROM notice nt "
-				+ "JOIN member m ON nt.userNo = m.userNo "
+				+ "JOIN Tasty_member m ON nt.user_no = m.user_no "
 				+ "WHERE " + category + " LIKE '%'||?||'%'";
 		
 		try {
@@ -125,14 +125,14 @@ public class noticeDao {
 				String ntContent = rs.getString("noticeContent");
 				String ntDate = rs.getString("noticeDate");
 				int ntView = rs.getInt("noticeView");
-				int mNo = rs.getInt("userNo");
+				int mNo = rs.getInt("user_no");
 				
 				noticeDto noticeDto = new noticeDto();
-				noticeDto.setNoticeNo(noticeNo);
+				noticeDto.setNoticeNo(ntNo);
 				noticeDto.setNoticeTitle(ntTitle);
 				noticeDto.setNoticeContent(ntContent);
 				noticeDto.setNoticeDate(ntDate);
-				noticeDto.setNoticeView(noticeNo);
+				noticeDto.setNoticeView(ntView);
 				noticeDto.setUserNo(mNo);
 				return noticeDto;
 				
@@ -145,7 +145,7 @@ public class noticeDao {
 	}
 	
 	public void getWriter(noticeDto noticeDto) {
-		String query = "SELECT userName FROM member WHERE userNo = ?";
+		String query = "SELECT user_name FROM Tasty_member WHERE user_no = ?";
 		
 		try {
 			pstmt = con.prepareStatement(query);
@@ -154,13 +154,32 @@ public class noticeDao {
 			ResultSet rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				String name = rs.getString("userName");
+				String name = rs.getString("user_name");
 				noticeDto.setUserName(name);
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
 	}
+	
+	public void getUserType(noticeDto noticeDto) {
+		String query = "SELECT user_type FROM notice n JOIN Tasty_member tm ON n.user_no = tm.user_no WHERE n.user_no = ?";
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, noticeDto.getUserNo());
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				String type = rs.getString("user_type");
+				noticeDto.setUserType(type);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	
 	public int setView(int noticeNo) {
 		String query = "UPDATE notice SET noticeView = noticeView+1 WHERE noticeNo = ?";
@@ -237,4 +256,81 @@ public class noticeDao {
 		}
 		return null;
 	}
+	
+	public int fileUpload(noticeDto noticeDto) {
+		String query = "INSERT INTO notice_upload VALUES(notice_upload_seq.nextval, ?, ?, ?, ?)";
+		
+		try {
+			pstmt= con.prepareStatement(query);
+			pstmt.setString(1, noticeDto.getFilePath() );
+			pstmt.setString(2, noticeDto.getFileName());
+			pstmt.setInt(3, noticeDto.getUserNo());
+			pstmt.setInt(4, noticeDto.getNoticeNo());
+			
+			int result = pstmt.executeUpdate();
+			return result;
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	public void getFileName(noticeDto result) {
+		String query = "SELECT nuNo, nuName FROM notice_upload WHERE noticeNo = ?";
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, result.getNoticeNo());
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				int no = rs.getInt("nuNo");
+				String name = rs.getString("nuName");
+				
+				result.setFileNo(no);
+				result.setFileName(name);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public int setFileDelete(int fileNo) {
+		String query = "DELETE FROM notice_upload WHERE nuNo = ?";
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, fileNo);
+			int result = pstmt.executeUpdate();
+			return result;
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+	
+	public boolean deleteNotice(int noticeNo) {
+        boolean deleted = false;
+        String query = "DELETE FROM notice WHERE noticeNo = ?";
+        
+        try {
+            pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, noticeNo);
+            
+            int result = pstmt.executeUpdate();
+            
+            if (result > 0) {
+                deleted = true;
+            }
+            
+            pstmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return deleted;
+    }
 }
