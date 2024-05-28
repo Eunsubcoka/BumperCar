@@ -1,6 +1,8 @@
 package kr.co.tastyroad.common;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,16 +31,19 @@ public class FormController extends HttpServlet {
 			nextPage = "/views/member/register.jsp";
 		} else if(action.equals("/restaurantDetail.do")) {
 			nextPage = "/views/member/register.jsp";
-		}
-		else if(action.equals("/editReviewForm.do")) { 
+		} else if(action.equals("/editReviewForm.do")) { 
+			nextPage = "/views/member/register.jsp";
+		} else if(action.equals("/profile.do")) { 
+			nextPage = "/views/member/profile.jsp";
 //			int reviewNo = Integer.parseInt(request.getParameter("reviewNo"));
 //			
 //			ReviewServiceImpl reviewService = new ReviewServiceImpl();
 //			ReviewDto result = reviewService.ReviewEditForm(reviewNo);
 //			
 //			request.setAttribute("result", result);
-			nextPage = "/views/review/reviewEdit.jsp";
 		}
+		RequestDispatcher view = request.getRequestDispatcher(nextPage);
+		view.forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

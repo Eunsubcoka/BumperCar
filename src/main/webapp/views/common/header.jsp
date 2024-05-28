@@ -23,7 +23,8 @@
 		
 		</c:when>
 		<c:otherwise>
-      <a href="/member/logout.do">로그아웃</a> 
+      <a href="/member/logout.do">로그아웃</a>
+      <a href="/member/profile.do">내 정보</a>
 		</c:otherwise>
 		</c:choose>
     
