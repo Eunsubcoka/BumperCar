@@ -15,7 +15,7 @@
 
 
 	<%@ include file="/views/common/nav.jsp"%>
-	<main class="notice-main" style = "height : 85vh">
+	<main class="notice-main">
 		
 		<h1>공지사항</h1>
 		<hr>
