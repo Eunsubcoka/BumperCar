@@ -47,13 +47,14 @@ body {
   border-radius: 4px;
   font-size: 16px;
   box-sizing: border-box;
+  margin-bottom: 15px; /* 각 입력 필드 사이의 간격 */
 }
 
 /* 중복확인 버튼 및 주소 찾기 버튼 스타일 */
 .check-btn {
   margin-top: 10px;
   padding: 10px 15px;
-  background-color: #007BFF;
+  background-color: #ebb842;
   border: none;
   border-radius: 4px;
   color: #fff;
@@ -64,24 +65,25 @@ body {
 }
 
 .check-btn:hover {
-  background-color: #0056b3;
+  background-color: #ebb842;
 }
 
 /* 회원가입 버튼 스타일 */
 .signup-form button[type="submit"] {
   width: 100%;
   padding: 10px;
-  background-color: #007BFF;
+  background-color: #ebb842;
   border: none;
   border-radius: 4px;
   color: #fff;
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  margin-top: 15px; /* 버튼과 입력 필드 사이의 간격 */
 }
 
 .signup-form button[type="submit"]:hover {
-  background-color: #0056b3;
+  background-color: #ebb842;
 }
 
 /* 중복 확인 메시지 스타일 */
