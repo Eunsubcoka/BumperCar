@@ -34,6 +34,16 @@ public class FormController extends HttpServlet {
 			nextPage = "/views/member/register.jsp";
 		} else if(action.equals("/restaurantDetail.do")) {
 			nextPage = "/views/member/register.jsp";
+		} else if(action.equals("/editReviewForm.do")) { 
+			nextPage = "/views/member/register.jsp";
+		} else if(action.equals("/profile.do")) { 
+			nextPage = "/views/member/profile.jsp";
+//			int reviewNo = Integer.parseInt(request.getParameter("reviewNo"));
+//			
+//			ReviewServiceImpl reviewService = new ReviewServiceImpl();
+//			ReviewDto result = reviewService.ReviewEditForm(reviewNo);
+//			
+//			request.setAttribute("result", result);
 		}
 		else if(action.equals("/enrollReviewForm.do")) { // 리뷰 등록 페이지
 			nextPage = "/views/review/reviewEnroll.jsp"; 
