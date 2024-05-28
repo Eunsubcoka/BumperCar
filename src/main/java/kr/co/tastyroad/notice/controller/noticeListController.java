@@ -10,17 +10,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-<<<<<<< HEAD
-/**
- * Servlet implementation class noticeEnrollController
- */
-=======
 import kr.co.tastyroad.common.PageInfo;
 import kr.co.tastyroad.common.Pagination;
 import kr.co.tastyroad.notice.model.dto.noticeDto;
 import kr.co.tastyroad.notice.model.service.noticeServiceImpl;
 
->>>>>>> branch 'master' of https://github.com/Eunsubcoka/BumperCar.git
 @WebServlet("/notice/list.do")
 public class noticeListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
