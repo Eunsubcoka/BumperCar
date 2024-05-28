@@ -5,7 +5,6 @@
 <!doctype html>
 <html lang="en">
   <head>
-  <link href="https://webfontworld.github.io/gmarket/GmarketSans.css" rel="stylesheet">
  	<link rel="stylesheet" href="/assets/css/restaurantDetail.css">
  	<script type="text/javascript"src="/assets/js/restaurant.js"></script>
  	<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
@@ -30,7 +29,7 @@
             <img src="/assets/image/restaurant_images/니뽕내뽕 안양1번가점.jpg" alt="대한옥">
         </div>
             <div class="details">
-                <h1 class="">띵호</h1>
+                <h1 class="">${result.restaurantName }</h1>
                 <div class="rating">
                     <span>3.1</span>
                     <img src="" alt="Dining image">
@@ -85,7 +84,7 @@
         
             <div class="details">
                 <h1>메뉴 정보</h1>
-                <div class="share" onclick="">
+                <div class="share" onclick="location.href='/tastyForm/reservation.do'">
                 예약하기
                 </div>                
             </div>

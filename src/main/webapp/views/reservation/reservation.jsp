@@ -6,6 +6,10 @@
 <%@ include file="/views/common/head.jsp"%>
  <link rel="stylesheet" href="/assets/css/reservation.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+
+</script>
 </head>
 <body>
 	<%@ include file="/views/common/header.jsp"%>
@@ -20,56 +24,29 @@
          가계명
       </h2>
       
-      <div class="close-icon" onclick="location.href='/views/restaurant/restaurantDetail.jsp';">
+      <div class="close-icon" onclick="location.href='/views/restaurant/restaurantDetail.jsp'">
          <span></span>
          <span></span>
       </div>
    </header>
    <div class="quick-reservation__form">
       <section class="form__content">
-         <div class="row-wrapper">
-            <div class="ele adults">
-               <label for="adults">어른</label>
-               <select name="adults" id="adults">
-                  <option value="hide">어른</option>
-                  <option value="">1</option>
-                  <option value="">2</option>
-                  <option value="">3</option>
-                  <option value="">4</option>
-                  <option value="">5</option>
-               </select>
-            </div>
-            <div class="ele children">
-               <label for="children">아이</label>
-               <select name="children" id="children">
-                  <option value="hide">아이</option>
-                  <option value="">1</option>
-                  <option value="">2</option>
-                  <option value="">3</option>
-                  <option value="">4</option>
-                  <option value="">5</option>
-               </select>
-            </div>
-            <div class="ele rate-type">
-               <label for="rateType">Rate Type</label>
-               <select name="rateType" id="rateType">
-                  <option value="hide"></option>
-                  <option value="">Rack Rate</option>
-                  <option value="">Rack Rate</option>
-                  <option value="">Rack Rate</option>
-               </select>
-            </div>
-         </div>
+      
          <div class="row-wrapper">
             <div class="ele first-name">
-               <label for="firstName">이름</label>
+               <label for="firstName">인원</label>
+               <input type="text" name="headCount" placeholder="" id="firstName">
+            </div>
+            <div class="ele first-name">
+               <label for="firstName">예약자명</label>
                <input type="text" name="name" placeholder="" id="firstName">
             </div>
          </div>
+         
          <div class="row-wrapper">
             <div class="ele email-address">
                <label for="emailAddress">이메일</label>
-               <input type="email" name="email" value="" placeholder="" id="emailAddress">
+               <input type="text" name="email" value="" placeholder="" id="emailAddress">
             </div>
             <div class="ele phone-number">
                <label for="phoneNumber">전화번호</label>
@@ -118,7 +95,7 @@
    <footer class="form__footer">
       <div class="footer-wrapper">
          <input type="submit" value="Tempt Reserve" class="">
-         <input type="submit" value="Reserve" class="">
+         <input type="button" value="이메일" class="" name ="submit">
       </div>
    </footer>
 </div>
@@ -199,6 +176,36 @@ $('.close-icon').click(function (e) {
    e.stopPropagation();
 });
 });
+
+ 
+ $(document).ready(function() {
+		emailjs.init({
+		  publicKey: 'S6EHWOxVhPquonzsg',
+		});
+    $('input[name=submit]').click(function(){       	 
+      
+      var templateParams = {	
+      //각 요소는 emailJS에서 설정한 템플릿과 동일한 명으로 작성!
+            name: $('input[name=name]').val(),
+            phone: $('input[name=phone]').val(), 
+            email : $('input[name=email]').val(),
+            headCount : $('input[name=headCount]').val()
+       				};
+                
+            	
+     emailjs.send('service_kuml93p', 'template_0490si8', templateParams)
+     //emailjs.send('service ID', 'template ID', 보낼 내용이 담긴 객체)
+     	    .then(function(response) {
+     	       console.log('SUCCESS!', response.status, response.text);
+     	    }, function(error) {
+     	       console.log('FAILED...', error);
+     	    });
+     	       
+
+
+    });
+    
+  });
 
 </script>
 

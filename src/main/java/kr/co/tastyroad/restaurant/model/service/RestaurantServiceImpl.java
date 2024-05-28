@@ -5,7 +5,8 @@ import kr.co.tastyroad.restaurant.model.dto.RestaurantDto;
 
 public class RestaurantServiceImpl implements RestaurantService{
 	
-	RestaurantDao restaurantDao;  
+	RestaurantDao restaurantDao = new RestaurantDao();
+	
 	
 	public RestaurantDto getRestaurant(int No) {
 		

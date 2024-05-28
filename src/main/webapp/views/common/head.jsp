@@ -7,7 +7,8 @@
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.104.2">
     <title>Tastyroad Homepage</title>
-
+	<link href="https://webfontworld.github.io/gmarket/GmarketSans.css" rel="stylesheet">
+	
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/album/">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
    
