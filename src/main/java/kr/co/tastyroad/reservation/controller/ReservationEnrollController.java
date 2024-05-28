@@ -8,8 +8,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import kr.co.tastyroad.reservation.dto.ReservationDto;
+import kr.co.tastyroad.reservation.service.ReservationServiceImpl;
 
 /**  
  * Servlet implementation class ReservationEnrollController
@@ -35,21 +37,36 @@ public class ReservationEnrollController extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		ReservationDto resDto = new ReservationDto();
 		
+		HttpSession session = request.getSession();
+		int memberNo = (int)session.getAttribute("userNo");
+
+		
 		String name = request.getParameter("name");
 		resDto.setUserName(name); 
 		
-		int adults = Integer.parseInt(request.getParameter("adults"));
-		int kids = Integer.parseInt(request.getParameter("children"));
-		resDto.setHeadCount(kids+adults); 
+		
+		int headCount = Integer.parseInt(request.getParameter("headCount"));
+		resDto.setHeadCount(headCount); 
 		String email = request.getParameter("email");
 		resDto.setUserEmail(email); 
 		String phone = request.getParameter("phone");
 		resDto.setPhone(phone);
+		resDto.setUserNo(memberNo);
 		
-		System.out.println(resDto.getPhone());
-		System.out.println(resDto.getHeadCount());
-		RequestDispatcher view = request.getRequestDispatcher("/");
-		view.forward(request,response);
+		ReservationServiceImpl resService = new ReservationServiceImpl();
+		
+		int result = resService.resEnroll(resDto);
+		
+		if(result == 1) {
+			RequestDispatcher view = request.getRequestDispatcher("/views/restaurant/restaurantDetail.jsp");
+			view.forward(request,response);
+			
+		}
+		else {
+			RequestDispatcher view = request.getRequestDispatcher("/views/reservation/reservation.jsp");
+			view.forward(request,response);
+			
+		}
 		
 	}
 	

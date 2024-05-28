@@ -1,5 +1,7 @@
 package kr.co.tastyroad.reservation.service;
 
-public interface ReservationService {
+import kr.co.tastyroad.reservation.dto.ReservationDto;
 
+public interface ReservationService {
+	public int resEnroll(ReservationDto resDto);
 }

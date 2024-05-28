@@ -1,6 +1,13 @@
 package kr.co.tastyroad.reservation.dto;
 
 public class ReservationDto {
+	private int userNo;
+	public int getUserNo() {
+		return userNo;
+	}
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
+	}
 
 	private int resNo;
 	private String phone;
