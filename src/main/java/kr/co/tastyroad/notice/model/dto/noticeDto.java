@@ -8,8 +8,35 @@ public class noticeDto {
 	private String noticeDate;
 	private int userNo;
 	private String userName;
+	private String userType;
 	
 	
+	public void setUserType(String userType) {
+		this.userType = userType;
+	}
+	private int fileNo;
+	private String filePath;
+	private String fileName;
+	
+	
+	public int getFileNo() {
+		return fileNo;
+	}
+	public void setFileNo(int fileNo) {
+		this.fileNo = fileNo;
+	}
+	public String getFilePath() {
+		return filePath;
+	}
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+	public String getFileName() {
+		return fileName;
+	}
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
 	public int getNoticeNo() {
 		return noticeNo;
 	}
@@ -52,6 +79,7 @@ public class noticeDto {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-
-	 
+	public String getUserType() {
+		return userType;
+	}	 
 }

@@ -15,6 +15,7 @@
 <body>
 
 	<%@ include file="/views/common/header.jsp"%>
+	<%@ include file="/views/common/nav.jsp"%>
 
 <!-- review enroll section -->
 <section>
