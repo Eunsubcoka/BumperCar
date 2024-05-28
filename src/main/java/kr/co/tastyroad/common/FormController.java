@@ -33,7 +33,7 @@ public class FormController extends HttpServlet {
 		if(action.equals("/registerForm.do")) {
 			nextPage = "/views/member/register.jsp";
 		} else if(action.equals("/restaurantDetail.do")) {
-			nextPage = "/views/member/register.jsp";
+			nextPage = "/views/restaurant/restaurant.jsp";
 		} else if(action.equals("/editReviewForm.do")) { 
 			nextPage = "/views/member/register.jsp";
 		} else if(action.equals("/profile.do")) { 
@@ -48,6 +48,9 @@ public class FormController extends HttpServlet {
 		else if(action.equals("/enrollReviewForm.do")) { // 리뷰 등록 페이지
 			nextPage = "/views/review/reviewEnroll.jsp"; 
 		}
+		 else if(action.equals("/reservation.do")) {
+				nextPage = "/views/reservation/reservation.jsp";
+			}
 		else if(action.equals("/editReviewForm.do")) { 
 			int reviewNo = Integer.parseInt(request.getParameter("reviewNo"));
 			
