@@ -28,7 +28,7 @@
             <img src="/assets/image/restaurant_images/니뽕내뽕 안양1번가점.jpg" alt="대한옥">
         </div>
             <div class="details">
-                <h1 class="">띵호</h1>
+                <h1 class="">${result.restaurantName }</h1>
                 <div class="rating">
                     <span>3.1</span>
                     <img src="" alt="Dining image">
