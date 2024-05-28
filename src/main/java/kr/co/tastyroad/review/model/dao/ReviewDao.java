@@ -84,7 +84,7 @@ public class ReviewDao {
 			ResultSet rs = pstmt.executeQuery();
 		
 			while(rs.next()) {
-				int userNo = rs.getInt("userNO");
+				int userNo = rs.getInt("user_no");
 				reviewDto.setUserNo(userNo);
 				return reviewDto; 
 			}

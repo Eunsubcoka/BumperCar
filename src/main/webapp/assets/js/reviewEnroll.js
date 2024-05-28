@@ -47,3 +47,22 @@ window.onload = function() {
   // 별점 텍스트 업데이트 기능 실행
   updateRatingText(ratingStars, ratingTexts);
 };
+
+
+//이미지 업로드 미리보기
+
+function getImageFiles(event) {
+  //event.target.files : 파일 선택(input type="file") 요소에서 선택된 파일들의 목록
+  for (const file of event.target.files) { // 사용자가 선택한 파일 하나씩 꺼내는 반복문
+      const reader = new FileReader(); //FileReader객체생성
+
+      reader.onload = function(event) {
+          const img = document.createElement("img");
+          img.setAttribute("src", event.target.result);
+          document.querySelector("div#image_container").appendChild(img);
+      };
+
+      console.log(file);
+      reader.readAsDataURL(file);
+  }
+}

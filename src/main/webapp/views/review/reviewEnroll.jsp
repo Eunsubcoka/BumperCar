@@ -53,10 +53,9 @@
                 </div>
                 <!-- 버튼 -->
                 <div class="btn">
-                    <label for="file">
-                        <div class="btn-upload">이미지추가</div>
-                    </label>
-                    <input type="file" name="file" id="file">
+                    <div id="image_container"></div>
+                    <label for="file" class="btn-upload">이미지추가</label>		<!-- accept 특정 파일 유형만 허용, multiple 속성을 추가하면 2개 이상의 파일을 추가 -->
+                    <input type="file" name="file" id="file" onchange="getImageFiles(event);" multiple>
                     <button type="submit">작성</button>
                 </div>
             </div>
@@ -73,4 +72,6 @@
 
 </body>
 </html>
+
+	
 
