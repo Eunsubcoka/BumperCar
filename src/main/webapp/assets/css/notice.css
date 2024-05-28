@@ -1,5 +1,7 @@
 .notice-main{
 	margin: 20px;
+	margin-left: 15%;
+	margin-right: 15%;
 	padding:20px;
 	border : 1px solid #ccc;
 	border-radius : 5px;
@@ -44,3 +46,27 @@ button {
         box-sizing: border-box; /* padding 값이 요소의 크기에 포함되도록 box-sizing 속성을 border-box로 설정 */
     }
     
+.num{
+	width: 10%;
+}
+.title{
+	width:55%;
+}
+.date{
+	width:25%;
+}
+.views{
+	width:10%;
+}
+table{
+	font-size : 20px;
+	
+}
+
+table thead{
+	background-color : #ebb842;
+}
+table thead tr th{
+		color : #f2f2f2;
+
+}

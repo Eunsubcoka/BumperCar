@@ -25,6 +25,14 @@ public interface noticeService {
 	//게시글 번호 검색
 	public noticeDto selectNo(noticeDto noticeDto);
 	
+	public int fileUpload(noticeDto noticeDto);
+	
+	void getFileName(noticeDto result);
+	
+	int setFileDelete(int fileNo);
+	
+	public boolean deleteNotice(int noticeNo);
+	
 	
 	
 }

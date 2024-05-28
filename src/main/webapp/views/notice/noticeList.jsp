@@ -6,6 +6,7 @@
 <html lang="en">
 <head>
 <%@ include file="/views/common/head.jsp"%>
+<link rel="stylesheet" href="/assets/css/notice.css">
 
 </head>
 <body>
@@ -13,22 +14,20 @@
 	<%@ include file="/views/common/header.jsp"%>
 
 
-	<nav class="unique-nav">
-		<a href="#">카테고리</a> <a href="#">공지사항</a>
-	</nav>
-	<main class="notice-main">
+	<%@ include file="/views/common/nav.jsp"%>
+	<main class="notice-main" style = "height : 85vh">
 		
 		<h1>공지사항</h1>
 		<hr>
 		<div class="input-group mb-3" style="width: 100%; margin-top: 40px">
 		
-			<form action="/freeBoard/list.do" method="GET">
+			<form action="/notice/list.do" method="GET">
 				<input type="hidden" name="cpage" value="1">
 				
 				<select class="form-select" id="inputGroupSelect02" name="category"
 					style="width: 100px; height: 46px; flex: 0 0 auto;">
-					<option value="fb_title" selected>제목</option>
-					<option value="fb_content">내용</option>
+					<option value="noticeTitle" selected>제목</option>
+					<option value="noticeContent">내용</option>
 				</select>
 				 <input type="text" style="width: 300px; flex: 0 0 auto;"
 					class="form-control" name="search-text" placeholder="검색어를 입력해주세요."
@@ -39,8 +38,8 @@
 
 			<%-- <c:choose>
 				<c:when test="${sessionScope.userName != null}"> --%>
-					<button onclick="window.location.href = '/form/enrollForm.do'"
-						style="position: absolute; right: 4%;">등록</button>
+					<button onclick="window.location.href = '/tastyForm/enrollForm.do'"
+						style="position: absolute; right: 4%; background-color : #ebb842;">등록</button>
  				<%-- </c:when>
 			</c:choose> --%>
 
@@ -66,12 +65,11 @@
 						</c:when>
 						<c:otherwise>
 							<c:forEach var="item" items="${list}">
-								<tr onclick="location.href='/notice/detail.do?boardNo=${item.boardNo}'">				
+								<tr onclick="location.href='/notice/detail.do?boardno=${item.noticeNo}'">				
 									<td scope="row" class = "num">${row}</td>
-									<td class = "title">${item.boardTitle}</td>
-									<%-- <td>${item.memberName}</td> --%>
-									<td class = "date">${item.boardIndate}</td>
-									<td class = "views">${item.boardViews}</td>
+									<td class = "title">${item.noticeTitle}</td>
+									<td class = "date">${item.noticeDate}</td>
+									<td class = "views">${item.noticeView}</td>
 								</tr>
 								<c:set var="row" value="${row-1}" />
 							</c:forEach>
@@ -97,7 +95,7 @@
 
 					<c:otherwise>
 						<li class="page-item" style="margin-right: 0px"><a
-							class="page-link" href="/notice/list.do?cpage=${pi.cpage-1}"
+							class="page-link" href="/notice/list.do?cpage=${pi.cpage-1}&category=noticeTitle&search-text="
 							aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 						</a></li>
 					</c:otherwise>
@@ -109,7 +107,7 @@
 				-->
 				<c:forEach var="page" begin="${pi.startPage}" end="${pi.endPage}">
 					<li class="page-item" style="margin-right: 0px"><a
-						class="page-link" href="/notice/list.do?cpage=${page}">${page}</a></li>
+						class="page-link" href="/notice/list.do?cpage=${page}&category=noticeTitle&search-text=">${page}</a></li>
 				</c:forEach>
 
 				<!-- 오른쪽 버튼 -->
@@ -123,7 +121,7 @@
 
 					<c:otherwise>
 						<li class="page-item" style="margin-right: 0px"><a
-							class="page-link" href="/notice/list.do?cpage=${pi.cpage+1}"
+							class="page-link" href="/notice/list.do?cpage=${pi.cpage+1}&category=noticeTitle&search-text="
 							aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 						</a></li>
 					</c:otherwise>
@@ -141,8 +139,8 @@
 
 	<%@ include file="/views/common/footer.jsp"%>
 
-	<script src = "/assets/js/main.js"></script>
 	<script src="/assets/js/bootstrap.bundle.min.js"></script>
+	<script src = "/assets/js/notice.js"></script>
 
 </body>
 </html>

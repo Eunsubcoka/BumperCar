@@ -1,12 +1,16 @@
 package kr.co.tastyroad.common;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.co.tastyroad.notice.model.dto.noticeDto;
+import kr.co.tastyroad.notice.model.service.noticeServiceImpl;
 import kr.co.tastyroad.review.model.dto.ReviewDto;
 import kr.co.tastyroad.review.model.service.ReviewServiceImpl;
 
@@ -38,6 +42,23 @@ public class FormController extends HttpServlet {
 //			
 //			request.setAttribute("result", result);
 			nextPage = "/views/review/reviewEdit.jsp";
+		}else if(action.equals("/enrollForm.do")) {
+			nextPage = "/views/notice/noticeEnroll.jsp";
+		}else if(action.equals("/editForm.do")) {
+			int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
+			
+			noticeServiceImpl noticeService = new noticeServiceImpl();
+			noticeDto result = noticeService.getEditForm(noticeNo);
+			
+			request.setAttribute("result", result);
+			nextPage = "/views/notice/noticeEdit.jsp";
+		}
+		
+		if(nextPage != null && !nextPage.isEmpty()) {
+			RequestDispatcher view = request.getRequestDispatcher(nextPage);
+			view.forward(request, response);
+		} else {
+			response.sendRedirect("/views/error.jsp");
 		}
 	}
 
