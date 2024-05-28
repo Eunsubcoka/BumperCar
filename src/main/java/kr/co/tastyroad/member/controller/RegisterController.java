@@ -16,7 +16,7 @@ import org.mindrot.jbcrypt.BCrypt;
 import kr.co.tastyroad.member.model.dto.Member;
 import kr.co.tastyroad.member.model.service.MemberServiceImpl;
 
-@WebServlet("/tastyForm/register.do")
+@WebServlet("/register.do")
 public class RegisterController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -36,11 +36,13 @@ public class RegisterController extends HttpServlet {
         String userId = request.getParameter("new-userid");
         String userEmail = request.getParameter("new-email");
         String userAddress = request.getParameter("new-address");
+        String userAddress1 = request.getParameter("new-address1");
         String userPhone = request.getParameter("new-phone");
         String userPwd = request.getParameter("new-password");
         String confirmPwd = request.getParameter("confirm-password");
         String duplicateCheck = request.getParameter("duplicateCheck");
-
+        String fullAddr = userAddress+ " " + userAddress1;
+        
         if ("unavailable".equals(duplicateCheck)) {
             returnAlert(response, "아이디가 중복되었습니다. 다른 아이디를 사용해 주세요.");
             return;
@@ -76,7 +78,7 @@ public class RegisterController extends HttpServlet {
         member.setUserName(userName);
         member.setUserId(userId);
         member.setUserEmail(userEmail);
-        member.setUserAddress(userAddress);
+        member.setUserAddress(fullAddr);
         member.setUserPhone(userPhone);
         member.setUserPwd(hashPassword);
 

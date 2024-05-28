@@ -31,4 +31,12 @@ public class MemberServiceImpl implements MemberService {
 	public Member getHashPassword(String id) {
 		return memberDAO.getHashPassword(id);
 	}
+	@Override
+	public Member getMemberById(String userId) {
+		return null;
+	}
+	@Override
+	public int updateMember(Member member) {
+		return 0;
+	}
 }

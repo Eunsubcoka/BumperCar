@@ -50,7 +50,11 @@ public class LoginController extends HttpServlet {
 			
 			RequestDispatcher view = request.getRequestDispatcher("/");
 			view.forward(request, response);
-		}
+		} else {
+            request.setAttribute("loginError", "아이디 또는 비밀번호가 올바르지 않습니다.");
+            RequestDispatcher view = request.getRequestDispatcher("/views/member/login.jsp");
+            view.forward(request, response);
+        }
 	
 	}
 }

@@ -10,5 +10,9 @@ public interface MemberService {
 	public int duplicateId(String id);
 	
 	public Member getHashPassword(String id);
+
+	Member getMemberById(String userId);
+
+	int updateMember(Member member);
 	
 }
