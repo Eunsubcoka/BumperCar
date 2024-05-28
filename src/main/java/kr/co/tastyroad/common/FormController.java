@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import kr.co.tastyroad.notice.model.dto.noticeDto;
 import kr.co.tastyroad.notice.model.service.noticeServiceImpl;
@@ -38,6 +39,12 @@ public class FormController extends HttpServlet {
 		} else if(action.equals("/profile.do")) { 
 			nextPage = "/views/member/profile.jsp";
 		}
+		else if(action.equals("/enrollReviewForm.do")) { // 리뷰 등록 페이지
+			nextPage = "/views/review/reviewEnroll.jsp"; 
+		}
+		 else if(action.equals("/reservation.do")) {
+				nextPage = "/views/reservation/reservation.jsp";
+			}
 		else if(action.equals("/editReviewForm.do")) { 
 			int reviewNo = Integer.parseInt(request.getParameter("reviewNo"));
 			
@@ -61,13 +68,21 @@ public class FormController extends HttpServlet {
 		if(nextPage != null && !nextPage.isEmpty()) {
 			RequestDispatcher view = request.getRequestDispatcher(nextPage);
 			view.forward(request, response);
-		} else {
-			response.sendRedirect("/views/error.jsp");
+		}else if(action.equals("/editReviewForm.do")) { // 리뷰 수정 페이지
+			HttpSession session = request.getSession();
+			int userNo = (int)session.getAttribute("userNo");
+			System.out.println(userNo);
+			ReviewServiceImpl reviewService = new ReviewServiceImpl();
+			ReviewDto result = reviewService.ReviewEditForm(userNo);
+			System.out.println(result.getReviewContent());
+			
+			request.setAttribute("result", result);
+			nextPage = "/views/review/reviewEdit.jsp";
+			
 		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
 	}
 
 }
