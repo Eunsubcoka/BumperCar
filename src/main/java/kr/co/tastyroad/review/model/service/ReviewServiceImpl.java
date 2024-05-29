@@ -2,6 +2,8 @@ package kr.co.tastyroad.review.model.service;
 
 
 
+import java.util.ArrayList;
+
 import kr.co.tastyroad.review.model.dao.ReviewDao;
 import kr.co.tastyroad.review.model.dto.ReviewDto;
 
@@ -30,5 +32,17 @@ public class ReviewServiceImpl implements ReviewService {
 		return reviewDao.selectNo(reviewDto);
 	}
 	
+	// 파일 정보 등록
+	@Override
+	public int fileUpload(ReviewDto reviewDto) {
+		return reviewDao.fileUpload(reviewDto);
+	}
+	
+	// 리뷰 리스트 조회
+	@Override
+	public ArrayList<ReviewDto> getReviewList(){
+		return reviewDao.getReviewList();
+	}
 
+	
 }
