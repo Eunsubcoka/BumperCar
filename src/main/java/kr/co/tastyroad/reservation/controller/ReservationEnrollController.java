@@ -51,6 +51,9 @@ public class ReservationEnrollController extends HttpServlet {
 		resDto.setUserEmail(email); 
 		String phone = request.getParameter("phone");
 		resDto.setPhone(phone);
+		String date = request.getParameter("datepicker");
+		System.out.println(date);
+		resDto.setDate(date);
 		resDto.setUserNo(memberNo);
 		
 		ReservationServiceImpl resService = new ReservationServiceImpl();

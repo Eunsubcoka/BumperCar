@@ -41,7 +41,7 @@ public class LoginController extends HttpServlet {
 
 		Member hashPassword = memberService.getHashPassword(userId);
 		
-		//
+		
 		if(BCrypt.checkpw(userPwd, hashPassword.getUserPwd())) {
 			HttpSession session = request.getSession();
 			session.setAttribute("userNo", hashPassword.getUserNo());
