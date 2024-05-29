@@ -50,19 +50,30 @@ window.onload = function() {
 
 
 //이미지 업로드 미리보기
+function getImageFiles(event){
+    const maxImages = 3; // 최대 이미지 개수
 
-function getImageFiles(event) {
-  //event.target.files : 파일 선택(input type="file") 요소에서 선택된 파일들의 목록
-  for (const file of event.target.files) { // 사용자가 선택한 파일 하나씩 꺼내는 반복문
-      const reader = new FileReader(); //FileReader객체생성
+    // 이미지 개수 제한 확인
+    if (event.target.files.length > maxImages) {
+        alert(`이미지는 ${maxImages}장까지 업로드할 수 있습니다.`);
+        return;
+    }
 
-      reader.onload = function(event) {
-          const img = document.createElement("img");
-          img.setAttribute("src", event.target.result);
-          document.querySelector("div#image_container").appendChild(img);
-      };
+    for(let image of event.target.files){
+        // 이미지 개수가 최대 개수에 도달했을 경우 추가 중단
+        if (document.querySelectorAll("div#image_container img").length >= maxImages) {
+            alert(`이미지는 ${maxImages}장까지 업로드할 수 있습니다.`);
+            return;
+        }
 
-      console.log(file);
-      reader.readAsDataURL(file);
-  }
+        let img = document.createElement("img");
+        const reader = new FileReader();
+        reader.onload = function(event){
+            img.setAttribute("src", event.target.result);
+        }
+        reader.readAsDataURL(image);
+        document.querySelector("div#image_container").appendChild(img);
+    }
 }
+
+ 

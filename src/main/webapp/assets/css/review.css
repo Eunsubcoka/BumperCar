@@ -60,6 +60,19 @@ h1 {
     font-size: 1.2em;
 }
 
+.title {
+	margin-top:15px;
+	margin-bottom:15px;
+}
+/* 리뷰수정 페이지 내용공간 */
+textarea {
+    width: 100%; /* textarea의 너비를 최대로 설정 */
+    height: 8em;
+    padding: 10px; /* 텍스트 영역 내부의 여백 설정 */
+    resize: none;
+    margin : auto;
+}
+
 /* 리뷰 사진 */
 .review-photos {
     margin-top: 15px;

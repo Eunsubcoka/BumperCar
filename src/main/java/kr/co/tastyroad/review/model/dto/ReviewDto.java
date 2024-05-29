@@ -9,6 +9,23 @@ public class ReviewDto {
 	private int userNo;
 	private int restaurantNo;
 	
+	private String filePath; // 파일경로
+	private String fileName; // 파일이름
+	
+
+	public String getFilePath() {
+		return filePath;
+	}
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+	public String getFileName() {
+		return fileName;
+	}
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+	
 	public int getReviewNo() {
 		return reviewNo;
 	}

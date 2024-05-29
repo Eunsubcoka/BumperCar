@@ -24,7 +24,7 @@ public class FormController extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    response.setContentType("text/html; charset-utf-8");
+    response.setContentType("text/html; charset=utf-8");
 		
 		String action = request.getPathInfo();
 		String nextPage = "";
@@ -71,10 +71,8 @@ public class FormController extends HttpServlet {
 		else if(action.equals("/editReviewForm.do")) { // 리뷰 수정 페이지
 			HttpSession session = request.getSession();
 			int userNo = (int)session.getAttribute("userNo");
-			System.out.println(userNo);
 			ReviewServiceImpl reviewService = new ReviewServiceImpl();
 			ReviewDto result = reviewService.ReviewEditForm(userNo);
-			System.out.println(result.getReviewContent());
 			
 			request.setAttribute("result", result);
 			nextPage = "/views/review/reviewEdit.jsp";
