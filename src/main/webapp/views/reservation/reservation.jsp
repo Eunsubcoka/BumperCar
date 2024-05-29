@@ -5,11 +5,20 @@
 <head>
 <%@ include file="/views/common/head.jsp"%>
  <link rel="stylesheet" href="/assets/css/reservation.css">
+ <script type="text/javascript" src="/assets/js/reservation.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript"
         src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
-
 </script>
+<script type="text/javascript">
+   (function(){
+      emailjs.init("S6EHWOxVhPquonzsg");
+   })();
+</script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
 </head>
 <body>
 	<%@ include file="/views/common/header.jsp"%>
@@ -31,11 +40,16 @@
    </header>
    <div class="quick-reservation__form">
       <section class="form__content">
-      
+      <div class="row-wrapper">
+      <div class="ele date">
+               <label for="date">날짜</label>
+			<input type="text" id="datepicker" name="datepicker">
+            </div>
+            </div>
          <div class="row-wrapper">
             <div class="ele first-name">
                <label for="firstName">인원</label>
-               <input type="text" name="headCount" placeholder="" id="firstName">
+               <input type="text" name="headCount" placeholder="" id="headCount">
             </div>
             <div class="ele first-name">
                <label for="firstName">예약자명</label>
@@ -75,8 +89,8 @@
    
    <div class="reservation-info">
       <div class="ele data">
-         <h4 class="data__head">이름</h4>
-         <p class="data__description">Deluxe</p>
+         <h4 class="data__head">날짜</h4>
+         <p class="data__description" id="dateOut">Deluxe</p>
       </div>
       <div class="ele data">
          <h4 class="data__head">날짜</h4>
@@ -84,7 +98,7 @@
       </div>
       <div class="ele data">
          <h4 class="data__head">인언</h4>
-         <p class="data__description">May 28 - Jun 2</p>
+         <p class="data__description" id="countOut" >May 28 - Jun 2</p>
       </div>
       <div class="ele data">
          <h4 class="data__head">Price</h4>
@@ -94,8 +108,8 @@
    
    <footer class="form__footer">
       <div class="footer-wrapper">
-         <input type="submit" value="Tempt Reserve" class="">
-         <input type="button" value="이메일" class="" name ="submit">
+         <input type="submit" value="예약하기" onclick="sendEmail()" class="">
+         <!-- <input type="button" value="이메일" onclick="sendEmail()"> -->
       </div>
    </footer>
 </div>
@@ -108,7 +122,7 @@
 
 
 	<%@ include file="/views/common/footer.jsp"%>
-
+<div class="bg"></div>
 
 <script>
 //• Based on & inspired from dribbble: https://dribbble.com/shots/4630196-Quick-Reservation-UI-Design
@@ -178,35 +192,34 @@ $('.close-icon').click(function (e) {
 });
 
  
- $(document).ready(function() {
-		emailjs.init({
-		  publicKey: 'S6EHWOxVhPquonzsg',
-		});
-    $('input[name=submit]').click(function(){       	 
-      
-      var templateParams = {	
-      //각 요소는 emailJS에서 설정한 템플릿과 동일한 명으로 작성!
-            name: $('input[name=name]').val(),
-            phone: $('input[name=phone]').val(), 
-            email : $('input[name=email]').val(),
-            headCount : $('input[name=headCount]').val()
-       				};
-                
-            	
-     emailjs.send('service_kuml93p', 'template_0490si8', templateParams)
-     //emailjs.send('service ID', 'template ID', 보낼 내용이 담긴 객체)
-     	    .then(function(response) {
-     	       console.log('SUCCESS!', response.status, response.text);
-     	    }, function(error) {
-     	       console.log('FAILED...', error);
-     	    });
-     	       
+ 
+const sendEmail = () => {
+    let templateParams  = {
+        name : document.getElementById('firstName').value,
+        phone : document.getElementById('phoneNumber').value,
+        email : document.getElementById('emailAddress').value,
+        headCount : document.getElementById('headCount').value,
+        date : document.getElementById('datepicker').value,
+    }
+    console.log(templateParams);
+    emailjs.send('service_wg52763', 'template_0490si8', templateParams).then(function(response){
+        console.log('Success!', response.status, response.text);
+    }, function(error){
+        console.log('Failed...', error);
+    })
+}
 
-
-    });
-    
-  });
-
+ flatpickr("#datepicker", {
+	  enableTime: true,
+	  dateFormat: "Y-m-d H:i",
+	  minDate: "today",
+	  enableTime: true,
+	    minTime: "09:00",
+	    maxTime: "23:30"
+	});
+ 
+ 
+ 
 </script>
 
 
