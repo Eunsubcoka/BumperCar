@@ -25,6 +25,7 @@
         <h1>리뷰작성</h1>
         <div class="container-review">
             <div class="review">
+            <input type="hidden" name="userNo" value="${sessionScope.userNo}">
             <input type="hidden" name="ratingStars" id="stars" value="">
                 <div class="rating-box">
                     <p class="text"><strong>음식점의 만족도를 별점으로 표현해주세요!</strong></p>
@@ -54,6 +55,7 @@
                 </div>
                 <!-- 버튼 -->
                 <div class="btn">
+                    <p>*사진은 최대 3장까지 가능합니다.</p>
                     <div id="image_container"></div>
                     <label for="file" class="btn-upload">이미지추가</label>		<!-- accept 특정 파일 유형만 허용, multiple 속성을 추가하면 2개 이상의 파일을 추가 -->
                     <input type="file" name="file" id="file" onchange="getImageFiles(event);" multiple>
@@ -61,7 +63,7 @@
                 </div>
             </div>
         </div>
-        </form> 
+        </form>
 	</div>
 </section> 
 
