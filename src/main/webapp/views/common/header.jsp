@@ -18,13 +18,13 @@
     <!--  <a href="/views/member/register.jsp">회원가입</a> -->  
     	<c:choose>
 		<c:when test ="${sessionScope.userName == null}">
-      <a href="/views/member/login.jsp">로그인</a> 
-      <a href="/views/member/register.jsp">회원가입</a>
+      <a href="/views/member/login.jsp" class="no-underline">로그인</a> 
+      <a href="/views/member/register.jsp" class="no-underline">회원가입</a>
 		
 		</c:when>
 		<c:otherwise>
-      <a href="/member/logout.do">로그아웃</a>
-      <a href="/member/profile.do">내 정보</a>
+      <a href="/member/logout.do" class="no-underline">로그아웃</a>
+      <a href="/tastyForm/profile.do" class="no-underline">내 정보</a>
 		</c:otherwise>
 		</c:choose>
     
@@ -33,7 +33,10 @@
     
     </div>
   </div>
-
-
-
 </header>
+
+<style>
+  .no-underline {
+    text-decoration: none;
+  }
+</style>

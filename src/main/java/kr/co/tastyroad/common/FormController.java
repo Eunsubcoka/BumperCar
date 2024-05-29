@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import kr.co.tastyroad.member.model.dto.Member;
+import kr.co.tastyroad.member.model.service.MemberServiceImpl;
 import kr.co.tastyroad.notice.model.dto.noticeDto;
 import kr.co.tastyroad.notice.model.service.noticeServiceImpl;
 import kr.co.tastyroad.review.model.dto.ReviewDto;
@@ -35,6 +37,7 @@ public class FormController extends HttpServlet {
 			nextPage = "/views/member/register.jsp";
 		} 
 		else if(action.equals("/profile.do")) {  // 프로필
+	       
 			nextPage = "/views/member/profile.jsp";
 		}
 
