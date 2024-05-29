@@ -20,9 +20,9 @@
 
         <section class="container mt-4 d-flex justify-content-center align-items-center" style="height: 70vh;">
             <div class="card text-center" style="width: 100%; max-width: 800px;">
-                <form action="/notice/edit.do" method="post">
+                <form action="/notice/edit.do" method="post" enctype="multipart/form-data">
 
-                    <input type="hidden" name="boardNo" value="${result.noticeNo }" />
+                    <input type="hidden" name="boardno" value="${result.noticeNo }" />
 
                     <div class="card-header">
                         <label for="title">제목:</label>
@@ -32,20 +32,22 @@
                         <div class="d-flex justify-content-center mb-3">
 
                             <div class="mx-3">
-                                작성일: <span id="fb-date">${result.noticeDate}</span>
+                                작성일: <span id="noticeDate">${result.noticeDate}</span>
                             </div>
                             <div class="mx-3">
-                                조회수: <span id="fb-views">${result.noticeView}</span>
+                                조회수: <span id="noticeView">${result.noticeView}</span>
                             </div>
                         </div>
                         <hr>
                         <div id="smarteditor" class="d-flex justify-content-center">
                             <textarea id="editorTxt" name="content" rows="4" style="width: 100%;" class="form-control" required>${result.noticeContent}</textarea>
                         </div>
+                        
                     </div>
+                    
                     <div class="card-footer d-flex justify-content-center">
                         <button class="btn btn-secondary mx-2" type="button" onclick="window.history.back()">뒤로가기</button>
-                        <c:if test="${sessionScope.userType = 'A'}">
+                        <c:if test="${sessionScope.userType == 'admin'}">
                             <button type="submit" class="btn btn-primary mx-2" onclick="save()">수정</button>
                         </c:if>
                     </div>
@@ -59,6 +61,22 @@
 
     <script src="/assets/js/bootstrap.bundle.min.js"></script>
     <script src="/assets/js/main.js"></script>
+    
+    <script type="text/javascript">
+    var oEditors = [];
+    nhn.husky.EZCreator.createInIFrame({
+        oAppRef: oEditors,
+        elPlaceHolder: "editorTxt",
+        sSkinURI: "/assets/smarteditor2/SmartEditor2Skin.html",
+        fCreator: "createSEditor2"
+    });
+
+    function submitContents(elClickedObj) {
+        oEditors.getById["editorTxt"].exec("UPDATE_CONTENTS_FIELD", []); // 에디터의 내용이 textarea에 적용됩니다.
+        elClickedObj.form.submit();
+    }
+</script>
+    
 
 </body>
 </html>

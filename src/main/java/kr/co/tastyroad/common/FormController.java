@@ -70,8 +70,7 @@ public class FormController extends HttpServlet {
 		// 혜미
 		else if(action.equals("/enrollReviewForm.do")) { // 리뷰 등록 페이지
 			nextPage = "/views/review/reviewEnroll.jsp"; 
-		}
-		else if(action.equals("/editReviewForm.do")) { // 리뷰 수정 페이지
+		}else if(action.equals("/editReviewForm.do")) { // 리뷰 수정 페이지
 			HttpSession session = request.getSession();
 			int userNo = (int)session.getAttribute("userNo");
 			ReviewServiceImpl reviewService = new ReviewServiceImpl();
@@ -81,6 +80,7 @@ public class FormController extends HttpServlet {
 			nextPage = "/views/review/reviewEdit.jsp";
 			
 		}
+
 		
 		
 		if(nextPage != null && !nextPage.isEmpty()) {

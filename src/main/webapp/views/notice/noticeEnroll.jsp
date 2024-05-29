@@ -40,6 +40,10 @@
                             <textarea id="editorTxt" name="content" style = "width : 80%" rows="4" placeholder="내용을 입력해주세요" class="form-control" required></textarea>
                         </div>
                     </div>
+                    <div class="form-group">
+                    <label for="uploadFile">파일 첨부:</label>
+                    <input type="file" name="uploadFile" class="form-control">
+                </div>
 
                     <!-- <input type="file" name="file"> -->
                     <div class="form-group text-center">
@@ -56,6 +60,22 @@
 
     <script src="/assets/js/bootstrap.bundle.min.js"></script>
     <script src="/assets/js/notice.js"></script>
+    
+    <script type="text/javascript">
+    var oEditors = [];
+    nhn.husky.EZCreator.createInIFrame({
+        oAppRef: oEditors,
+        elPlaceHolder: "editorTxt",
+        sSkinURI: "/assets/smarteditor2/SmartEditor2Skin.html",
+        fCreator: "createSEditor2"
+    });
+
+    function submitContents(elClickedObj) {
+        oEditors.getById["editorTxt"].exec("UPDATE_CONTENTS_FIELD", []); // 에디터의 내용이 textarea에 적용됩니다.
+        elClickedObj.form.submit();
+    }
+</script>
+    
 
 </body>
 </html>

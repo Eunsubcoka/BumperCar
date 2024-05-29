@@ -21,22 +21,25 @@ public class noticeEditController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int boardNo = Integer.parseInt(request.getParameter("boardno"));
-		String noticeTitle = request.getParameter("title");
-		String noticeContent = request.getParameter("content");
-		
-		noticeDto noticeDto =new noticeDto();
-		noticeDto.setNoticeNo(boardNo);
-		noticeDto.setNoticeTitle(noticeTitle);
-		noticeDto.setNoticeContent(noticeContent);
-		
-		noticeServiceImpl noticeService = new noticeServiceImpl();
-		int result = noticeService.setEdit(noticeDto);
-		
-		if(result ==1) {
-			response.sendRedirect("/notice/detail.do?boardno="+boardNo);
-		}
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	        throws ServletException, IOException {
+	    request.setCharacterEncoding("UTF-8");
+	    int boardNo = Integer.parseInt(request.getParameter("boardno"));
+	    String noticeTitle = request.getParameter("title");
+	    String noticeContent = request.getParameter("content");
+
+	    noticeDto noticeDto = new noticeDto();
+	    noticeDto.setNoticeNo(boardNo);
+	    noticeDto.setNoticeTitle(noticeTitle);
+	    noticeDto.setNoticeContent(noticeContent);
+
+	    noticeServiceImpl noticeService = new noticeServiceImpl();
+	    int result = noticeService.setEdit(noticeDto);
+
+	    if (result == 1) {
+	        response.sendRedirect("/notice/detail.do?boardno=" + boardNo);
+	    }
 	}
+
 
 }

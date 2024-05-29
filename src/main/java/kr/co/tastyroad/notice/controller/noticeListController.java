@@ -18,40 +18,41 @@ import kr.co.tastyroad.notice.model.service.noticeServiceImpl;
 @WebServlet("/notice/list.do")
 public class noticeListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    public noticeListController() {
-        super();
-    }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public noticeListController() {
+		super();
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		noticeServiceImpl noticeService = new noticeServiceImpl();
-		
+
 		int cpage = Integer.parseInt(request.getParameter("cpage"));
 		String category = request.getParameter("category");
 		String searchText = request.getParameter("search-text");
-		
-		
+
 		int listCount = noticeService.getListCount(category, searchText);
-		
+
 		int pageLimit = 5;
-		
+
 		int boardLimit = 5;
-		
+
 		PageInfo pi = Pagination.getPageInfo(listCount, cpage, pageLimit, boardLimit);
-		
+
 		ArrayList<noticeDto> list = noticeService.getList(pi, category, searchText);
-		
-		int row = listCount - (cpage-1) * boardLimit;
-		
+
+		int row = listCount - (cpage - 1) * boardLimit;
+
 		request.setAttribute("list", list);
 		request.setAttribute("row", row);
 		request.setAttribute("pi", pi);
-		
+
 		RequestDispatcher view = request.getRequestDispatcher("/views/notice/noticeList.jsp");
 		view.forward(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 	}
 
 }
