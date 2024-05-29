@@ -70,10 +70,8 @@ public class FormController extends HttpServlet {
 		}else if(action.equals("/editReviewForm.do")) { // 리뷰 수정 페이지
 			HttpSession session = request.getSession();
 			int userNo = (int)session.getAttribute("userNo");
-			System.out.println(userNo);
 			ReviewServiceImpl reviewService = new ReviewServiceImpl();
 			ReviewDto result = reviewService.ReviewEditForm(userNo);
-			System.out.println(result.getReviewContent());
 			
 			request.setAttribute("result", result);
 			nextPage = "/views/review/reviewEdit.jsp";

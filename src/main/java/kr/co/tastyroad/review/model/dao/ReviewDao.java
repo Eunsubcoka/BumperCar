@@ -93,4 +93,62 @@ public class ReviewDao {
 		}
 		return null;
 	}
+	
+	public int fileUpload(ReviewDto reviewDto) {
+		String query = "insert into review_upload values(?, ?, 12)";
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, reviewDto.getFilePath());
+			pstmt.setString(2, reviewDto.getFileName());
+			
+			int result = pstmt.executeUpdate();
+			
+			return result;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+	
+	// 리뷰 리스트 로직
+    public ArrayList<ReviewDto> getReviewList() {
+    ArrayList<ReviewDto> result = new ArrayList<>();
+    
+   
+    String query = "select reviewNo, reviewTitle, reviewContent, reviewDate, ratings from reviews r "
+                 + "join TASTY_MEMBER s on r.user_no = s.user_no";
+    
+    try {
+        pstmt = con.prepareStatement(query);
+        
+        ResultSet rs = pstmt.executeQuery();
+        
+        while(rs.next()) {
+            int reviewNo = rs.getInt("reviewNo");
+            String reviewTitle = rs.getString("reviewTitle");
+            String reviewContent =rs.getString("reviewContent");
+            String reviewDate = rs.getString("reviewDate");
+            int ratings = rs.getInt("ratings"); 
+            
+            ReviewDto reviewDto = new ReviewDto();
+            reviewDto.setReviewNo(reviewNo);
+            reviewDto.setReviewTitle(reviewTitle);
+            reviewDto.setReviewContent(reviewContent);
+            reviewDto.setReviewDate(reviewDate);
+            reviewDto.setRatings(ratings);
+            
+            result.add(reviewDto);
+            
+        }
+        return result;
+        
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return result;
+    }
 }
+    
