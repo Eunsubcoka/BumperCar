@@ -66,7 +66,32 @@ public class MemberDAO {
 
         return result;
     }
+    public int userUpdate(Member member) {
+        String query = "update Tasty_member set user_name=? , user_email=?, user_address=?, user_phone=? "
+                     + "where user_no = ?";
+        int result = 0;
+        	
+        try {
+            pstmt = con.prepareStatement(query);
+            pstmt.setString(1, member.getUserName());
+            pstmt.setString(2, member.getUserEmail());
+            pstmt.setString(3, member.getUserAddress());
+            pstmt.setString(4, member.getUserPhone());
+            pstmt.setInt(5, member.getUserNo());
 
+            
+            result = pstmt.executeUpdate();
+            return result;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeResources();
+        }
+
+        return result;
+    }
+
+    
     public int duplicateId(String id) {
         String query = "SELECT count(*) AS cnt FROM Tasty_member WHERE user_id = ?";
         int result = 0;
