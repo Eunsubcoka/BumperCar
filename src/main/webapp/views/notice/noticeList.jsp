@@ -35,13 +35,13 @@
 				<button class="btn btn-outline-secondary" type="submit"
 					id="button-addon2" style="height: 46px;">검색</button>
 			</form>
-
-			<%-- <c:choose>
-				<c:when test="${sessionScope.userName != null}"> --%>
+			
+			 <c:choose>
+				<c:when test="${sessionScope.userType == 'admin'}">
 					<button onclick="window.location.href = '/tastyForm/enrollForm.do'"
 						style="position: absolute; right: 4%; background-color : #ebb842;">등록</button>
- 				<%-- </c:when>
-			</c:choose> --%>
+ 				</c:when>
+			</c:choose>
 
 		</div>
 		<div class="notice-container">

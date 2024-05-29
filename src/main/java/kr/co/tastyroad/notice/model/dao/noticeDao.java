@@ -91,7 +91,7 @@ public class noticeDao {
 	}
 	
 	public int enroll(noticeDto noticeDto) {
-		String query = "INSERT INTO notice VLAUES(notice_seq.nextval,?, ?, default, default, ?)";
+		String query = "INSERT INTO notice VALUES(notice_seq.nextval,?, ?, default, default, ?)";
 		int result = 0;
 		
 		
@@ -112,7 +112,7 @@ public class noticeDao {
 	}
 	
 	public noticeDto getDetail(int noticeNo) {
-		String query = "SELECT * FROM notice WHERE noticeNo = ?";
+		String query = "SELECT * FROM notice n LEFT OUTER JOIN notice_upload nu ON n.NOTICENO  = nu.NOTICENO  WHERE n.noticeNo = ?";
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, noticeNo);
@@ -134,6 +134,7 @@ public class noticeDao {
 				noticeDto.setNoticeDate(ntDate);
 				noticeDto.setNoticeView(ntView);
 				noticeDto.setUserNo(mNo);
+				
 				return noticeDto;
 				
 				
@@ -198,16 +199,16 @@ public class noticeDao {
 
 	public int setEdit(noticeDto noticeDto) {
 		String query = "UPDATE notice "
-				+ "SET 	noticeTitle = ?,"
-				+ " 	noticeContent = ?,"
+				+ "SET noticeTitle = ?,"
+				+ " noticeContent = ?"
 				+ "WHERE noticeNo = ?";
 		
 		try {
 			pstmt = con.prepareStatement(query);
 			
 			pstmt.setString(1, noticeDto.getNoticeTitle());
-			pstmt.setString(1, noticeDto.getNoticeContent());
-			pstmt.setInt(1, noticeDto.getNoticeNo());
+			pstmt.setString(2, noticeDto.getNoticeContent());
+			pstmt.setInt(3, noticeDto.getNoticeNo());
 			
 			int result = pstmt.executeUpdate();
 			return result;
@@ -238,7 +239,7 @@ public class noticeDao {
 	public noticeDto selectNo(noticeDto noticeDto) {
 		String query = "SELECT noticeNo FROM notice "
 				+ "WHERE noticeNo = (SELECT MAX(noticeNo) FROM notice "
-				+ "WHERE noticeNo = ?)";
+				+ "WHERE user_no = ?)";
 		
 		try {
 			pstmt = con.prepareStatement(query);
@@ -277,7 +278,7 @@ public class noticeDao {
 	}
 	
 	public void getFileName(noticeDto result) {
-		String query = "SELECT nuNo, nuName FROM notice_upload WHERE noticeNo = ?";
+		String query = "SELECT nu.nuNo, nu.nuName FROM notice n  LEFT OUTER JOIN notice_upload nu ON n.noticeNo = nu.noticeNo WHERE n.noticeNo = ?";
 		
 		try {
 			pstmt = con.prepareStatement(query);
@@ -290,6 +291,8 @@ public class noticeDao {
 				
 				result.setFileNo(no);
 				result.setFileName(name);
+				
+				
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -313,10 +316,19 @@ public class noticeDao {
 	
 	public boolean deleteNotice(int noticeNo) {
         boolean deleted = false;
-        String query = "DELETE FROM notice WHERE noticeNo = ?";
+        
         
         try {
-            pstmt = con.prepareStatement(query);
+        	//업로드된 이미지 먼저 삭제
+        	String query1 = "DELETE FROM notice_upload WHERE noticeNo = ?";
+            pstmt = con.prepareStatement(query1);
+            pstmt.setInt(1, noticeNo);
+            pstmt.executeUpdate();
+            pstmt.close();
+            
+            //해당 번호의 notice_upload를 삭제했으니 이제 본문 삭제 
+            String query2 = "DELETE FROM notice WHERE noticeNo = ?";
+            pstmt = con.prepareStatement(query2);
             pstmt.setInt(1, noticeNo);
             
             int result = pstmt.executeUpdate();
