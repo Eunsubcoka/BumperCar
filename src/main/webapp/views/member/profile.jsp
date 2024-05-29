@@ -14,9 +14,10 @@
     <section>
         <div class="profile-form">
             <h2>내 정보 변경</h2>
-            <form action="/member/profile.do" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+            <form action="/profile.do" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
                 <input type="hidden" name="userId" value="${member.userId}" />
                 
+                <img id="profilePreview" src="" alt="프로필 사진 미리보기">
                 <label for="profileImage">프로필 사진:</label>
                 <input type="file" id="profileImage" name="profileImage" accept="image/*">
                 
@@ -46,6 +47,14 @@
     <script src="/assets/js/bootstrap.bundle.min.js"></script>
     
     <script>
+    document.getElementById('profileImage').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('profilePreview').setAttribute('src', e.target.result);
+        }
+        reader.readAsDataURL(file);
+    });
         function validateUsername() {
             const username = document.getElementById('userName').value.trim();
             const usernameMsg = document.getElementById('userName-msg');
@@ -80,7 +89,7 @@
             const phoneMsg = document.getElementById('userPhone-msg');
             const phonePattern = /^\d{2,3}-\d{3,4}-\d{4}$/;
             if (!phonePattern.test(phone)) {
-                phoneMsg.innerText = "유효한 전화번호를 입력해 주세요. 예) 010-1234-5678";
+                phoneMsg.innerText = "유효한 전화번호를 입력해 주세요. \n예) 010-1234-5678";
                 phoneMsg.style.color = "red";
                 return false;
             } else {
@@ -152,16 +161,15 @@
             }
         );
         
-    	document.getElementById('userName').addEventListener('input',
-    			validateUsername);
-    	document.getElementById('userEmail').addEventListener('input',
-    			validateEmail);
-    	document.getElementById('userPhone').addEventListener('input',
-    			validatePhone);
-    	document.getElementById('new-address').addEventListener('input',
-    			validateAddress);
-    	document.getElementById('new-address1').addEventListener('input',
-    			validateAddress);
+    	document.getElementById('userName').addEventListener('input', validateUsername);
+    	
+    	document.getElementById('userEmail').addEventListener('input', validateEmail);
+    	
+    	document.getElementById('userPhone').addEventListener('input', validatePhone);
+    	
+    	document.getElementById('new-address').addEventListener('input', validateAddress);
+    	
+    	document.getElementById('new-address1').addEventListener('input', validateAddress);
     </script>
 </body>
 </html>
