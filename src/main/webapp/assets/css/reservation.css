@@ -454,6 +454,12 @@ input[type=submit]:active {
    /* Important - I used it without planning, but I dont't understand how it works and gave me what i need.*/
    flex-basis: 256px;
 }
+.quick-reservation .container .quick-reservation__form .form__content .row-wrapper .date {
+   flex: 0;
+   /* Important - I used it without planning, but I dont't understand how it works and gave me what i need.*/
+   flex-basis: 256px;
+   
+}
 
 .quick-reservation .container .quick-reservation__form .form__content .row-wrapper .rate-type input, .quick-reservation .container .quick-reservation__form .form__content .row-wrapper .rate-type select, .quick-reservation .container .quick-reservation__form .form__content .row-wrapper .first-name input, .quick-reservation .container .quick-reservation__form .form__content .row-wrapper .first-name select,
 .quick-reservation .container .quick-reservation__form .form__content .row-wrapper .last-name input,
@@ -585,3 +591,16 @@ input[type=submit]:active {
       margin: 200px 30px;
    }
 }
+/* .bg {
+	position:fixed;
+	display:none;
+	top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: 0.5;
+    filter: alpha(opacity = 50);
+    transition: all 0.3s ease-out;
+    z-index: -1;
+} */

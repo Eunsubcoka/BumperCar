@@ -16,6 +16,9 @@
 <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
  <link rel="stylesheet" href="/assets/css/main.css">
     <style>
+    	body{
+    	font-family: 'GmarketSans';
+    	}
       .bd-placeholder-img {
         font-size: 1.125rem;
         text-anchor: middle;
