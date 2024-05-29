@@ -73,13 +73,27 @@ h1 {
     filter: drop-shadow(1px 1px 4px  #ff9800);
  }
  /* 별점 끝*/
+ 
+ .input-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px; 
+    width: 350px;
+}
+
+.input-container,
+.content,
+.btn {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
 
 .review, .content {
     margin-top: 10px;
 }
 
 .content {
-    height: 100px;
+    height: 150px;
     width: 700px;
 }
 

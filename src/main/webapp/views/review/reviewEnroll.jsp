@@ -6,6 +6,7 @@
 <html lang="en">
 <head>
 <%@ include file="/views/common/head.jsp"%>
+	<script type="text/javascript" src="/assets/js/reviewEnroll.js"></script> 
 	<link rel="stylesheet" href="/assets/css/reviewEnroll.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
 
@@ -19,12 +20,15 @@
 <!-- review enroll section -->
 <section>
     <div class="container-review-box">
-        <h1>맛나분식 리뷰</h1>
+        <form action="/review/reviewEnroll.do" method="POST" enctype="multipart/form-data">
+        
+        <h1>리뷰작성</h1>
         <div class="container-review">
             <div class="review">
+            <input type="hidden" name="ratingStars" id="stars" value="">
                 <div class="rating-box">
                     <p class="text"><strong>음식점의 만족도를 별점으로 표현해주세요!</strong></p>
-                    <p class="rating-text">5.0점(만족)</p>
+                    <p class="rating-text" name="rating">0.0점(만족도)</p>
                     <div class="rating">
                         <span class="rating__result"></span> 
                         <i class="rating__star far fa-star"></i>
@@ -35,25 +39,30 @@
                     </div>
                     <!-- <span class="rating-star">★★★★★</span> -->
                 </div>
+                <div class="input-container">
+                    <label for="title">제목:</label>
+                    <input type="text" id="title" name="reviewTitle" required>
+                </div>
+                <div class="input-container">
+                    <label for="author">작성자:</label>
+                    <input type="text" id="author" value="${sessionScope.userName}" disabled>
+                </div>                
+
                 <div class="content">
-                    <textarea>
-                        이 제품 정말 좋네요! 다음에도 꼭 재구매할게요.이 제품 정말 좋네요! 다음에도 꼭 재구매할게요.이 제품 정말 좋네요! 다음에도 꼭 재구매할게요.이 제품 정말 좋네요! 다음에도 꼭 재구매할게요.이 제품 정말 좋네요! 다음에도 꼭 재구매할게요.이 제품 정말 좋네요! 다음에도 꼭 재구매할게요.이 제품 정말 좋네요! 다음에도 꼭 재구매할게요.이 제품 정말 좋네요! 다음에도 꼭 재구매할게요.
-                    </textarea>
-                   
+                	<label for="content">내용:</label>
+                    <textarea name="reviewContent" required></textarea>
                 </div>
                 <!-- 버튼 -->
                 <div class="btn">
-                    <label for="file">
-                        <div class="btn-upload">이미지추가</div>
-                    </label>
-                    <input type="file" name="file" id="file">
-                    <button>
-                       작성
-                    </button>
+                    <div id="image_container"></div>
+                    <label for="file" class="btn-upload">이미지추가</label>		<!-- accept 특정 파일 유형만 허용, multiple 속성을 추가하면 2개 이상의 파일을 추가 -->
+                    <input type="file" name="file" id="file" onchange="getImageFiles(event);" multiple>
+                    <button type="submit">작성</button>
                 </div>
             </div>
         </div>
-
+        </form> 
+	</div>
 </section> 
 
 
@@ -64,4 +73,6 @@
 
 </body>
 </html>
+
+	
 
