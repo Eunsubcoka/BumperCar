@@ -24,44 +24,36 @@ public class FormController extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    response.setContentType("text/html; charset-utf-8");
+    response.setContentType("text/html; charset=utf-8");
 		
 		String action = request.getPathInfo();
 		String nextPage = "";
 		
 		System.out.println("a : " + action);
-		if(action.equals("/registerForm.do")) {
+		// 성오
+		if(action.equals("/registerForm.do")) { // 회원가입	
 			nextPage = "/views/member/register.jsp";
-		} else if(action.equals("/restaurantDetail.do")) {
-			nextPage = "/views/restaurant/restaurant.jsp";
-		} else if(action.equals("/editReviewForm.do")) { 
-			nextPage = "/views/member/register.jsp";
-		} else if(action.equals("/profile.do")) { 
+		} 
+		else if(action.equals("/profile.do")) {  // 프로필
 			nextPage = "/views/member/profile.jsp";
-//			int reviewNo = Integer.parseInt(request.getParameter("reviewNo"));
-//			
-//			ReviewServiceImpl reviewService = new ReviewServiceImpl();
-//			ReviewDto result = reviewService.ReviewEditForm(reviewNo);
-//			
-//			request.setAttribute("result", result);
 		}
-		else if(action.equals("/enrollReviewForm.do")) { // 리뷰 등록 페이지
-			nextPage = "/views/review/reviewEnroll.jsp"; 
+
+		
+		// 은섭
+		else if(action.equals("/restaurantDetail.do")) { // 레스토랑 디테일
+			nextPage = "/views/restaurant/restaurant.jsp";
+		} 
+		else if(action.equals("/reservation.do")) { // 레스토랑 예약
+			nextPage = "/views/reservation/reservation.jsp";
 		}
-		 else if(action.equals("/reservation.do")) {
-				nextPage = "/views/reservation/reservation.jsp";
-			}
-		else if(action.equals("/editReviewForm.do")) { 
-			int reviewNo = Integer.parseInt(request.getParameter("reviewNo"));
-			
-			ReviewServiceImpl reviewService = new ReviewServiceImpl();
-			ReviewDto result = reviewService.ReviewEditForm(reviewNo);
-			
-			request.setAttribute("result", result);
-			nextPage = "/views/review/reviewEdit.jsp";
-		}else if(action.equals("/enrollForm.do")) {
+		
+		
+		
+		// 아태
+		else if(action.equals("/enrollForm.do")) { // 공지 등록
 			nextPage = "/views/notice/noticeEnroll.jsp";
-		}else if(action.equals("/editForm.do")) {
+		}
+		else if(action.equals("/editForm.do")) { // 공지 수정
 			int noticeNo = Integer.parseInt(request.getParameter("boardno"));
 			
 			noticeServiceImpl noticeService = new noticeServiceImpl();
@@ -71,9 +63,10 @@ public class FormController extends HttpServlet {
 			nextPage = "/views/notice/noticeEdit.jsp";
 		}
 		
-		if(nextPage != null && !nextPage.isEmpty()) {
-			RequestDispatcher view = request.getRequestDispatcher(nextPage);
-			view.forward(request, response);
+		
+		// 혜미
+		else if(action.equals("/enrollReviewForm.do")) { // 리뷰 등록 페이지
+			nextPage = "/views/review/reviewEnroll.jsp"; 
 		}
 		else if(action.equals("/editReviewForm.do")) { // 리뷰 수정 페이지
 			HttpSession session = request.getSession();
@@ -87,8 +80,12 @@ public class FormController extends HttpServlet {
 			nextPage = "/views/review/reviewEdit.jsp";
 			
 		}
-		RequestDispatcher view = request.getRequestDispatcher(nextPage); //경로이동
-		view.forward(request, response);
+		
+		
+		if(nextPage != null && !nextPage.isEmpty()) {
+			RequestDispatcher view = request.getRequestDispatcher(nextPage);
+			view.forward(request, response);
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
