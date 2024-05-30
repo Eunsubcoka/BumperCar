@@ -54,10 +54,13 @@ button {
 }
 
 .title {
+	
     width: 61%;
-    text-align: left; /* 제목은 왼쪽 정렬로 유지 */
+    text-align: left; 
 }
-
+.title-center{
+	text-align: center; 
+}
 .date {
     width: 25%;
 }

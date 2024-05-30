@@ -53,10 +53,10 @@ public class FormController extends HttpServlet {
 		
 		
 		// 아태
-		else if(action.equals("/enrollForm.do")) { // 공지 등록
+		else if(action.equals("/noticeEnrollForm.do")) { // 공지 등록
 			nextPage = "/views/notice/noticeEnroll.jsp";
 		}
-		else if(action.equals("/editForm.do")) { // 공지 수정
+		else if(action.equals("/noticeEditForm.do")) { // 공지 수정
 			int noticeNo = Integer.parseInt(request.getParameter("boardno"));
 			
 			noticeServiceImpl noticeService = new noticeServiceImpl();

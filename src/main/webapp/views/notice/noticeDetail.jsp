@@ -52,7 +52,7 @@
 								onclick="window.history.back()">뒤로가기</button>
 							<c:if test="${sessionScope.userType == 'admin'}">
 								<button type="button" class="btn btn-primary mx-2"
-									onclick="location.href='/tastyForm/editForm.do?boardno=${result.noticeNo}'">수정</button>
+									onclick="location.href='/tastyForm/noticeEditForm.do?boardno=${result.noticeNo}'">수정</button>
 								<button type="submit" class="btn btn-danger mx-2">삭제</button>
 							</c:if>
 						</div>
