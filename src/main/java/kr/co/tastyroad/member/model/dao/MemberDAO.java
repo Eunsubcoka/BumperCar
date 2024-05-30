@@ -1,6 +1,7 @@
 package kr.co.tastyroad.member.model.dao;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,6 +13,13 @@ public class MemberDAO {
     private Connection con;
     private DatabaseConnection dc;
     private PreparedStatement pstmt;
+    private Connection getConnection() throws SQLException {
+
+    	String url = "jdbc:oracle:thin:@localhost:1521:xe";
+        String user = "webadmin";
+        String password = "qwer1234!";
+        return DriverManager.getConnection(url, user, password);
+    }
 
     public MemberDAO() {
         dc = new DatabaseConnection();
@@ -149,5 +157,68 @@ public class MemberDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+        public int saveMember(Member member) {
+            String query = "INSERT INTO members (userId, userName, userEmail, userPwd, userAddress, userPhone, token, verified) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+            try (Connection conn = getConnection();
+                 PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+                pstmt.setString(1, member.getUserId());
+                pstmt.setString(2, member.getUserName());
+                pstmt.setString(3, member.getUserEmail());
+                pstmt.setString(4, member.getUserPwd());
+                pstmt.setString(5, member.getUserAddress());
+                pstmt.setString(6, member.getUserPhone());
+                pstmt.setString(7, member.getToken());
+                pstmt.setBoolean(8, member.isVerified());
+
+                return pstmt.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return 0;
+            }
+        }
+
+        public Member getMemberByToken(String token) {
+            String query = "SELECT * FROM members WHERE token = ?";
+
+            try (Connection conn = getConnection();
+                 PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+                pstmt.setString(1, token);
+
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    if (rs.next()) {
+                        Member member = new Member();
+                        member.setUserId(rs.getString("userId"));
+                        member.setUserName(rs.getString("userName"));
+                        member.setUserEmail(rs.getString("userEmail"));
+                        member.setUserPwd(rs.getString("userPwd"));
+                        member.setUserAddress(rs.getString("userAddress"));
+                        member.setUserPhone(rs.getString("userPhone"));
+                        member.setToken(rs.getString("token"));
+                        member.setVerified(rs.getBoolean("verified"));
+                        return member;
+                    }
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        public void verifyMember(String userId) {
+            String query = "UPDATE members SET verified = 1 WHERE userId = ?";
+
+            try (Connection conn = getConnection();
+                 PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+                pstmt.setString(1, userId);
+                pstmt.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
     }
 }
