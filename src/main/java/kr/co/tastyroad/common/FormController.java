@@ -11,10 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import kr.co.tastyroad.member.model.dto.Member;
-import kr.co.tastyroad.member.model.service.MemberServiceImpl;
 import kr.co.tastyroad.notice.model.dto.noticeDto;
 import kr.co.tastyroad.notice.model.service.noticeServiceImpl;
+import kr.co.tastyroad.restaurant.model.dto.RestaurantDto;
+import kr.co.tastyroad.restaurant.model.service.RestaurantServiceImpl;
 import kr.co.tastyroad.review.model.dto.ReviewDto;
 import kr.co.tastyroad.review.model.service.ReviewServiceImpl;
 
@@ -44,10 +44,17 @@ public class FormController extends HttpServlet {
 
 		
 		// 은섭
-		else if(action.equals("/restaurantDetail.do")) { // 레스토랑 디테일
-			nextPage = "/views/restaurant/restaurant.jsp";
-		} 
 		else if(action.equals("/reservation.do")) { // 레스토랑 예약
+			int restaurantNo = Integer.parseInt(request.getParameter("restaurantNo"));
+			RestaurantDto result = new RestaurantDto();
+			RestaurantServiceImpl resService = new RestaurantServiceImpl();
+			result = resService.getRestaurant(restaurantNo);
+			request.setAttribute("result", result);
+			
+			HttpSession session = request.getSession();
+			int userNo = (int)session.getAttribute("userNo");
+			
+			request.setAttribute("userNo", userNo);
 			nextPage = "/views/reservation/reservation.jsp";
 		}
 		
