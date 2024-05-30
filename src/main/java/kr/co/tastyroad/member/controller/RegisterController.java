@@ -1,6 +1,7 @@
 package kr.co.tastyroad.member.controller;
 
 import java.io.IOException;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.mindrot.jbcrypt.BCrypt;
 
+import kr.co.tastyroad.common.EmailUtil;
 import kr.co.tastyroad.member.model.dto.Member;
 import kr.co.tastyroad.member.model.service.MemberServiceImpl;
 
@@ -73,6 +75,7 @@ public class RegisterController extends HttpServlet {
 
         String salt = BCrypt.gensalt(12);
         String hashPassword = BCrypt.hashpw(userPwd, salt);
+        String token = UUID.randomUUID().toString();
 
         Member member = new Member();
         member.setUserName(userName);
@@ -81,13 +84,19 @@ public class RegisterController extends HttpServlet {
         member.setUserAddress(fullAddr);
         member.setUserPhone(userPhone);
         member.setUserPwd(hashPassword);
+        member.setToken(token);
+        member.setVerified(false);
 
         MemberServiceImpl memberService = new MemberServiceImpl();
         int result = memberService.register(member);
 
         if (result == 1) {
-            RequestDispatcher view = request.getRequestDispatcher("/views/member/login.jsp");
-            view.forward(request, response);
+            String subject = "이메일 인증 요청";
+            String content = "다음 링크를 클릭하여 이메일을 인증하세요: " +
+                             "http://yourdomain.com/verify?token=" + token;
+            EmailUtil.sendEmail(userEmail, subject, content);
+
+            response.getWriter().write("회원가입이 완료되었습니다. 이메일을 확인해 주세요.");
         } else {
             returnAlert(response, "회원가입에 실패했습니다. 다시 시도해 주세요.");
         }
