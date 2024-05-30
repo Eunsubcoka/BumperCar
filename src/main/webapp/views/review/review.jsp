@@ -7,6 +7,7 @@
 <head>
 <%@ include file="/views/common/head.jsp"%>
 <link rel="stylesheet" href="/assets/css/review.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
 
 </head>
 <body>
@@ -32,7 +33,7 @@
 									<img class="user-img" src="/assets/image/bom.jpg" alt="사용자프로필">
 									<div class="user-info">
 										<span class="user-name"><strong>${sessionScope.userName}</strong></span>
-										<span class="rating">${item.ratings}</span>
+										<span class="rating"><i class="fas fa-star"></i>${item.ratings}점</span>
 									</div>
 								</div>
 								<div class="date">${item.reviewDate}</div>
@@ -43,15 +44,13 @@
 									<p name="reviewContent" required>${item.reviewContent}</p>
 								</div>
 								<div class="review-photos">
+								<c:forEach var="fileList" items="${fileList}">
+								  <c:if test="${fileList.reviewNo == item.reviewNo}">
 									<div class="review-photo">
-										<img class="photo" src="/assets/uploads/review/${item.fileName}" alt="리뷰 사진 1">
+										<img class="photo" src="/assets/uploads/review/${fileList.fileName}" alt="리뷰 사진 1">
 									</div>
-									<div class="review-photo">
-										<img class="photo" src="/assets/uploads/review/${item.fileName}" alt="리뷰 사진 1">
-									</div>
-									<div class="review-photo">
-										<img class="photo" src="/assets/uploads/review/${item.fileName}" alt="리뷰 사진 1">
-									</div>
+								  </c:if>
+								</c:forEach>
 								</div>
 								<div class="btn">
 									<!-- <button onclick="window.history.back()">뒤로가기</button> -->

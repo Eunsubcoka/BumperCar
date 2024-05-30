@@ -17,5 +17,6 @@ public interface ReviewService {
 	public int fileUpload(ReviewDto reviewDto);
 	// 리뷰 리스트 조회
 	public ArrayList<ReviewDto> getReviewList();
-
+	// 리뷰 파일명 가져오기
+	public ArrayList<ReviewDto> uploadList();
 }

@@ -20,6 +20,7 @@
         <h1>식당이름 리뷰</h1>
         <div class="container-review">
         <input type="hidden" name="userNo" value="${result.userNo}"/>
+        <input type="hidden" name="reviewNo" value="${result.reviewNo}"/>
             <div class="review">
                 <div class="user-container">
                     <img class="user-img" src="/assets/image/bom.jpg" alt="사용자프로필">
@@ -36,20 +37,15 @@
                 	<label for="content">내용:</label>
                     <textarea name="reviewContent" required>${result.reviewContent}</textarea>
                 </div>
-                <div class="review-photos">
-                    <div class="review-photo">
-                        <img class="photo" src="/assets/image/food.jpg" alt="리뷰 사진 1">
-                    </div>
-                    <div class="review-photo">
-                        <img class="photo" src="/assets/image/food.jpg" alt="리뷰 사진 2">
-                    </div>
-                    <div class="review-photo">
-                        <img class="photo" src="/assets/image/food.jpg" alt="리뷰 사진 3">
-                    </div>
-                    <div class="review-photo">
-                        <img class="photo" src="/assets/image/food.jpg" alt="리뷰 사진 3">
-                    </div>
-                </div>
+<div class="review-photos">
+								<c:forEach var="fileList" items="${fileList}">
+								  <c:if test="${fileList.reviewNo == result.reviewNo}">
+									<div class="review-photo">
+										<img class="photo" src="/assets/uploads/review/${fileList.fileName}" alt="리뷰 사진 1">
+									</div>
+								  </c:if>
+								</c:forEach>
+								</div>
                         <div class="btn">
                         	<button onclick="window.history.back()">뒤로가기</button>
                         	<button onclick="location.href='/review/review.do'">수정</button>

@@ -119,7 +119,7 @@ public class ReviewDao {
     
    
     String query = "select reviewNo, reviewTitle, reviewContent, reviewDate, ratings from reviews r "
-                 + "join TASTY_MEMBER s on r.user_no = s.user_no";
+                 + "join TASTY_MEMBER s on r.user_no = s.user_no order by reviewNo desc";
     
     try {
         pstmt = con.prepareStatement(query);
@@ -148,38 +148,41 @@ public class ReviewDao {
     } catch (SQLException e) {
         e.printStackTrace();
     }
-
     return result;
     }
     
-    //파일 이름 가져오기
-    public void getFileName(ArrayList<ReviewDto> result) {
-		String query ="select * from review_upload "
-					 + "where reviewNo = ? ";
+    //파일리스트 가져오기
+    public ArrayList<ReviewDto> uploadList() {
+    	ArrayList<ReviewDto> result = new ArrayList<>();
+    	
+		String query ="select * from review_upload";
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			for(ReviewDto review : result) {
-				pstmt.setInt(1, review.getReviewNo());
-				
-				ResultSet rs = pstmt.executeQuery();
-				
-				while(rs.next()) {
-					int reviewNo = rs.getInt("reviewNo");
-					String reviewFilePath = rs.getString("review_upload_path");
-					String reviewFileName = rs.getString("review_upload_name");
-					
-					review.setReviewNo(reviewNo);
-					review.setFilePath(reviewFilePath);
-					review.setFileName(reviewFileName);
-					System.out.println(review.getFilePath());
-				}
-			}
 			
-		} catch (SQLException e) {
+			ResultSet rs = pstmt.executeQuery();
+				
+			while(rs.next()) {
+				int reviewNo = rs.getInt("reviewNo");
+				String reviewFilePath = rs.getString("review_upload_path");
+				String reviewFileName = rs.getString("review_upload_name");
+					
+				ReviewDto reviewDto = new ReviewDto();
+					
+		        reviewDto.setReviewNo(reviewNo);
+		        reviewDto.setFilePath(reviewFilePath);
+		        reviewDto.setFileName(reviewFileName);
+		            
+		        result.add(reviewDto); 
+			}
+			return result;
+				
+		}catch (SQLException e) {
 			e.printStackTrace();
-		}
-		
+		} 
+		return result;
 	}
+
+    
 }
     
