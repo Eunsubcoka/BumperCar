@@ -35,12 +35,12 @@
 							</div>
 							<hr>
 							<div style="margin-top: 20px; margin-bottom: 20px;">
-								<p class="card-text">${result.noticeContent }
 									<c:if
 										test="${not empty result.fileName and not empty result.filePath}">
 										<img src="${result.filePath}${result.fileName}" alt="이미지"
 											style="max-height: 50%;">
 									</c:if>
+										<p class="card-text">${result.noticeContent }</p>
 
 									<br> <br> <br>
 								</p>
@@ -52,7 +52,7 @@
 								onclick="window.history.back()">뒤로가기</button>
 							<c:if test="${sessionScope.userType == 'admin'}">
 								<button type="button" class="btn btn-primary mx-2"
-									onclick="location.href='/tastyForm/editForm.do?boardno=${result.noticeNo}'">수정</button>
+									onclick="location.href='/tastyForm/noticeEditForm.do?boardno=${result.noticeNo}'">수정</button>
 								<button type="submit" class="btn btn-danger mx-2">삭제</button>
 							</c:if>
 						</div>

@@ -38,7 +38,7 @@
 			
 			 <c:choose>
 				<c:when test="${sessionScope.userType == 'admin'}">
-					<button onclick="window.location.href = '/tastyForm/enrollForm.do'"
+					<button onclick="window.location.href = '/tastyForm/noticeEnrollForm.do'"
 						style="position: absolute; right: 4%; background-color : #ebb842;">등록</button>
  				</c:when>
 			</c:choose>
@@ -49,7 +49,7 @@
 				<thead>
 					<tr>
 						<th scope="col" class = "num">번호</th>
-						<th scope="col" class = "title">제목</th>
+						<th scope="col" class = "title title-center">제목</th>
 						<!-- <th scope="col">작성자</th> -->
 						<th scope="col" class = "date">작성일</th>
 						<th scope="col" class = "views">조회수</th>
@@ -67,7 +67,7 @@
 							<c:forEach var="item" items="${list}">
 								<tr onclick="location.href='/notice/detail.do?boardno=${item.noticeNo}'">				
 									<td scope="row" class = "num">${row}</td>
-									<td class = "title">${item.noticeTitle}</td>
+									<td class = "title title-padding">${item.noticeTitle}</td>
 									<td class = "date">${item.noticeDate}</td>
 									<td class = "views">${item.noticeView}</td>
 								</tr>
