@@ -2,12 +2,13 @@
 body {
     margin: 0;
     padding: 0;
+    background-color: #f0f0f3;
 }
 
 /* 전체 리뷰 박스 */
 .container-review-box {
     max-width: 800px;
-    margin: 20px auto;
+    margin: 50px auto;
     padding: 20px;
     background-color: #fff;
     border-radius: 25px;
@@ -60,10 +61,18 @@ h1 {
     font-size: 1.2em;
 }
 
+
+.rating__star{
+    color: #ff9800;
+  
+    
+}
+
 .title {
 	margin-top:15px;
 	margin-bottom:15px;
 }
+
 /* 리뷰수정 페이지 내용공간 */
 textarea {
     width: 100%; /* textarea의 너비를 최대로 설정 */
