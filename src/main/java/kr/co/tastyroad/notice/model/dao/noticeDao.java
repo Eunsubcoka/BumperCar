@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import kr.co.tastyroad.common.PageInfo;
@@ -21,7 +23,6 @@ public class noticeDao {
 	}
 
 	public ArrayList<noticeDto> getList(PageInfo pi, String category, String searchText) {
-
 		ArrayList<noticeDto> result = new ArrayList<>();
 		String query = "SELECT * FROM notice nt " + "JOIN Tasty_member m ON m.user_no = nt.user_no " + "WHERE "
 				+ category + " LIKE '%'||?||'%'" + "ORDER BY nt.noticeDate DESC "
@@ -40,7 +41,14 @@ public class noticeDao {
 				String title = rs.getString("noticeTitle");
 				String content = rs.getString("noticeContent");
 				int views = rs.getInt("noticeView");
-				String date = rs.getString("noticeDate");
+				String date = "";
+				try {
+					SimpleDateFormat originalFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+					SimpleDateFormat targetFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+					date = targetFormat.format(originalFormat.parse(rs.getString("noticeDate")));
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
 				int memberNo = rs.getInt("user_no");
 				String memberName = rs.getString("user_name");
 
@@ -330,41 +338,39 @@ public class noticeDao {
 
 		return deleted;
 	}
-	
-	
+
 	public noticeDto getLatestNotice() {
-	    String query = "SELECT * FROM notice nt JOIN Tasty_member m ON m.user_no = nt.user_no ORDER BY nt.noticeDate DESC FETCH FIRST 1 ROWS ONLY";
+		String query = "SELECT * FROM notice nt JOIN Tasty_member m ON m.user_no = nt.user_no ORDER BY nt.noticeDate DESC FETCH FIRST 1 ROWS ONLY";
 
-	    try {
-	        pstmt = con.prepareStatement(query);
-	        ResultSet rs = pstmt.executeQuery();
+		try {
+			pstmt = con.prepareStatement(query);
+			ResultSet rs = pstmt.executeQuery();
 
-	        if (rs.next()) {
-	            int no = rs.getInt("noticeNo");
-	            String title = rs.getString("noticeTitle");
-	            String content = rs.getString("noticeContent");
-	            int views = rs.getInt("noticeView");
-	            String date = rs.getString("noticeDate");
-	            int memberNo = rs.getInt("user_no");
-	            String memberName = rs.getString("user_name");
+			if (rs.next()) {
+				int no = rs.getInt("noticeNo");
+				String title = rs.getString("noticeTitle");
+				String content = rs.getString("noticeContent");
+				int views = rs.getInt("noticeView");
+				String date = rs.getString("noticeDate");
+				int memberNo = rs.getInt("user_no");
+				String memberName = rs.getString("user_name");
 
-	            noticeDto latestNotice = new noticeDto();
-	            latestNotice.setNoticeNo(no);
-	            latestNotice.setNoticeTitle(title);
-	            latestNotice.setNoticeContent(content);
-	            latestNotice.setNoticeView(views);
-	            latestNotice.setNoticeDate(date);
-	            latestNotice.setUserNo(memberNo);
-	            latestNotice.setUserName(memberName);
+				noticeDto latestNotice = new noticeDto();
+				latestNotice.setNoticeNo(no);
+				latestNotice.setNoticeTitle(title);
+				latestNotice.setNoticeContent(content);
+				latestNotice.setNoticeView(views);
+				latestNotice.setNoticeDate(date);
+				latestNotice.setUserNo(memberNo);
+				latestNotice.setUserName(memberName);
 
-	            return latestNotice;
-	        }
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
+				return latestNotice;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
-	    return null;
+		return null;
 	}
-
 
 }

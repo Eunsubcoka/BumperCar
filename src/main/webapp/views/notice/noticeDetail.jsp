@@ -35,12 +35,12 @@
 							</div>
 							<hr>
 							<div style="margin-top: 20px; margin-bottom: 20px;">
-								<p class="card-text">${result.noticeContent }
 									<c:if
 										test="${not empty result.fileName and not empty result.filePath}">
 										<img src="${result.filePath}${result.fileName}" alt="이미지"
 											style="max-height: 50%;">
 									</c:if>
+										<p class="card-text">${result.noticeContent }</p>
 
 									<br> <br> <br>
 								</p>
