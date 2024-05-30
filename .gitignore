@@ -14,7 +14,7 @@ local.properties
 .settings/
 .loadpath
 .recommenders
-
+src/main/java/kr/co/tastyroad/common/EmailUtil.java
 # External tool builders
 .externalToolBuilders/
 

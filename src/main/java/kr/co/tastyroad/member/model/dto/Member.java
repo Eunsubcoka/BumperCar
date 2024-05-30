@@ -10,8 +10,22 @@ public class Member {
 	private String userPwd;
 	private String confirmPwd;
 	private String userType;
+    private String token;
+    private boolean verified;
 	
 	
+	public String getToken() {
+		return token;
+	}
+	public void setToken(String token) {
+		this.token = token;
+	}
+	public boolean isVerified() {
+		return verified;
+	}
+	public void setVerified(boolean verified) {
+		this.verified = verified;
+	}
 	public String getUserType() {
 		return userType;
 	}
