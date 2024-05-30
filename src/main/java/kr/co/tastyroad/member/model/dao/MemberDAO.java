@@ -13,9 +13,10 @@ public class MemberDAO {
     private Connection con;
     private DatabaseConnection dc;
     private PreparedStatement pstmt;
-    private Connection getConnection() throws SQLException {
+    private ResultSet rs;
 
-    	String url = "jdbc:oracle:thin:@localhost:1521:xe";
+    private Connection getConnection() throws SQLException {
+        String url = "jdbc:oracle:thin:@localhost:1521:xe";
         String user = "webadmin";
         String password = "qwer1234!";
         return DriverManager.getConnection(url, user, password);
@@ -26,23 +27,43 @@ public class MemberDAO {
         con = dc.connDB();
     }
 
-    public int register(Member member) {
-        String query = "INSERT INTO Tasty_member (user_no, user_name, user_id, user_email, user_address, user_phone, user_pwd) "
-                     + "VALUES (Tasty_member_seq.nextval, ?, ?, ?, ?, ?, ?)";
+    public int register(Member member) throws SQLException {
+        String checkUserIdQuery = "SELECT count(*) FROM Tasty_member WHERE user_id = ?";
+        String checkTokenQuery = "SELECT count(*) FROM Tasty_member WHERE token = ?";
+        String insertQuery = "INSERT INTO Tasty_member (user_no, user_name, user_id, user_email, user_address, user_phone, user_pwd, token, verified) "
+                           + "VALUES (Tasty_member_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?)";
+
         int result = 0;
 
         try {
-            pstmt = con.prepareStatement(query);
+            // Check for duplicate user_id
+            pstmt = con.prepareStatement(checkUserIdQuery);
+            pstmt.setString(1, member.getUserId());
+            rs = pstmt.executeQuery();
+            if (rs.next() && rs.getInt(1) > 0) {
+                throw new SQLException("Duplicate user_id");
+            }
+
+            // Check for duplicate token
+            pstmt = con.prepareStatement(checkTokenQuery);
+            pstmt.setString(1, member.getToken());
+            rs = pstmt.executeQuery();
+            if (rs.next() && rs.getInt(1) > 0) {
+                throw new SQLException("Duplicate token");
+            }
+
+            // Insert new member
+            pstmt = con.prepareStatement(insertQuery);
             pstmt.setString(1, member.getUserName());
             pstmt.setString(2, member.getUserId());
             pstmt.setString(3, member.getUserEmail());
             pstmt.setString(4, member.getUserAddress());
             pstmt.setString(5, member.getUserPhone());
             pstmt.setString(6, member.getUserPwd());
+            pstmt.setString(7, member.getToken());
+            pstmt.setBoolean(8, member.isVerified());
 
             result = pstmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
         } finally {
             closeResources();
         }
@@ -59,7 +80,7 @@ public class MemberDAO {
             pstmt.setString(1, member.getUserId());
             pstmt.setString(2, member.getUserPwd());
 
-            ResultSet rs = pstmt.executeQuery();
+            rs = pstmt.executeQuery();
             if (rs.next()) {
                 result = new Member();
                 result.setUserNo(rs.getInt("user_no"));
@@ -74,11 +95,11 @@ public class MemberDAO {
 
         return result;
     }
+
     public int userUpdate(Member member) {
-        String query = "update Tasty_member set user_name=? , user_email=?, user_address=?, user_phone=? "
-                     + "where user_no = ?";
+        String query = "UPDATE Tasty_member SET user_name=?, user_email=?, user_address=?, user_phone=? WHERE user_no=?";
         int result = 0;
-        	
+
         try {
             pstmt = con.prepareStatement(query);
             pstmt.setString(1, member.getUserName());
@@ -87,9 +108,7 @@ public class MemberDAO {
             pstmt.setString(4, member.getUserPhone());
             pstmt.setInt(5, member.getUserNo());
 
-            
             result = pstmt.executeUpdate();
-            return result;
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -99,7 +118,6 @@ public class MemberDAO {
         return result;
     }
 
-    
     public int duplicateId(String id) {
         String query = "SELECT count(*) AS cnt FROM Tasty_member WHERE user_id = ?";
         int result = 0;
@@ -107,7 +125,7 @@ public class MemberDAO {
         try {
             pstmt = con.prepareStatement(query);
             pstmt.setString(1, id);
-            ResultSet rs = pstmt.executeQuery();
+            rs = pstmt.executeQuery();
 
             if (rs.next()) {
                 result = rs.getInt("cnt");
@@ -128,7 +146,7 @@ public class MemberDAO {
         try {
             pstmt = con.prepareStatement(query);
             pstmt.setString(1, id);
-            ResultSet rs = pstmt.executeQuery();
+            rs = pstmt.executeQuery();
 
             if (rs.next()) {
                 result = new Member();
@@ -148,6 +166,9 @@ public class MemberDAO {
 
     private void closeResources() {
         try {
+            if (rs != null && !rs.isClosed()) {
+                rs.close();
+            }
             if (pstmt != null && !pstmt.isClosed()) {
                 pstmt.close();
             }
@@ -158,67 +179,68 @@ public class MemberDAO {
             e.printStackTrace();
         }
     }
-        public int saveMember(Member member) {
-            String query = "INSERT INTO members (userId, userName, userEmail, userPwd, userAddress, userPhone, token, verified) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
-            try (Connection conn = getConnection();
-                 PreparedStatement pstmt = conn.prepareStatement(query)) {
+    public int saveMember(Member member) {
+        String query = "INSERT INTO Tasty_member (userId, userName, userEmail, userPwd, userAddress, userPhone, token, verified) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
-                pstmt.setString(1, member.getUserId());
-                pstmt.setString(2, member.getUserName());
-                pstmt.setString(3, member.getUserEmail());
-                pstmt.setString(4, member.getUserPwd());
-                pstmt.setString(5, member.getUserAddress());
-                pstmt.setString(6, member.getUserPhone());
-                pstmt.setString(7, member.getToken());
-                pstmt.setBoolean(8, member.isVerified());
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
 
-                return pstmt.executeUpdate();
-            } catch (SQLException e) {
-                e.printStackTrace();
-                return 0;
-            }
+            pstmt.setString(1, member.getUserId());
+            pstmt.setString(2, member.getUserName());
+            pstmt.setString(3, member.getUserEmail());
+            pstmt.setString(4, member.getUserPwd());
+            pstmt.setString(5, member.getUserAddress());
+            pstmt.setString(6, member.getUserPhone());
+            pstmt.setString(7, member.getToken());
+            pstmt.setBoolean(8, member.isVerified());
+
+            return pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
         }
+    }
 
-        public Member getMemberByToken(String token) {
-            String query = "SELECT * FROM members WHERE token = ?";
+    public Member getMemberByToken(String token) {
+        String query = "SELECT * FROM Tasty_member WHERE token = ?";
 
-            try (Connection conn = getConnection();
-                 PreparedStatement pstmt = conn.prepareStatement(query)) {
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
 
-                pstmt.setString(1, token);
+            pstmt.setString(1, token);
 
-                try (ResultSet rs = pstmt.executeQuery()) {
-                    if (rs.next()) {
-                        Member member = new Member();
-                        member.setUserId(rs.getString("userId"));
-                        member.setUserName(rs.getString("userName"));
-                        member.setUserEmail(rs.getString("userEmail"));
-                        member.setUserPwd(rs.getString("userPwd"));
-                        member.setUserAddress(rs.getString("userAddress"));
-                        member.setUserPhone(rs.getString("userPhone"));
-                        member.setToken(rs.getString("token"));
-                        member.setVerified(rs.getBoolean("verified"));
-                        return member;
-                    }
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    Member member = new Member();
+                    member.setUserId(rs.getString("userId"));
+                    member.setUserName(rs.getString("userName"));
+                    member.setUserEmail(rs.getString("userEmail"));
+                    member.setUserPwd(rs.getString("userPwd"));
+                    member.setUserAddress(rs.getString("userAddress"));
+                    member.setUserPhone(rs.getString("userPhone"));
+                    member.setToken(rs.getString("token"));
+                    member.setVerified(rs.getBoolean("verified"));
+                    return member;
                 }
-            } catch (SQLException e) {
-                e.printStackTrace();
             }
-
-            return null;
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
-        public void verifyMember(String userId) {
-            String query = "UPDATE members SET verified = 1 WHERE userId = ?";
+        return null;
+    }
 
-            try (Connection conn = getConnection();
-                 PreparedStatement pstmt = conn.prepareStatement(query)) {
+    public void verifyMember(String userId) {
+        String query = "UPDATE Tasty_member SET verified = 1 WHERE userId = ?";
 
-                pstmt.setString(1, userId);
-                pstmt.executeUpdate();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+            pstmt.setString(1, userId);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -1,9 +1,11 @@
 package kr.co.tastyroad.member.model.service;
 
+import java.sql.SQLException;
+
 import kr.co.tastyroad.member.model.dto.Member;
 
 public interface MemberService {
-	public int register(Member member);
+	public int register(Member member) throws SQLException;
 	
 	public int userUpdate(Member member);
 	
