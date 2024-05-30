@@ -41,8 +41,14 @@ public class ReviewServiceImpl implements ReviewService {
 	// 리뷰 리스트 조회
 	@Override
 	public ArrayList<ReviewDto> getReviewList(){
-		return reviewDao.getReviewList();
+		ArrayList<ReviewDto> result = new ArrayList<ReviewDto>();
+		result = reviewDao.getReviewList();
+		reviewDao.getFileName(result);
+		
+		return result;
+		
 	}
 
-	
+
+
 }

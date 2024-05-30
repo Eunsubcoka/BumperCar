@@ -75,8 +75,8 @@ public class ReviewDao {
 	}
 	
 	public ReviewDto selectNo(ReviewDto reviewDto) {
-		String query = "SELECT user_no FROM reviews "
-				 	 + "WHERE user_no = (SELECT MAX(user_no) FROM reviews WHERE user_no = ?)"; //가장 최근에 작성된 게시물
+		String query = "SELECT reviewNo FROM reviews "
+				 	 + "WHERE reviewNo = (SELECT MAX(reviewNo) FROM reviews WHERE user_no = ?)"; //가장 최근에 작성된 게시물
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, reviewDto.getUserNo());
@@ -84,8 +84,8 @@ public class ReviewDao {
 			ResultSet rs = pstmt.executeQuery();
 		
 			while(rs.next()) {
-				int userNo = rs.getInt("user_no");
-				reviewDto.setUserNo(userNo);
+				int reviewNo = rs.getInt("reviewNo");
+				reviewDto.setReviewNo(reviewNo);
 				return reviewDto; 
 			}
 		} catch (SQLException e) {
@@ -95,12 +95,13 @@ public class ReviewDao {
 	}
 	
 	public int fileUpload(ReviewDto reviewDto) {
-		String query = "insert into review_upload values(?, ?, 12)";
+		String query = "insert into review_upload values(?, ?, ?)";
 		
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, reviewDto.getFilePath());
 			pstmt.setString(2, reviewDto.getFileName());
+			pstmt.setInt(3, reviewDto.getReviewNo());
 			
 			int result = pstmt.executeUpdate();
 			
@@ -150,5 +151,35 @@ public class ReviewDao {
 
     return result;
     }
+    
+    //파일 이름 가져오기
+    public void getFileName(ArrayList<ReviewDto> result) {
+		String query ="select * from review_upload "
+					 + "where reviewNo = ? ";
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			for(ReviewDto review : result) {
+				pstmt.setInt(1, review.getReviewNo());
+				
+				ResultSet rs = pstmt.executeQuery();
+				
+				while(rs.next()) {
+					int reviewNo = rs.getInt("reviewNo");
+					String reviewFilePath = rs.getString("review_upload_path");
+					String reviewFileName = rs.getString("review_upload_name");
+					
+					review.setReviewNo(reviewNo);
+					review.setFilePath(reviewFilePath);
+					review.setFileName(reviewFileName);
+					System.out.println(review.getFilePath());
+				}
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
 }
     

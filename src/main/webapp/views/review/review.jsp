@@ -42,20 +42,15 @@
 								<div class="content">
 									<p name="reviewContent" required>${item.reviewContent}</p>
 								</div>
-
-
 								<div class="review-photos">
 									<div class="review-photo">
-										<img class="photo" src="/assets/image/food.jpg" alt="리뷰 사진 1">
+										<img class="photo" src="/assets/uploads/review/${item.fileName}" alt="리뷰 사진 1">
 									</div>
 									<div class="review-photo">
-										<img class="photo" src="/assets/image/food.jpg" alt="리뷰 사진 2">
+										<img class="photo" src="/assets/uploads/review/${item.fileName}" alt="리뷰 사진 1">
 									</div>
 									<div class="review-photo">
-										<img class="photo" src="/assets/image/food.jpg" alt="리뷰 사진 3">
-									</div>
-									<div class="review-photo">
-										<img class="photo" src="/assets/image/food.jpg" alt="리뷰 사진 3">
+										<img class="photo" src="/assets/uploads/review/${item.fileName}" alt="리뷰 사진 1">
 									</div>
 								</div>
 								<div class="btn">
