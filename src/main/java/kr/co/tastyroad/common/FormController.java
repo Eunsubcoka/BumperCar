@@ -73,12 +73,10 @@ public class FormController extends HttpServlet {
 			nextPage = "/views/review/reviewEnroll.jsp"; 
 		}else if(action.equals("/editReviewForm.do")) { // 리뷰 수정 페이지
 			
-			HttpSession session = request.getSession();
-			int userNo = (int)session.getAttribute("userNo");
 			int reviewNo = Integer.parseInt(request.getParameter("reviewNo"));
 			
 			ReviewServiceImpl reviewService = new ReviewServiceImpl();
-			ReviewDto result = reviewService.ReviewEditForm(userNo);
+			ReviewDto result = reviewService.ReviewEditForm(reviewNo);
 			
 			ArrayList<ReviewDto> fileList = new ArrayList<ReviewDto>(); 
 			fileList = reviewService.uploadList();

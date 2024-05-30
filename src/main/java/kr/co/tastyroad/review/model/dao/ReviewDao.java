@@ -39,33 +39,35 @@ public class ReviewDao {
 		return 0;
 	}
 	
-	public ReviewDto reviewDetail(int userNo) {
-		String query = "select * from reviews where user_no = ? ";
+	public ReviewDto reviewDetail(int reviewNo) {
+		String query = "select * from reviews where reviewNo = ? ";
 					 
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, userNo);
+			pstmt.setInt(1, reviewNo);
 			
 			ResultSet rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				int reviewNo = rs.getInt("reviewNo");
+				int no = rs.getInt("reviewNo");
 				String reviewTitle = rs.getString("reviewTitle");
 				String reviewContent =rs.getString("reviewContent");
 				String reviewDate = rs.getString("reviewDate");
 				int ratings = rs.getInt("ratings"); 
-				int no = rs.getInt("user_no"); 
+				int userNo = rs.getInt("user_no"); 
 				
 				ReviewDto reviewDto = new ReviewDto();
-				reviewDto.setReviewNo(reviewNo);
+				reviewDto.setReviewNo(no);
 				reviewDto.setReviewTitle(reviewTitle);
 				reviewDto.setReviewContent(reviewContent);
 				reviewDto.setReviewDate(reviewDate);
 				reviewDto.setRatings(ratings);
-				reviewDto.setUserNo(no);
+				reviewDto.setUserNo(userNo);
 				
+
 				return reviewDto;
+				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -183,6 +185,15 @@ public class ReviewDao {
 		return result;
 	}
 
+	// 리뷰 수정
+	public int editUpdate(ReviewDto reviewDto) {
+		String query = "update reviews r "
+					 + "join review_upload ru on r.reviewNo = ru.reviewNo "
+					 + "set reviewTitle = ?, reviewContent = ?, reviewDate = ?"
+					 + "where reviewNo = ?";
+		
+		return 0;
+	}
     
 }
     

@@ -19,4 +19,7 @@ public interface ReviewService {
 	public ArrayList<ReviewDto> getReviewList();
 	// 리뷰 파일명 가져오기
 	public ArrayList<ReviewDto> uploadList();
+	// 리뷰 수정
+	public int editUpdate(ReviewDto reviewDto);
+	
 }

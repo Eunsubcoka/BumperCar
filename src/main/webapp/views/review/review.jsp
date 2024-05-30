@@ -58,7 +58,7 @@
 									<button type="button"
 										onclick="location.href='/tastyForm/enrollReviewForm.do'">등록</button>
 									<button type="button"
-										onclick="location.href='/tastyForm/editReviewForm.do'">수정</button>
+										onclick="location.href='/tastyForm/editReviewForm.do?reviewNo=${item.reviewNo}'">수정</button>
 									<button>삭제</button>
 									<%-- </c:if> --%>
 								</div>
