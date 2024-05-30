@@ -36,9 +36,17 @@
 
 				<div class="input-container">
 					<label for="new-email">이메일</label> <input type="text"
-						id="new-email" name="new-email" required> <span
-						class="error-msg" id="email-msg"></span>
+						id="new-email" name="new-email" required> 
+						<button type="button" class="check-btn" onclick="sendVerificationCode()">인증코드 보내기</button>
+						<span class="error-msg" id="email-msg"></span>
 				</div>
+				
+	            <div class="input-container">
+                    <label for="verify-code">이메일 인증 코드:</label>
+                    <input type="text" id="verify-code" name="verify-code" required>
+                    <button type="button" class="check-btn" onclick="verifyCode()">인증확인</button>
+                    <span id="verify-msg" class="msg"></span>
+                </div>
 
 				<div class="input-container">
 					<label for="new-address">주소</label> <input type="text"
@@ -216,6 +224,67 @@
 		} else {
 			emailMsg.innerText = "";
 		}
+	}
+	
+	function sendVerificationCode() {
+	    const email = document.getElementById("new-email").value.trim();
+	    const emailMsg = document.getElementById("email-msg");
+
+	    if (email === "") {
+	        emailMsg.style.color = "red";
+	        emailMsg.innerHTML = "이메일을 입력해 주세요.";
+	        return;
+	    }
+
+	    $.ajax({
+	        type: "POST",
+	        url: "/member/sendVerificationCode.do",
+	        data: { email: email },
+	        success: function(res) {
+	            if (res === "sent") {
+	                emailMsg.style.color = "green";
+	                emailMsg.innerHTML = "인증코드가 전송되었습니다.";
+	            } else {
+	                emailMsg.style.color = "red";
+	                emailMsg.innerHTML = "이메일 전송에 실패했습니다. 다시 시도해주세요.";
+	            }
+	        },
+	        error: function(err) {
+	            console.log(err);
+	            emailMsg.innerHTML = "오류가 발생했습니다. 다시 시도해주세요.";
+	        }
+	    });
+	}
+
+	function verifyCode() {
+	    const email = document.getElementById("new-email").value.trim();
+	    const code = document.getElementById("verify-code").value.trim();
+	    const verifyMsg = document.getElementById("verify-msg");
+
+	    if (code === "") {
+	        verifyMsg.style.color = "red";
+	        verifyMsg.innerHTML = "인증코드를 입력해 주세요.";
+	        return;
+	    }
+
+	    $.ajax({
+	        type: "POST",
+	        url: "/member/verifyCode.do",
+	        data: { email: email, code: code },
+	        success: function(res) {
+	            if (res === "verified") {
+	                verifyMsg.style.color = "green";
+	                verifyMsg.innerHTML = "이메일 인증이 완료되었습니다.";
+	            } else {
+	                verifyMsg.style.color = "red";
+	                verifyMsg.innerHTML = "인증코드가 올바르지 않습니다.";
+	            }
+	        },
+	        error: function(err) {
+	            console.log(err);
+	            verifyMsg.innerHTML = "오류가 발생했습니다. 다시 시도해주세요.";
+	        }
+	    });
 	}
 
 	function validatePhone() {
