@@ -32,7 +32,6 @@ public class RestaurantDetailControler extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int resNo = Integer.parseInt(request.getParameter("restaurantId"));
-		System.out.println(resNo);
 		RestaurantServiceImpl resService = new RestaurantServiceImpl();
 		RestaurantDto result = new RestaurantDto();
 		

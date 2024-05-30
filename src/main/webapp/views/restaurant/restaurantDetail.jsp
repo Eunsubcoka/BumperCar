@@ -46,7 +46,7 @@
                 		</ul>
                 	</div>
                 </div>
-                <p class="address">${result.location }</p>
+                <p class="address">&nbsp 주소: ${result.location }</p>
                 <p class="contact">&nbsp 전화: ${result.restaurantPhone }</p>
                 <p class="features">&nbsp 서민적인, 점심식사, 저녁식사, 좌식테이블</p>
                 <div class="share" onclick="openPop()">
@@ -84,7 +84,7 @@
         
             <div class="details">
                 <h1>메뉴 정보</h1>
-                <div class="share" onclick="location.href='/tastyForm/reservation.do'">
+                <div class="share" onclick="location.href='/tastyForm/reservation.do?restaurantNo=${result.restaurantNo}'">
                 예약하기
                 </div>                
             </div>
