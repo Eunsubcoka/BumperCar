@@ -47,35 +47,35 @@ public class ReviewEnrollController extends HttpServlet {
 		reviewDto.setUserNo(userNo);
 		reviewDto.setRatings(reviewRating);
 		
-//		//파일 업로드
-//		Collection<Part> parts = request.getParts();
-//		String uploadDirectory = "C:\\dev\\work-space\\semiProject\\BumperCar\\src\\main\\webapp\\assets\\uploads\\review";
-//		
-//		//파일 업로드 디렉토리가 존재하지 않으면 생성
-//		File filePath = new File(uploadDirectory);
-//		if(!filePath.exists()) {
-//			filePath.mkdirs();
-//		}
-//		
-//		String fileName = null;
-//		
+		//파일 업로드
+		Collection<Part> parts = request.getParts();
+		String uploadDirectory = "C:\\dev\\work-space\\semiProject\\BumperCar\\src\\main\\webapp\\assets\\uploads\\review";
+		
+		//파일 업로드 디렉토리가 존재하지 않으면 생성
+		File filePath = new File(uploadDirectory);
+		if(!filePath.exists()) {
+			filePath.mkdirs();
+		}
+		
+		String fileName = null;
+		
 		ReviewServiceImpl reviewService = new ReviewServiceImpl();
 		int result = reviewService.enroll(reviewDto);
 		
 
 		ReviewDto resultDto = reviewService.selectNo(reviewDto);
 		
-//		for(Part part : parts) {
-//			fileName = getFileName(part);
-//			if(fileName != null) {
-//				part.write(filePath + File.separator + fileName);  // 실질적으로 파일을 업로드 해주는 코드
-//				
-//				resultDto.setFilePath(uploadDirectory);
-//				resultDto.setFileName(fileName);
-//				
-//				int resultUpload = reviewService.fileUpload(resultDto);
-//			}
-//		}
+		for(Part part : parts) {
+			fileName = getFileName(part);
+			if(fileName != null) {
+				part.write(filePath + File.separator + fileName);  // 실질적으로 파일을 업로드 해주는 코드
+				
+				resultDto.setFilePath(uploadDirectory);
+				resultDto.setFileName(fileName);
+				
+				int resultUpload = reviewService.fileUpload(resultDto);
+			}
+		}
 		
 		if(result == 1) {
 			response.sendRedirect("/review/review.do");
@@ -83,16 +83,16 @@ public class ReviewEnrollController extends HttpServlet {
 		
 	}
 	
-	// 파일 이름을 추출하는 메서드
-//    private String getFileName(Part part) {
-//        String contentDisposition = part.getHeader("content-disposition");
-//        String[] tokens = contentDisposition.split(";");
-//        for (String token : tokens) {
-//            if (token.trim().startsWith("filename")) {
-//                return token.substring(token.indexOf('=') + 2, token.length() - 1);
-//            }
-//        }
-//        return null;
-//    }
+//	 파일 이름을 추출하는 메서드
+    private String getFileName(Part part) {
+        String contentDisposition = part.getHeader("content-disposition");
+        String[] tokens = contentDisposition.split(";");
+        for (String token : tokens) {
+            if (token.trim().startsWith("filename")) {
+                return token.substring(token.indexOf('=') + 2, token.length() - 1);
+            }
+        }
+        return null;
+    }
 
 }

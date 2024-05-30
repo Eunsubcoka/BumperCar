@@ -16,8 +16,8 @@ public class ReviewServiceImpl implements ReviewService {
 	
 	//리뷰 수정 폼
 	@Override
-	public ReviewDto ReviewEditForm(int userNo) {
-		return reviewDao.reviewDetail(userNo);
+	public ReviewDto ReviewEditForm(int reviewNo) {
+		return reviewDao.reviewDetail(reviewNo);
 	}
 	
 	//리뷰 등록
@@ -43,6 +43,19 @@ public class ReviewServiceImpl implements ReviewService {
 	public ArrayList<ReviewDto> getReviewList(){
 		return reviewDao.getReviewList();
 	}
-
 	
+	// 리뷰 파일명 가져오기
+	@Override
+	public ArrayList<ReviewDto> uploadList() {
+//		getFileName : 파일명 가져오기
+		return reviewDao.uploadList();
+	}
+	
+	// 리뷰 수정
+	@Override
+	public int editUpdate(ReviewDto reviewDto) {
+		return reviewDao.editUpdate(reviewDto);
+	}
+
+
 }

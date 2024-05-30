@@ -39,33 +39,35 @@ public class ReviewDao {
 		return 0;
 	}
 	
-	public ReviewDto reviewDetail(int userNo) {
-		String query = "select * from reviews where user_no = ? ";
+	public ReviewDto reviewDetail(int reviewNo) {
+		String query = "select * from reviews where reviewNo = ? ";
 					 
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, userNo);
+			pstmt.setInt(1, reviewNo);
 			
 			ResultSet rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				int reviewNo = rs.getInt("reviewNo");
+				int no = rs.getInt("reviewNo");
 				String reviewTitle = rs.getString("reviewTitle");
 				String reviewContent =rs.getString("reviewContent");
 				String reviewDate = rs.getString("reviewDate");
 				int ratings = rs.getInt("ratings"); 
-				int no = rs.getInt("user_no"); 
+				int userNo = rs.getInt("user_no"); 
 				
 				ReviewDto reviewDto = new ReviewDto();
-				reviewDto.setReviewNo(reviewNo);
+				reviewDto.setReviewNo(no);
 				reviewDto.setReviewTitle(reviewTitle);
 				reviewDto.setReviewContent(reviewContent);
 				reviewDto.setReviewDate(reviewDate);
 				reviewDto.setRatings(ratings);
-				reviewDto.setUserNo(no);
+				reviewDto.setUserNo(userNo);
 				
+
 				return reviewDto;
+				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -75,8 +77,8 @@ public class ReviewDao {
 	}
 	
 	public ReviewDto selectNo(ReviewDto reviewDto) {
-		String query = "SELECT user_no FROM reviews "
-				 	 + "WHERE user_no = (SELECT MAX(user_no) FROM reviews WHERE user_no = ?)"; //가장 최근에 작성된 게시물
+		String query = "SELECT reviewNo FROM reviews "
+				 	 + "WHERE reviewNo = (SELECT MAX(reviewNo) FROM reviews WHERE user_no = ?)"; //가장 최근에 작성된 게시물
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, reviewDto.getUserNo());
@@ -84,8 +86,8 @@ public class ReviewDao {
 			ResultSet rs = pstmt.executeQuery();
 		
 			while(rs.next()) {
-				int userNo = rs.getInt("user_no");
-				reviewDto.setUserNo(userNo);
+				int reviewNo = rs.getInt("reviewNo");
+				reviewDto.setReviewNo(reviewNo);
 				return reviewDto; 
 			}
 		} catch (SQLException e) {
@@ -95,12 +97,13 @@ public class ReviewDao {
 	}
 	
 	public int fileUpload(ReviewDto reviewDto) {
-		String query = "insert into review_upload values(?, ?, 12)";
+		String query = "insert into review_upload values(?, ?, ?)";
 		
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, reviewDto.getFilePath());
 			pstmt.setString(2, reviewDto.getFileName());
+			pstmt.setInt(3, reviewDto.getReviewNo());
 			
 			int result = pstmt.executeUpdate();
 			
@@ -118,7 +121,7 @@ public class ReviewDao {
     
    
     String query = "select reviewNo, reviewTitle, reviewContent, reviewDate, ratings from reviews r "
-                 + "join TASTY_MEMBER s on r.user_no = s.user_no";
+                 + "join TASTY_MEMBER s on r.user_no = s.user_no order by reviewNo desc";
     
     try {
         pstmt = con.prepareStatement(query);
@@ -147,8 +150,50 @@ public class ReviewDao {
     } catch (SQLException e) {
         e.printStackTrace();
     }
-
     return result;
     }
+    
+    //파일리스트 가져오기
+    public ArrayList<ReviewDto> uploadList() {
+    	ArrayList<ReviewDto> result = new ArrayList<>();
+    	
+		String query ="select * from review_upload";
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			ResultSet rs = pstmt.executeQuery();
+				
+			while(rs.next()) {
+				int reviewNo = rs.getInt("reviewNo");
+				String reviewFilePath = rs.getString("review_upload_path");
+				String reviewFileName = rs.getString("review_upload_name");
+					
+				ReviewDto reviewDto = new ReviewDto();
+					
+		        reviewDto.setReviewNo(reviewNo);
+		        reviewDto.setFilePath(reviewFilePath);
+		        reviewDto.setFileName(reviewFileName);
+		            
+		        result.add(reviewDto); 
+			}
+			return result;
+				
+		}catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		return result;
+	}
+
+	// 리뷰 수정
+	public int editUpdate(ReviewDto reviewDto) {
+		String query = "update reviews r "
+					 + "join review_upload ru on r.reviewNo = ru.reviewNo "
+					 + "set reviewTitle = ?, reviewContent = ?, reviewDate = ?"
+					 + "where reviewNo = ?";
+		
+		return 0;
+	}
+    
 }
     
