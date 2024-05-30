@@ -5,7 +5,6 @@
 <head>
 <%@ include file="/views/common/head.jsp"%>
  <link rel="stylesheet" href="/assets/css/reservation.css">
- <script type="text/javascript" src="/assets/js/reservation.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript"
         src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
@@ -29,9 +28,9 @@
    
 <div class="container">
    <header class="quick-reservation__header">
-      <h2 class="title">
-         가계명
-      </h2>
+      <h1 class="title">
+         ${result.restaurantName}
+      </h1>
       
       <div class="close-icon" onclick="location.href='/views/restaurant/restaurantDetail.jsp'">
          <span></span>
@@ -43,28 +42,28 @@
       <div class="row-wrapper">
       <div class="ele date">
                <label for="date">날짜</label>
-			<input type="text" id="datepicker" name="datepicker">
+			<input type="text" id="datepicker" name="datepicker"  onchange="printDate()">
             </div>
             </div>
          <div class="row-wrapper">
             <div class="ele first-name">
                <label for="firstName">인원</label>
-               <input type="text" name="headCount" placeholder="" id="headCount">
+               <input type="text" name="headCount" value="" id="headCount" onkeyup="printCount()">
             </div>
             <div class="ele first-name">
                <label for="firstName">예약자명</label>
-               <input type="text" name="name" placeholder="" id="firstName">
+               <input type="text" name="name" value="" id="firstName" onkeyup="printName()">
             </div>
          </div>
          
          <div class="row-wrapper">
             <div class="ele email-address">
                <label for="emailAddress">이메일</label>
-               <input type="text" name="email" value="" placeholder="" id="emailAddress">
+               <input type="text" name="email" value="" placeholder="" id="emailAddr">
             </div>
             <div class="ele phone-number">
                <label for="phoneNumber">전화번호</label>
-               <input type="text" name="phone" value="" placeholder="" id="phoneNumber">
+               <input type="text" name="phone" value="" placeholder="" id="phoneNumber" onkeyup="printPhone()">
             </div> 
             
          </div>
@@ -90,26 +89,26 @@
    <div class="reservation-info">
       <div class="ele data">
          <h4 class="data__head">날짜</h4>
-         <p class="data__description" id="dateOut">Deluxe</p>
+         <p class="data__description" id="dateOut"></p>
       </div>
       <div class="ele data">
-         <h4 class="data__head">날짜</h4>
-         <p class="data__description">May 28 - Jun 2</p>
+         <h4 class="data__head">예약자명</h4>
+         <p class="data__description" id="nameOut"></p>
       </div>
       <div class="ele data">
-         <h4 class="data__head">인언</h4>
-         <p class="data__description" id="countOut" >May 28 - Jun 2</p>
+         <h4 class="data__head">인원</h4>
+         <p class="data__description" id="countOut" ></p>
       </div>
       <div class="ele data">
-         <h4 class="data__head">Price</h4>
-         <p class="data__description">$45/night<br> Total $270</p>
+         <h4 class="data__head">전화번호</h4>
+         <p class="data__description" id="phoneOut"></p>
       </div>
    </div>
    
    <footer class="form__footer">
       <div class="footer-wrapper">
          <input type="submit" value="예약하기" onclick="sendEmail()" class="">
-         <!-- <input type="button" value="이메일" onclick="sendEmail()"> -->
+          <!-- <input type="button" value="이메일" > -->
       </div>
    </footer>
 </div>
@@ -153,7 +152,7 @@ const sendEmail = () => {
     let templateParams  = {
         name : document.getElementById('firstName').value,
         phone : document.getElementById('phoneNumber').value,
-        email : document.getElementById('emailAddress').value,
+        email : document.getElementById('emailAddr').value,
         headCount : document.getElementById('headCount').value,
         date : document.getElementById('datepicker').value,
     }
@@ -177,6 +176,7 @@ const sendEmail = () => {
  
  
 </script>
+ <script type="text/javascript" src="/assets/js/reservation.js"></script>
 
 
 </body>

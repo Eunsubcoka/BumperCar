@@ -1,6 +1,7 @@
 package kr.co.tastyroad.restaurant.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -32,13 +33,16 @@ public class RestaurantDetailControler extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int resNo = Integer.parseInt(request.getParameter("restaurantId"));
-		System.out.println(resNo);
+		
 		RestaurantServiceImpl resService = new RestaurantServiceImpl();
 		RestaurantDto result = new RestaurantDto();
-		
 		result = resService.getRestaurant(resNo);
 		
+		ArrayList<RestaurantDto> menuList = new ArrayList<RestaurantDto>();
+		menuList = resService.getMenuList(resNo);
+		
 		request.setAttribute("result", result);
+		request.setAttribute("menuList", menuList);
 		
 		RequestDispatcher view = request.getRequestDispatcher("/views/restaurant/restaurantDetail.jsp");
 		view.forward(request,response);

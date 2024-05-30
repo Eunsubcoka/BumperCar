@@ -6,6 +6,29 @@ private String category;
 private String location;
 private String restaurantPhone;
 private String restaurantName;
+private String menu;
+private int price;
+private int foodNo;
+
+public String getMenu() {
+	return menu;
+}
+public void setMenu(String menu) {
+	this.menu = menu;
+}
+public int getFoodNo() {
+	return foodNo;
+}
+public void setFoodNo(int foodNo) {
+	this.foodNo = foodNo;
+}
+
+public int getPrice() {
+	return price;
+}
+public void setPrice(int price) {
+	this.price = price;
+}
 public int getRestaurantNo() {
 	return restaurantNo;
 }
