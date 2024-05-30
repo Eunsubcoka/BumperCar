@@ -1,6 +1,7 @@
 package kr.co.tastyroad.common;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -78,11 +79,16 @@ public class FormController extends HttpServlet {
 		else if(action.equals("/enrollReviewForm.do")) { // 리뷰 등록 페이지
 			nextPage = "/views/review/reviewEnroll.jsp"; 
 		}else if(action.equals("/editReviewForm.do")) { // 리뷰 수정 페이지
-			HttpSession session = request.getSession();
-			int userNo = (int)session.getAttribute("userNo");
-			ReviewServiceImpl reviewService = new ReviewServiceImpl();
-			ReviewDto result = reviewService.ReviewEditForm(userNo);
 			
+			int reviewNo = Integer.parseInt(request.getParameter("reviewNo"));
+			
+			ReviewServiceImpl reviewService = new ReviewServiceImpl();
+			ReviewDto result = reviewService.ReviewEditForm(reviewNo);
+			
+			ArrayList<ReviewDto> fileList = new ArrayList<ReviewDto>(); 
+			fileList = reviewService.uploadList();
+			
+			request.setAttribute("fileList", fileList);
 			request.setAttribute("result", result);
 			nextPage = "/views/review/reviewEdit.jsp";
 			
