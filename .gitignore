@@ -14,7 +14,7 @@ local.properties
 .settings/
 .loadpath
 .recommenders
-
+EmailUtil.java
 # External tool builders
 .externalToolBuilders/
 
