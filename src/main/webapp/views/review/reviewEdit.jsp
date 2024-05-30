@@ -7,7 +7,8 @@
 <head>
 <%@ include file="/views/common/head.jsp"%>
 <link rel="stylesheet" href="/assets/css/review.css">
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+	<script type="text/javascript" src="/assets/js/reviewEnroll.js"></script> 
 </head>
 <body>
 
@@ -18,14 +19,15 @@
 <section>
     <div class="container-review-box">
         <h1>식당이름 리뷰</h1>
+        <form action="/review/reviewEdit.do" method="POST">
+        <input type="hidden" name="reviewNo" value="${result.reviewNo}"/>
         <div class="container-review">
-        <input type="hidden" name="userNo" value="${result.userNo}"/>
             <div class="review">
                 <div class="user-container">
                     <img class="user-img" src="/assets/image/bom.jpg" alt="사용자프로필">
                         <div class="user-info">
                             <span class="user-name"><strong>${sessionScope.userName}</strong></span>
-                            <span class="rating">${result.ratings}점</span>
+                            <span class="rating"><i class="fas fa-star"></i>${result.ratings}점</span>
                         </div>
                 </div>           
                 <div class="title">
@@ -36,24 +38,23 @@
                 	<label for="content">내용:</label>
                     <textarea name="reviewContent" required>${result.reviewContent}</textarea>
                 </div>
-                <div class="review-photos">
-                    <div class="review-photo">
-                        <img class="photo" src="/assets/image/food.jpg" alt="리뷰 사진 1">
-                    </div>
-                    <div class="review-photo">
-                        <img class="photo" src="/assets/image/food.jpg" alt="리뷰 사진 2">
-                    </div>
-                    <div class="review-photo">
-                        <img class="photo" src="/assets/image/food.jpg" alt="리뷰 사진 3">
-                    </div>
-                    <div class="review-photo">
-                        <img class="photo" src="/assets/image/food.jpg" alt="리뷰 사진 3">
-                    </div>
+				<div class="review-photos">
+					<c:forEach var="fileList" items="${fileList}">
+						<c:if test="${fileList.reviewNo == result.reviewNo}">
+							<div class="review-photo">
+								<img class="photo" src="/assets/uploads/review/${fileList.fileName}" alt="리뷰 사진 1">
+							</div>
+						</c:if>
+					</c:forEach>
+				</div>
+                <div class="btn">
+                     <button onclick="window.history.back()">뒤로가기</button>
+                     <p>*사진은 최대 3장까지 가능합니다.</p>
+                     <div id="image_container"></div>
+                     <label for="file" class="btn-upload">이미지추가</label>
+                     <input type="file" name="file" id="file" onchange="getImageFiles(event);" multiple>                    
+                     <button type="submit">수정</button>
                 </div>
-                        <div class="btn">
-                        	<button onclick="window.history.back()">뒤로가기</button>
-                        	<button onclick="location.href='/review/review.do'">수정</button>
-                        </div>
             </div>
         </div>
         </form>
