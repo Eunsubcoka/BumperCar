@@ -1,9 +1,9 @@
 package kr.co.tastyroad.member.model.service;
 
-import kr.co.tastyroad.member.model.dto.Member;
-
+import java.sql.SQLException;
 
 import kr.co.tastyroad.member.model.dao.MemberDAO;
+import kr.co.tastyroad.member.model.dto.Member;
 
 public class MemberServiceImpl implements MemberService {
 	private MemberDAO memberDAO;
@@ -13,8 +13,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int register(Member member) {
-		return memberDAO.register(member);
+	public int register(Member member) throws SQLException {
+	    return memberDAO.register(member);
 	}
 	@Override
 	public int userUpdate(Member member) {

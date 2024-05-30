@@ -1,6 +1,7 @@
 package kr.co.tastyroad.member.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -33,7 +34,6 @@ public class RegisterController extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-
         String userName = request.getParameter("new-username");
         String userId = request.getParameter("new-userid");
         String userEmail = request.getParameter("new-email");
@@ -43,8 +43,8 @@ public class RegisterController extends HttpServlet {
         String userPwd = request.getParameter("new-password");
         String confirmPwd = request.getParameter("confirm-password");
         String duplicateCheck = request.getParameter("duplicateCheck");
-        String fullAddr = userAddress+ " " + userAddress1;
-        
+        String fullAddr = userAddress + " " + userAddress1;
+
         if ("unavailable".equals(duplicateCheck)) {
             returnAlert(response, "아이디가 중복되었습니다. 다른 아이디를 사용해 주세요.");
             return;
@@ -88,19 +88,33 @@ public class RegisterController extends HttpServlet {
         member.setVerified(false);
 
         MemberServiceImpl memberService = new MemberServiceImpl();
-        int result = memberService.register(member);
+        int result = 0;
 
+        try {
+            result = memberService.register(member);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            returnAlert(response, "회원가입에 실패했습니다. 다시 시도해 주세요.");
+            return;
+        } catch (Exception e) {
+            e.printStackTrace();
+            returnAlert(response, "회원가입에 실패했습니다. 다시 시도해 주세요.");
+            return;
+        }
         if (result == 1) {
-            String subject = "이메일 인증 요청";
-            String content = "다음 링크를 클릭하여 이메일을 인증하세요: " +
-                             "http://yourdomain.com/verify?token=" + token;
-            EmailUtil.sendEmail(userEmail, subject, content);
+//            String subject = "이메일 인증 요청";
+//            String content = "다음 링크를 클릭하여 이메일을 인증하세요: " +
+//                             "http://yourdomain.com/verify?token=" + token;
+//            EmailUtil.sendEmail(userEmail, subject, content);
 
-            response.getWriter().write("회원가입이 완료되었습니다. 이메일을 확인해 주세요.");
+//            response.getWriter().write("회원가입이 완료되었습니다. 이메일을 확인해 주세요.");
+            RequestDispatcher view = request.getRequestDispatcher("/views/member/login.jsp");
+            view.forward(request, response);
         } else {
             returnAlert(response, "회원가입에 실패했습니다. 다시 시도해 주세요.");
         }
     }
+
 
     private void returnAlert(HttpServletResponse response, String msg) throws IOException {
         response.setContentType("text/html; charset=UTF-8");
