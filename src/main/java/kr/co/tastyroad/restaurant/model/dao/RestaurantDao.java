@@ -76,7 +76,6 @@ public class RestaurantDao {
 			String foodName = rs.getString("foodName");
 			int foodNo = rs.getInt("foodNo");
 			int price = rs.getInt("price");
-			System.out.println(foodName);
 			menu.setRestaurantNo(No);
 			menu.setMenu(foodName);
 			menu.setPrice(price);
