@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!doctype html>
@@ -11,7 +12,6 @@
     <%@ include file="/views/common/header.jsp"%>
     <%@ include file="/views/common/nav.jsp"%>
     <main class="notice-main">
-        
         <div class="notice-header">
             <h1>공지사항</h1>
             <div class="search-and-button">
@@ -55,6 +55,7 @@
                             </tr>
                         </c:when>
                         <c:otherwise>
+                            
                             <c:forEach var="item" items="${list}">
                                 <tr onclick="location.href='/notice/detail.do?boardno=${item.noticeNo}'">
                                     <td scope="row" class="num">${row}</td>

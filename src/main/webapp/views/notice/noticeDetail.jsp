@@ -1,7 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,11 +35,11 @@
                             </div>
                             <hr>
                             <div style="margin-top: 20px; margin-bottom: 20px;">
-                                    <c:if test="${not empty result.fileName and not empty result.filePath}">
-                                        <img src="${result.filePath}${result.fileName}" alt="이미지" style="max-height: 50%;">
-                                    </c:if>
-                                    <p class="card-text">${result.noticeContent }</p>
-                                    <br><br><br>
+                                <c:if test="${not empty result.fileName and not empty result.filePath}">
+                                    <img src="${result.filePath}${result.fileName}" alt="이미지" style="max-height: 50%;">
+                                </c:if>
+                                <p class="card-text">${result.noticeContent}</p>
+                                <br><br><br>
                             </div>
                         </div>
                         <div class="card-footer d-flex justify-content-center" style="background-color: white;">
@@ -57,7 +56,7 @@
 
         <!-- 게시글 목록 추가 -->
         <div class="notice-container">
-            <table class="table table-hover" style="margin-top: 10px;">
+            <table class="table table-hover notice-table" style="margin-top: 10px;">
                 <thead>
                     <tr>
                         <th scope="col" class="num">번호</th>

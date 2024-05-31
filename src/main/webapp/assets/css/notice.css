@@ -44,6 +44,15 @@ th, td {
     text-align: center !important;
 }
 
+
+.notice-table tbody tr:hover {
+    cursor: pointer;
+}
+
+.notice-table tbody tr:hover .title-padding {
+    text-decoration: underline;
+}
+
 th {
     background-color: #ebb842 !important;
     color: white !important;
