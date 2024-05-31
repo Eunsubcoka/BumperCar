@@ -18,5 +18,14 @@ public interface MemberService {
 	Member getMemberById(String userId);
 
 	int updateMember(Member member);
+
+	Member getMemberByToken(String token);
+
+	void verifyMember(String userId);
+
+	void updateUserProfile(String userId, String userName, String userEmail, String userAddress, String userPhone,
+			String fileName);
+
+	Member getUserProfile(int userNo);
 	
 }
