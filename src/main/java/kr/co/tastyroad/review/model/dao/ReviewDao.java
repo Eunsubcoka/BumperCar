@@ -238,5 +238,44 @@ public class ReviewDao {
 		
 		return 0;
 	}
+	
+	// 리뷰 삭제
+	public int reviewDelete(ReviewDto reviewDto) {
+		String query = "delete from reviews where reviewNo = ? and restaurantNo = ?";
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, reviewDto.getReviewNo());
+			pstmt.setInt(2, reviewDto.getRestaurantNo());
+			
+			
+			int result = pstmt.executeUpdate();
+			
+			return result;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+	
+	public int reviewFileDelete(ReviewDto reviewDto) {
+		String query = "delete from review_upload where reviewNo = ?";
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, reviewDto.getReviewNo());
+			
+			int result = pstmt.executeUpdate();
+			
+			return result;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
 }
     

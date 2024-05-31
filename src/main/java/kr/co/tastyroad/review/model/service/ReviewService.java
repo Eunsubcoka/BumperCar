@@ -21,5 +21,6 @@ public interface ReviewService {
 	public ArrayList<ReviewDto> uploadList();
 	// 리뷰 수정
 	public int editUpdate(ReviewDto reviewDto);
-	
+	// 리뷰 삭제
+	public int reviewDelete(ReviewDto reviewDto);
 }

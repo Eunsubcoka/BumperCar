@@ -60,6 +60,14 @@ public class ReviewServiceImpl implements ReviewService {
 		return reviewDao.editUpdate(reviewDto);
 
  	}
+	
+	// 리뷰 삭제
+	public int reviewDelete(ReviewDto reviewDto) {
+		
+		reviewDao.reviewFileDelete(reviewDto);
+		
+		return reviewDao.reviewDelete(reviewDto);
+	}
 
 }
 
