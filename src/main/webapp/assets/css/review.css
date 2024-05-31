@@ -88,7 +88,7 @@ textarea {
     border-radius: 10px;
     display: grid; 
     grid-template-columns: repeat(4, 1fr);
-    grid-gap: 15px;
+    grid-gap: 50px;
     display: flex;
     justify-content: center; /* 사진들을 중앙 정렬 */
 }
@@ -102,7 +102,8 @@ textarea {
 }
 
 .photo {
-    width: 100%;
+    width: 150px;
+    height: 150px;
 }
 
 /* 수정, 삭제 버튼 */
@@ -116,7 +117,7 @@ textarea {
 }
 
 button {
-    width: 110px;
+    width: 250px;
     height: 30px;
     cursor: pointer;
     border-radius: 15px;

@@ -262,10 +262,12 @@ border-bottom: 1px #c0c0c0 solid;
 .res_review_img > img{
 	width: 200px;
 	height: 200px;
+	cursor: pointer;
 }
 
 .res_review_content{
 word-wrap: break-word;
+	cursor: pointer;
 	}
 /* 레스토랑 메뉴 컨테이너 */
 .res_menu_wrap{

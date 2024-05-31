@@ -18,7 +18,10 @@
 	<!-- review section -->
 	<section>
 		<div class="container-review-box">
-			<h1>식당이름 리뷰</h1>
+		<form action="/review/delete.do" method="POST">
+			<h1>식당이름 리뷰</h1>                     
+			<input type="hidden" name="restaurantNo" value="${restaurantNo}">                                    
+			<button type="button" onclick="location.href='/tastyForm/enrollReviewForm.do?restaurantNo=${restaurantNo}'">등록</button>
 			<c:choose>
 				<c:when test="${empty list}">
 					<!-- 조건: list객체가 비워져 있을때 -->
@@ -26,8 +29,9 @@
 				</c:when>
 				<c:otherwise>
 					<c:forEach var="item" items="${list}">
+					<input type="hidden" name="reviewNo" value="${item.reviewNo}"> 
 						<div class="container-review">
-							<input type="hidden" name="userNo" value="">
+<!-- 							<input type="hidden" name="userNo" value=""> -->
 							<div class="review">
 								<div class="user-container">
 									<img class="user-img" src="/assets/image/bom.jpg" alt="사용자프로필">
@@ -45,6 +49,7 @@
 								</div>
 								<div class="review-photos">
 								<c:forEach var="fileList" items="${fileList}">
+								<input type="hidden" name="fileName" value="${fileList.fileName}"> 
 								  <c:if test="${fileList.reviewNo == item.reviewNo}">
 									<div class="review-photo">
 										<img class="photo" src="/assets/uploads/review/${fileList.fileName}" alt="리뷰 사진 1">
@@ -53,13 +58,11 @@
 								</c:forEach>
 								</div>
 								<div class="btn">
-									<!-- <button onclick="window.history.back()">뒤로가기</button> -->
-									<%-- <c:if test="${sessionScope.userNo == result.userNo}"> --%>
+									<button type="button" onclick="window.history.back()">뒤로가기</button>
+									<%-- <c:if test="${sessionScope.userNo == item.userNo}"> --%>
 									<button type="button"
-										onclick="location.href='/tastyForm/enrollReviewForm.do'">등록</button>
-									<button type="button"
-										onclick="location.href='/tastyForm/editReviewForm.do?reviewNo=${item.reviewNo}'">수정</button>
-									<button>삭제</button>
+										onclick="location.href='/tastyForm/editReviewForm.do?reviewNo=${item.reviewNo}&restaurantNo=${restaurantNo}'">수정</button>
+									<button type="submit">삭제</button>
 									<%-- </c:if> --%>
 								</div>
 							</div>
@@ -71,7 +74,7 @@
 
 
 
-
+		</form>
 		</div>
 	</section>
 
