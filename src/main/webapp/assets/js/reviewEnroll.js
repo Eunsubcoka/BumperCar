@@ -75,5 +75,3 @@ function getImageFiles(event){
         document.querySelector("div#image_container").appendChild(img);
     }
 }
-
- 

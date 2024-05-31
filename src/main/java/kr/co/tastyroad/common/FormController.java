@@ -81,19 +81,30 @@ public class FormController extends HttpServlet {
 		
 		// 혜미
 		else if(action.equals("/enrollReviewForm.do")) { // 리뷰 등록 페이지
+			int restaurantNo = Integer.parseInt(request.getParameter("restaurantNo"));
+			
+			request.setAttribute("restaurantNo", restaurantNo);
 			nextPage = "/views/review/reviewEnroll.jsp"; 
 		}else if(action.equals("/editReviewForm.do")) { // 리뷰 수정 페이지
 			
 			int reviewNo = Integer.parseInt(request.getParameter("reviewNo"));
+			int restaurantNo = Integer.parseInt(request.getParameter("restaurantNo"));
+			
+			ReviewDto reviewDto = new ReviewDto();
+			reviewDto.setReviewNo(reviewNo);
+			reviewDto.setRestaurantNo(restaurantNo);
+			
+//			request.setAttribute("restaurantNo", restaurantNo);
 			
 			ReviewServiceImpl reviewService = new ReviewServiceImpl();
-			ReviewDto result = reviewService.ReviewEditForm(reviewNo);
+			ReviewDto result = reviewService.ReviewEditForm(reviewDto);
+			result.setRestaurantNo(restaurantNo);
 			
 			ArrayList<ReviewDto> fileList = new ArrayList<ReviewDto>(); 
 			fileList = reviewService.uploadList();
-			
 			request.setAttribute("fileList", fileList);
 			request.setAttribute("result", result);
+			
 			nextPage = "/views/review/reviewEdit.jsp";
 			
 		}

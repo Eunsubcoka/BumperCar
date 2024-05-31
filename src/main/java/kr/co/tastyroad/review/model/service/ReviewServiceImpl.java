@@ -16,8 +16,8 @@ public class ReviewServiceImpl implements ReviewService {
 	
 	//리뷰 수정 폼
 	@Override
-	public ReviewDto ReviewEditForm(int reviewNo) {
-		return reviewDao.reviewDetail(reviewNo);
+	public ReviewDto ReviewEditForm(ReviewDto reviewDto) {
+		return reviewDao.reviewDetail(reviewDto);
 	}
 	
 	//리뷰 등록
@@ -54,8 +54,20 @@ public class ReviewServiceImpl implements ReviewService {
 	// 리뷰 수정
 	@Override
 	public int editUpdate(ReviewDto reviewDto) {
+		
+		 reviewDao.editFileUpdate(reviewDto); 
+			
 		return reviewDao.editUpdate(reviewDto);
+
+ 	}
+	
+	// 리뷰 삭제
+	public int reviewDelete(ReviewDto reviewDto) {
+		
+		reviewDao.reviewFileDelete(reviewDto);
+		
+		return reviewDao.reviewDelete(reviewDto);
 	}
 
-
 }
+

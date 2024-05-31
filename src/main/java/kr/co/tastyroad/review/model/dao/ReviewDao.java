@@ -21,7 +21,7 @@ public class ReviewDao {
 	
 	
 	public int enroll(ReviewDto reviewDto) {
-		String query = "INSERT INTO reviews VALUES(reviewsSeq.nextval, ?, ?, default, ?, ?, 3)";
+		String query = "INSERT INTO reviews VALUES(reviewsSeq.nextval, ?, ?, default, ?, ?, ?)";
 	
 		try {
 			pstmt = con.prepareStatement(query);
@@ -29,7 +29,7 @@ public class ReviewDao {
 			pstmt.setString(2, reviewDto.getReviewContent());
 			pstmt.setInt(3, reviewDto.getRatings());
 			pstmt.setInt(4, reviewDto.getUserNo());
-//			pstmt.setInt(5, reviewDto.getRestaurantNo());
+			pstmt.setInt(5, reviewDto.getRestaurantNo());
 			
 			int result = pstmt.executeUpdate();
 			return result;
@@ -39,13 +39,13 @@ public class ReviewDao {
 		return 0;
 	}
 	
-	public ReviewDto reviewDetail(int reviewNo) {
+	public ReviewDto reviewDetail(ReviewDto reviewDto) {
 		String query = "select * from reviews where reviewNo = ? ";
 					 
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, reviewNo);
+			pstmt.setInt(1, reviewDto.getReviewNo());
 			
 			ResultSet rs = pstmt.executeQuery();
 			
@@ -57,16 +57,18 @@ public class ReviewDao {
 				int ratings = rs.getInt("ratings"); 
 				int userNo = rs.getInt("user_no"); 
 				
-				ReviewDto reviewDto = new ReviewDto();
-				reviewDto.setReviewNo(no);
-				reviewDto.setReviewTitle(reviewTitle);
-				reviewDto.setReviewContent(reviewContent);
-				reviewDto.setReviewDate(reviewDate);
-				reviewDto.setRatings(ratings);
-				reviewDto.setUserNo(userNo);
+				
+				ReviewDto reviewResult = new ReviewDto();
+				reviewResult.setReviewNo(no);
+				reviewResult.setReviewTitle(reviewTitle);
+				reviewResult.setReviewContent(reviewContent);
+				reviewResult.setReviewDate(reviewDate);
+				reviewResult.setRatings(ratings);
+				reviewResult.setUserNo(userNo);
+				
 				
 
-				return reviewDto;
+				return reviewResult;
 				
 			}
 		} catch (SQLException e) {
@@ -187,13 +189,93 @@ public class ReviewDao {
 
 	// 리뷰 수정
 	public int editUpdate(ReviewDto reviewDto) {
-		String query = "update reviews r "
-					 + "join review_upload ru on r.reviewNo = ru.reviewNo "
-					 + "set reviewTitle = ?, reviewContent = ?, reviewDate = ?"
-					 + "where reviewNo = ?";
+		String query = "update reviews set reviewTitle = ?, reviewContent = ?, reviewDate = sysdate "
+					 + "where reviewNo = ? AND restaurantNo = ?";
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, reviewDto.getReviewTitle());
+			System.out.println("타이틀");
+			pstmt.setString(2, reviewDto.getReviewContent());
+			pstmt.setInt(3, reviewDto.getReviewNo());
+			pstmt.setInt(4, reviewDto.getRestaurantNo());
+			int result = pstmt.executeUpdate();
+			
+			return result;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
 		
 		return 0;
 	}
     
+	// 리뷰 업로드 파일 수정
+	public int editFileUpdate(ReviewDto reviewDto) {
+		String query = "update review_upload set review_upload_path = ?, review_upload_name = ? "
+				+ "where reviewNo = ?";
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, reviewDto.getFilePath());
+			pstmt.setString(2, reviewDto.getFileName());
+			pstmt.setInt(3, reviewDto.getReviewNo());
+			
+			int result = pstmt.executeUpdate();
+			
+			System.out.println("이미지업데이트");
+			return result;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		return 0;
+	}
+	
+	// 리뷰 삭제
+	public int reviewDelete(ReviewDto reviewDto) {
+		String query = "delete from reviews where reviewNo = ? and restaurantNo = ?";
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, reviewDto.getReviewNo());
+			pstmt.setInt(2, reviewDto.getRestaurantNo());
+			
+			
+			int result = pstmt.executeUpdate();
+			
+			return result;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+	
+	public int reviewFileDelete(ReviewDto reviewDto) {
+		String query = "delete from review_upload where reviewNo = ?";
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, reviewDto.getReviewNo());
+			
+			int result = pstmt.executeUpdate();
+			
+			return result;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
 }
     

@@ -6,7 +6,7 @@
 <html lang="en">
 <head>
 <%@ include file="/views/common/head.jsp"%>
-	<script type="text/javascript" src="/assets/js/reviewEnroll.js"></script> 
+
 	<link rel="stylesheet" href="/assets/css/reviewEnroll.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
 
@@ -26,6 +26,7 @@
         <div class="container-review">
             <div class="review">
             <input type="hidden" name="userNo" value="${sessionScope.userNo}">
+            <input type="hidden" name="restaurantNo" id="restaurantNo" value="${restaurantNo}">
             <input type="hidden" name="ratingStars" id="stars" value="">
                 <div class="rating-box">
                     <p class="text"><strong>음식점의 만족도를 별점으로 표현해주세요!</strong></p>
@@ -72,7 +73,7 @@
 
 
 	<script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
-
+	<script type="text/javascript" src="/assets/js/reviewEnroll.js"></script> 
 </body>
 </html>
 

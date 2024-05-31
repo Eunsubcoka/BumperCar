@@ -85,16 +85,6 @@ textarea {
 }
 
 /* 리뷰 사진 */
-.review-photos {
-    margin-top: 15px;
-    border-radius: 10px;
-    display: grid; 
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 15px;
-    display: flex;
-    justify-content: center; /* 사진들을 중앙 정렬 */
-}
-
 .review-photo {
     width: 150px;
     height: 150px;
@@ -133,11 +123,6 @@ button, .btn-upload {
     justify-content: center; /* 텍스트 수평 가운데 정렬 */
 }
 
-.review-photos > p {
-	margin-bottom:auto;
-    margin-right: auto;
-}
-
 #file {
     display: none;
   }
@@ -153,7 +138,7 @@ button, .btn-upload {
     place-items: center;
     display: grid; 
     grid-template-columns: repeat(3, 1fr);
-    grid-gap: 15px;
+    grid-gap: 50px;
 
 }
 
