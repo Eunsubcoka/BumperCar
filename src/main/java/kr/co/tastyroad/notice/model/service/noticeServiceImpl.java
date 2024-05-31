@@ -77,8 +77,9 @@ public class noticeServiceImpl implements noticeService {
 
 	@Override
 	public void getFileName(noticeDto result) {
-		noticeDao.getFileName(result);
-	}
+        result.setFilePath("/assets/uploads/notice/");
+        result.setFileName("boardNo_" + result.getNoticeNo() + ".jpg");
+    }
 
 	@Override
 	public int setFileDelete(int fileNo) {

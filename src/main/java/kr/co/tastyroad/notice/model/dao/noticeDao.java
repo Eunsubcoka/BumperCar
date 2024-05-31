@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -21,6 +22,57 @@ public class noticeDao {
 		dc = new DatabaseConnection();
 		con = dc.connDB();
 	}
+    public noticeDto getNotice(String postId) {
+        noticeDto notice = null;
+        String sql = "SELECT content, imagePath FROM notices WHERE postId = ?";
+
+        try {
+            pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, postId);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                notice = new noticeDto();
+                notice.setPostId(postId);
+                notice.setContent(rs.getString("content"));
+                notice.setImagePath(rs.getString("imagePath"));
+            }
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return notice;
+    }
+
+    public void updateNotice(String postId, String content, String imagePath) {
+        String sql = "UPDATE notices SET content = ?, imagePath = ? WHERE postId = ?";
+
+        try {
+            pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, content);
+            if (imagePath == null) {
+                pstmt.setNull(2, Types.VARCHAR);
+            } else {
+                pstmt.setString(2, imagePath);
+            }
+            pstmt.setString(3, postId);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+	
 
 	public ArrayList<noticeDto> getList(PageInfo pi, String category, String searchText) {
 		ArrayList<noticeDto> result = new ArrayList<>();
