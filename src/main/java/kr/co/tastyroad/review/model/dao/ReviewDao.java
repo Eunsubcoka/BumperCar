@@ -21,7 +21,7 @@ public class ReviewDao {
 	
 	
 	public int enroll(ReviewDto reviewDto) {
-		String query = "INSERT INTO reviews VALUES(reviewsSeq.nextval, ?, ?, default, ?, ?, 3)";
+		String query = "INSERT INTO reviews VALUES(reviewsSeq.nextval, ?, ?, default, ?, ?, ?)";
 	
 		try {
 			pstmt = con.prepareStatement(query);
@@ -29,9 +29,10 @@ public class ReviewDao {
 			pstmt.setString(2, reviewDto.getReviewContent());
 			pstmt.setInt(3, reviewDto.getRatings());
 			pstmt.setInt(4, reviewDto.getUserNo());
-//			pstmt.setInt(5, reviewDto.getRestaurantNo());
+			pstmt.setInt(5, reviewDto.getRestaurantNo());
 			
 			int result = pstmt.executeUpdate();
+			System.out.println("엔롤 완료");
 			return result;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -158,7 +159,7 @@ public class ReviewDao {
     	ArrayList<ReviewDto> result = new ArrayList<>();
     	
 		String query ="select * from review_upload";
-		
+		System.out.println("이미지 선택");
 		try {
 			pstmt = con.prepareStatement(query);
 			
@@ -175,6 +176,7 @@ public class ReviewDao {
 		        reviewDto.setFilePath(reviewFilePath);
 		        reviewDto.setFileName(reviewFileName);
 		            
+		        System.out.println(reviewFileName);
 		        result.add(reviewDto); 
 			}
 			return result;

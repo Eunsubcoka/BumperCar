@@ -13,6 +13,9 @@
 <script>
 	Kakao.init('597a12321ce91d26c9101324b5955ebd'); // 사용하려는 앱의 JavaScript 키 입력
 </script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+
 <%@ include file="/views/common/head.jsp"%>
 
 </head>
@@ -33,8 +36,8 @@
 					<div class="details">
 						<h1 class="">${result.restaurantName }</h1>
 						<div class="rating">
-							<span>3.1</span> <img src="" alt="Dining image"> <span>review
-								갯수</span>
+							<span class="rating"><i class="fas fa-star"
+								style="color: #ff9800"></i>${ratings}점</span>
 						</div>
 						<div id="share_pop" class="layer_pop">
 							<img alt="" src="/assets/image/close.png" onclick="closePop()">
@@ -42,13 +45,13 @@
 								<h4>공유하기</h4>
 								<ul>
 									<li><img alt="" src="/assets/image/icon-insta.png">
-									<p>인스타</p></li>
+										<p>인스타</p></li>
 									<li><img alt="" src="/assets/image/icon-kakao.png"
 										onclick="shareMessage()">
-									<p>카카오</p></li>
+										<p>카카오</p></li>
 									<li><img alt="" src="/assets/image/icon-twitter.png"
 										onclick="shareTwitter()">
-									<p>트위터</p></li>
+										<p>트위터</p></li>
 								</ul>
 							</div>
 						</div>
@@ -91,14 +94,14 @@
 					</div>
 
 					<div class="recommendations">
-					<c:forEach var="menuList" items="${menuList}">
+						<c:forEach var="menuList" items="${menuList}">
 							<c:if test="${menuList.restaurantNo == result.restaurantNo}">
-						<div class="item">
-							<div class="info">
-								<span>${menuList.menu }</span> <span>${menuList.price }원</span>
-							</div>
-						</div>
-						</c:if>
+								<div class="item">
+									<div class="info">
+										<span>${menuList.menu }</span> <span>${menuList.price }원</span>
+									</div>
+								</div>
+							</c:if>
 						</c:forEach>
 
 					</div>
@@ -111,26 +114,47 @@
 				<div class="mapContainer">
 					<div id="map" style="width: 200px; height: 200px;"></div>
 				</div>
-				<a onclick = "/review.do"><div class="res_review_wrap">
-					<div class="res_review_id">1</div>
-					
-					<div class="res_review_rating">★ 1</div>
-					<div class="res_review_img">
-						<img src="/assets/image/logo.png" alt="대한옥">
-					</div>
 
-					<div class="res_review_content">
-						alskjlasfjsafjalfjsalkfjalkfjalsfjalsfjslkafjal</div>
+				<div class="res_review_wrap"
+					onclick="location.href='/review/review.do?restaurantNo=${result.restaurantNo}'">
+					<c:choose>
+						<c:when test="${empty list}">
+							<!-- 조건: list객체가 비워져 있을때 -->
+							<p>등록된 글이 없습니다.</p>
+						</c:when>
+						<c:otherwise>
+							<c:forEach var="item" items="${list}">
+					${item.reviewTitle }
+					<div class="res_review_id">${sessionScope.userName}</</div>
+
+								<div class="res_review_rating">
+									<span class="rating"><i class="fas fa-star"></i>${item.ratings}점</span>
+								</div>
+
+								<div class="res_review_img">
+									<c:forEach var="fileList" items="${fileList}">
+										<c:if test="${fileList.reviewNo == item.reviewNo}">
+											<img src="/assets/uploads/review/${fileList.fileName}"
+												alt="리뷰 사진 1">
+										</c:if>
+									</c:forEach>
+
+								</div>
+
+								<div class="res_review_content">
+									<a>${item.reviewContent}</a>
+								</div>
 
 
+
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>
 				</div>
-				</a>
 
+
+				<!--  -->
 			</div>
-
-
-
-
 		</div>
 
 	</div>
@@ -182,23 +206,9 @@
 						});
 	</script>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-	<%@ include file="/views/common/footer.jsp"%>
-
 	<script src="/assets/js/bootstrap.bundle.min.js"></script>
 
 	<div class="bg"></div>
+	<%@ include file="/views/common/footer.jsp"%>
 </body>
 </html>
