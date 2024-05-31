@@ -32,6 +32,8 @@ public class ReviewController extends HttpServlet {
 		ArrayList<ReviewDto> fileList = new ArrayList<ReviewDto>();
 		fileList = reviewService.uploadList(); // 게시글 리스트
 
+		System.out.println(fileList);
+		
 		request.setAttribute("list", list);
 		request.setAttribute("fileList", fileList);
 		int restaurantNo = Integer.parseInt(request.getParameter("restaurantNo"));

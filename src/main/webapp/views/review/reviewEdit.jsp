@@ -6,9 +6,9 @@
 <html lang="en">
 <head>
 <%@ include file="/views/common/head.jsp"%>
-<link rel="stylesheet" href="/assets/css/review.css">
+<link rel="stylesheet" href="/assets/css/reviewEdit.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
-	<script type="text/javascript" src="/assets/js/reviewEnroll.js"></script> 
+
 </head>
 <body>
 
@@ -21,6 +21,7 @@
         <h1>식당이름 리뷰</h1>
         <form action="/review/reviewEdit.do" method="POST">
         <input type="hidden" name="reviewNo" value="${result.reviewNo}"/>
+        <input type="hidden" name="restaurantNo" value="${result.restaurantNo}"/>
         <div class="container-review">
             <div class="review">
                 <div class="user-container">
@@ -31,14 +32,15 @@
                         </div>
                 </div>           
                 <div class="title">
-                    	<label for="title">제목:</label>
+                    	<label for="title">제목:</label> 
                     	<input type="text" id="title" name="reviewTitle" value="${result.reviewTitle}" required>
                	</div>
                 <div class="content">
                 	<label for="content">내용:</label>
                     <textarea name="reviewContent" required>${result.reviewContent}</textarea>
                 </div>
-				<div class="review-photos">
+                     <p>*사진은 최대 3장까지 가능합니다.</p>
+				<div class="image_container" id="image_container">
 					<c:forEach var="fileList" items="${fileList}">
 						<c:if test="${fileList.reviewNo == result.reviewNo}">
 							<div class="review-photo">
@@ -48,12 +50,10 @@
 					</c:forEach>
 				</div>
                 <div class="btn">
-                     <button onclick="window.history.back()">뒤로가기</button>
-                     <p>*사진은 최대 3장까지 가능합니다.</p>
-                     <div id="image_container"></div>
+                     <button type="submit">수정</button>
                      <label for="file" class="btn-upload">이미지추가</label>
                      <input type="file" name="file" id="file" onchange="getImageFiles(event);" multiple>                    
-                     <button type="submit">수정</button>
+                     <button onclick="window.history.back()">뒤로가기</button>
                 </div>
             </div>
         </div>
@@ -65,7 +65,7 @@
 
 
 	<script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
-
+	<script type="text/javascript" src="/assets/js/reviewEnroll.js"></script> 
 </body>
 </html>
 

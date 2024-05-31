@@ -8,7 +8,7 @@ import kr.co.tastyroad.review.model.dto.ReviewDto;
 public interface ReviewService {
 
 	//리뷰 수정 폼
-	public ReviewDto ReviewEditForm(int userNo);
+	public ReviewDto ReviewEditForm(ReviewDto reviewDto);
 	//리뷰 등록
 	public int enroll(ReviewDto reviewDto);
 	// 등록된 리뷰 no 가져오기
@@ -21,5 +21,6 @@ public interface ReviewService {
 	public ArrayList<ReviewDto> uploadList();
 	// 리뷰 수정
 	public int editUpdate(ReviewDto reviewDto);
-	
+	// 리뷰 삭제
+	public int reviewDelete(ReviewDto reviewDto);
 }
