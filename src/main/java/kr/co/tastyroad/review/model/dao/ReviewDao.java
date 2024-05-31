@@ -32,6 +32,7 @@ public class ReviewDao {
 			pstmt.setInt(5, reviewDto.getRestaurantNo());
 			
 			int result = pstmt.executeUpdate();
+			System.out.println("엔롤 완료");
 			return result;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -160,7 +161,7 @@ public class ReviewDao {
     	ArrayList<ReviewDto> result = new ArrayList<>();
     	
 		String query ="select * from review_upload";
-		
+		System.out.println("이미지 선택");
 		try {
 			pstmt = con.prepareStatement(query);
 			
@@ -177,6 +178,7 @@ public class ReviewDao {
 		        reviewDto.setFilePath(reviewFilePath);
 		        reviewDto.setFileName(reviewFileName);
 		            
+		        System.out.println(reviewFileName);
 		        result.add(reviewDto); 
 			}
 			return result;

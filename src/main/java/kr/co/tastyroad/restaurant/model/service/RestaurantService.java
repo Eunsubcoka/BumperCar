@@ -8,5 +8,6 @@ public interface RestaurantService {
 
 	public RestaurantDto getRestaurant(int No);
 	public ArrayList<RestaurantDto> getMenuList(int No);
+	public float ratings(int No);
 	
 }

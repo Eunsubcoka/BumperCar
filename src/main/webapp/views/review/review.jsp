@@ -18,9 +18,13 @@
 	<!-- review section -->
 	<section>
 		<div class="container-review-box">
+<<<<<<< HEAD
+			<h1>식당이름 리뷰</h1>                                                         
+=======
 		<form action="/review/delete.do" method="POST">
 			<h1>식당이름 리뷰</h1>                     
 			<input type="hidden" name="restaurantNo" value="${restaurantNo}">                                    
+>>>>>>> branch 'master' of https://github.com/Eunsubcoka/BumperCar.git
 			<button type="button" onclick="location.href='/tastyForm/enrollReviewForm.do?restaurantNo=${restaurantNo}'">등록</button>
 			<c:choose>
 				<c:when test="${empty list}">
