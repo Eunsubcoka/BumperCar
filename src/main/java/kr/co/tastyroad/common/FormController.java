@@ -39,6 +39,10 @@ public class FormController extends HttpServlet {
 		} 
 		else if(action.equals("/profile.do")) {  // 프로필
 	       
+			// 세션에 있는 userNo로 SELECT 해오고
+			// 가져온 데이터 request setAttribute로 데이터바인딩
+			
+			
 			nextPage = "/views/member/profile.jsp";
 		}
 

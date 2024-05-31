@@ -17,7 +17,7 @@
             <form action="/profile.do" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
                 <input type="hidden" name="userId" value="${member.userId}" />
                 
-                <img id="profilePreview" src="" alt="프로필 사진 미리보기">
+                <img id="profilePreview" src="${member.profileImageUrl}" alt="프로필 사진 미리보기">
                 <label for="profileImage">프로필 사진:</label>
                 <input type="file" id="profileImage" name="profileImage" accept="image/*">
                 
