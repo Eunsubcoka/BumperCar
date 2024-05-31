@@ -232,7 +232,7 @@ public class MemberDAO {
     }
 
     public void verifyMember(String userId) {
-        String query = "UPDATE Tasty_member SET verified = 1 WHERE userId = ?";
+        String query = "UPDATE user_profiles SET verified = 1 WHERE userId = ?";
 
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -242,5 +242,48 @@ public class MemberDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    public void updateUserProfile(String userId, String userName, String userEmail, String userAddress, String userPhone, String fileName) {
+        String query = "UPDATE user_profiles SET user_name = ?, user_email = ?, user_address = ?, user_phone = ?, profile = ? WHERE user_id = ?";
+        try (Connection conn = DatabaseConnection.connDB();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            
+            stmt.setString(1, userName);
+            stmt.setString(2, userEmail);
+            stmt.setString(3, userAddress);
+            stmt.setString(4, userPhone);
+            stmt.setString(5, fileName);
+            stmt.setString(6, userId);
+            
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+        public Member selectUserProfile(int userNo) {
+            Member member = null;
+            String query = "SELECT * FROM user_profiles WHERE user_id = ?";
+
+            try (Connection con = new DatabaseConnection().connDB();
+                 PreparedStatement pstmt = con.prepareStatement(query)) {
+                pstmt.setInt(1, userNo);
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    if (rs.next()) {
+                        member = new Member();
+                        member.setUserId(rs.getString("user_id"));
+                        member.setUserName(rs.getString("user_name"));
+                        member.setUserEmail(rs.getString("user_email"));
+                        member.setUserAddress(rs.getString("user_address"));
+                        member.setUserPhone(rs.getString("user_phone"));
+                        // 필요에 따라 다른 필드도 추가
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return member;
+        
+        
     }
 }

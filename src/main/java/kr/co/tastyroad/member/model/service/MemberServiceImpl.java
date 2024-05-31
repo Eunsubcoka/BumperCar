@@ -43,11 +43,22 @@ public class MemberServiceImpl implements MemberService {
 	public int updateMember(Member member) {
 		return 0;
 	}
+	@Override
     public Member getMemberByToken(String token) {
         return memberDAO.getMemberByToken(token);
     }
-
+	@Override
     public void verifyMember(String userId) {
         memberDAO.verifyMember(userId);
     }
+	@Override
+	public void updateUserProfile(String userId, String userName, String userEmail, String userAddress,
+			String userPhone, String fileName) {
+		MemberDAO memberDAO = new MemberDAO();
+        memberDAO.updateUserProfile(userId, userName, userEmail, userAddress, userPhone, fileName);
+	}
+	@Override
+	public Member getUserProfile(int userNo) {
+		return null;
+	}
 }
