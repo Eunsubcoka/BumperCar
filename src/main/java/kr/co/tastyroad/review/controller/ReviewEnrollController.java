@@ -34,15 +34,13 @@ public class ReviewEnrollController extends HttpServlet {
 		String reviewTitle = request.getParameter("reviewTitle");
 		String reviewContent = request.getParameter("reviewContent");
 		int reviewRating = Integer.parseInt(request.getParameter("ratingStars"));
-		System.out.println(reviewRating);
 		int restaurantNo = Integer.parseInt(request.getParameter("restaurantNo"));
-		System.out.println(restaurantNo);
+
 		
 		//어떤 회원이 글작성했는지 
 		HttpSession session = request.getSession();
 		int userNo = (int)session.getAttribute("userNo");
 
-		
 		ReviewDto reviewDto = new ReviewDto();
 		reviewDto.setReviewTitle(reviewTitle);
 		reviewDto.setReviewContent(reviewContent);

@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.co.tastyroad.restaurant.model.dto.RestaurantDto;
 import kr.co.tastyroad.restaurant.model.service.RestaurantServiceImpl;
+import kr.co.tastyroad.review.model.dto.ReviewDto;
+import kr.co.tastyroad.review.model.service.ReviewServiceImpl;
 
 /**
  * Servlet implementation class RestaurantDetailControler
@@ -41,6 +43,20 @@ public class RestaurantDetailControler extends HttpServlet {
 		ArrayList<RestaurantDto> menuList = new ArrayList<RestaurantDto>();
 		menuList = resService.getMenuList(resNo);
 		
+        ReviewServiceImpl reviewService = new ReviewServiceImpl();
+		
+		ArrayList<ReviewDto> list = new ArrayList<ReviewDto>(); 
+		list = reviewService.getReviewList(); // 게시글 리스트
+		
+		float ratings = resService.ratings(resNo);
+		// uploadList = 각각의 게시글에 대한 파일명, 게시글 번호
+		ArrayList<ReviewDto> fileList = new ArrayList<ReviewDto>(); 
+		fileList = reviewService.uploadList(); // 게시글 리스트
+		
+		request.setAttribute("list", list);
+		request.setAttribute("fileList", fileList);
+		
+		request.setAttribute("ratings", ratings);
 		request.setAttribute("result", result);
 		request.setAttribute("menuList", menuList);
 		

@@ -90,5 +90,25 @@ public class RestaurantDao {
     return result;
     }
 	
+    public float ratings(int No) {
+    	String query = "SELECT AVG(r2.RATINGS) FROM RESTAURANT r " 
+    			+ "JOIN REVIEWS r2  ON r2.RESTAURANTNO = ?"; 
+
+    	float result = 0;
+    	try {
+			pstmt=con.prepareStatement(query);
+			pstmt.setInt(1, No);
+			
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				result = rs.getFloat("AVG(r2.RATINGS)");
+				return result;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	return 0;
+    }
 	
 }
