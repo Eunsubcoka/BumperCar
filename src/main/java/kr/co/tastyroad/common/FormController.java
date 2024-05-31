@@ -115,6 +115,8 @@ public class FormController extends HttpServlet {
 		if(nextPage != null && !nextPage.isEmpty()) {
 			RequestDispatcher view = request.getRequestDispatcher(nextPage);
 			view.forward(request, response);
+		}else {
+			response.sendRedirect("/views/error.html");
 		}
 	}
 

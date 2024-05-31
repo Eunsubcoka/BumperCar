@@ -7,10 +7,18 @@ public class noticeDto {
 	private int noticeView;
 	private String noticeDate;
 	private int userNo;
+	
+	public void setNoticeImage(String noticeImage) {
+		this.noticeImage = noticeImage;
+	}
 	private String userName;
 	private String userType;
 	
+	private String noticeImage;
 	
+	public String getNoticeImage() {
+		return noticeImage;
+	}
 	public void setUserType(String userType) {
 		this.userType = userType;
 	}
@@ -18,7 +26,31 @@ public class noticeDto {
 	private String filePath;
 	private String fileName;
 	
+    private String postId;
+    private String content;
+    private String imagePath;
+    
+    
 	
+	
+	public String getPostId() {
+		return postId;
+	}
+	public void setPostId(String postId) {
+		this.postId = postId;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public String getImagePath() {
+		return imagePath;
+	}
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
 	public int getFileNo() {
 		return fileNo;
 	}

@@ -70,7 +70,6 @@ public class noticeServiceImpl implements noticeService {
 		return noticeDao.selectNo(noticeDto);
 	}
 
-
 	@Override
 	public int fileUpload(noticeDto noticeDto) {
 		return noticeDao.fileUpload(noticeDto);
@@ -78,8 +77,9 @@ public class noticeServiceImpl implements noticeService {
 
 	@Override
 	public void getFileName(noticeDto result) {
-		noticeDao.getFileName(result);
-	}
+        result.setFilePath("/assets/uploads/notice/");
+        result.setFileName("boardNo_" + result.getNoticeNo() + ".jpg");
+    }
 
 	@Override
 	public int setFileDelete(int fileNo) {
@@ -90,10 +90,15 @@ public class noticeServiceImpl implements noticeService {
 	public boolean deleteNotice(int noticeNo) {
 		return noticeDao.deleteNotice(noticeNo);
 	}
-	
+
 	@Override
 	public noticeDto getLatestNotice() {
-	    return noticeDao.getLatestNotice();
+		return noticeDao.getLatestNotice();
+	}
+
+	@Override
+	public ArrayList<noticeDto> getNoticeList() {
+		return noticeDao.getNoticeList();
 	}
 
 }

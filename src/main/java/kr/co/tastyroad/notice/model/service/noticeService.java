@@ -35,4 +35,6 @@ public interface noticeService {
 	public boolean deleteNotice(int noticeNo);
 	
 	public noticeDto getLatestNotice();
+	
+	ArrayList<noticeDto> getNoticeList();
 }

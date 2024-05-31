@@ -35,7 +35,7 @@ public class noticeListController extends HttpServlet {
 
 		int pageLimit = 5;
 
-		int boardLimit = 5;
+		int boardLimit = 10;
 
 		PageInfo pi = Pagination.getPageInfo(listCount, cpage, pageLimit, boardLimit);
 
