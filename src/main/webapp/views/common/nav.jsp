@@ -15,7 +15,7 @@
         <a href="/">카테고리</a>
         <a href="/notice/list.do?cpage=1&category=noticeTitle&search-text=">공지사항</a>
     </div>
-    <%-- 최신 공지사항 제목 출력 --%>
+    <!-- 아래 코드는 가장 최근에 올라온 공지사항을 출력하고 클릭시 해당 게시글로 이동하는 코드 -->
     <div class="nav-align-right">
         <%
             noticeService service = new noticeServiceImpl();

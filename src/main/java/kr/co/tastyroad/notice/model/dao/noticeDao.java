@@ -72,6 +72,37 @@ public class noticeDao {
 
 		return result;
 	}
+	
+	 public ArrayList<noticeDto> getNoticeList() {
+	        ArrayList<noticeDto> result = new ArrayList<>();
+	        String query = "SELECT * FROM notice ORDER BY noticeDate DESC";
+
+	        try {
+	            pstmt = con.prepareStatement(query);
+	            ResultSet rs = pstmt.executeQuery();
+
+	            while (rs.next()) {
+	                noticeDto notice = new noticeDto();
+	                notice.setNoticeNo(rs.getInt("noticeNo"));
+	                notice.setNoticeTitle(rs.getString("noticeTitle"));
+	                notice.setNoticeContent(rs.getString("noticeContent"));
+	                notice.setNoticeView(rs.getInt("noticeView"));
+	                notice.setNoticeDate(rs.getString("noticeDate"));
+	                notice.setUserNo(rs.getInt("user_no"));
+	                
+	                result.add(notice);
+	            }
+
+	            rs.close();
+	            pstmt.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+
+	        return result;
+	    }
+
+	
 
 	public int getListCount(String category, String searchText) {
 		String query = "SELECT count(*) AS cnt FROM notice nt " + "JOIN Tasty_member m ON nt.user_no = m.user_no "

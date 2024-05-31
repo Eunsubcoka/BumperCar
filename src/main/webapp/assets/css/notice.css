@@ -11,21 +11,42 @@
     position: relative;
 }
 
-table {
-    width: 100%;
-    margin-top: 40px;
+.notice-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-th,
-td {
-    border: 1px solid black;
-    padding: 10px;
-    text-align: center; /* 모든 텍스트를 중앙 정렬로 변경 */
+.search-form {
+    display: flex;
+    align-items: center;
+}
+
+.search-and-button {
+    display: flex;
+    align-items: center;
+    gap: 10px; 
+}
+
+
+table.notice-table {
+    width: 80% !important; 
+    margin: 40px auto !important; 
+    border-collapse: collapse; 
+}
+th{
+	background-color : #ebb842;
+}
+
+th, td {
+    border: 1px solid black !important;
+    padding: 10px !important;
+    text-align: center !important;
 }
 
 th {
-    background-color: #333;
-    color: white;
+    background-color: #ebb842 !important;
+    color: white !important;
 }
 
 button {
@@ -41,8 +62,7 @@ button {
     --bs-card-border-width: 0px;
 }
 
-#editorTxt,
-#editTxt {
+#editorTxt, #editTxt {
     width: 85%;
     height: 300px;
     padding: 10px;
@@ -50,35 +70,36 @@ button {
 }
 
 .num {
-    width: 7%;
+    width: 7% !important;
 }
 
 .title {
-	
-    width: 61%;
-    text-align: left; 
+    width: 61% !important;
+    text-align: left !important;
 }
-.title-center{
-	text-align: center; 
+
+.title-center {
+    text-align: center !important;
 }
+
 .date {
-    width: 25%;
+    width: 25% !important;
 }
 
 .views {
-    width: 7%;
+    width: 7% !important;
 }
 
 table {
-    font-size: 20px;
+    font-size: 20px !important;
 }
 
 table thead {
-    background-color: #ebb842;
+    background-color: #ebb842 !important;
 }
 
 table thead tr th {
-    color: #f2f2f2;
+    color: #f2f2f2 !important;
 }
 
 .card-content-wrapper {
