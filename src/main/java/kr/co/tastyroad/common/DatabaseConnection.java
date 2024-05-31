@@ -9,10 +9,10 @@ public class DatabaseConnection {
 	private static final String URL = "jdbc:oracle:thin:@localhost:1521:xe";       
 	private static final String USER = "webadmin";
 	private static final String PWD = "qwer1234!";
-	private Connection con;
+	private static Connection con;
 	
 	// DB 연결해주는 메서드
-	public Connection connDB() {
+	public static Connection connDB() {
 		try {
 			Class.forName(DRIVER);
 			con = DriverManager.getConnection(URL, USER, PWD);
