@@ -26,15 +26,26 @@ public class ReviewEditController extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8"); 
 		
 		int reviewNo = Integer.parseInt(request.getParameter("reviewNo"));
+		int restaurantNo = Integer.parseInt(request.getParameter("restaurantNo"));
+		String reviewTitle = request.getParameter("reviewTitle");
+		String reviewContent = request.getParameter("reviewContent");
+		
 	
 		ReviewDto reviewDto = new ReviewDto();
 		reviewDto.setReviewNo(reviewNo);
+		reviewDto.setRestaurantNo(restaurantNo);
+		reviewDto.setReviewTitle(reviewTitle);
+		reviewDto.setReviewContent(reviewContent);
 		
 		ReviewServiceImpl reviewService = new ReviewServiceImpl();
 		int result = reviewService.editUpdate(reviewDto);
 		
-		
-		
+		if(result == 1) {   //?restaurantNo=" +restaurantNo
+			response.sendRedirect("/review/review.do?reviewNo=" + reviewNo + "&restaurantNo=" + restaurantNo);
+		}
+		else {
+			response.sendRedirect("/");
+		}
 	}
 
 }

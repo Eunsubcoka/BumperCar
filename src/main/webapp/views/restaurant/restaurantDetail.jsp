@@ -101,11 +101,6 @@
 						</c:if>
 						</c:forEach>
 
-						
-
-
-
-
 					</div>
 				</div>
 
@@ -116,15 +111,16 @@
 				<div class="mapContainer">
 					<div id="map" style="width: 200px; height: 200px;"></div>
 				</div>
-				<div class="res_review_wrap">
+				<div class="res_review_wrap" onclick="location.href='/review/review.do?restaurantNo=${result.restaurantNo}'">
 					<div class="res_review_id">1</div>
+					
 					<div class="res_review_rating">★ 1</div>
 					<div class="res_review_img">
 						<img src="/assets/image/logo.png" alt="대한옥">
 					</div>
 
-					<div class="res_review_content">
-						alskjlasfjsafjalfjsalkfjalkfjalsfjalsfjslkafjal</div>
+					<div class="res_review_content"><a>
+						alskjlasfjsafjalfjsalkfjalkfjalsfjalsfjslkafjal</a></div>
 
 
 				</div>

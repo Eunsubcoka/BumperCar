@@ -35,6 +35,8 @@ public class ReviewEnrollController extends HttpServlet {
 		String reviewContent = request.getParameter("reviewContent");
 		int reviewRating = Integer.parseInt(request.getParameter("ratingStars"));
 		System.out.println(reviewRating);
+		int restaurantNo = Integer.parseInt(request.getParameter("restaurantNo"));
+		System.out.println(restaurantNo);
 		
 		//어떤 회원이 글작성했는지 
 		HttpSession session = request.getSession();
@@ -46,6 +48,7 @@ public class ReviewEnrollController extends HttpServlet {
 		reviewDto.setReviewContent(reviewContent);
 		reviewDto.setUserNo(userNo);
 		reviewDto.setRatings(reviewRating);
+		reviewDto.setRestaurantNo(restaurantNo);
 		
 		//파일 업로드
 		Collection<Part> parts = request.getParts();
@@ -78,7 +81,7 @@ public class ReviewEnrollController extends HttpServlet {
 		}
 		
 		if(result == 1) {
-			response.sendRedirect("/review/review.do");
+			response.sendRedirect("/review/review.do?restaurantNo="+restaurantNo);
 		}
 		
 	}

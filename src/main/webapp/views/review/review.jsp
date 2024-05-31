@@ -18,7 +18,8 @@
 	<!-- review section -->
 	<section>
 		<div class="container-review-box">
-			<h1>식당이름 리뷰</h1>
+			<h1>식당이름 리뷰</h1>                                                         
+			<button type="button" onclick="location.href='/tastyForm/enrollReviewForm.do?restaurantNo=${restaurantNo}'">등록</button>
 			<c:choose>
 				<c:when test="${empty list}">
 					<!-- 조건: list객체가 비워져 있을때 -->
@@ -56,9 +57,7 @@
 									<!-- <button onclick="window.history.back()">뒤로가기</button> -->
 									<%-- <c:if test="${sessionScope.userNo == result.userNo}"> --%>
 									<button type="button"
-										onclick="location.href='/tastyForm/enrollReviewForm.do'">등록</button>
-									<button type="button"
-										onclick="location.href='/tastyForm/editReviewForm.do?reviewNo=${item.reviewNo}'">수정</button>
+										onclick="location.href='/tastyForm/editReviewForm.do?reviewNo=${item.reviewNo}&restaurantNo=${restaurantNo}'">수정</button>
 									<button>삭제</button>
 									<%-- </c:if> --%>
 								</div>
