@@ -18,13 +18,7 @@
 	<!-- review section -->
 	<section>
 		<div class="container-review-box">
-<<<<<<< HEAD
-			<h1>식당이름 리뷰</h1>                                                         
-=======
-		<form action="/review/delete.do" method="POST">
 			<h1>식당이름 리뷰</h1>                     
-			<input type="hidden" name="restaurantNo" value="${restaurantNo}">                                    
->>>>>>> branch 'master' of https://github.com/Eunsubcoka/BumperCar.git
 			<button type="button" onclick="location.href='/tastyForm/enrollReviewForm.do?restaurantNo=${restaurantNo}'">등록</button>
 			<c:choose>
 				<c:when test="${empty list}">
@@ -33,6 +27,8 @@
 				</c:when>
 				<c:otherwise>
 					<c:forEach var="item" items="${list}">
+					<form action="/review/delete.do" method="POST">
+					<input type="hidden" name="restaurantNo" value="${restaurantNo}">                                    
 					<input type="hidden" name="reviewNo" value="${item.reviewNo}"> 
 						<div class="container-review">
 <!-- 							<input type="hidden" name="userNo" value=""> -->
@@ -66,7 +62,8 @@
 									<%-- <c:if test="${sessionScope.userNo == item.userNo}"> --%>
 									<button type="button"
 										onclick="location.href='/tastyForm/editReviewForm.do?reviewNo=${item.reviewNo}&restaurantNo=${restaurantNo}'">수정</button>
-									<button type="submit">삭제</button>
+									 <button type="submit">삭제</button> 
+					</form>
 									<%-- </c:if> --%>
 								</div>
 							</div>
@@ -78,7 +75,6 @@
 
 
 
-		</form>
 		</div>
 	</section>
 

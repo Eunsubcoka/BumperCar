@@ -75,3 +75,8 @@ function getImageFiles(event){
         document.querySelector("div#image_container").appendChild(img);
     }
 }
+
+// 이미지 삭제 함수 
+function imageClose(event) {
+	const closeImg = document.getElementById("closeImg")
+}

@@ -250,6 +250,7 @@ public class ReviewDao {
 			pstmt.setInt(1, reviewDto.getReviewNo());
 			pstmt.setInt(2, reviewDto.getRestaurantNo());
 			
+			System.out.println("리뷰삭제 리뷰번호 : " + reviewDto.getReviewNo());
 			
 			int result = pstmt.executeUpdate();
 			
@@ -262,12 +263,14 @@ public class ReviewDao {
 		return 0;
 	}
 	
+	// 리뷰에 업로드된 파일 삭제
 	public int reviewFileDelete(ReviewDto reviewDto) {
 		String query = "delete from review_upload where reviewNo = ?";
 		
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, reviewDto.getReviewNo());
+			System.out.println("리뷰파일삭제 리뷰번호 : " + reviewDto.getReviewNo());
 			
 			int result = pstmt.executeUpdate();
 			
