@@ -61,7 +61,7 @@ public class ReservationEnrollController extends HttpServlet {
 		int result = resService.resEnroll(resDto);
 		
 		if(result == 1) {
-			RequestDispatcher view = request.getRequestDispatcher("		/index.jsp");
+			RequestDispatcher view = request.getRequestDispatcher("/index.jsp");
 			view.forward(request,response);
 			
 		}
