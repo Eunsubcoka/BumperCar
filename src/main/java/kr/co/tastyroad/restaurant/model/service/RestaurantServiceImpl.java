@@ -21,4 +21,7 @@ public class RestaurantServiceImpl implements RestaurantService{
 	public float ratings(int No) {
 		return restaurantDao.ratings(No);
 	}
+	 public ArrayList<RestaurantDto> getRestaurantList(int category){
+		 return restaurantDao.getRestaurantList(category);
+	 }
 }

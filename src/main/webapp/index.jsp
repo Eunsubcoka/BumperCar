@@ -12,9 +12,12 @@
     <%@ include file="/views/common/header.jsp"%>
 	<%@ include file="/views/common/nav.jsp"%>
     
+   
     <main class="unique-main">
         <section class="unique-food-category" id="slide1">
-            <h2>#한식</h2>
+        <div class="sli_con">
+            <h2 onclick ="location.href='/category.do?category=1'">#한식</h2>
+		</div>
             <div class="slider">
                 <div class="slides">
                     <div class="slide">
@@ -37,9 +40,11 @@
                 </div>
             </div>
         </section>
-
+		
         <section class="unique-food-category" id="slide2">
+         <div class="sli_con"> 
             <h2>#양식</h2>
+         </div>
             <div class="slider">
                 <div class="slides">
                     <div class="slide">
@@ -64,7 +69,9 @@
         </section>
 
         <section class="unique-food-category" id="slide3">
+        <div class="sli_con">
             <h2>#양식</h2>
+            </div>
             <div class="slider">
                 <div class="slides">
                     <div class="slide">
@@ -89,7 +96,9 @@
         </section>
 
         <section class="unique-food-category" id="slide4">
+        <div class="sli_con">
             <h2>#양식</h2>
+            </div>
             <div class="slider">
                 <div class="slides">
                     <div class="slide">

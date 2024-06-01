@@ -110,5 +110,39 @@ public class RestaurantDao {
 		}
     	return 0;
     }
+    
+    public ArrayList<RestaurantDto> getRestaurantList(int category) {
+    	ArrayList<RestaurantDto> result = new ArrayList<RestaurantDto>();
+    	System.out.println(category);
+    
+   
+    String query = "select r.restaurantNo ,r.restaurantName, r2.imgName from restaurant r "
+                 + " join res_img r2 on r2.restaurantNo = r.restaurantNo  where r.category= ?";
+    
+    try {
+		pstmt = con.prepareStatement(query);
+		pstmt.setInt(1, category);
+		
+		ResultSet rs = pstmt.executeQuery();
+		while (rs.next()) {
+			RestaurantDto resList = new RestaurantDto();
+			String imgName =rs.getString("imgName");
+			int resNo = rs.getInt("restaurantNo");
+			System.out.println(imgName);
+			String Name = rs.getString("restaurantName");
+			resList.setRestaurantName(Name);
+			resList.setImgName(imgName);
+			resList.setRestaurantNo(resNo);
+			result.add(resList) ;
+			
+		}
+        return result;
+        
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return result;
+    }
+	
 	
 }
