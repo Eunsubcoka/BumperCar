@@ -48,15 +48,6 @@ public class noticeEnrollController extends HttpServlet {
         noticeDto.setUserNo(userNo);
         noticeDto.setUserType(userType);
 
-        //절대 경로로 했을 시엔 요렇게
-//        String uploadDirectory = "C:\\dev\\workspace\\semiProject\\BumperCar\\src\\main\\webapp\\assets\\uploads\\notice\\";
-        //상대 경로로 했을땐 요렇게 -> 상대 경로로 해야 프로젝트를 다른사람한테 넘겨도 그대로 작동 가능 
-        String uploadDirectory = request.getServletContext().getRealPath("/assets/uploads/notice/");
-        File filePath = new File(uploadDirectory);
-        if (!filePath.exists()) {
-            filePath.mkdirs();
-        }
-
         noticeServiceImpl noticeService = new noticeServiceImpl();
         int result = noticeService.enroll(noticeDto);
 
@@ -64,38 +55,30 @@ public class noticeEnrollController extends HttpServlet {
         noticeDto resultDto = noticeService.selectNo(noticeDto);
         int boardNo = resultDto.getNoticeNo();
 
-        
-
-        boolean fileUploaded = false;
         // 파일 업로드 처리
         Part uploadFilePart = request.getPart("uploadFile");
-        System.out.println(uploadFilePart);
         
-        String fileName = null;
         if (uploadFilePart != null && uploadFilePart.getSize() > 0) {
             // 파일이 첨부된 경우에만 파일 업로드 처리
+            String uploadDirectory = request.getServletContext().getRealPath("/assets/uploads/notice/");
+            File filePath = new File(uploadDirectory);
+            if (!filePath.exists()) {
+                filePath.mkdirs();
+            }
             // 이미지 파일의 이름 설정 (게시물 번호와 함께 저장)
-            fileName = "boardNo_" + boardNo + ".jpg"; // 예시 파일 이름
-            noticeDto.setFileName(fileName);
-            uploadFilePart.write(filePath + File.separator + fileName);
+            String fileName = "boardNo_" + boardNo + ".jpg"; // 예시 파일 이름
+            uploadFilePart.write(new File(filePath, fileName).getAbsolutePath());
 
             // 파일 업로드 정보를 DB에 저장
-            noticeDto.setFilePath(uploadDirectory);
-            int resultUpload = noticeService.fileUpload(noticeDto);
+            noticeDto.setFileName(fileName);
+            noticeDto.setFilePath("/assets/uploads/notice/");
+            noticeService.fileUpload(noticeDto);
             
-            fileUploaded = true; // 파일이 업로드되었음을 표시
-        } 
-            // 파일이 업로드되지 않은 경우 처리
-            // 파일 업로드 정보를 비워줌
-        if (!fileUploaded) {
-            noticeDto.setFileName(null); // 파일명을 비워줌
-            noticeDto.setFilePath(null); // 파일 경로를 비워줌
         }
 
         if (result == 1) {
             response.sendRedirect("/notice/list.do?cpage=1&category=noticeTitle&search-text=");
         }
+        
     }
-
-
 }

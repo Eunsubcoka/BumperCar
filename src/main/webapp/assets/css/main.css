@@ -46,7 +46,9 @@ body {
 .unique-main {
 	display: flex;
 	justify-content: center;
-	padding: 20px;
+	padding:0px;
+	padding-top: 20px;
+	padding-bottom: 20px;
 	flex-wrap: wrap;
 	flex-direction: column;
 	align-items: center;

@@ -2,8 +2,6 @@ package kr.co.tastyroad.notice.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,11 +32,13 @@ public class noticeDetailController extends HttpServlet {
         ArrayList<noticeDto> list = noticeService.getNoticeList(); // 게시글 목록을 가져오는 서비스 호출
 
         if (result != null) { // 결과가 null이 아닌 경우에만 진행
-            // 이미지 파일 경로와 파일 이름을 DTO에 설정
-            result.setFilePath("/assets/uploads/notice/"); // 이미지 파일이 저장될 경로 지정
-            result.setFileName("boardNo_" + boardNo + ".jpg"); // 이미지 파일 이름 지정
+            noticeService.getFileName(result); // 파일 이름과 경로 가져오기
 
-            noticeService.getFileName(result);
+            // 파일 경로와 이름이 null인지 확인하여 설정
+            if (result.getFileName() == null || result.getFileName().isEmpty() || result.getFilePath() == null || result.getFilePath().isEmpty()) {
+                result.setFileName("");
+                result.setFilePath("");
+            }
 
             request.setAttribute("result", result);
             request.setAttribute("list", list); // 게시글 목록 설정
@@ -54,4 +54,3 @@ public class noticeDetailController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     }
 }
-

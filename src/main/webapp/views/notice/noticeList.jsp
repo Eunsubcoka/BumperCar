@@ -36,7 +36,6 @@
                 </form>
             </div>
         </div>
-        <hr>
         <div class="notice-container">
             <table class="table table-hover notice-table" style="margin-top: 10px;">
                 <thead>

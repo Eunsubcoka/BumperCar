@@ -1,10 +1,11 @@
 .notice-main {
     margin: 20px;
-    margin-left: 15%;
-    margin-right: 15%;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding: 0px;
+    border: 1px solid #0000002b;
+    border-radius: 20px;
+    background-color : white;
 }
 
 .notice-container {
@@ -15,6 +16,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color : #9194972b;
+    padding : 20px;
+    padding-bottom : 0px;
 }
 
 .search-form {
@@ -70,6 +74,13 @@ button {
 .card {
     --bs-card-border-width: 0px;
 }
+.card-header {
+	background-color : white !important;
+	text-align : left;
+}
+
+
+
 
 #editorTxt, #editTxt {
     width: 85%;
@@ -117,5 +128,17 @@ table thead tr th {
     margin-left: 15%;
     margin-right: 15%;
     margin-top: 5%;
+    margin-bottom : 5%;
     width: 70%;
 }
+
+.col-md-8{
+	margin-bottom : 20px;
+	margin-top : 20px;
+}
+
+.notice-enter{
+	margin-top: 20px !important;
+}
+
+
