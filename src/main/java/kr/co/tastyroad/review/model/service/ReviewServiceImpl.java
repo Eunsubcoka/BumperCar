@@ -46,9 +46,9 @@ public class ReviewServiceImpl implements ReviewService {
 	
 	// 리뷰 파일명 가져오기
 	@Override
-	public ArrayList<ReviewDto> uploadList(int reviewNo) {
+	public ArrayList<ReviewDto> uploadList(ArrayList<ReviewDto> list) {
 //		getFileName : 파일명 가져오기
-		return reviewDao.uploadList(reviewNo);
+		return reviewDao.uploadList(list);
 	}
 	
 	// 리뷰 수정

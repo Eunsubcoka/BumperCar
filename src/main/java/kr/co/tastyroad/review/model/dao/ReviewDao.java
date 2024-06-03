@@ -32,7 +32,6 @@ public class ReviewDao {
 			pstmt.setInt(5, reviewDto.getRestaurantNo());
 			
 			int result = pstmt.executeUpdate();
-			System.out.println("엔롤 완료");
 			return result;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -159,29 +158,30 @@ public class ReviewDao {
     }
     
     //파일리스트 가져오기
-    public ArrayList<ReviewDto> uploadList(int reviewNo) {
+    public ArrayList<ReviewDto> uploadList(ArrayList<ReviewDto> list) {
     	ArrayList<ReviewDto> result = new ArrayList<>();
     	
 		String query ="select * from review_upload where reviewNo = ?";
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, reviewNo);
-			ResultSet rs = pstmt.executeQuery();
+			for(ReviewDto review : list) {
+				pstmt.setInt(1, review.getReviewNo());
+				ResultSet rs = pstmt.executeQuery();
 				
-			while(rs.next()) {
-				int reviewNo1 = rs.getInt("reviewNo");
-				String reviewFilePath = rs.getString("review_upload_path");
-				String reviewFileName = rs.getString("review_upload_name");
+				while(rs.next()) {
+					int reviewNo = rs.getInt("reviewNo");
+					String reviewFilePath = rs.getString("review_upload_path");
+					String reviewFileName = rs.getString("review_upload_name");
 					
-				ReviewDto reviewDto = new ReviewDto();
+					ReviewDto reviewDto = new ReviewDto();
 					
-		        reviewDto.setReviewNo(reviewNo1);
-		        reviewDto.setFilePath(reviewFilePath);
-		        reviewDto.setFileName(reviewFileName);
-		            
-		        System.out.println(reviewFileName);
-		        result.add(reviewDto); 
+					reviewDto.setReviewNo(reviewNo);
+					reviewDto.setFilePath(reviewFilePath);
+					reviewDto.setFileName(reviewFileName);
+					
+					result.add(reviewDto); 
+				}
 			}
 			return result;
 				
@@ -194,7 +194,7 @@ public class ReviewDao {
 	// 리뷰 수정
 	public int editUpdate(ReviewDto reviewDto) {
 		String query = "update reviews set reviewTitle = ?, reviewContent = ?, ratings = ?, reviewDate = sysdate "
-					 + "where reviewNo = ? AND restaurantNo = ?";
+					 + "where reviewNo = ?";
 		
 		try {
 			pstmt = con.prepareStatement(query);
@@ -202,11 +202,10 @@ public class ReviewDao {
 			pstmt.setString(1, reviewDto.getReviewTitle());
 			pstmt.setString(2, reviewDto.getReviewContent());
 			pstmt.setInt(3, reviewDto.getRatings());
-			System.out.println("업데이트Dao");
 			pstmt.setInt(4, reviewDto.getReviewNo());
-			pstmt.setInt(5, reviewDto.getRestaurantNo());
+//			pstmt.setInt(5, reviewDto.getRestaurantNo());
 			int result = pstmt.executeUpdate();
-			
+			System.out.println("리뷰수정 Dao");
 			return result;
 			
 		} catch (SQLException e) {

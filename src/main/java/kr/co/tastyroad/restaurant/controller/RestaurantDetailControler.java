@@ -52,7 +52,6 @@ public class RestaurantDetailControler extends HttpServlet {
 		// uploadList = 각각의 게시글에 대한 파일명, 게시글 번호
 		ArrayList<ReviewDto> fileList = new ArrayList<ReviewDto>(); 
 		fileList = reviewService.uploadListOnce(); // 게시글 리스트
-		
 		request.setAttribute("list", list);
 		request.setAttribute("fileList", fileList);
 		

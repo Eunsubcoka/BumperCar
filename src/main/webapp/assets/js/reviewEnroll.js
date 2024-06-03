@@ -28,9 +28,9 @@ function updateRatingText(stars, ratingTexts) {
 		  const star = document.getElementById("stars");
           // 클릭한 별의 인덱스를 가져옴
           const clickedIndex = index;
-		const ratingHidden = document.getElementById("ratingHidden");
+/*		  const ratingHidden = document.getElementById("ratingHidden");
 		
-		ratingHidden.value = clickedIndex + 1;
+		  ratingHidden.value = clickedIndex + 1*/
           
           // 클릭한 별에 해당하는 텍스트를 가져와서 업데이트
           const ratingText = document.querySelector('.rating-text');
@@ -51,6 +51,7 @@ window.onload = function() {
   // 별점 텍스트 업데이트 기능 실행
   updateRatingText(ratingStars, ratingTexts);
 };
+
 
 
 // 이미지 추가 함수

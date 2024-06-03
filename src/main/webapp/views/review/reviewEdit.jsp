@@ -50,10 +50,9 @@
                      <p>*사진은 최대 3장까지 가능합니다.</p>
 				<div class="image_container" id="image_container">
 					<c:forEach var="fileList" items="${fileList}">
-					qqq : ${fileList }
-					<input type="hidden" name="fileName" value="${fileList.fileName}"/>
-					<input type="hidden" name="filePath" value="${fileList.filePath}"/>
 						<c:if test="${fileList.reviewNo == result.reviewNo}">
+							<input type="hidden" name="fileName" value="${fileList.fileName}"/>
+							<input type="hidden" name="filePath" value="${fileList.filePath}"/>
 							<div class="review-photo">
 								<img class="close" id="closeImg" src="/assets/image/close.png" onclick="imageClose(event)">
 								<img class="photo" src="/assets/uploads/review/${fileList.fileName}" alt="리뷰 사진 1">
@@ -96,6 +95,9 @@ function executeRating(stars, ratingValueElement, initialRating) {
         star.onclick = () => {
             // 클릭한 별의 인덱스
             const clickedIndex = index;
+            const ratingHidden = document.getElementById("ratingHidden");
+    		
+  		  	ratingHidden.value = clickedIndex + 1
 
             // 클릭한 별을 포함하여 이전 별들을 활성화 또는 비활성화 상태로 변경
             stars.forEach((s, i) => {
