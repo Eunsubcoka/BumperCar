@@ -88,8 +88,8 @@ public class noticeServiceImpl implements noticeService {
     }
 
     @Override
-    public int setFileDelete(int noticeNo) {
-        return noticeDao.setFileDelete(noticeNo);
+    public int setFileDelete(int fileNo) {
+        return noticeDao.setFileDelete(fileNo);
     }
 
     @Override

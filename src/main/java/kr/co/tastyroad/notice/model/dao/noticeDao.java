@@ -1,3 +1,6 @@
+
+
+
 package kr.co.tastyroad.notice.model.dao;
 
 import java.sql.Connection;
@@ -392,21 +395,20 @@ public class noticeDao {
 	}
 
 
-	public int setFileDelete(int noticeNo) {
-	    String query = "DELETE FROM notice_upload WHERE noticeNo = ?";
+	public int setFileDelete(int fileNo) {
+		String query = "DELETE FROM notice_upload WHERE nuNo = ?";
 
-	    try {
-	        pstmt = con.prepareStatement(query);
-	        pstmt.setInt(1, noticeNo);
-	        int result = pstmt.executeUpdate();
-	        return result;
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
-	    return 0;
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, fileNo);
+			int result = pstmt.executeUpdate();
+			return result;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return 0;
 	}
-
-
 
 	public boolean deleteNotice(int noticeNo) {
 		boolean deleted = false;

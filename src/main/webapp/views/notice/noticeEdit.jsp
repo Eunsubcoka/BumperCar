@@ -41,12 +41,12 @@
                             <div class="mt-3">
                                 <p>현재 파일: <img src="${result.filePath}${result.fileName}" alt="이미지" style="max-height: 30%;"></p>
                                 <p><a href="${result.filePath}${result.fileName}" target="_blank">${result.fileName}</a></p>
-                                <input type="checkbox" name="deleteFile" value="true"> 파일 삭제
+                                <button type="button" class="btn btn-danger mx-2" onclick="deleteFile(${result.noticeNo})">파일 삭제</button>
                             </div>
                         </c:if>
                     </div>
                 </div>
-                <div class="d-flex justify-content-center" style = "margin-bottom : 20px;">
+                <div class="d-flex justify-content-center" style="margin-bottom: 20px;">
                     <button class="btn btn-secondary mx-2" type="button" onclick="window.history.back()">뒤로가기</button>
                     <c:if test="${sessionScope.userType == 'admin'}">
                         <button type="submit" class="btn btn-primary mx-2" onclick="save()">수정</button>
@@ -57,21 +57,9 @@
     </section>
 </main>
 <%@ include file="/views/common/footer.jsp"%>
+<script src="/assets/js/jquery.min.js"></script>
 <script src="/assets/js/bootstrap.bundle.min.js"></script>
 <script src="/assets/js/main.js"></script>
-<script type="text/javascript">
-    var oEditors = [];
-    nhn.husky.EZCreator.createInIFrame({
-        oAppRef: oEditors,
-        elPlaceHolder: "editorTxt",
-        sSkinURI: "/assets/smarteditor2/SmartEditor2Skin.html",
-        fCreator: "createSEditor2"
-    });
 
-    function submitContents(elClickedObj) {
-        oEditors.getById["editorTxt"].exec("UPDATE_CONTENTS_FIELD", []); // 에디터의 내용이 textarea에 적용됩니다.
-        elClickedObj.form.submit();
-    }
-</script>
 </body>
 </html>
