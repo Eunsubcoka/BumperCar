@@ -102,7 +102,7 @@ public class FormController extends HttpServlet {
 			result.setRestaurantNo(restaurantNo);
 			
 			ArrayList<ReviewDto> fileList = new ArrayList<ReviewDto>(); 
-			fileList = reviewService.uploadList();
+			fileList = reviewService.uploadList(reviewNo);
 			request.setAttribute("fileList", fileList);
 			request.setAttribute("result", result);
 			

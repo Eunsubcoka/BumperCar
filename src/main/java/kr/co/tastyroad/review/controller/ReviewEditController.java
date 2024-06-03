@@ -27,15 +27,23 @@ public class ReviewEditController extends HttpServlet {
 		
 		int reviewNo = Integer.parseInt(request.getParameter("reviewNo"));
 		int restaurantNo = Integer.parseInt(request.getParameter("restaurantNo"));
+		int ratings = Integer.parseInt(request.getParameter("ratings"));
 		String reviewTitle = request.getParameter("reviewTitle");
 		String reviewContent = request.getParameter("reviewContent");
+		String fileName = request.getParameter("fileName");
+		String filePath = request.getParameter("filePath");
 		
 	
 		ReviewDto reviewDto = new ReviewDto();
 		reviewDto.setReviewNo(reviewNo);
 		reviewDto.setRestaurantNo(restaurantNo);
+		reviewDto.setRatings(ratings);
 		reviewDto.setReviewTitle(reviewTitle);
 		reviewDto.setReviewContent(reviewContent);
+		reviewDto.setFileName(fileName);
+		reviewDto.setFilePath(filePath);
+		
+		
 		
 		ReviewServiceImpl reviewService = new ReviewServiceImpl();
 		int result = reviewService.editUpdate(reviewDto);

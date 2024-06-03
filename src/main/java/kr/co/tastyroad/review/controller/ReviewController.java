@@ -24,15 +24,15 @@ public class ReviewController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		ReviewServiceImpl reviewService = new ReviewServiceImpl();
-
+		
+		int reviewNo = Integer.parseInt(request.getParameter("ReviewNO"));
+		
 		ArrayList<ReviewDto> list = new ArrayList<ReviewDto>();
 		list = reviewService.getReviewList(); // 게시글 리스트
 
 		// uploadList = 각각의 게시글에 대한 파일명, 게시글 번호
 		ArrayList<ReviewDto> fileList = new ArrayList<ReviewDto>();
-		fileList = reviewService.uploadList(); // 게시글 리스트
-
-		System.out.println(fileList);
+		fileList = reviewService.uploadList(reviewNo); // 게시글 리스트
 		
 		request.setAttribute("list", list);
 		request.setAttribute("fileList", fileList);

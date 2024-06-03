@@ -22,6 +22,7 @@
         <form action="/review/reviewEdit.do" method="POST">
         <input type="hidden" name="reviewNo" value="${result.reviewNo}"/>
         <input type="hidden" name="restaurantNo" value="${result.restaurantNo}"/>
+        <input type="hidden" name="ratings" id="ratingHidden" value="${result.ratings}"/>
         <div class="container-review">
             <div class="review">
                 <div class="user-container">
@@ -49,6 +50,9 @@
                      <p>*사진은 최대 3장까지 가능합니다.</p>
 				<div class="image_container" id="image_container">
 					<c:forEach var="fileList" items="${fileList}">
+					qqq : ${fileList }
+					<input type="hidden" name="fileName" value="${fileList.fileName}"/>
+					<input type="hidden" name="filePath" value="${fileList.filePath}"/>
 						<c:if test="${fileList.reviewNo == result.reviewNo}">
 							<div class="review-photo">
 								<img class="close" id="closeImg" src="/assets/image/close.png" onclick="imageClose(event)">

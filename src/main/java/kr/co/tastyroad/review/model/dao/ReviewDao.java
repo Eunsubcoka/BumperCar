@@ -137,6 +137,7 @@ public class ReviewDao {
             String reviewContent =rs.getString("reviewContent");
             String reviewDate = rs.getString("reviewDate");
             int ratings = rs.getInt("ratings"); 
+			/* int userNo = rs.getInt("user_no"); */
             
             ReviewDto reviewDto = new ReviewDto();
             reviewDto.setReviewNo(reviewNo);
@@ -144,6 +145,7 @@ public class ReviewDao {
             reviewDto.setReviewContent(reviewContent);
             reviewDto.setReviewDate(reviewDate);
             reviewDto.setRatings(ratings);
+			/* reviewDto.setUserNo(userNo); */
             
             result.add(reviewDto);
             
@@ -157,24 +159,24 @@ public class ReviewDao {
     }
     
     //파일리스트 가져오기
-    public ArrayList<ReviewDto> uploadList() {
+    public ArrayList<ReviewDto> uploadList(int reviewNo) {
     	ArrayList<ReviewDto> result = new ArrayList<>();
     	
-		String query ="select * from review_upload";
-		System.out.println("이미지 선택");
+		String query ="select * from review_upload where reviewNo = ?";
+		
 		try {
 			pstmt = con.prepareStatement(query);
-			
+			pstmt.setInt(1, reviewNo);
 			ResultSet rs = pstmt.executeQuery();
 				
 			while(rs.next()) {
-				int reviewNo = rs.getInt("reviewNo");
+				int reviewNo1 = rs.getInt("reviewNo");
 				String reviewFilePath = rs.getString("review_upload_path");
 				String reviewFileName = rs.getString("review_upload_name");
 					
 				ReviewDto reviewDto = new ReviewDto();
 					
-		        reviewDto.setReviewNo(reviewNo);
+		        reviewDto.setReviewNo(reviewNo1);
 		        reviewDto.setFilePath(reviewFilePath);
 		        reviewDto.setFileName(reviewFileName);
 		            
@@ -191,17 +193,18 @@ public class ReviewDao {
 
 	// 리뷰 수정
 	public int editUpdate(ReviewDto reviewDto) {
-		String query = "update reviews set reviewTitle = ?, reviewContent = ?, reviewDate = sysdate "
+		String query = "update reviews set reviewTitle = ?, reviewContent = ?, ratings = ?, reviewDate = sysdate "
 					 + "where reviewNo = ? AND restaurantNo = ?";
 		
 		try {
 			pstmt = con.prepareStatement(query);
 			
 			pstmt.setString(1, reviewDto.getReviewTitle());
-			System.out.println("타이틀");
 			pstmt.setString(2, reviewDto.getReviewContent());
-			pstmt.setInt(3, reviewDto.getReviewNo());
-			pstmt.setInt(4, reviewDto.getRestaurantNo());
+			pstmt.setInt(3, reviewDto.getRatings());
+			System.out.println("업데이트Dao");
+			pstmt.setInt(4, reviewDto.getReviewNo());
+			pstmt.setInt(5, reviewDto.getRestaurantNo());
 			int result = pstmt.executeUpdate();
 			
 			return result;
@@ -229,7 +232,7 @@ public class ReviewDao {
 			
 			int result = pstmt.executeUpdate();
 			
-			System.out.println("이미지업데이트");
+			System.out.println("이미지업데이트 Dao");
 			return result;
 			
 		} catch (SQLException e) {
@@ -250,8 +253,6 @@ public class ReviewDao {
 			pstmt.setInt(1, reviewDto.getReviewNo());
 			pstmt.setInt(2, reviewDto.getRestaurantNo());
 			
-			System.out.println("리뷰삭제 리뷰번호 : " + reviewDto.getReviewNo());
-			
 			int result = pstmt.executeUpdate();
 			
 			return result;
@@ -270,7 +271,6 @@ public class ReviewDao {
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, reviewDto.getReviewNo());
-			System.out.println("리뷰파일삭제 리뷰번호 : " + reviewDto.getReviewNo());
 			
 			int result = pstmt.executeUpdate();
 			

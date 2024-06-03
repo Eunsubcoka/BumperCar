@@ -7,6 +7,7 @@ function executeRating(stars) {
       star.onclick = () => {
           // 클릭한 별의 인덱스
           const clickedIndex = index;
+	
           
           // 클릭한 별을 포함하여 이전 별들을 활성화 또는 비활성화 상태로 변경
           stars.forEach((s, i) => {
@@ -27,6 +28,9 @@ function updateRatingText(stars, ratingTexts) {
 		  const star = document.getElementById("stars");
           // 클릭한 별의 인덱스를 가져옴
           const clickedIndex = index;
+		const ratingHidden = document.getElementById("ratingHidden");
+		
+		ratingHidden.value = clickedIndex + 1;
           
           // 클릭한 별에 해당하는 텍스트를 가져와서 업데이트
           const ratingText = document.querySelector('.rating-text');
