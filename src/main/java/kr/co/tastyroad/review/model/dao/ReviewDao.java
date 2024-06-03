@@ -279,5 +279,43 @@ public class ReviewDao {
 		
 		return 0;
 	}
+	
+	// 파일 하나씩 가져오기
+
+	//파일리스트 가져오기
+    public ArrayList<ReviewDto> uploadListOnce() {
+    	ArrayList<ReviewDto> result = new ArrayList<>();
+    	
+		String query ="select distinct * from review_upload";
+		System.out.println("이미지 선택");
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			ResultSet rs = pstmt.executeQuery();
+				
+			while(rs.next()) {
+				int reviewNo = rs.getInt("reviewNo");
+				String reviewFilePath = rs.getString("review_upload_path");
+				String reviewFileName = rs.getString("review_upload_name");
+					
+				ReviewDto reviewDto = new ReviewDto();
+					
+		        reviewDto.setReviewNo(reviewNo);
+		        reviewDto.setFilePath(reviewFilePath);
+		        reviewDto.setFileName(reviewFileName);
+		            
+		        System.out.println(reviewFileName);
+		        result.add(reviewDto); 
+			}
+			return result;
+				
+		}catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		return result;
+	}
+
+
+	
 }
     

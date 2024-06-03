@@ -124,7 +124,9 @@
 						</c:when>
 						<c:otherwise>
 							<c:forEach var="item" items="${list}">
-					${item.reviewTitle }
+							<div class="res_wrapper">
+					
+				<h5>${item.reviewTitle } </h5>
 					<div class="res_review_id">${sessionScope.userName}</div>
 
 								<div class="res_review_rating">
@@ -147,6 +149,7 @@
 
 
 
+							</div>
 							</c:forEach>
 						</c:otherwise>
 					</c:choose>
