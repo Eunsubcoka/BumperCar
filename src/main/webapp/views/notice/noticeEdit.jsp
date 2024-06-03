@@ -6,8 +6,8 @@
 <head>
 <%@ include file="/views/common/head.jsp"%>
 <link rel="stylesheet" href="/assets/css/notice.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script type="text/javascript" src="/assets/smarteditor2/js/HuskyEZCreator.js" charset="utf-8"></script>
-<script type="text/javascript" src="/assets/js/common/smarteditor.js" charset="utf-8"></script>
 </head>
 <body>
 <%@ include file="/views/common/header.jsp"%>
@@ -49,7 +49,7 @@
                 <div class="d-flex justify-content-center" style="margin-bottom: 20px;">
                     <button class="btn btn-secondary mx-2" type="button" onclick="window.history.back()">뒤로가기</button>
                     <c:if test="${sessionScope.userType == 'admin'}">
-                        <button type="submit" class="btn btn-primary mx-2" onclick="save()">수정</button>
+                        <button type="submit" class="btn btn-primary mx-2" onclick="submitContents(this)">수정</button>
                     </c:if>
                 </div>
             </form>
@@ -57,9 +57,7 @@
     </section>
 </main>
 <%@ include file="/views/common/footer.jsp"%>
-<script src="/assets/js/jquery.min.js"></script>
-<script src="/assets/js/bootstrap.bundle.min.js"></script>
 <script src="/assets/js/main.js"></script>
-
+<script src="/assets/js/notice.js"></script>
 </body>
 </html>
