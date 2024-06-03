@@ -65,7 +65,7 @@ public class ReviewEnrollController extends HttpServlet {
 		
 
 		ReviewDto resultDto = reviewService.selectNo(reviewDto);
-		
+
 		for(Part part : parts) {
 			fileName = getFileName(part);
 			if(fileName != null) {

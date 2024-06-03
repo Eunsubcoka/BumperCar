@@ -43,12 +43,18 @@ public class ReviewEditController extends HttpServlet {
 		reviewDto.setFileName(fileName);
 		reviewDto.setFilePath(filePath);
 		
+		// update문을 사용하지 않는 방법
+		// 1. (있었다면) 기존에 있던 이미지 삭제
+		// 2. 기존에 테이블에 들어갓던 컬럼 삭제
 		
+		// 3. 새로 올라온 파일 업로드
+		// 4. 테이블에 insert
 		
 		ReviewServiceImpl reviewService = new ReviewServiceImpl();
 		int result = reviewService.editUpdate(reviewDto);
 		
-		if(result == 1) {   //?restaurantNo=" +restaurantNo
+		if(result == 1) {  
+			
 			response.sendRedirect("/review/review.do?reviewNo=" + reviewNo + "&restaurantNo=" + restaurantNo);
 		}
 		else {
