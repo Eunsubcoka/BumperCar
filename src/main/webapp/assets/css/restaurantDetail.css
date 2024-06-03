@@ -257,12 +257,19 @@ border-bottom: 1px #c0c0c0 solid;
 	
 }
 
-.res_review_rating{}
+.res_review_rating{
+	    border-bottom: 1px solid black;
+    margin: 10px 0 10px 0;
+    padding: 0px 0px 6px 5px;
+    text-align: left; 
+}
 
 .res_review_img > img{
-	width: 200px;
-	height: 200px;
+	width: 180px;
+	height: 180px;
 	cursor: pointer;
+	text-align: center;
+	border-radius: 10px;
 }
 
 .res_review_content{
@@ -279,4 +286,21 @@ word-wrap: break-word;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     padding : 20px;
+}
+.res_wrapper{
+	border: 1px solid black;
+	border-radius : 10px;
+	height: auto;
+	margin-bottom: 20px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	text-align: center;
+	
+}
+.fa-star:before {
+    content: "\f005";
+    color : #ff9800;
+}
+
+.res_wrapper > h5{
+padding: 10px 0 0 10px;
 }
