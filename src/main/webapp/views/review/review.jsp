@@ -18,6 +18,7 @@
 	<!-- review section -->
 	<section>
 		<div class="container-review-box">
+
 		<form action="/review/delete.do" method="POST">
 			<h1>식당이름 리뷰</h1>                     
 			<input type="hidden" name="restaurantNo" value="${restaurantNo}">                                    
@@ -29,7 +30,10 @@
 				</c:when>
 				<c:otherwise>
 					<c:forEach var="item" items="${list}">
+					<form action="/review/delete.do" method="POST">
+					<input type="hidden" name="restaurantNo" value="${restaurantNo}">                                    
 					<input type="hidden" name="reviewNo" value="${item.reviewNo}"> 
+					<input type="hidden" name="ratings" value="${result.ratings}"/>
 						<div class="container-review">
 <!-- 							<input type="hidden" name="userNo" value=""> -->
 							<div class="review">
@@ -49,7 +53,6 @@
 								</div>
 								<div class="review-photos">
 								<c:forEach var="fileList" items="${fileList}">
-								<input type="hidden" name="fileName" value="${fileList.fileName}"> 
 								  <c:if test="${fileList.reviewNo == item.reviewNo}">
 									<div class="review-photo">
 										<img class="photo" src="/assets/uploads/review/${fileList.fileName}" alt="리뷰 사진 1">
@@ -59,10 +62,11 @@
 								</div>
 								<div class="btn">
 									<button type="button" onclick="window.history.back()">뒤로가기</button>
-									<%-- <c:if test="${sessionScope.userNo == item.userNo}"> --%>
+									<%-- <c:if test="${sessionScope.userNo == item.userNo}">  --%>
 									<button type="button"
 										onclick="location.href='/tastyForm/editReviewForm.do?reviewNo=${item.reviewNo}&restaurantNo=${restaurantNo}'">수정</button>
-									<button type="submit">삭제</button>
+									 <button type="submit">삭제</button> 
+					</form>
 									<%-- </c:if> --%>
 								</div>
 							</div>
@@ -74,7 +78,6 @@
 
 
 
-		</form>
 		</div>
 	</section>
 

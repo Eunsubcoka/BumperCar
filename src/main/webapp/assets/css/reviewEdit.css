@@ -61,6 +61,8 @@ h1 {
 .review .rating {
     color: #ff9800;
     font-size: 1.2em;
+    cursor: pointer;
+    
 }
 
 
@@ -97,14 +99,22 @@ textarea {
     width: 100%;
 }
 
+.close {
+	width:10px;
+	height:10px;
+	float:right;
+    position: relative;
+    right: 7.5px; /* 우측 여백 추가 */
+	cursor: pointer;
+}
+
+
 /* 수정, 삭제 버튼 */
 .btn {
     margin-top: 15px;
     border-radius: 10px;
     display: flex;
-    margin-left: auto;
-
-    
+    margin-left: auto; 
 }
 
 button, .btn-upload {
@@ -138,6 +148,7 @@ button, .btn-upload {
     place-items: center;
     display: grid; 
     grid-template-columns: repeat(3, 1fr);
+    cursor: pointer;
     grid-gap: 50px;
 
 }
