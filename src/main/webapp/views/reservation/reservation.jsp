@@ -37,6 +37,7 @@
          <span></span>
       </div>
    </header>
+   
    <div class="quick-reservation__form">
       <section class="form__content">
       <div class="row-wrapper">
@@ -68,22 +69,7 @@
             
          </div>
          
-         <div class="row-wrapper more-options">
-
-            <label for="single" class="radio">
-               <input type="radio" name="plan" id="single" class="hidden"/>
-               <span class="label"></span>Single
-            </label>
-            
-            <label for="group" class="radio">
-               <input type="radio" name="plan" id="group" class="hidden"/>
-               <span class="label"></span>Group
-            </label>
-            
-            
-         </div>
-         
-      </section>
+         </section>
    </div>
    
    <div class="reservation-info">
@@ -114,10 +100,6 @@
 </div>
    
 </form>
-
-<p class="after" style="display: none; color: #777; font-weight: 200;">Reload the browser window everytime you close the reservation form to show up again.</p>
-
-
 
 
 	<%@ include file="/views/common/footer.jsp"%>

@@ -58,11 +58,19 @@ body {
 	align-items: center;
 	margin-left: 10%;
 	margin-right: 10%;
+    background-color: #fffefe;
+
+   border-radius: 20px 20px;
+    border: 1px solid #00000030;
+    
+    
 }
 
 .unique-food-category h2 {
 	font-size: 24px;
 	margin-bottom: 10px;
+	padding-left: 20px;
+	
 }
 
 .unique-carousel {
@@ -114,7 +122,8 @@ body {
 }
 
 body {
-	font-family: Arial, sans-serif;
+    background-color: #06060640;
+	
 }
 
 .slider {
@@ -138,6 +147,8 @@ body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	margin-bottom: 20px;
+	
 }
 
 .slide a {
@@ -149,6 +160,7 @@ body {
 
 .slide img {
 	width: 100%;
+	border-radius : 10px;
 }
 
 .prev, .next {
@@ -207,4 +219,17 @@ body {
     margin: 0 15px;
     text-decoration: none;
     color: #333;
+}
+
+
+/* 은섭 */
+.sli_con{
+	    background-clip: border-box;
+    padding: 20px 0 0 20px;
+    background-color: #9194972b;
+        border-radius: 20px 20px 0 0;
+    border-bottom: 1px solid #0000002b;
+    align-content: center;
+    margin-bottom: 20px;
+    
 }

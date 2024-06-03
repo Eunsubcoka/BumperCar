@@ -68,6 +68,11 @@ public class ReviewServiceImpl implements ReviewService {
 		
 		return reviewDao.reviewDelete(reviewDto);
 	}
-
+	
+	// 파일 하나씩만 가져오기
+	@Override
+	public ArrayList<ReviewDto> uploadListOnce(){
+		return reviewDao.uploadListOnce();
+	}
 }
 

@@ -114,18 +114,7 @@
 				<div class="mapContainer">
 					<div id="map" style="width: 200px; height: 200px;"></div>
 				</div>
-<<<<<<< HEAD
-=======
-				<div class="res_review_wrap" onclick="location.href='/review/review.do?restaurantNo=${result.restaurantNo}'">
-					<div class="res_review_id">1</div>
-					
-					<div class="res_review_rating">★ 1</div>
-					<div class="res_review_img">
-						<img src="/assets/image/logo.png" alt="대한옥">
-					</div>
->>>>>>> branch 'master' of https://github.com/Eunsubcoka/BumperCar.git
 
-<<<<<<< HEAD
 				<div class="res_review_wrap"
 					onclick="location.href='/review/review.do?restaurantNo=${result.restaurantNo}'">
 					<c:choose>
@@ -135,8 +124,10 @@
 						</c:when>
 						<c:otherwise>
 							<c:forEach var="item" items="${list}">
-					${item.reviewTitle }
-					<div class="res_review_id">${sessionScope.userName}</</div>
+							<div class="res_wrapper">
+					
+				<h5>${item.reviewTitle } </h5>
+					<div class="res_review_id">${sessionScope.userName}</div>
 
 								<div class="res_review_rating">
 									<span class="rating"><i class="fas fa-star"></i>${item.ratings}점</span>
@@ -155,13 +146,10 @@
 								<div class="res_review_content">
 									<a>${item.reviewContent}</a>
 								</div>
-=======
-					<div class="res_review_content"><a>
-						alskjlasfjsafjalfjsalkfjalkfjalsfjalsfjslkafjal</a></div>
->>>>>>> branch 'master' of https://github.com/Eunsubcoka/BumperCar.git
 
 
 
+							</div>
 							</c:forEach>
 						</c:otherwise>
 					</c:choose>
@@ -224,6 +212,6 @@
 	<script src="/assets/js/bootstrap.bundle.min.js"></script>
 
 	<div class="bg"></div>
-	<%@ include file="/views/common/footer.jsp"%>
+<%@ include file="/views/common/footer.jsp"%> 
 </body>
 </html>

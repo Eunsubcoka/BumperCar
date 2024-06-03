@@ -9,7 +9,14 @@ private String restaurantName;
 private String menu;
 private int price;
 private int foodNo;
+private String imgName;
 
+public String getImgName() {
+	return imgName;
+}
+public void setImgName(String imgName) {
+	this.imgName = imgName;
+}
 public String getMenu() {
 	return menu;
 }
