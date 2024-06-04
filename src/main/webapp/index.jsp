@@ -1,6 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!doctype html>
 <html lang="en">
@@ -10,14 +9,22 @@
 <body>
 
     <%@ include file="/views/common/header.jsp"%>
-	<%@ include file="/views/common/nav.jsp"%>
+    <%@ include file="/views/common/nav.jsp"%>
     
-   
-    <main class="unique-main">
+    <!-- 플로팅 네비게이션 바 -->
+    <div class="floating-nav">
+        <a href="#slide1">한식</a>
+        <a href="#slide2">양식</a>
+        <a href="#slide3">중식</a>
+        <a href="#slide4">양식</a>
+        <a href="#main-top">맨 위로</a>
+    </div>
+    
+    <main class="unique-main" id="main-top">
         <section class="unique-food-category" id="slide1">
-        <div class="sli_con">
-            <h2 onclick ="location.href='/category.do?category=1'">#한식</h2>
-		</div>
+            <div class="sli_con">
+                <h2 onclick="location.href='/category.do?category=1'">#한식</h2>
+            </div>
             <div class="slider">
                 <div class="slides">
                     <div class="slide">
@@ -42,9 +49,9 @@
         </section>
 		
         <section class="unique-food-category" id="slide2">
-         <div class="sli_con"> 
-            <h2>#양식</h2>
-         </div>
+            <div class="sli_con">
+                <h2>#중식</h2>
+            </div>
             <div class="slider">
                 <div class="slides">
                     <div class="slide">
@@ -69,8 +76,8 @@
         </section>
 
         <section class="unique-food-category" id="slide3">
-        <div class="sli_con">
-            <h2>#양식</h2>
+            <div class="sli_con">
+                <h2>#양식</h2>
             </div>
             <div class="slider">
                 <div class="slides">
@@ -96,8 +103,8 @@
         </section>
 
         <section class="unique-food-category" id="slide4">
-        <div class="sli_con">
-            <h2>#양식</h2>
+            <div class="sli_con">
+                <h2>#양식</h2>
             </div>
             <div class="slider">
                 <div class="slides">
@@ -122,7 +129,7 @@
             </div>
         </section>
     </main>
-
+    
     <%@ include file="/views/common/footer.jsp"%>
 
     <script src="/assets/js/bootstrap.bundle.min.js"></script>
