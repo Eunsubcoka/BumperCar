@@ -134,16 +134,5 @@
 
     <script src="/assets/js/bootstrap.bundle.min.js"></script>
     <script src="/assets/js/main.js"></script>
-    <script>
-        function scrollToSection(sectionId) {
-            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
-            history.replaceState(null, null, 'index.jsp');
-        }
-
-        function scrollToTop() {
-            document.getElementById('main-top').scrollIntoView({ behavior: 'smooth' });
-            history.replaceState(null, null, 'index.jsp');
-        }
-    </script>
 </body>
 </html>
