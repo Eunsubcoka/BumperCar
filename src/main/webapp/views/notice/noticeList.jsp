@@ -15,25 +15,35 @@
         <div class="notice-header">
             <h1>공지사항</h1>
             <div class="search-and-button">
+                <div class="d-flex align-items-center">
+                    <div class="select-board-limit d-flex align-items-center" style="margin-right: 10px;">
+                        <label for="boardLimit" style="margin-right: 5px;">표시할 게시글 수 : </label>
+                        <select id="boardLimit" name="boardLimit" onchange="updateBoardLimit()" class="form-select" style="width: 100px; height: 46px; flex: 0 0 auto;">
+                            <option value="5" <c:if test="${boardLimit == 5}">selected</c:if>>5</option>
+                            <option value="10" <c:if test="${boardLimit == 10}">selected</c:if>>10</option>
+                            <option value="20" <c:if test="${boardLimit == 20}">selected</c:if>>20</option>
+                        </select>
+                    </div>
+                    <form class="search-form d-flex align-items-center" action="/notice/list.do" method="GET">
+                        <input type="hidden" name="cpage" value="1">
+                        <select class="form-select" id="inputGroupSelect02" name="category"
+                            style="width: 100px; height: 46px; flex: 0 0 auto;">
+                            <option value="noticeTitle" selected>제목</option>
+                            <option value="noticeContent">내용</option>
+                        </select>
+                        <input type="text" style="width: 300px; flex: 0 0 auto;"
+                            class="form-control" name="search-text" placeholder="검색어를 입력해주세요."
+                            aria-label="Recipient's username" aria-describedby="button-addon2">
+                        <button class="btn btn-outline-secondary" type="submit"
+                            id="button-addon2" style="height: 46px;">검색</button>
+                    </form>
+                </div>
                 <c:choose>
                     <c:when test="${sessionScope.userType == 'admin'}">
                         <button onclick="window.location.href = '/tastyForm/noticeEnrollForm.do'"
                             style="background-color : #ebb842;">등록</button>
                     </c:when>
                 </c:choose>
-                <form class="search-form" action="/notice/list.do" method="GET">
-                    <input type="hidden" name="cpage" value="1">
-                    <select class="form-select" id="inputGroupSelect02" name="category"
-                        style="width: 100px; height: 46px; flex: 0 0 auto;">
-                        <option value="noticeTitle" selected>제목</option>
-                        <option value="noticeContent">내용</option>
-                    </select>
-                    <input type="text" style="width: 300px; flex: 0 0 auto;"
-                        class="form-control" name="search-text" placeholder="검색어를 입력해주세요."
-                        aria-label="Recipient's username" aria-describedby="button-addon2">
-                    <button class="btn btn-outline-secondary" type="submit"
-                        id="button-addon2" style="height: 46px;">검색</button>
-                </form>
             </div>
         </div>
         <div class="notice-container">
@@ -54,7 +64,6 @@
                             </tr>
                         </c:when>
                         <c:otherwise>
-                            
                             <c:forEach var="item" items="${list}">
                                 <tr onclick="location.href='/notice/detail.do?boardno=${item.noticeNo}'">
                                     <td scope="row" class="num">${row}</td>
@@ -69,7 +78,7 @@
                 </tbody>
             </table>
         </div>
-        <nav aria-label="Page navigation example" style="background-color: white;">
+        <nav aria-label="Page navigation" style="background-color: white;">
             <ul class="pagination" style="justify-content: center;">
                 <c:choose>
                     <c:when test="${pi.cpage == 1}">
@@ -80,14 +89,14 @@
                     </c:when>
                     <c:otherwise>
                         <li class="page-item" style="margin-right: 0px"><a
-                            class="page-link" href="/notice/list.do?cpage=${pi.cpage-1}&category=noticeTitle&search-text="
+                            class="page-link" href="/notice/list.do?cpage=${pi.cpage-1}&category=${category}&search-text=${searchText}&boardLimit=${boardLimit}"
                             aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
                         </a></li>
                     </c:otherwise>
                 </c:choose>
                 <c:forEach var="page" begin="${pi.startPage}" end="${pi.endPage}">
                     <li class="page-item" style="margin-right: 0px"><a
-                        class="page-link" href="/notice/list.do?cpage=${page}&category=noticeTitle&search-text=">${page}</a></li>
+                        class="page-link" href="/notice/list.do?cpage=${page}&category=${category}&search-text=${searchText}&boardLimit=${boardLimit}">${page}</a></li>
                 </c:forEach>
                 <c:choose>
                     <c:when test="${pi.cpage == pi.maxPage}">
@@ -98,7 +107,7 @@
                     </c:when>
                     <c:otherwise>
                         <li class="page-item" style="margin-right: 0px"><a
-                            class="page-link" href="/notice/list.do?cpage=${pi.cpage+1}&category=noticeTitle&search-text="
+                            class="page-link" href="/notice/list.do?cpage=${pi.cpage+1}&category=${category}&search-text=${searchText}&boardLimit=${boardLimit}"
                             aria-label="Next"> <span aria-hidden="true">&raquo;</span>
                         </a></li>
                     </c:otherwise>

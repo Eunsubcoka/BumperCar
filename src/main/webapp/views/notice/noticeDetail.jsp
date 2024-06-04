@@ -22,35 +22,61 @@
 				<input type="hidden" name="fileName" value="${result.fileName}">
 
 				<div class="card-content-wrapper">
-					<div class="card-header" style="background-color: white;">
-						<h2 id="noticeTitle" style="text-align: center;">${result.noticeTitle}</h2>
-					</div>
-					<div class="card-body">
-						<div class="d-flex justify-content-center mb-3">
-							<div class="mx-3">
-								작성일: <span id="noticeDate">${result.noticeDate}</span>
-							</div>
-							<div class="mx-3">
-								조회수: <span id="noticeView">${result.noticeView}</span>
-							</div>
-						</div>
-						<hr>
-						<div style="margin-top: 20px; margin-bottom: 20px;">
-							<c:if test="${not empty result.fileName and not empty result.filePath}">
-								<img src="${result.filePath}${result.fileName}" alt="이미지" class="notice-image">
-							</c:if>
+    <div class="card-header" style="background-color: white;">
+        <h2 id="noticeTitle" style="text-align: center;">${result.noticeTitle}</h2>
+    </div>
+    <div class="card-body">
+        <div class="d-flex justify-content-center mb-3">
+            <div class="mx-3">
+                작성일: <span id="noticeDate">${result.noticeDate}</span>
+            </div>
+            <div class="mx-3">
+                조회수: <span id="noticeView">${result.noticeView}</span>
+            </div>
+        </div>
+        <hr>
+        <div style="margin-top: 20px; margin-bottom: 20px;">
+            <c:if test="${not empty result.fileName and not empty result.filePath}">
+                <img src="${result.filePath}${result.fileName}" alt="이미지" class="notice-image">
+            </c:if>
 
-							<p class="card-text">${result.noticeContent}</p>
-						</div>
-					</div>
-					<div class="card-footer d-flex justify-content-center" style="background-color: white;">
-						<button type="button" class="btn btn-secondary mx-2" onclick="window.history.back()">뒤로가기</button>
-						<c:if test="${sessionScope.userType == 'admin'}">
-							<button type="button" class="btn btn-primary mx-2" onclick="location.href='/tastyForm/noticeEditForm.do?boardno=${result.noticeNo}'">수정</button>
-							<button type="submit" class="btn btn-danger mx-2">삭제</button>
-						</c:if>
-					</div>
-				</div>
+            <p class="card-text">${result.noticeContent}</p>
+        </div>
+    </div>
+    <div class="card-footer d-flex justify-content-center" style="background-color: white;">
+        <button type="button" class="btn btn-secondary mx-2" onclick="window.history.back()">뒤로가기</button>
+        <c:if test="${sessionScope.userType == 'admin'}">
+            <button type="button" class="btn btn-primary mx-2" onclick="location.href='/tastyForm/noticeEditForm.do?boardno=${result.noticeNo}'">수정</button>
+            <button type="submit" class="btn btn-danger mx-2">삭제</button>
+        </c:if>
+    </div>
+</div>
+
+<!-- 최신 공지사항 목록 표로 출력 -->
+<div class="latest-notices">
+    <h3>최신 공지사항</h3>
+    <table class="table table-hover notice-table" style="margin-top: 10px;">
+        <thead>
+            <tr>
+                <th scope="col" class="num">번호</th>
+                <th scope="col" class="title title-center">제목</th>
+                <th scope="col" class="date">작성일</th>
+                <th scope="col" class="views">조회수</th>
+            </tr>
+        </thead>
+        <tbody>
+            <c:forEach var="item" items="${latestNotices}">
+                <tr onclick="location.href='/notice/detail.do?boardno=${item.noticeNo}'">
+                    <td scope="row" class="num">${item.noticeNo}</td>
+                    <td class="title title-padding">${item.noticeTitle}</td>
+                    <td class="date">${item.noticeDate}</td>
+                    <td class="views">${item.noticeView}</td>
+                </tr>
+            </c:forEach>
+        </tbody>
+    </table>
+</div>
+
 			</form>
 		</div>
 	</section>

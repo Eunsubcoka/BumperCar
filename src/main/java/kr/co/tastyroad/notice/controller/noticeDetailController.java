@@ -30,6 +30,9 @@ public class noticeDetailController extends HttpServlet {
 
         // 게시글 목록 조회
         ArrayList<noticeDto> list = noticeService.getNoticeList(); 
+        
+        // 최신 공지사항 5개 조회
+        ArrayList<noticeDto> latestNotices = noticeService.getLatestNotices(5);
 
         if (result != null) { // 결과가 null이 아닌 경우에만 진행
             noticeService.getFileName(result); // 파일 이름과 경로 가져오기
@@ -43,6 +46,7 @@ public class noticeDetailController extends HttpServlet {
             request.setAttribute("result", result);
             request.setAttribute("list", list); 
             request.setAttribute("row", list.size()); 
+            request.setAttribute("latestNotices", latestNotices); // 최신 공지사항 추가
 
             RequestDispatcher view = request.getRequestDispatcher("/views/notice/noticeDetail.jsp");
             view.forward(request, response);
@@ -54,3 +58,4 @@ public class noticeDetailController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     }
 }
+

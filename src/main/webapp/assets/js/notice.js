@@ -38,3 +38,12 @@ function deleteFile(boardNo) {
         }
     });
 }
+
+function updateBoardLimit() {
+            var boardLimit = document.getElementById("boardLimit").value;
+            var currentUrl = window.location.href;
+            var newUrl = new URL(currentUrl);
+            newUrl.searchParams.set('boardLimit', boardLimit);
+            newUrl.searchParams.set('cpage', 1); // 페이지를 처음으로 설정
+            window.location.href = newUrl.toString();
+        }

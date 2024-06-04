@@ -37,4 +37,6 @@ public interface noticeService {
 	public noticeDto getLatestNotice();
 	
 	public ArrayList<noticeDto> getNoticeList();
+	
+	public ArrayList<noticeDto> getLatestNotices(int i);
 }

@@ -106,4 +106,9 @@ public class noticeServiceImpl implements noticeService {
     public ArrayList<noticeDto> getNoticeList() {
         return noticeDao.getNoticeList();
     }
+
+    @Override
+	public ArrayList<noticeDto> getLatestNotices(int i) {
+		return noticeDao.getLatestNotices(i);
+	}
 }
