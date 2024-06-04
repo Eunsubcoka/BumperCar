@@ -237,6 +237,10 @@ body {
     color: #333;
 }
 
+.float-end a:hover{
+	cursor:pointer;
+}
+
 /* 은섭 */
 .sli_con {
     background-clip: border-box;

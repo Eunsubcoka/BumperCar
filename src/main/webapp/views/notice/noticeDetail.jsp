@@ -58,7 +58,6 @@
     <table class="table table-hover notice-table" style="margin-top: 10px;">
         <thead>
             <tr>
-                <th scope="col" class="num">번호</th>
                 <th scope="col" class="title title-center">제목</th>
                 <th scope="col" class="date">작성일</th>
                 <th scope="col" class="views">조회수</th>
@@ -67,7 +66,6 @@
         <tbody>
             <c:forEach var="item" items="${latestNotices}">
                 <tr onclick="location.href='/notice/detail.do?boardno=${item.noticeNo}'">
-                    <td scope="row" class="num">${item.noticeNo}</td>
                     <td class="title title-padding">${item.noticeTitle}</td>
                     <td class="date">${item.noticeDate}</td>
                     <td class="views">${item.noticeView}</td>

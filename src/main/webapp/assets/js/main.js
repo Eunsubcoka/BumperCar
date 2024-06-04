@@ -166,6 +166,7 @@ function scrollToSection(sectionId) {
 }
 
 function scrollToTop() {
-	document.getElementById('main-top').scrollIntoView({ behavior: 'smooth' });
-	history.replaceState(null, null, '/');
+    document.getElementById('main-top').scrollIntoView({ behavior: 'smooth' });
+    const currentUrl = window.location.pathname + window.location.search;
+    history.replaceState(null, null, currentUrl);
 }
