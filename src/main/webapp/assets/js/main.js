@@ -162,7 +162,8 @@ function showSlides(slideId, n) {
 
 function scrollToSection(sectionId) {
 	document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
-	history.replaceState(null, null, '/');
+    const currentUrl = window.location.pathname + window.location.search;
+    history.replaceState(null, null, currentUrl);
 }
 
 function scrollToTop() {

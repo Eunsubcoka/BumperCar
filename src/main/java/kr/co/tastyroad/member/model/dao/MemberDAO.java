@@ -30,8 +30,8 @@ public class MemberDAO {
     public int register(Member member) throws SQLException {
         String checkUserIdQuery = "SELECT count(*) FROM Tasty_member WHERE user_id = ?";
         String checkTokenQuery = "SELECT count(*) FROM Tasty_member WHERE token = ?";
-        String insertQuery = "INSERT INTO Tasty_member (user_no, user_name, user_id, user_email, user_address, user_phone, user_pwd, token, verified) "
-                           + "VALUES (Tasty_member_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String insertQuery = "INSERT INTO Tasty_member (user_no, user_name, user_id, user_email, user_address, user_phone, user_pwd, user_type ,token, verified) "
+                           + "VALUES (Tasty_member_seq.nextval, ?, ?, ?, ?, ?, ?,default, ?, ?)";
 
         int result = 0;
 

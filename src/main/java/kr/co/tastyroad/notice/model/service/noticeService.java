@@ -39,4 +39,6 @@ public interface noticeService {
 	public ArrayList<noticeDto> getNoticeList();
 	
 	public ArrayList<noticeDto> getLatestNotices(int i);
+	
+	public ArrayList<noticeDto> searchNotices(String searchText);
 }

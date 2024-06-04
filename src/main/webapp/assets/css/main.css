@@ -138,14 +138,27 @@ body {
 	background-color: #f8f8f8;
 }
 
+
+footer{
+	background-color : #ececec !important;
+	height:10rem !important;
+}
+
+
+
 /*  ---------mainpage----------*/
+
+
 * {
 	box-sizing: border-box;
 }
 
 body {
     background-color: #06060640;
+    height:100%;
 }
+
+
 
 .slider {
 	position: relative;
@@ -251,3 +264,4 @@ body {
     align-content: center;
     margin-bottom: 20px;
 }
+

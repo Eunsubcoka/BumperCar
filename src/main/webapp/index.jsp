@@ -20,7 +20,7 @@
         <a onclick="scrollToTop()">맨 위로</a>
     </div>
     
-    <main class="unique-main" id="main-top">
+    <main class="unique-main" >
         <section class="unique-food-category" id="slide1">
             <div class="sli_con">
                 <h2 onclick="location.href='/category.do?category=1'">#한식</h2>

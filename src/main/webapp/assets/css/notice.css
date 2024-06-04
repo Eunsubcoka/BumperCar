@@ -6,6 +6,7 @@
     border: 1px solid #0000002b;
     border-radius: 20px;
     background-color: white;
+    min-height:600px;
 }
 
 .notice-container {
@@ -52,7 +53,7 @@ th, td {
 }
 
 .notice-table tbody tr:hover .title-padding {
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 th {
