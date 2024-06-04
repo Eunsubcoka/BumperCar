@@ -122,7 +122,7 @@ public class ReviewDao {
     ArrayList<ReviewDto> result = new ArrayList<>();
     
    
-    String query = "select reviewNo, reviewTitle, reviewContent, reviewDate, ratings from reviews r "
+    String query = "select reviewNo, reviewTitle, reviewContent, reviewDate, ratings, r.user_no from reviews r "
                  + "join TASTY_MEMBER s on r.user_no = s.user_no order by reviewNo desc";
     
     try {
@@ -136,7 +136,7 @@ public class ReviewDao {
             String reviewContent =rs.getString("reviewContent");
             String reviewDate = rs.getString("reviewDate");
             int ratings = rs.getInt("ratings"); 
-			/* int userNo = rs.getInt("user_no"); */
+			int userNo = rs.getInt("user_no"); 
             
             ReviewDto reviewDto = new ReviewDto();
             reviewDto.setReviewNo(reviewNo);
@@ -144,7 +144,7 @@ public class ReviewDao {
             reviewDto.setReviewContent(reviewContent);
             reviewDto.setReviewDate(reviewDate);
             reviewDto.setRatings(ratings);
-			/* reviewDto.setUserNo(userNo); */
+			reviewDto.setUserNo(userNo);
             
             result.add(reviewDto);
             
@@ -224,7 +224,6 @@ public class ReviewDao {
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			
 			pstmt.setString(1, reviewDto.getFilePath());
 			pstmt.setString(2, reviewDto.getFileName());
 			pstmt.setInt(3, reviewDto.getReviewNo());
@@ -282,8 +281,30 @@ public class ReviewDao {
 		return 0;
 	}
 	
+	
+	// 수정 업로드 파일 삭제
+	public int delete(ReviewDto reviewDto, String removeImageName) {
+		String query = "delete from review_upload where reviewNo = ? and review_upload_name = ?";
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, reviewDto.getReviewNo());
+			pstmt.setString(2, removeImageName);
+			
+			int result = pstmt.executeUpdate();
+			
+			return result;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return 0;
+		
+	}
+	
+	
 	// 파일 하나씩 가져오기
-
 	//파일리스트 가져오기
     public ArrayList<ReviewDto> uploadListOnce() {
     	ArrayList<ReviewDto> result = new ArrayList<>();
@@ -317,7 +338,6 @@ public class ReviewDao {
 		return result;
 	}
 
-
-	
+  
 }
     

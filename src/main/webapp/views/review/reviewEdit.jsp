@@ -19,10 +19,11 @@
 <section>
     <div class="container-review-box">
         <h1>식당이름 리뷰</h1>
-        <form action="/review/reviewEdit.do" method="POST">
+        <form action="/review/reviewEdit.do" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="reviewNo" value="${result.reviewNo}"/>
         <input type="hidden" name="restaurantNo" value="${result.restaurantNo}"/>
         <input type="hidden" name="ratings" id="ratingHidden" value="${result.ratings}"/>
+        
         <div class="container-review">
             <div class="review">
                 <div class="user-container">
@@ -48,13 +49,16 @@
                     <textarea name="reviewContent" required>${result.reviewContent}</textarea>
                 </div>
                      <p>*사진은 최대 3장까지 가능합니다.</p>
-				<div class="image_container" id="image_container">
-					<c:forEach var="fileList" items="${fileList}">
+				<div class="image_container" id="image_container"> <!-- varStatus : 상태변수 , ${status.count} :1부터 시작 순서-->
+					<c:forEach var="fileList" items="${fileList}" varStatus="status">
 						<c:if test="${fileList.reviewNo == result.reviewNo}">
+							<!-- removeImageName : 삭제할 이미지 이름, removeImageStatus : 삭제 여부  -->
+					        <input type="hidden" name="removeImageName-${status.count}" id="removeImageName-${status.count}" value="${fileList.fileName}"/>
+					        <input type="hidden" name="removeImageStatus-${status.count}" id="removeImageStatus-${status.count}" value="false"/>
 							<input type="hidden" name="fileName" value="${fileList.fileName}"/>
 							<input type="hidden" name="filePath" value="${fileList.filePath}"/>
 							<div class="review-photo">
-								<img class="close" id="closeImg" src="/assets/image/close.png" onclick="imageClose(event)">
+								<img class="close" id="closeImg" src="/assets/image/close.png" onclick="imageClose(event,'${status.count}')">
 								<img class="photo" src="/assets/uploads/review/${fileList.fileName}" alt="리뷰 사진 1">
 							</div>
 						</c:if>

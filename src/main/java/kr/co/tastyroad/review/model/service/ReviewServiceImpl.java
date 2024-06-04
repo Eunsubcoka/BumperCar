@@ -61,7 +61,7 @@ public class ReviewServiceImpl implements ReviewService {
 
  	}
 	
-	// 리뷰 삭제 (분리)
+	// 리뷰 삭제 
 	@Override
 	public int reviewDelete(ReviewDto reviewDto) {
 		
@@ -70,17 +70,19 @@ public class ReviewServiceImpl implements ReviewService {
 		return reviewDao.reviewDelete(reviewDto);
 	}
 	
-//	// 리뷰 업로드 파일 삭제
-//	@Override
-//	public int reviewFileDelete(ReviewDto reviewDto) {
-//		return reviewDao.reviewFileDelete(reviewDto);
-//		
-//	}
-//	
+	// 수정 업로드 파일 삭제
+	@Override
+	public int delete(ReviewDto reviewDto, String removeImageName) {
+		return reviewDao.delete(reviewDto, removeImageName);
+		
+	}
+	
 	// 파일 하나씩만 가져오기
 	@Override
 	public ArrayList<ReviewDto> uploadListOnce(){
 		return reviewDao.uploadListOnce();
 	}
+	
+	
 }
 

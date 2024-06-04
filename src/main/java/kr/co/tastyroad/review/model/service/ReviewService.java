@@ -23,9 +23,12 @@ public interface ReviewService {
 	public int editUpdate(ReviewDto reviewDto);
 	// 리뷰 삭제
 	public int reviewDelete(ReviewDto reviewDto);
-//	// 리뷰 업로드 파일 삭제
-//	public int reviewFileDelete(ReviewDto reviewDto);
-//	
+	
 	// 파일 하니씩 가져오기
 	public ArrayList<ReviewDto> uploadListOnce();
+	
+	// 수정 업로드 파일 삭제
+	public int delete(ReviewDto reviewDto, String removeImageName);
+		
+	
 }
