@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import kr.co.tastyroad.member.model.dto.Member;
+import kr.co.tastyroad.member.model.service.MemberServiceImpl;
 import kr.co.tastyroad.notice.model.dto.noticeDto;
 import kr.co.tastyroad.notice.model.service.noticeServiceImpl;
 import kr.co.tastyroad.restaurant.model.dto.RestaurantDto;
@@ -32,19 +34,30 @@ public class FormController extends HttpServlet {
 		String action = request.getPathInfo();
 		String nextPage = "";
 		
-		System.out.println("a : " + action);
 		// 성오
 		if(action.equals("/registerForm.do")) { // 회원가입	
 			nextPage = "/views/member/register.jsp";
 		} 
 		else if(action.equals("/profile.do")) {  // 프로필
-	       
-			// 세션에 있는 userNo로 SELECT 해오고
-			// 가져온 데이터 request setAttribute로 데이터바인딩
-			
-			
-			nextPage = "/views/member/profile.jsp";
+            // 1. 세션에 있는 userNo 가져오기
+            HttpSession session = request.getSession();
+            Integer userNo = (Integer) session.getAttribute("userNo");
+            
+            if (userNo != null) {
+                // 2. userNo 가져왔으니 DAO까지 넘겨서 select 해오기
+                MemberServiceImpl memberService = new MemberServiceImpl();
+                Member member = memberService.getUserProfile(userNo);
+                
+                // 3. 정보 다 가져왔으면 request setAttribute로 데이터 바인딩하기
+                request.setAttribute("member", member);
+            } else {
+                // userNo가 세션에 없는 경우 로그인 페이지로 리다이렉트
+                nextPage = "/views/member/login.jsp";
+            }
+
+            nextPage = "/views/member/profile.jsp";
 		}
+		
 
 		
 		// 은섭
