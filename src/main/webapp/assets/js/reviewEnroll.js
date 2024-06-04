@@ -51,6 +51,8 @@ window.onload = function() {
 
 
 
+
+// 이미지 업로드 
 function getImageFiles(event) {
     const maxImages = 3; // 최대 이미지 개수
 
@@ -100,17 +102,3 @@ function getImageFiles(event) {
     }
 }
 
-// 이미지 삭제 함수 (Edit)
-function imageClose(event, index) {
-    // 클릭된 close 이미지의 부모 요소인 review-photo 클래스를 가진 div 요소
-    const reviewPhoto = event.target.closest(".review-photo");
-	// 삭제된 이미지를 removeImageStatus 필드를 통해 서버에 알려줌
-	const removeImageStatus = document.getElementById("removeImageStatus-"+index);
-	
-    // review-photo 클래스를 가진 요소가 존재한다면
-    if (reviewPhoto) {
-        // 해당 요소를 제거합니다.
-        reviewPhoto.remove();
-		removeImageStatus.value = true;
-    }
-}
