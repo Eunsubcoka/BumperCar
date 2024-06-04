@@ -13,11 +13,11 @@
     
     <!-- 플로팅 네비게이션 바 -->
     <div class="floating-nav">
-        <a href="#slide1">한식</a>
-        <a href="#slide2">양식</a>
-        <a href="#slide3">중식</a>
-        <a href="#slide4">양식</a>
-        <a href="#main-top">맨 위로</a>
+        <a onclick="scrollToSection('slide1')">한식</a>
+        <a onclick="scrollToSection('slide2')">양식</a>
+        <a onclick="scrollToSection('slide3')">중식</a>
+        <a onclick="scrollToSection('slide4')">양식</a>
+        <a onclick="scrollToTop()">맨 위로</a>
     </div>
     
     <main class="unique-main" id="main-top">
@@ -47,7 +47,7 @@
                 </div>
             </div>
         </section>
-		
+        
         <section class="unique-food-category" id="slide2">
             <div class="sli_con">
                 <h2>#중식</h2>
@@ -134,6 +134,16 @@
 
     <script src="/assets/js/bootstrap.bundle.min.js"></script>
     <script src="/assets/js/main.js"></script>
+    <script>
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+            history.replaceState(null, null, 'index.jsp');
+        }
 
+        function scrollToTop() {
+            document.getElementById('main-top').scrollIntoView({ behavior: 'smooth' });
+            history.replaceState(null, null, 'index.jsp');
+        }
+    </script>
 </body>
 </html>

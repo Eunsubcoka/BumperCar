@@ -22,6 +22,7 @@
 
 .floating-nav a:hover {
     background-color: #f0f0f0;
+    cursor:pointer;
 }
 
 /* 기존 스타일 유지 */

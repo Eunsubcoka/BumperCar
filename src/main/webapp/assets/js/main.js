@@ -160,4 +160,13 @@ function showSlides(slideId, n) {
 	showSlides(slideId, slideIndices[slideId]);
 });
 
+ /*function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+            history.replaceState(null, null, 'index.jsp');
+        }
 
+        function scrollToTop() {
+            document.getElementById('main-top').scrollIntoView({ behavior: 'smooth' });
+            history.replaceState(null, null, 'index.jsp');
+        }
+*/
