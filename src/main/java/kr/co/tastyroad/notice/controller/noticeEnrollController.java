@@ -16,9 +16,9 @@ import kr.co.tastyroad.notice.model.dto.noticeDto;
 import kr.co.tastyroad.notice.model.service.noticeServiceImpl;
 
 @WebServlet("/notice/enroll.do")
-@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
-        maxFileSize = 1024 * 1024 * 10, // 10MB
-        maxRequestSize = 1024 * 1024 * 50) // 50MB
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, 
+        maxFileSize = 1024 * 1024 * 10, 
+        maxRequestSize = 1024 * 1024 * 50) 
 public class noticeEnrollController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -28,7 +28,6 @@ public class noticeEnrollController extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // doGet()에서의 처리가 필요 없는 경우 비워둡니다.
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -65,11 +64,10 @@ public class noticeEnrollController extends HttpServlet {
             if (!filePath.exists()) {
                 filePath.mkdirs();
             }
-            // 이미지 파일의 이름 설정 (게시물 번호와 함께 저장)
-            String fileName = "boardNo_" + boardNo + ".jpg"; // 예시 파일 이름
+            String fileName = "boardNo_" + boardNo + ".jpg"; // 파일이름 지정 
             uploadFilePart.write(new File(filePath, fileName).getAbsolutePath());
 
-            // 파일 업로드 정보를 DB에 저장
+        
             noticeDto.setFileName(fileName);
             noticeDto.setFilePath("/assets/uploads/notice/");
             noticeService.fileUpload(noticeDto);

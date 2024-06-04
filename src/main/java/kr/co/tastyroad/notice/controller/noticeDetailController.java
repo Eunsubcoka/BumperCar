@@ -29,7 +29,7 @@ public class noticeDetailController extends HttpServlet {
         noticeDto result = noticeService.getDetail(boardNo);
 
         // 게시글 목록 조회
-        ArrayList<noticeDto> list = noticeService.getNoticeList(); // 게시글 목록을 가져오는 서비스 호출
+        ArrayList<noticeDto> list = noticeService.getNoticeList(); 
 
         if (result != null) { // 결과가 null이 아닌 경우에만 진행
             noticeService.getFileName(result); // 파일 이름과 경로 가져오기
@@ -41,8 +41,8 @@ public class noticeDetailController extends HttpServlet {
             }
 
             request.setAttribute("result", result);
-            request.setAttribute("list", list); // 게시글 목록 설정
-            request.setAttribute("row", list.size()); // row 값 설정
+            request.setAttribute("list", list); 
+            request.setAttribute("row", list.size()); 
 
             RequestDispatcher view = request.getRequestDispatcher("/views/notice/noticeDetail.jsp");
             view.forward(request, response);

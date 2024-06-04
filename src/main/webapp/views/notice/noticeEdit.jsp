@@ -69,7 +69,7 @@
         });
 
         window.submitContents = function(elClickedObj) {
-            oEditors.getById["editorTxt"].exec("UPDATE_CONTENTS_FIELD", []); // 에디터의 내용이 textarea에 적용됩니다.
+            oEditors.getById["editorTxt"].exec("UPDATE_CONTENTS_FIELD", []); //에디터의 내용이 textarea에 뜨게 함
             elClickedObj.form.submit();
         }
     });

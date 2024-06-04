@@ -65,10 +65,9 @@ public class noticeEditController extends HttpServlet {
                 noticeDto.setFilePath(null);
             }
         } else if (uploadFilePart != null && uploadFilePart.getSize() > 0) {
-            String fileName = "boardNo_" + boardNo + ".jpg"; // 예시 파일 이름
+            String fileName = "boardNo_" + boardNo + ".jpg"; //파일 이름 지정 
             uploadFilePart.write(new File(filePath, fileName).getAbsolutePath());
 
-            // 파일 업로드 정보를 DB에 저장
             noticeDto.setFileName(fileName);
             noticeDto.setFilePath("/assets/uploads/notice/");
             noticeService.fileUpload(noticeDto);
