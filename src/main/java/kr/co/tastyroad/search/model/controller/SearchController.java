@@ -1,4 +1,4 @@
-package kr.co.tastyroad.common;
+package kr.co.tastyroad.search.model.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.co.tastyroad.notice.model.dto.noticeDto;
 import kr.co.tastyroad.notice.model.service.noticeServiceImpl;
+import kr.co.tastyroad.search.model.service.searchServiceImpl;
 
 @WebServlet("/search.do")
 public class SearchController extends HttpServlet {
@@ -24,8 +25,8 @@ public class SearchController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String searchText = request.getParameter("search-text");
         
-        noticeServiceImpl noticeService = new noticeServiceImpl();
-        ArrayList<noticeDto> noticeList = noticeService.searchNotices(searchText);
+        searchServiceImpl searchService = new searchServiceImpl();
+        ArrayList<noticeDto> noticeList = searchService.searchNotices(searchText);
 
         request.setAttribute("searchText", searchText); // 검색어를 request에 추가
         request.setAttribute("noticeList", noticeList);

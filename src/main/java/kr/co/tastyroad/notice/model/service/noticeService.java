@@ -1,6 +1,5 @@
 package kr.co.tastyroad.notice.model.service;
 
-import java.sql.Connection;
 import java.util.ArrayList;
 
 import kr.co.tastyroad.common.PageInfo;
@@ -40,5 +39,4 @@ public interface noticeService {
 	
 	public ArrayList<noticeDto> getLatestNotices(int i);
 	
-	public ArrayList<noticeDto> searchNotices(String searchText);
 }
