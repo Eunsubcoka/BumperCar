@@ -19,14 +19,18 @@ public class noticeDeleteFileController extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+        try {
+            int boardNo = Integer.parseInt(request.getParameter("boardno"));
 
-        noticeServiceImpl noticeService = new noticeServiceImpl();
-        int result = noticeService.setFileDelete(boardNo);
+            noticeServiceImpl noticeService = new noticeServiceImpl();
+            int result = noticeService.setFileDelete(boardNo);
 
-        if (result == 1) {
-            response.getWriter().write("success");
-        } else {
+            if (result == 1) {
+                response.getWriter().write("success");
+            } else {
+                response.getWriter().write("fail");
+            }
+        } catch (NumberFormatException e) {
             response.getWriter().write("fail");
         }
     }

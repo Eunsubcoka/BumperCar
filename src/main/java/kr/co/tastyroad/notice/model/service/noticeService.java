@@ -28,13 +28,13 @@ public interface noticeService {
 	
 	public int fileUpload(noticeDto noticeDto);
 	
-	void getFileName(noticeDto result);
+	public void getFileName(noticeDto result);
 	
-	int setFileDelete(int fileNo);
+	public int setFileDelete(int noticeNo);
 	
 	public boolean deleteNotice(int noticeNo);
 	
 	public noticeDto getLatestNotice();
 	
-	ArrayList<noticeDto> getNoticeList();
+	public ArrayList<noticeDto> getNoticeList();
 }
