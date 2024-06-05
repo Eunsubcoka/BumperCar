@@ -31,13 +31,17 @@
                     <ul>
                         <c:forEach var="restaurant" items="${restaurantList}">
                             <li class="restaurant-item">
+                            <div class= "restaurant-image">
+                                <p>사진 추가 예정</p>
+                                </div>
                                 <div class="restaurant-info">
                                     <a href="/restaurantDetail.do?restaurantId=${restaurant.restaurantNo}">${restaurant.restaurantName}</a>
-                                    <div class= "font-down">카테고리: ${restaurant.category}</div>
-                                    <div class= "font-down">위치: ${restaurant.location}</div>
+                                    <div class="font-down">카테고리: ${restaurant.category}</div>
+                                    <div class="font-down">위치: ${restaurant.location}</div>
                                 </div>
+                                
                                 <div class="review-box">
-                                    <p>이곳에 리뷰 내용 추가 예정 </p>
+                                    <p>이곳에 리뷰 내용을 추가할 예정</p>
                                 </div>
                             </li>
                         </c:forEach>
@@ -57,11 +61,11 @@
         <div class="search-tab" id="notice">
             <h3>공지사항</h3>
             <c:if test="${not empty noticeList}">
-                <ul>
+                <ul class="notice-list">
                     <c:forEach var="notice" items="${noticeList}">
                         <li>
                             <a href="/notice/detail.do?boardno=${notice.noticeNo}">${notice.noticeTitle}</a>
-                            <div>작성일: ${notice.noticeDate}</div>
+                            <div class="notice-date">작성일: ${notice.noticeDate}</div>
                         </li>
                     </c:forEach>
                 </ul>
