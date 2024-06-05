@@ -58,8 +58,8 @@
 							<input type="hidden" name="fileName" value="${fileList.fileName}"/>
 							<input type="hidden" name="filePath" value="${fileList.filePath}"/>
 							<div class="review-photo">
-								<img class="close" id="closeImg" src="/assets/image/close.png" onclick="imageClose(event,'${status.count}')">
-								<img class="photo" src="/assets/uploads/review/${fileList.fileName}" alt="리뷰 사진 1">
+								<img class="close" src="/assets/image/close.png" onclick="imageClose(event, '${status.count}')">
+								<img class="photo" src="/assets/uploads/review/${fileList.fileName}" alt="리뷰 사진">
 							</div>
 						</c:if>
 					</c:forEach>

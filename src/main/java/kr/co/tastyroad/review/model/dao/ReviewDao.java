@@ -226,6 +226,7 @@ public class ReviewDao {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, reviewDto.getFilePath());
 			pstmt.setString(2, reviewDto.getFileName());
+//			pstmt.setString(2, reviewDto.getRemoveImageName());
 			pstmt.setInt(3, reviewDto.getReviewNo());
 			
 			int result = pstmt.executeUpdate();
@@ -238,6 +239,26 @@ public class ReviewDao {
 		}
 		
 		
+		
+		return 0;
+	}
+	
+	// 수정 업로드 파일 삭제
+	public int delete(ReviewDto reviewDto, String removeImageName) {
+		String query = "delete from review_upload where reviewNo = ? and review_upload_name = ? ";
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, reviewDto.getReviewNo());
+			pstmt.setString(2, removeImageName);
+			
+			int result = pstmt.executeUpdate();
+			
+			return result;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
 		return 0;
 	}
@@ -281,27 +302,6 @@ public class ReviewDao {
 		return 0;
 	}
 	
-	
-	// 수정 업로드 파일 삭제
-	public int delete(ReviewDto reviewDto, String removeImageName) {
-		String query = "delete from review_upload where reviewNo = ? and review_upload_name = ?";
-		
-		try {
-			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, reviewDto.getReviewNo());
-			pstmt.setString(2, removeImageName);
-			
-			int result = pstmt.executeUpdate();
-			
-			return result;
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		return 0;
-		
-	}
 	
 	
 	// 파일 하나씩 가져오기

@@ -46,12 +46,16 @@ window.onload = function() {
 function getImageFiles(event) {
     const maxImages = 3; // 최대 이미지 개수
 
-    // 이미지 개수 제한 확인
-    if (event.target.files.length > maxImages) {
+    // 현재 업로드된 이미지 개수 확인
+    const currentImagesCount = document.querySelectorAll("div#image_container img.photo").length;
+
+    // 새로 선택한 파일 개수와 현재 업로드된 이미지 개수를 합산하여 최대 개수 확인
+    if (currentImagesCount + event.target.files.length > maxImages) {
         alert(`이미지는 ${maxImages}장까지 업로드할 수 있습니다.`);
         return;
     }
 
+	// 선택한 파일들을 반복문으로 처리
     for (let image of event.target.files) {
         // 현재 이미지 개수 확인
         if (document.querySelectorAll("div#image_container img.photo").length >= maxImages) {
@@ -59,19 +63,30 @@ function getImageFiles(event) {
             break; // 반복문 종료;
         }
 
-        let img = document.createElement("img");
+        let img = document.createElement("img"); //img요소 생성
         const reader = new FileReader();
         reader.onload = function(event) {
-            img.setAttribute("src", event.target.result);
-			img.classList.add("photo");
+            img.setAttribute("src", event.target.result); // 생성된 img 요소에 src 속성 추가하기
+			img.classList.add("photo"); //img태그에 class명 추가 photo
 
             // 이미지를 감싸는 div 요소 생성
-            const imageDiv = document.createElement("div");
+            const imageDiv = document.createElement("div"); //div요소 생성
             imageDiv.classList.add("review-photo");
+
+	        // 삭제 버튼 생성
+            const closeImg = document.createElement("img");
+            closeImg.classList.add("close");
+            closeImg.setAttribute("src", "/assets/image/close.png");
+            closeImg.onclick = function() {
+                imageDiv.remove();
+            };
+            
+            imageDiv.appendChild(closeImg);
             imageDiv.appendChild(img); // 이미지 추가
 
-            // 이미지를 표시할 컨테이너에 추가
+            // 이미지를 표시할 컨테이너에 추가 -> <div><imageDiv></imageDiv></div>
             document.querySelector("div#image_container").appendChild(imageDiv);
+
         }
         reader.readAsDataURL(image);
     }
@@ -79,7 +94,8 @@ function getImageFiles(event) {
 
 // 이미지 삭제 함수 (Edit)
 function imageClose(event, index) {
-    // 클릭된 close 이미지의 부모 요소인 review-photo 클래스를 가진 div 요소
+    // 이벤트가 발생한 요소(event.target) - close 
+	// 가장 가까운 조상 요소 (closest(".review-photo"))  - review-photo 클래스를 가진
     const reviewPhoto = event.target.closest(".review-photo");
 	// 삭제된 이미지를 removeImageStatus 필드를 통해 서버에 알려줌
 	const removeImageStatus = document.getElementById("removeImageStatus-"+index);

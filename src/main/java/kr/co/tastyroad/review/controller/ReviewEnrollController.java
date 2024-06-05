@@ -87,6 +87,8 @@ public class ReviewEnrollController extends HttpServlet {
 //	 파일 이름을 추출하는 메서드
     private String getFileName(Part part) {
         String contentDisposition = part.getHeader("content-disposition");
+        
+        System.out.println("contentDisposition : " + contentDisposition);
         String[] tokens = contentDisposition.split(";");
         for (String token : tokens) {
             if (token.trim().startsWith("filename")) {

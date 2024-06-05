@@ -38,6 +38,7 @@ public class ReviewEditController extends HttpServlet {
 		String filePath = request.getParameter("filePath");
 		
 		
+		
 		ReviewDto reviewDto = new ReviewDto();
 		reviewDto.setReviewNo(reviewNo);
 		reviewDto.setRestaurantNo(restaurantNo);
@@ -46,11 +47,9 @@ public class ReviewEditController extends HttpServlet {
 		reviewDto.setReviewContent(reviewContent);
 		reviewDto.setFileName(fileName);
 		reviewDto.setFilePath(filePath);
-		
 
 		
 		ReviewServiceImpl reviewService = new ReviewServiceImpl();
-		
 		int result = reviewService.editUpdate(reviewDto);
 		
 		if(result == 1) {  
@@ -82,7 +81,7 @@ public class ReviewEditController extends HttpServlet {
 				editFilePath.mkdirs();
 			}
 			
-			// 추가
+			
 			
 			for(Part part : parts) {
 				fileName = getFileName(part);
@@ -91,7 +90,7 @@ public class ReviewEditController extends HttpServlet {
 					
 					reviewDto.setFilePath(uploadDirectory);
 					reviewDto.setFileName(fileName);
-					
+					reviewDto.setReviewNo(reviewNo);
 					// 새로운 이미지 레코드 삽입
 					reviewService.fileUpload(reviewDto);
 				}
