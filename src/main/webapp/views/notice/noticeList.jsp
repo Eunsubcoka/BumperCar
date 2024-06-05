@@ -78,7 +78,7 @@
                 </tbody>
             </table>
         </div>
-        <nav aria-label="Page navigation" style="background-color: white;">
+        <nav aria-label="Page navigation" >
             <ul class="pagination" style="justify-content: center;">
                 <c:choose>
                     <c:when test="${pi.cpage == 1}">
