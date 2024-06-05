@@ -7,7 +7,7 @@
         <img src="/assets/image/logo.png" width="220" height="100" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2" viewBox="0 0 24 24"></img>
       </a>
       <form action="/search.do" method="get">
-        <input type="text" style="width: 500px; flex: 0 0 auto;" class="form-control" name="search-text" placeholder="검색어를 입력해주세요.">
+        <input type="text" style="width: 500px; flex: 0 0 auto;" class="form-control" name="search-text" placeholder="검색어를 입력 후 Enter키를 눌러주세요.">
       </form>
       <div class="login-signup">
         <c:choose>

@@ -28,20 +28,22 @@
             <h3>레스토랑</h3>
             <c:if test="${not empty restaurantList}">
                 <div class="search-results">
-                    <ul>
+                    <ul class="restaurant-list">
                         <c:forEach var="restaurant" items="${restaurantList}">
                             <li class="restaurant-item">
-                            <div class= "restaurant-image">
-                                <p>사진 추가 예정</p>
+                                <div class="restaurant-image">
+                                    <p>사진 추가 예정</p>
                                 </div>
                                 <div class="restaurant-info">
-                                    <a href="/restaurantDetail.do?restaurantId=${restaurant.restaurantNo}">${restaurant.restaurantName}</a>
+                                    <div class="restaurant-name">
+                                        <a href="/restaurantDetail.do?restaurantId=${restaurant.restaurantNo}">${restaurant.restaurantName}</a>
+                                    </div>
                                     <div class="font-down">카테고리: ${restaurant.category}</div>
                                     <div class="font-down">위치: ${restaurant.location}</div>
-                                </div>
-                                
-                                <div class="review-box">
-                                    <p>이곳에 리뷰 내용을 추가할 예정</p>
+                                    <button class="toggle-review-btn" onclick="toggleReview(this)">리뷰 열기</button>
+                                    <div class="review-box">
+                                        <p>이곳에 리뷰 내용을 추가할 예정</p>
+                                    </div>
                                 </div>
                             </li>
                         </c:forEach>
@@ -63,9 +65,12 @@
             <c:if test="${not empty noticeList}">
                 <ul class="notice-list">
                     <c:forEach var="notice" items="${noticeList}">
-                        <li>
-                            <a href="/notice/detail.do?boardno=${notice.noticeNo}">${notice.noticeTitle}</a>
-                            <div class="notice-date">작성일: ${notice.noticeDate}</div>
+                        <li class="notice-item">
+                        <div class="notice-name">
+                                        <a href="/notice/detail.do?boardno=${notice.noticeNo}" class="notice-link">${notice.noticeTitle}</a>
+                                    </div>
+                            
+                            <div class="notice-date">작성일: ${notice.noticeDate} &nbsp;&nbsp;&nbsp; 조회수: ${notice.noticeView}</div>                            
                         </li>
                     </c:forEach>
                 </ul>
@@ -80,10 +85,11 @@
             </c:if>
         </div>
     </main>
-    
     <%@ include file="/views/common/footer.jsp"%>
 
     <script src="/assets/js/bootstrap.bundle.min.js"></script>
     <script src="/assets/js/main.js"></script>
+    <script src="/assets/js/search.js"></script>
+
 </body>
 </html>

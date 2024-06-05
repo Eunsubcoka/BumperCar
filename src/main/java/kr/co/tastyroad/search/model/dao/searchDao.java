@@ -24,10 +24,11 @@ public class searchDao {
 	
 	public ArrayList<noticeDto> searchNotices(String searchText) {
         ArrayList<noticeDto> noticeList = new ArrayList<>();
-        String query = "SELECT * FROM notice WHERE noticeTitle LIKE ? ORDER BY noticeDate DESC FETCH FIRST 5 ROWS ONLY";
+        String query = "SELECT * FROM notice WHERE noticeTitle LIKE ? OR noticeContent LIKE ? ORDER BY noticeDate DESC FETCH FIRST 5 ROWS ONLY";
         try {
             pstmt = con.prepareStatement(query);
             pstmt.setString(1, "%" + searchText + "%");
+            pstmt.setString(2, "%" + searchText + "%");
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 noticeDto notice = new noticeDto();
