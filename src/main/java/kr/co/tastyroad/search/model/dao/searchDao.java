@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import kr.co.tastyroad.common.DatabaseConnection;
 import kr.co.tastyroad.notice.model.dto.noticeDto;
+import kr.co.tastyroad.restaurant.model.dto.RestaurantDto;
 
 public class searchDao {
 	private Connection con;
@@ -54,5 +55,32 @@ public class searchDao {
         }
         return noticeList;
     }
+
+	public ArrayList<RestaurantDto> searchRestaurants(String searchText) {
+		ArrayList<RestaurantDto> restaurantList = new ArrayList<>();
+		String query = "SELECT * FROM restaurant WHERE restaurantName LIKE ? OR category LIKE ? ORDER BY restaurantNo DESC FETCH FIRST 5 ROWS ONLY";
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, "%" + searchText + "%");
+			pstmt.setString(2, "%" + searchText + "%");
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				RestaurantDto restaurant = new RestaurantDto();
+                restaurant.setRestaurantName(rs.getString("restaurantName"));
+                restaurant.setRestaurantNo(rs.getInt("restaurantNo"));
+                restaurant.setCategory(rs.getString("category"));
+                restaurant.setLocation(rs.getString("location"));
+				restaurantList.add(restaurant);
+			}
+			rs.close();
+			pstmt.close();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return restaurantList;
+	}
 
 }

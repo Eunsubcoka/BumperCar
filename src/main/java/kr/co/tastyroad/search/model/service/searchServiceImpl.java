@@ -3,6 +3,7 @@ package kr.co.tastyroad.search.model.service;
 import java.util.ArrayList;
 
 import kr.co.tastyroad.notice.model.dto.noticeDto;
+import kr.co.tastyroad.restaurant.model.dto.RestaurantDto;
 import kr.co.tastyroad.search.model.dao.searchDao;
 
 public class searchServiceImpl implements searchService{
@@ -18,4 +19,11 @@ public class searchServiceImpl implements searchService{
 	public ArrayList<noticeDto> searchNotices(String searchText) {
         return searchDao.searchNotices(searchText);
     }
+
+	@Override
+	public ArrayList<RestaurantDto> searchRestaurants(String searchText) {
+		return searchDao.searchRestaurants(searchText);
+	}
+
+
 }

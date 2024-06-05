@@ -2,12 +2,14 @@
     margin: 20px;
     margin-left: 10%;
     margin-right: 10%;
-    padding: 0px;
+    padding: 20px;
     border: 1px solid #0000002b;
     border-radius: 20px;
-    background-color: white;
+    background-color: #f9f9f9;
     min-height:600px;
 }
+
+
 
 .notice-container {
     position: relative;
@@ -20,6 +22,7 @@
     background-color: #9194972b;
     padding: 20px;
     padding-bottom: 0px;
+    border-radius: 20px 20px 0px 0px;
 }
 
 .search-form {
@@ -39,7 +42,7 @@ table.notice-table {
     border-collapse: collapse;
 }
 th {
-    background-color: #ebb842;
+    background-color: #ff9800;
 }
 
 th, td {
@@ -57,7 +60,7 @@ th, td {
 }
 
 th {
-    background-color: #ebb842 !important;
+    background-color: #ff9800 !important;
     color: white !important;
 }
 
@@ -111,7 +114,7 @@ table {
 }
 
 table thead {
-    background-color: #ebb842 !important;
+    background-color: #ff9800 !important;
 }
 
 table thead tr th {

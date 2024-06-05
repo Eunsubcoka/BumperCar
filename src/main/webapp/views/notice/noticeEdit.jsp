@@ -38,7 +38,7 @@
                         <input type="file" name="uploadFile" class="form-control">
                         <c:if test="${not empty result.fileName}">
                             <div class="mt-3">
-                                <p>현재 파일: <img src="${result.filePath}${result.fileName}" alt="이미지" style="max-height: 30%;"></p>
+                                <p>현재 파일: <img src="${result.filePath}${result.fileName}" alt="이미지" style="max-height: 30%; max-width:30%;"></p>
                                 <p><a href="${result.filePath}${result.fileName}" target="_blank">${result.fileName}</a></p>
                                 <button type="button" class="btn btn-danger mx-2" onclick="deleteFile(${result.noticeNo})">파일 삭제</button>
                             </div>

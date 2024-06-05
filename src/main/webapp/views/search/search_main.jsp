@@ -15,14 +15,36 @@
     
     <!-- 플로팅 네비게이션 바 -->
     <div class="floating-nav">
-        <a href="#notice" onclick="scrollToSection('notice')">공지사항</a>
-        <a href="#review" onclick="scrollToSection('review')">리뷰</a>
-        <a href="#restaurant" onclick="scrollToSection('restaurant')">레스토랑</a>
-        <a href="#" onclick="scrollToTop()">맨 위로</a>
+        <a onclick="scrollToSection('restaurant')">레스토랑</a>
+        <a onclick="scrollToSection('notice')">공지사항</a>
+        <a onclick="scrollToTop()">맨 위로</a>
     </div>
     <main class="search-main">
         <div class="search-header">
             <h1>검색 결과</h1>
+        </div>
+        
+        <div class="search-tab" id="restaurant">
+            <h3>레스토랑</h3>
+            <c:if test="${not empty restaurantList}">
+                <ul>
+                    <c:forEach var="restaurant" items="${restaurantList}">
+                        <li>
+                            <a href="/restaurantDetail.do?restaurantId=${restaurant.restaurantNo}">${restaurant.restaurantName}</a>
+                            <div>카테고리: ${restaurant.category}</div>
+                            <div>위치: ${restaurant.location}</div>
+                        </li>
+                    </c:forEach>
+                </ul>
+            </c:if>
+            <c:if test="${empty restaurantList}">
+                <p>검색 결과가 없습니다.</p>
+            </c:if>
+            <c:if test="${fn:length(restaurantList) > 5}">
+                <div class="d-flex justify-content-end">
+                    <a href="/restaurant/list.do?cpage=1&category=restaurantName&search-text=${searchText}"> >>더보기</a>
+                </div>
+            </c:if>
         </div>
         
         <div class="search-tab" id="notice">
@@ -32,7 +54,7 @@
                     <c:forEach var="notice" items="${noticeList}">
                         <li>
                             <a href="/notice/detail.do?boardno=${notice.noticeNo}">${notice.noticeTitle}</a>
-                            <div style="font-size:12px;">작성일: ${notice.noticeDate}</div>
+                            <div>작성일: ${notice.noticeDate}</div>
                         </li>
                     </c:forEach>
                 </ul>
@@ -40,26 +62,11 @@
             <c:if test="${empty noticeList}">
                 <p>검색 결과가 없습니다.</p>
             </c:if>
-            <c:if test="${fn:length(noticeList) >5}">
-            <div class="d-flex justify-content-end">
-                <a href="/notice/list.do?cpage=1&category=noticeTitle&search-text=${searchText}"> >>더보기</a>
-            </div>
+            <c:if test="${fn:length(noticeList) > 5}">
+                <div class="d-flex justify-content-end">
+                    <a href="/notice/list.do?cpage=1&category=noticeTitle&search-text=${searchText}"> >>더보기</a>
+                </div>
             </c:if>
-            
-        </div>
-        
-        <div class="search-tab" id="review">
-            <h3>리뷰</h3>
-            <div class="d-flex justify-content-end">
-                <a href="#"> >>더보기</a>
-            </div>
-        </div>
-        
-        <div class="search-tab" id="restaurant">
-            <h3>레스토랑</h3>
-            <div class="d-flex justify-content-end">
-                <a href="#"> >>더보기</a>
-            </div>
         </div>
     </main>
     
@@ -67,6 +74,5 @@
 
     <script src="/assets/js/bootstrap.bundle.min.js"></script>
     <script src="/assets/js/main.js"></script>
-    <script src="/assets/js/search.js"></script>
 </body>
 </html>
