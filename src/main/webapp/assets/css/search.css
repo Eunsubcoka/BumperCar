@@ -1,14 +1,17 @@
+
+/* 검색 결과 메인 컨테이너 */
 .search-main {
     margin: 20px;
     margin-left: 10%;
     margin-right: 10%;
-    padding: 0px;
+    padding: 20px;
     border: 1px solid #0000002b;
     border-radius: 20px;
-    background-color: white;
-    min-height:600px;
+    background-color: #f9f9f9;
+    min-height: 600px;
 }
 
+/* 검색 헤더 */
 .search-header {
     display: flex;
     justify-content: space-between;
@@ -17,26 +20,15 @@
     padding: 20px;
     padding-bottom: 0px;
     border-radius: 20px 20px 0px 0px;
-}
-
-.search-tab{
-	margin-top : 20px;
-	padding-left : 20px;
-	padding-right : 20px;
-}
-
-/*  ------------------  */
-.search-main {
-    padding: 20px;
-    background-color: #f9f9f9;
-}
-
-.search-header {
     text-align: center;
     margin-bottom: 20px;
 }
 
+/* 검색 탭 스타일 */
 .search-tab {
+    margin-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
     margin-bottom: 40px;
     background-color: #ffffff;
     padding: 20px;
@@ -58,6 +50,9 @@
 .search-tab ul li {
     padding: 10px 0;
     border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .search-tab ul li:last-child {
@@ -75,7 +70,7 @@
 }
 
 .search-tab ul li div {
-    font-size: 12px;
+    font-size: 20px;
     color: #666;
     margin-top: 5px;
 }
@@ -124,3 +119,32 @@
     margin-bottom: 0;
 }
 
+/* 좌우 레이아웃 설정 */
+.search-results {
+    display: flex;
+    flex-direction: column;
+}
+
+.restaurant-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.restaurant-info {
+    width: 50%;
+}
+
+.review-box {
+    width: 50%;
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 10px;
+    margin-left: 10px;
+}
+
+.font-down{
+	font-size : 16px !important;
+}

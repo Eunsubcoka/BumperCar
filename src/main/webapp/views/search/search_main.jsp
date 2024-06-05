@@ -27,15 +27,22 @@
         <div class="search-tab" id="restaurant">
             <h3>레스토랑</h3>
             <c:if test="${not empty restaurantList}">
-                <ul>
-                    <c:forEach var="restaurant" items="${restaurantList}">
-                        <li>
-                            <a href="/restaurantDetail.do?restaurantId=${restaurant.restaurantNo}">${restaurant.restaurantName}</a>
-                            <div>카테고리: ${restaurant.category}</div>
-                            <div>위치: ${restaurant.location}</div>
-                        </li>
-                    </c:forEach>
-                </ul>
+                <div class="search-results">
+                    <ul>
+                        <c:forEach var="restaurant" items="${restaurantList}">
+                            <li class="restaurant-item">
+                                <div class="restaurant-info">
+                                    <a href="/restaurantDetail.do?restaurantId=${restaurant.restaurantNo}">${restaurant.restaurantName}</a>
+                                    <div class= "font-down">카테고리: ${restaurant.category}</div>
+                                    <div class= "font-down">위치: ${restaurant.location}</div>
+                                </div>
+                                <div class="review-box">
+                                    <p>이곳에 리뷰 내용 추가 예정 </p>
+                                </div>
+                            </li>
+                        </c:forEach>
+                    </ul>
+                </div>
             </c:if>
             <c:if test="${empty restaurantList}">
                 <p>검색 결과가 없습니다.</p>

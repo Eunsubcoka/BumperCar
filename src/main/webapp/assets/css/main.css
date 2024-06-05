@@ -1,28 +1,32 @@
 /* 플로팅 네비게이션 바 스타일 */
 .floating-nav {
     position: fixed;
-    right: 20px;
+    right: 30px;
     top: 50%;
     transform: translateY(-50%);
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
+    background-color: #ff9800;
+    color: #ffffff;
     padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
 .floating-nav a {
     display: block;
-    padding: 10px;
-    color: #333;
+    color: #ffffff;
+    margin-bottom: 10px;
     text-decoration: none;
-    text-align: center;
 }
 
 .floating-nav a:hover {
-    background-color: #f0f0f0;
+    background-color: #e68900;
+    text-decoration: underline;
     cursor:pointer;
+}
+
+.floating-nav a:last-child {
+    margin-bottom: 0;
 }
 
 /* 기존 스타일 유지 */
