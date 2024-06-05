@@ -1,4 +1,7 @@
 /* 검색 결과 메인 컨테이너 */
+body{
+	line-height:20px !important;
+}
 .search-main {
     margin: 20px;
     margin-left: 10%;
@@ -181,7 +184,7 @@
 
 .review-box {
     width: 30%;
-    height: 180px;
+    height: 170px;
     background-color: #f0f0f0;
     padding: 10px;
     border-radius: 10px;
@@ -202,9 +205,14 @@
     border:0px;
     border-radius:10px;
     color:#ffffff;
-    padding:5px;
+    padding:10px;
 }
 
 .font-down {
     font-size: 16px !important;
+}
+
+.fa-star:before {
+    content: "\f005";
+    color : #ff9800;
 }

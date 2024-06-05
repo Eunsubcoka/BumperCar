@@ -7,6 +7,7 @@
 <head>
     <%@ include file="/views/common/head.jsp"%>
     <link rel="stylesheet" href="/assets/css/notice.css">
+    
 </head>
 <body>
     <%@ include file="/views/common/header.jsp"%>
