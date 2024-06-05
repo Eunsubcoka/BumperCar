@@ -1,7 +1,7 @@
-/* 검색 결과 메인 컨테이너 */
-body{
-	line-height:20px !important;
+body {
+    line-height: 20px !important;
 }
+
 .search-main {
     margin: 20px;
     margin-left: 10%;
@@ -67,6 +67,9 @@ body{
     text-decoration: none;
     color: #007bff;
     font-weight: bold;
+    display: block; /* 클릭 영역 확장 */
+    position: relative; /* 다른 요소들이 겹치지 않도록 설정 */
+    z-index: 1; /* 링크가 다른 요소들 위에 위치하도록 설정 */
 }
 
 .restaurant-list li a:hover {
@@ -77,6 +80,20 @@ body{
     font-size: 20px;
     color: #666;
     margin-top: 5px;
+    z-index: 0; /* 링크 아래에 위치하도록 설정 */
+}
+
+/* 버튼 스타일 */
+.toggle-review-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #ff9800;
+    border: 0px;
+    border-radius: 10px;
+    color: #ffffff;
+    padding: 10px;
+    z-index: 2; /* 링크 위에 위치하도록 설정 */
 }
 
 /* 공지사항 스타일 */
@@ -159,16 +176,16 @@ body{
     justify-content: flex-start;
     align-items: flex-start;
     width: 100%;
-    gap: 15px; 
+    gap: 15px;
     position: relative;
 }
 
 .restaurant-info {
-    width: calc(100% - 200px); 
-    margin-left: 30px; 
+    width: calc(100% - 200px);
+    margin-left: 30px;
     display: flex;
     flex-direction: column;
-    gap: 10px; 
+    gap: 10px;
     font-size: 20px;
 }
 
@@ -179,7 +196,7 @@ body{
     padding: 10px;
     margin-bottom: 10px;
     border-radius: 10px;
-    flex-shrink: 0; 
+    flex-shrink: 0;
 }
 
 .review-box {
@@ -194,25 +211,14 @@ body{
     bottom: 0;
     right: 0;
     margin-right: 115px;
-    margin-bottom:10px;
-}
-
-.toggle-review-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: #ff9800;
-    border:0px;
-    border-radius:10px;
-    color:#ffffff;
-    padding:10px;
-}
-
-.font-down {
-    font-size: 16px !important;
+    margin-bottom: 10px;
 }
 
 .fa-star:before {
     content: "\f005";
-    color : #ff9800;
+    color: #ff9800;
+}
+
+.font-down {
+    font-size: 16px !important;
 }
