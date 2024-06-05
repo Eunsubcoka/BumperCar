@@ -1,6 +1,5 @@
 package kr.co.tastyroad.notice.model.service;
 
-import java.sql.Connection;
 import java.util.ArrayList;
 
 import kr.co.tastyroad.common.PageInfo;
@@ -28,13 +27,16 @@ public interface noticeService {
 	
 	public int fileUpload(noticeDto noticeDto);
 	
-	void getFileName(noticeDto result);
+	public void getFileName(noticeDto result);
 	
-	int setFileDelete(int fileNo);
+	public int setFileDelete(int noticeNo);
 	
 	public boolean deleteNotice(int noticeNo);
 	
 	public noticeDto getLatestNotice();
 	
-	ArrayList<noticeDto> getNoticeList();
+	public ArrayList<noticeDto> getNoticeList();
+	
+	public ArrayList<noticeDto> getLatestNotices(int i);
+	
 }
