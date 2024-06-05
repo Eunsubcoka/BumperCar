@@ -34,7 +34,6 @@ public class SearchController extends HttpServlet {
 
         RestaurantServiceImpl resService = new RestaurantServiceImpl();
         
-        // 각 레스토랑의 상세 정보를 가져와 별점을 설정합니다.
         HashMap<Integer, Float> ratingsMap = new HashMap<>();
         for (RestaurantDto restaurant : restaurantList) {
             int resNo = restaurant.getRestaurantNo();
