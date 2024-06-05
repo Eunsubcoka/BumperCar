@@ -1,6 +1,7 @@
 package kr.co.tastyroad.member.model.dao;
 
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -248,6 +249,8 @@ public class MemberDAO {
 
 		return member;
 	}
+	
+	
     public String findIdByEmail(String email) {
         String query = "SELECT user_id FROM Tasty_member WHERE user_email = ?";
         try (Connection conn = DatabaseConnection.getConnection();
@@ -295,4 +298,47 @@ public class MemberDAO {
             e.printStackTrace();
         }
     }	
+    public boolean updateToken(String userId, String token) {
+        String query = "UPDATE Tasty_member SET token = ? WHERE user_id = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setString(1, token);
+            pstmt.setString(2, userId);
+            int rows = pstmt.executeUpdate();
+            return rows > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean verifyToken(String token) {
+        String query = "SELECT COUNT(*) FROM Tasty_member WHERE token = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setString(1, token);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next() && rs.getInt(1) == 1) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean updatePassword(String token, String newPassword) {
+        String query = "UPDATE Tasty_member SET user_pwd = ?, token = NULL WHERE token = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setString(1, newPassword); // 비밀번호 암호화 필요
+            pstmt.setString(2, token);
+            int rows = pstmt.executeUpdate();
+            return rows > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }    
+    
 }

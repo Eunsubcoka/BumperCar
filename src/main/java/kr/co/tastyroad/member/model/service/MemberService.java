@@ -32,6 +32,10 @@ public interface MemberService {
 
 	String findIdByEmail(String email);
 
-	boolean sendPasswordResetEmail(String userId, String email);
+    boolean sendPasswordResetEmail(String userId, String userEmail);
+    
+    boolean verifyResetToken(String token);
+    
+    boolean resetPassword(String token, String newPassword);
 	
 }

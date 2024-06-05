@@ -15,19 +15,15 @@ import kr.co.tastyroad.member.model.service.MemberServiceImpl;
 public class FindPasswordController extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private MemberServiceImpl memberService = new MemberServiceImpl();
-    
+
     public FindPasswordController() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/views/member/findPassword.jsp");
+        dispatcher.forward(request, response);
+    }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userId = request.getParameter("userId");
@@ -36,6 +32,5 @@ public class FindPasswordController extends HttpServlet {
         request.setAttribute("isSent", isSent);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/views/member/findPasswordResult.jsp");
         dispatcher.forward(request, response);
-	}
-
+    }
 }

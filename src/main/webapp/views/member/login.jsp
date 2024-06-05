@@ -26,8 +26,8 @@
 				<button type="submit">회원가입</button>
 			</form>
 		     <div class="find-links">
-                <a href="/find-id.do">아이디 찾기</a>
-                <a href="/find-password.do">비밀번호 찾기</a>
+                <a href="/findId.do">아이디 찾기</a>
+                <a href="/views/member/findPassword.jsp">비밀번호 찾기</a>
             </div>
 		</div>
 	</section>

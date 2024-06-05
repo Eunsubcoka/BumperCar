@@ -39,19 +39,15 @@ public class FormController extends HttpServlet {
 			nextPage = "/views/member/register.jsp";
 		} 
 		else if(action.equals("/profile.do")) {  // 프로필
-            // 1. 세션에 있는 userNo 가져오기
             HttpSession session = request.getSession();
             Integer userNo = (Integer) session.getAttribute("userNo");
             
             if (userNo != null) {
-                // 2. userNo 가져왔으니 DAO까지 넘겨서 select 해오기
                 MemberServiceImpl memberService = new MemberServiceImpl();
                 Member member = memberService.getUserProfile(userNo);
                 
-                // 3. 정보 다 가져왔으면 request setAttribute로 데이터 바인딩하기
                 request.setAttribute("member", member);
             } else {
-                // userNo가 세션에 없는 경우 로그인 페이지로 리다이렉트
                 nextPage = "/views/member/login.jsp";
             }
 
