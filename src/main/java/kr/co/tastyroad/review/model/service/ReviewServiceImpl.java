@@ -46,22 +46,27 @@ public class ReviewServiceImpl implements ReviewService {
 	
 	// 리뷰 파일명 가져오기
 	@Override
-	public ArrayList<ReviewDto> uploadList(int reviewNo) {
+	public ArrayList<ReviewDto> uploadList(ArrayList<ReviewDto> list) {
 //		getFileName : 파일명 가져오기
-		return reviewDao.uploadList(reviewNo);
+		return reviewDao.uploadList(list);
 	}
 	
 	// 리뷰 수정
 	@Override
 	public int editUpdate(ReviewDto reviewDto) {
-		
-		 reviewDao.editFileUpdate(reviewDto); 
-			
+//		reviewDao.editFileUpdate(reviewDto); 
 		return reviewDao.editUpdate(reviewDto);
-
- 	}
+	}
+		
+	// 수정 업로드 파일 삭제
+	@Override
+	public int delete(ReviewDto reviewDto, String removeImageName) {
+		return reviewDao.delete(reviewDto, removeImageName);
+		
+	}
 	
-	// 리뷰 삭제
+	// 리뷰 삭제 
+	@Override
 	public int reviewDelete(ReviewDto reviewDto) {
 		
 		reviewDao.reviewFileDelete(reviewDto);
@@ -69,10 +74,13 @@ public class ReviewServiceImpl implements ReviewService {
 		return reviewDao.reviewDelete(reviewDto);
 	}
 	
+	
 	// 파일 하나씩만 가져오기
 	@Override
 	public ArrayList<ReviewDto> uploadListOnce(){
 		return reviewDao.uploadListOnce();
 	}
+	
+	
 }
 

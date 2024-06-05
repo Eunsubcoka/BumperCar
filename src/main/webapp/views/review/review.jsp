@@ -62,12 +62,12 @@
 								</div>
 								<div class="btn">
 									<button type="button" onclick="window.history.back()">뒤로가기</button>
-									<%-- <c:if test="${sessionScope.userNo == item.userNo}">  --%>
+									<c:if test="${sessionScope.userNo == item.userNo}">
 									<button type="button"
 										onclick="location.href='/tastyForm/editReviewForm.do?reviewNo=${item.reviewNo}&restaurantNo=${restaurantNo}'">수정</button>
 									 <button type="submit">삭제</button> 
 					</form>
-									<%-- </c:if> --%>
+									</c:if>
 								</div>
 							</div>
 						</div>
