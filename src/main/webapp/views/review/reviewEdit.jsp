@@ -50,9 +50,13 @@
                 </div>
                      <p>*사진은 최대 3장까지 가능합니다.</p>
 				<div class="image_container" id="image_container"> <!-- varStatus : 상태변수 , ${status.count} :1부터 시작 순서-->
+					
+					<c:set var="maxIndex" value="0"></c:set> <!-- maxIndex변수선언 값은 0으로 초기화 -->
+					
 					<c:forEach var="fileList" items="${fileList}" varStatus="status">
 						<c:if test="${fileList.reviewNo == result.reviewNo}">
 							<!-- removeImageName : 삭제할 이미지 이름, removeImageStatus : 삭제 여부  -->
+							<c:set var="maxIndex" value="${status.count}" /> 
 					        <input type="hidden" name="removeImageName-${status.count}" id="removeImageName-${status.count}" value="${fileList.fileName}"/>
 					        <input type="hidden" name="removeImageStatus-${status.count}" id="removeImageStatus-${status.count}" value="false"/>
 							<input type="hidden" name="fileName" value="${fileList.fileName}"/>
@@ -63,6 +67,7 @@
 							</div>
 						</c:if>
 					</c:forEach>
+					<input type="hidden" name="maxIndex" value="${maxIndex }"> <!-- 컨트롤러로 값보내기 -->
 				</div>
                 <div class="btn">
                      <button type="submit">수정</button>

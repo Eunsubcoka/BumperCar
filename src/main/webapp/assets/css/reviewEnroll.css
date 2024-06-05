@@ -105,6 +105,8 @@ textarea {
     margin : auto;
 }
 
+
+
 /* 리뷰 사진추가 */
 .btn {
     margin-top: 15px;
@@ -113,6 +115,63 @@ textarea {
     flex-direction: column;
     align-items: center; /* 수평 가운데 정렬 */
     justify-content: center; /*사진들을 중앙 정렬*/
+}
+.btn > p {
+    margin-bottom: auto;
+    margin-right: auto;
+}
+
+button, .btn-upload {
+    width: 250px;
+    height: 30px;
+    cursor: pointer;
+    border-radius: 15px;
+    border-color: #ff9800;
+    background-color: #ff9800;
+    text-align: center;
+    color: #fff;
+    font-size: medium;
+    margin: 7px;
+    display: flex;
+    align-items: center; /* 텍스트 수직 가운데 정렬 */
+    justify-content: center; /* 텍스트 수평 가운데 정렬 */
+}
+
+#file {
+    display: none;
+}
+
+#image_container {
+    width: 100%;
+    min-height: 150px;
+    margin-bottom: 0px;
+    margin: auto;
+    padding: 10px;
+    margin-top: 15px;
+    border-radius: 10px;
+    place-items: center;
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+}
+
+img {
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    border-radius: 15px;
+    position: relative;
+} 
+
+/* 
+리뷰 사진추가
+.btn {
+    margin-top: 15px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 수평 가운데 정렬
+    justify-content: center; 사진들을 중앙 정렬
 }
 .btn > p {
 	margin-bottom:auto;
@@ -131,8 +190,8 @@ button, .btn-upload {
     font-size: medium;
     margin: 7px;
     display: flex;
-    align-items: center; /* 텍스트 수직 가운데 정렬 */
-    justify-content: center; /* 텍스트 수평 가운데 정렬 */
+    align-items: center; 텍스트 수직 가운데 정렬
+    justify-content: center; 텍스트 수평 가운데 정렬
 }
 
 #file {
@@ -165,4 +224,4 @@ img {
     position: relative;
 } 
   
-
+ */

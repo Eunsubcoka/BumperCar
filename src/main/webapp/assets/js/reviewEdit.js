@@ -98,12 +98,12 @@ function imageClose(event, index) {
 	// 가장 가까운 조상 요소 (closest(".review-photo"))  - review-photo 클래스를 가진
     const reviewPhoto = event.target.closest(".review-photo");
 	// 삭제된 이미지를 removeImageStatus 필드를 통해 서버에 알려줌
-	const removeImageStatus = document.getElementById("removeImageStatus-"+index);
+	const removeImageStatus = document.getElementById("removeImageStatus-" + index);
 	
     // review-photo 클래스를 가진 요소가 존재한다면
     if (reviewPhoto) {
         // 해당 요소를 제거합니다.
         reviewPhoto.remove();
-		removeImageStatus.value = true;
+		removeImageStatus.value = "true";
     }
 }

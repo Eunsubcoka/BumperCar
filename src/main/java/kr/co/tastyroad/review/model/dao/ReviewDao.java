@@ -194,7 +194,7 @@ public class ReviewDao {
 	// 리뷰 수정
 	public int editUpdate(ReviewDto reviewDto) {
 		String query = "update reviews set reviewTitle = ?, reviewContent = ?, ratings = ?, reviewDate = sysdate "
-					 + "where reviewNo = ?";
+					 + "where reviewNo = ? ";
 		
 		try {
 			pstmt = con.prepareStatement(query);

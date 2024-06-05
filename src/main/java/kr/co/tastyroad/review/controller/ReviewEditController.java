@@ -37,6 +37,7 @@ public class ReviewEditController extends HttpServlet {
 		String fileName = request.getParameter("fileName");
 		String filePath = request.getParameter("filePath");
 		
+		int maxIndex = Integer.parseInt(request.getParameter("maxIndex"));
 		
 		
 		ReviewDto reviewDto = new ReviewDto();
@@ -57,8 +58,8 @@ public class ReviewEditController extends HttpServlet {
 			Collection<Part> parts = request.getParts();
 			String uploadDirectory = "C:\\dev\\work-space\\semiProject\\BumperCar\\src\\main\\webapp\\assets\\uploads\\review";
 
-			// 이미 업로드 되어있는 이미지 삭제 
-			for(int i = 1; i <= 3; i++) {
+			// 이미 업로드 되어있는 이미지 삭제,  Edit.jsp에서 maxIndex 변수선언
+			for(int i = 1; i <= maxIndex; i++) {
 				// removeImageName-, removeImageStatus- 받기
 				String removeImageName = request.getParameter("removeImageName-" + i);
 				boolean removeImageStatus = Boolean.parseBoolean(request.getParameter("removeImageStatus-" + i));
@@ -70,6 +71,7 @@ public class ReviewEditController extends HttpServlet {
 					if (file.exists()) {
 						file.delete();
 					}
+					System.out.println("removeImageStatus : " + removeImageStatus);
 					// 데이터베이스에서도 해당 파일 삭제
 					reviewService.delete(reviewDto, removeImageName);
 				}

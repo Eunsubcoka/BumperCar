@@ -55,9 +55,12 @@ window.onload = function() {
 // 이미지 업로드 
 function getImageFiles(event) {
     const maxImages = 3; // 최대 이미지 개수
+	// 현재 이미지 개수 확인
+    const currentImageCount = document.querySelectorAll("div#image_container img.photo").length;
+
 
     // 이미지 개수 제한 확인
-    if (event.target.files.length > maxImages) {
+    if (event.target.files.length + currentImageCount > maxImages) {
         alert(`이미지는 ${maxImages}장까지 업로드할 수 있습니다.`);
         return;
     }
