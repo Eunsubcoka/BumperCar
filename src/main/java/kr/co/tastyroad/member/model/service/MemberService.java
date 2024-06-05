@@ -24,8 +24,18 @@ public interface MemberService {
 	void verifyMember(String userId);
 
 	void updateUserProfile(String userId, String userName, String userEmail, String userAddress, String userPhone,
-			String fileName);
+			String profileImageUrl);
 
-	Member getUserProfile(int userNo);
+	Member getUserProfile(int userId);
+
+	void updateUserProfile(Member member);
+
+	String findIdByEmail(String email);
+
+    boolean sendPasswordResetEmail(String userId, String userEmail);
+    
+    boolean verifyResetToken(String token);
+    
+    boolean resetPassword(String token, String newPassword);
 	
 }
