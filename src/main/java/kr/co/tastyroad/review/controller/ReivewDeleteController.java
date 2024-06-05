@@ -35,11 +35,9 @@ public class ReivewDeleteController extends HttpServlet {
 		reviewDto.setReviewNo(reviewNo);
 		reviewDto.setFileName(fileName);
 		reviewDto.setRestaurantNo(restaurantNo);
-		System.out.println("리뷰번호 : " + reviewNo);
 		
 		ReviewServiceImpl reviewService = new ReviewServiceImpl();
 		int result = reviewService.reviewDelete(reviewDto);
-		System.out.println("result : " + result);
 		
 		
 		request.setAttribute("restaurantNo", restaurantNo);
