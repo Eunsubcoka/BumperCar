@@ -18,11 +18,17 @@ public interface ReviewService {
 	// 리뷰 리스트 조회
 	public ArrayList<ReviewDto> getReviewList();
 	// 리뷰 파일명 가져오기
-	public ArrayList<ReviewDto> uploadList();
+	public ArrayList<ReviewDto> uploadList(ArrayList<ReviewDto> list);
 	// 리뷰 수정
 	public int editUpdate(ReviewDto reviewDto);
 	// 리뷰 삭제
 	public int reviewDelete(ReviewDto reviewDto);
+	
 	// 파일 하니씩 가져오기
 	public ArrayList<ReviewDto> uploadListOnce();
+	
+	// 수정 업로드 파일 삭제
+	public int delete(ReviewDto reviewDto, String removeImageName);
+		
+	
 }

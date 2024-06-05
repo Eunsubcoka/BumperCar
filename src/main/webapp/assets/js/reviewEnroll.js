@@ -7,6 +7,7 @@ function executeRating(stars) {
       star.onclick = () => {
           // 클릭한 별의 인덱스
           const clickedIndex = index;
+	
           
           // 클릭한 별을 포함하여 이전 별들을 활성화 또는 비활성화 상태로 변경
           stars.forEach((s, i) => {
@@ -27,7 +28,7 @@ function updateRatingText(stars, ratingTexts) {
 		  const star = document.getElementById("stars");
           // 클릭한 별의 인덱스를 가져옴
           const clickedIndex = index;
-          
+
           // 클릭한 별에 해당하는 텍스트를 가져와서 업데이트
           const ratingText = document.querySelector('.rating-text');
           ratingText.textContent = (clickedIndex + 1) + "점(" + ratingTexts[clickedIndex] + ")";
@@ -49,29 +50,58 @@ window.onload = function() {
 };
 
 
-//이미지 업로드 미리보기
-function getImageFiles(event){
+
+
+// 이미지 업로드 
+function getImageFiles(event) {
     const maxImages = 3; // 최대 이미지 개수
+	// 현재 이미지 개수 확인
+    const currentImageCount = document.querySelectorAll("div#image_container img.photo").length;
+
 
     // 이미지 개수 제한 확인
-    if (event.target.files.length > maxImages) {
+    if (event.target.files.length + currentImageCount > maxImages) {
         alert(`이미지는 ${maxImages}장까지 업로드할 수 있습니다.`);
         return;
     }
 
-    for(let image of event.target.files){
-        // 이미지 개수가 최대 개수에 도달했을 경우 추가 중단
-        if (document.querySelectorAll("div#image_container img").length >= maxImages) {
+    for (let image of event.target.files) {
+        // 현재 이미지 개수 확인
+        if (document.querySelectorAll("div#image_container img.photo").length >= maxImages) {
             alert(`이미지는 ${maxImages}장까지 업로드할 수 있습니다.`);
-            return;
+            break; // 반복문 종료;
         }
 
         let img = document.createElement("img");
         const reader = new FileReader();
-        reader.onload = function(event){
+        reader.onload = function(event) {
             img.setAttribute("src", event.target.result);
+			img.classList.add("photo");
+
+            // 이미지를 감싸는 div 요소 생성
+            const imageDiv = document.createElement("div");
+            imageDiv.classList.add("review-photo");
+            imageDiv.appendChild(img); // 이미지 추가
+
+            // 이미지 삭제 버튼 생성
+            const closeButton = document.createElement("img");
+            closeButton.classList.add("close");
+            closeButton.src = "/assets/image/close.png";
+            closeButton.onclick = function() {
+                imageDiv.remove(); // 해당 이미지 요소를 삭제
+            };
+            
+            // close 버튼 스타일 추가
+            closeButton.style.width = "10px";
+            closeButton.style.height = "10px";
+            closeButton.style.float = "right";
+            closeButton.style.position = "absolute";
+            imageDiv.appendChild(closeButton); // 삭제 버튼 추가
+
+            // 이미지를 표시할 컨테이너에 추가
+            document.querySelector("div#image_container").appendChild(imageDiv);
         }
         reader.readAsDataURL(image);
-        document.querySelector("div#image_container").appendChild(img);
     }
 }
+

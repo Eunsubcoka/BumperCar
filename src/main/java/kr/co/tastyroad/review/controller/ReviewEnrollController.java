@@ -65,7 +65,7 @@ public class ReviewEnrollController extends HttpServlet {
 		
 
 		ReviewDto resultDto = reviewService.selectNo(reviewDto);
-		
+
 		for(Part part : parts) {
 			fileName = getFileName(part);
 			if(fileName != null) {
@@ -87,6 +87,8 @@ public class ReviewEnrollController extends HttpServlet {
 //	 파일 이름을 추출하는 메서드
     private String getFileName(Part part) {
         String contentDisposition = part.getHeader("content-disposition");
+        
+        System.out.println("contentDisposition : " + contentDisposition);
         String[] tokens = contentDisposition.split(";");
         for (String token : tokens) {
             if (token.trim().startsWith("filename")) {

@@ -61,6 +61,8 @@ h1 {
 .review .rating {
     color: #ff9800;
     font-size: 1.2em;
+    cursor: pointer;
+    
 }
 
 
@@ -84,7 +86,7 @@ textarea {
     margin : auto;
 }
 
-/* 리뷰 사진 */
+/* 리뷰 사진 업로드되는 컨테이너 */
 .review-photo {
     width: 150px;
     height: 150px;
@@ -92,19 +94,27 @@ textarea {
     border-radius: 15px;
     position: relative;
 }
-
+/* 리뷰 사진 */
 .photo {
     width: 100%;
 }
+
+.close {
+	width:10px;
+	height:10px;
+	float:right;
+    position: relative;
+    right: 7.5px; /* 우측 여백 추가 */
+	cursor: pointer;
+}
+
 
 /* 수정, 삭제 버튼 */
 .btn {
     margin-top: 15px;
     border-radius: 10px;
     display: flex;
-    margin-left: auto;
-
-    
+    margin-left: auto; 
 }
 
 button, .btn-upload {
@@ -138,6 +148,7 @@ button, .btn-upload {
     place-items: center;
     display: grid; 
     grid-template-columns: repeat(3, 1fr);
+    cursor: pointer;
     grid-gap: 50px;
 
 }

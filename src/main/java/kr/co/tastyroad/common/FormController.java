@@ -110,8 +110,11 @@ public class FormController extends HttpServlet {
 			ReviewDto result = reviewService.ReviewEditForm(reviewDto);
 			result.setRestaurantNo(restaurantNo);
 			
+			ArrayList<ReviewDto> list = new ArrayList<ReviewDto>();
+			list = reviewService.getReviewList(); // 게시글 리스트
+			
 			ArrayList<ReviewDto> fileList = new ArrayList<ReviewDto>(); 
-			fileList = reviewService.uploadList();
+			fileList = reviewService.uploadList(list);
 			request.setAttribute("fileList", fileList);
 			request.setAttribute("result", result);
 			
