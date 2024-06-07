@@ -67,9 +67,8 @@ function getImageFiles(event) {
 
     for (let image of event.target.files) {
         // 현재 이미지 개수 확인
-        if (document.querySelectorAll("div#image_container img.photo").length >= maxImages) {
+        if (currentImageCount.length >= maxImages) {
             alert(`이미지는 ${maxImages}장까지 업로드할 수 있습니다.`);
-            break; // 반복문 종료;
         }
 
         let img = document.createElement("img");
@@ -104,4 +103,5 @@ function getImageFiles(event) {
         reader.readAsDataURL(image);
     }
 }
+
 

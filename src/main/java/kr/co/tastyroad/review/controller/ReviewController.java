@@ -25,8 +25,11 @@ public class ReviewController extends HttpServlet {
 			throws ServletException, IOException {
 		ReviewServiceImpl reviewService = new ReviewServiceImpl();
 		
+		int restaurantNo = Integer.parseInt(request.getParameter("restaurantNo"));
+		
+		
 		ArrayList<ReviewDto> list = new ArrayList<ReviewDto>();
-		list = reviewService.getReviewList(); // 게시글 리스트
+		list = reviewService.getReviewList(restaurantNo); // 게시글 리스트
 
 		// uploadList = 각각의 게시글에 대한 파일명, 게시글 번호
 		ArrayList<ReviewDto> fileList = new ArrayList<ReviewDto>();
@@ -34,8 +37,6 @@ public class ReviewController extends HttpServlet {
 		
 		request.setAttribute("list", list);
 		request.setAttribute("fileList", fileList);
-		int restaurantNo = Integer.parseInt(request.getParameter("restaurantNo"));
-		
 		request.setAttribute("restaurantNo", restaurantNo);
 		
 		RequestDispatcher view = request.getRequestDispatcher("/views/review/review.jsp");

@@ -19,8 +19,7 @@
 	<section>
 		<div class="container-review-box">
 
-		<form action="/review/delete.do" method="POST">
-			<h1>식당이름 리뷰</h1>                     
+			<h1>${list[0].restaurantName}</h1>                     
 			<input type="hidden" name="restaurantNo" value="${restaurantNo}">                                    
 			<button type="button" onclick="location.href='/tastyForm/enrollReviewForm.do?restaurantNo=${restaurantNo}'">등록</button>
 			<c:choose>
@@ -60,7 +59,7 @@
 								  </c:if>
 								</c:forEach>
 								</div>
-								<div class="btn">
+								<div id="btn">
 									<button type="button" onclick="window.history.back()">뒤로가기</button>
 									<c:if test="${sessionScope.userNo == item.userNo}">
 									<button type="button"

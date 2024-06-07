@@ -46,7 +46,7 @@ public class RestaurantDetailControler extends HttpServlet {
         ReviewServiceImpl reviewService = new ReviewServiceImpl();
 		
 		ArrayList<ReviewDto> list = new ArrayList<ReviewDto>(); 
-		list = reviewService.getReviewList(); // 게시글 리스트
+		list = reviewService.getReviewList(resNo); // 게시글 리스트
 		
 		float ratings = resService.ratings(resNo);
 		// uploadList = 각각의 게시글에 대한 파일명, 게시글 번호
