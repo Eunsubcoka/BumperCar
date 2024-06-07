@@ -16,10 +16,6 @@ public class PasswordResetController extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private MemberServiceImpl memberService = new MemberServiceImpl();
 
-    public PasswordResetController() {
-        super();
-    }
-
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String token = request.getParameter("token");
         boolean isValid = memberService.verifyResetToken(token);
@@ -33,12 +29,11 @@ public class PasswordResetController extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	String token = request.getParameter("token");
+        String token = request.getParameter("token");
         String newPassword = request.getParameter("newPassword");
-        System.out.println("Token: " + token);
-        System.out.println("New Password: " + newPassword);
+
         boolean isReset = memberService.resetPassword(token, newPassword);
-        System.out.println("Password reset successful: " + isReset);
+
         request.setAttribute("isReset", isReset);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/views/member/passwordResetResult.jsp");
         dispatcher.forward(request, response);
