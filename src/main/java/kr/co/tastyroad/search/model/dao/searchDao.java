@@ -25,7 +25,7 @@ public class searchDao {
 
     public ArrayList<noticeDto> searchNotices(String searchText) {
         ArrayList<noticeDto> noticeList = new ArrayList<>();
-        String query = "SELECT * FROM notice WHERE noticeTitle LIKE ? OR noticeContent LIKE ? ORDER BY noticeDate DESC FETCH FIRST 5 ROWS ONLY";
+        String query = "SELECT * FROM notice WHERE noticeTitle LIKE ? OR noticeContent LIKE ? ORDER BY noticeDate DESC";
         try {
             pstmt = con.prepareStatement(query);
             pstmt.setString(1, "%" + searchText + "%");
@@ -60,7 +60,7 @@ public class searchDao {
 
     public ArrayList<RestaurantDto> searchRestaurants(String searchText) {
         ArrayList<RestaurantDto> restaurantList = new ArrayList<>();
-        String query = "SELECT * FROM restaurant WHERE restaurantName LIKE ? OR category LIKE ? ORDER BY restaurantNo DESC FETCH FIRST 5 ROWS ONLY";
+        String query = "SELECT * FROM restaurant WHERE restaurantName LIKE ? OR category LIKE ? ORDER BY restaurantNo DESC";
         
         try {
             pstmt = con.prepareStatement(query);

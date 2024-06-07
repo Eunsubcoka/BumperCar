@@ -29,11 +29,11 @@
             <h3>레스토랑</h3>
             <c:if test="${not empty restaurantList}">
                 <div class="search-results">
-                    <ul class="restaurant-list">
+                    <ul class="restaurant-list" id="restaurant-list">
                         <c:forEach var="restaurant" items="${restaurantList}">
                             <li class="restaurant-item">
                                 <div class="restaurant-image">
-                                    <p>사진 추가 예정</p>
+                                    <p>사진 추가 예정 <br><br> 레스토랑 상세 페이지 완성되면 레스토랑 페이지의 사진 끌어오기</p>
                                 </div>
                                 <div class="restaurant-info">
                                     <div>
@@ -46,7 +46,7 @@
                                         <fmt:formatNumber value="${ratingsMap[restaurant.restaurantNo]}" type="number" minFractionDigits="1" maxFractionDigits="1" />
                                     </div>
                                     <button class="toggle-review-btn" onclick="toggleReview(this)">리뷰 열기</button>
-                                    
+
                                     <div class="review-box font-down-2" style="display: none;" onclick="navigateToReviews(${restaurant.restaurantNo})">
                                         <c:choose>
                                             <c:when test="${not empty top3ReviewsMap[restaurant.restaurantNo]}">
@@ -73,7 +73,7 @@
                                             </c:otherwise>
                                         </c:choose>
                                     </div>
-                                    
+
                                 </div>
                             </li>
                         </c:forEach>
@@ -83,9 +83,9 @@
             <c:if test="${empty restaurantList}">
                 <p>검색 결과가 없습니다.</p>
             </c:if>
-            <c:if test="${fn:length(restaurantList) > 5}">
+            <c:if test="${totalRestaurants > (cpage * 5)}">
                 <div class="d-flex justify-content-end">
-                    <a href="/restaurant/list.do?cpage=1&category=restaurantName&search-text=${searchText}"> >>더보기</a>
+                    <button id="load-more-restaurants" data-page="${cpage}" data-search-text="${searchText}" data-category="restaurant" onclick="loadMoreRestaurants()">>>더보기</button>
                 </div>
             </c:if>
         </div>
@@ -93,7 +93,7 @@
         <div class="search-tab" id="notice">
             <h3>공지사항</h3>
             <c:if test="${not empty noticeList}">
-                <ul class="notice-list">
+                <ul class="notice-list" id="notice-list">
                     <c:forEach var="notice" items="${noticeList}">
                         <li class="notice-item">
                             <div>
@@ -107,9 +107,9 @@
             <c:if test="${empty noticeList}">
                 <p>검색 결과가 없습니다.</p>
             </c:if>
-            <c:if test="${fn:length(noticeList) > 5}">
+            <c:if test="${totalNotices > (cpage * 5)}">
                 <div class="d-flex justify-content-end">
-                    <a href="/notice/list.do?cpage=1&category=noticeTitle&search-text=${searchText}"> >>더보기</a>
+                    <button id="load-more-notices" data-page="${cpage}" data-search-text="${searchText}" data-category="notice" onclick="loadMoreNotices()">>>더보기</button>
                 </div>
             </c:if>
         </div>
@@ -120,10 +120,5 @@
     <script src="/assets/js/bootstrap.bundle.min.js"></script>
     <script src="/assets/js/main.js"></script>
     <script src="/assets/js/search.js"></script>
-    <script>
-
-
-
-    </script>
 </body>
 </html>
