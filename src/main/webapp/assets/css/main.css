@@ -1,7 +1,35 @@
-@charset "UTF-8";
+/* 플로팅 네비게이션 바 스타일 */
+.floating-nav {
+    position: fixed;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #ff9800;
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
 
-@import url("./notice.css");
+.floating-nav a {
+    display: block;
+    color: #ffffff;
+    margin-bottom: 10px;
+    text-decoration: none;
+}
 
+.floating-nav a:hover {
+    background-color: #e68900;
+    text-decoration: underline;
+    cursor:pointer;
+}
+
+.floating-nav a:last-child {
+    margin-bottom: 0;
+}
+
+/* 기존 스타일 유지 */
 body {
 	font-family: 'GmarketSans';
 	margin: 0;
@@ -46,7 +74,9 @@ body {
 .unique-main {
 	display: flex;
 	justify-content: center;
-	padding: 20px;
+	padding: 0px;
+	padding-top: 20px;
+	padding-bottom: 20px;
 	flex-wrap: wrap;
 	flex-direction: column;
 	align-items: center;
@@ -59,18 +89,14 @@ body {
 	margin-left: 10%;
 	margin-right: 10%;
     background-color: #fffefe;
-
-   border-radius: 20px 20px;
+    border-radius: 20px 20px;
     border: 1px solid #00000030;
-    
-    
 }
 
 .unique-food-category h2 {
 	font-size: 24px;
 	margin-bottom: 10px;
 	padding-left: 20px;
-	
 }
 
 .unique-carousel {
@@ -116,15 +142,27 @@ body {
 	background-color: #f8f8f8;
 }
 
+
+footer{
+	background-color : #ececec !important;
+	height:10rem !important;
+}
+
+
+
 /*  ---------mainpage----------*/
+
+
 * {
 	box-sizing: border-box;
 }
 
 body {
     background-color: #06060640;
-	
+    height:100%;
 }
+
+
 
 .slider {
 	position: relative;
@@ -148,7 +186,6 @@ body {
 	justify-content: center;
 	align-items: center;
 	margin-bottom: 20px;
-	
 }
 
 .slide a {
@@ -160,7 +197,7 @@ body {
 
 .slide img {
 	width: 100%;
-	border-radius : 10px;
+	border-radius: 10px;
 }
 
 .prev, .next {
@@ -193,20 +230,17 @@ body {
 	background-color: rgba(0, 0, 0, 0.8);
 }
 
-/* notice */
-
 /* nav */
 .unique-nav {
-    position: relative; 
+    position: relative;
     display: flex;
-    justify-content: center; 
+    justify-content: center;
     background-color: #ececec;
     padding: 10px 0;
 }
 
-
 .nav-align-center {
-    position: relative; 
+    position: relative;
 }
 
 .nav-align-right {
@@ -214,22 +248,24 @@ body {
     right: 5%;
 }
 
-
 .unique-nav a {
     margin: 0 15px;
     text-decoration: none;
     color: #333;
 }
 
+.float-end a:hover{
+	cursor:pointer;
+}
 
 /* 은섭 */
-.sli_con{
-	    background-clip: border-box;
+.sli_con {
+    background-clip: border-box;
     padding: 20px 0 0 20px;
     background-color: #9194972b;
-        border-radius: 20px 20px 0 0;
+    border-radius: 20px 20px 0 0;
     border-bottom: 1px solid #0000002b;
     align-content: center;
     margin-bottom: 20px;
-    
 }
+

@@ -1,33 +1,80 @@
 package kr.co.tastyroad.notice.controller;
 
+import java.io.File;
+import java.io.IOException;
+
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
-import kr.co.tastyroad.notice.model.dao.noticeDao;
 import kr.co.tastyroad.notice.model.dto.noticeDto;
+import kr.co.tastyroad.notice.model.service.noticeServiceImpl;
 
-import java.io.IOException;
-
-@WebServlet("/noticeEditController")
+@WebServlet("/notice/edit.do")
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
+        maxFileSize = 1024 * 1024 * 10, // 10MB
+        maxRequestSize = 1024 * 1024 * 50) // 50MB
 public class noticeEditController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String postId = request.getParameter("postId");
+    public noticeEditController() {
+        super();
+    }
 
-        // 데이터베이스에서 해당 게시글을 불러오기
-        noticeDao noticeDao = new noticeDao();
-        noticeDto notice = noticeDao.getNotice(postId);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        int boardNo = Integer.parseInt(request.getParameter("boardno"));
+        String noticeTitle = request.getParameter("title");
+        String noticeContent = request.getParameter("content");
 
-        // 게시글 내용을 요청에 설정
-        request.setAttribute("content", notice.getContent());
-        request.setAttribute("imagePath", notice.getImagePath());
-        request.setAttribute("postId", notice.getPostId());
+        noticeDto noticeDto = new noticeDto();
+        noticeDto.setNoticeNo(boardNo);
+        noticeDto.setNoticeTitle(noticeTitle);
+        noticeDto.setNoticeContent(noticeContent);
 
-        // noticeEdit.jsp로 포워딩
-        request.getRequestDispatcher("noticeEdit.jsp").forward(request, response);
+        noticeServiceImpl noticeService = new noticeServiceImpl();
+        int result = noticeService.setEdit(noticeDto);
+
+        // 파일 업로드 처리
+        Part uploadFilePart = request.getPart("uploadFile");
+        boolean deleteFile = request.getParameter("deleteFile") != null;
+        String uploadDirectory = request.getServletContext().getRealPath("/assets/uploads/notice/");
+        File filePath = new File(uploadDirectory);
+        if (!filePath.exists()) {
+            filePath.mkdirs();
+        }
+
+        if (deleteFile) {
+            int fileNo = noticeDto.getFileNo();
+            if (fileNo > 0) {
+                noticeService.setFileDelete(boardNo);
+                
+                // 실제 파일 시스템에서 파일 삭제
+                String existingFileName = "boardNo_" + boardNo + ".jpg"; 
+                File existingFile = new File(filePath, existingFileName);
+                if (existingFile.exists()) {
+                    existingFile.delete();
+                }
+                
+                noticeDto.setFileName(null);
+                noticeDto.setFilePath(null);
+            }
+        } else if (uploadFilePart != null && uploadFilePart.getSize() > 0) {
+            String fileName = "boardNo_" + boardNo + ".jpg"; //파일 이름 지정 
+            uploadFilePart.write(new File(filePath, fileName).getAbsolutePath());
+
+            noticeDto.setFileName(fileName);
+            noticeDto.setFilePath("/assets/uploads/notice/");
+            noticeService.fileUpload(noticeDto);
+        }
+
+        if (result == 1) {
+            response.sendRedirect("/notice/detail.do?boardno=" + boardNo);
+        }
     }
 }

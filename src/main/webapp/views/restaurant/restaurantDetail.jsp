@@ -134,6 +134,7 @@
 								</div>
 								<div class="res_review_img">
 									<c:forEach var="fileList" items="${fileList}">
+									
 										<c:if test="${fileList.reviewNo == item.reviewNo}">
 											<img src="/assets/uploads/review/${fileList.fileName}"
 												alt="리뷰 사진 1">

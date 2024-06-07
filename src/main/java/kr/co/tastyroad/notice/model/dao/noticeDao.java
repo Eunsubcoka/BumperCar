@@ -1,3 +1,6 @@
+
+
+
 package kr.co.tastyroad.notice.model.dao;
 
 import java.sql.Connection;
@@ -73,6 +76,8 @@ public class noticeDao {
         }
     }
 	
+    
+    
 
 	public ArrayList<noticeDto> getList(PageInfo pi, String category, String searchText) {
 		ArrayList<noticeDto> result = new ArrayList<>();
@@ -210,6 +215,9 @@ public class noticeDao {
 				String ntDate = rs.getString("noticeDate");
 				int ntView = rs.getInt("noticeView");
 				int mNo = rs.getInt("user_no");
+				int nuNo = rs.getInt("nuNo");
+				String nuName = rs.getString("nuName");
+				String nuPath = rs.getString("nuPath");
 
 				noticeDto noticeDto = new noticeDto();
 				noticeDto.setNoticeNo(ntNo);
@@ -218,6 +226,9 @@ public class noticeDao {
 				noticeDto.setNoticeDate(ntDate);
 				noticeDto.setNoticeView(ntView);
 				noticeDto.setUserNo(mNo);
+				noticeDto.setFileNo(nuNo);
+				noticeDto.setFileName(nuName);
+				noticeDto.setFilePath(nuPath);
 
 				return noticeDto;
 
@@ -337,59 +348,70 @@ public class noticeDao {
 	}
 
 	public int fileUpload(noticeDto noticeDto) {
-		String query = "INSERT INTO notice_upload VALUES(notice_upload_seq.nextval, ?, ?, ?, ?)";
+	    String query = "MERGE INTO notice_upload nu " +
+	                   "USING (SELECT ? AS nuPath, ? AS nuName, ? AS noticeNo FROM dual) src " +
+	                   "ON (nu.noticeNo = src.noticeNo) " +
+	                   "WHEN MATCHED THEN " +
+	                   "  UPDATE SET nu.nuPath = src.nuPath, nu.nuName = src.nuName " +
+	                   "WHEN NOT MATCHED THEN " +
+	                   "  INSERT (nu.nuNo, nu.nuPath, nu.nuName, nu.noticeNo) " +
+	                   "  VALUES (notice_upload_seq.nextval, src.nuPath, src.nuName, src.noticeNo)";
 
-		try {
-			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, noticeDto.getFilePath());
-			pstmt.setString(2, noticeDto.getFileName());
-			pstmt.setInt(3, noticeDto.getUserNo());
-			pstmt.setInt(4, noticeDto.getNoticeNo());
+	    try {
+	        pstmt = con.prepareStatement(query);
+	        pstmt.setString(1, noticeDto.getFilePath());
+	        pstmt.setString(2, noticeDto.getFileName());
+	        pstmt.setInt(3, noticeDto.getNoticeNo());
 
-			int result = pstmt.executeUpdate();
-			return result;
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return 0;
+	        int result = pstmt.executeUpdate();
+	        return result;
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return 0;
 	}
+
+
+
 
 	public void getFileName(noticeDto result) {
-		String query = "SELECT nu.nuNo, nu.nuName FROM notice n  LEFT OUTER JOIN notice_upload nu ON n.noticeNo = nu.noticeNo WHERE n.noticeNo = ?";
+	    String query = "SELECT nu.nuNo, nu.nuName, nu.nuPath FROM notice n LEFT OUTER JOIN notice_upload nu ON n.noticeNo = nu.noticeNo WHERE n.noticeNo = ?";
 
-		try {
-			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, result.getNoticeNo());
-			ResultSet rs = pstmt.executeQuery();
+	    try {
+	        pstmt = con.prepareStatement(query);
+	        pstmt.setInt(1, result.getNoticeNo());
+	        ResultSet rs = pstmt.executeQuery();
 
-			while (rs.next()) {
-				int no = rs.getInt("nuNo");
-				String name = rs.getString("nuName");
+	        while (rs.next()) {
+	            int no = rs.getInt("nuNo");
+	            String name = rs.getString("nuName");
+	            String path = rs.getString("nuPath");
 
-				result.setFileNo(no);
-				result.setFileName(name);
-
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+	            result.setFileNo(no);
+	            result.setFileName(name != null ? name : "");
+	            result.setFilePath(path != null ? path : ""); // 파일 경로를 설정
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
 	}
 
-	public int setFileDelete(int fileNo) {
-		String query = "DELETE FROM notice_upload WHERE nuNo = ?";
 
-		try {
-			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, fileNo);
-			int result = pstmt.executeUpdate();
-			return result;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+	public int setFileDelete(int noticeNo) {
+	    String query = "DELETE FROM notice_upload WHERE noticeNo = ?";
 
-		return 0;
+	    try {
+	        pstmt = con.prepareStatement(query);
+	        pstmt.setInt(1, noticeNo);
+	        int result = pstmt.executeUpdate();
+	        return result;
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return 0;
 	}
+
+
 
 	public boolean deleteNotice(int noticeNo) {
 		boolean deleted = false;
@@ -455,5 +477,41 @@ public class noticeDao {
 
 		return null;
 	}
+	
+	public ArrayList<noticeDto> getLatestNotices(int limit) {
+	    ArrayList<noticeDto> result = new ArrayList<>();
+	    String query = "SELECT * FROM notice ORDER BY noticeDate DESC FETCH FIRST ? ROWS ONLY";
+
+	    try {
+	        pstmt = con.prepareStatement(query);
+	        pstmt.setInt(1, limit);
+	        ResultSet rs = pstmt.executeQuery();
+
+	        while (rs.next()) {
+	            noticeDto notice = new noticeDto();
+	            notice.setNoticeNo(rs.getInt("noticeNo"));
+	            notice.setNoticeTitle(rs.getString("noticeTitle"));
+	            notice.setNoticeContent(rs.getString("noticeContent"));
+	            notice.setNoticeView(rs.getInt("noticeView"));
+	            notice.setNoticeDate(rs.getString("noticeDate"));
+	            notice.setUserNo(rs.getInt("user_no"));
+
+	            result.add(notice);
+	        }
+
+	        rs.close();
+	        pstmt.close();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return result;
+	}
+	
+
+
+	
+
+
 
 }

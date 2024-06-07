@@ -1,3 +1,6 @@
+section{
+	min-height: 600px;
+}
 
 .login-form {
   max-width: 300px;
