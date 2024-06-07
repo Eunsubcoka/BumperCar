@@ -58,7 +58,6 @@ function getImageFiles(event) {
 	// 현재 이미지 개수 확인
     const currentImageCount = document.querySelectorAll("div#image_container img.photo").length;
 
-
     // 이미지 개수 제한 확인
     if (event.target.files.length + currentImageCount > maxImages) {
         alert(`이미지는 ${maxImages}장까지 업로드할 수 있습니다.`);
@@ -69,8 +68,9 @@ function getImageFiles(event) {
         // 현재 이미지 개수 확인
         if (currentImageCount.length >= maxImages) {
             alert(`이미지는 ${maxImages}장까지 업로드할 수 있습니다.`);
+			break;
         }
-
+		
         let img = document.createElement("img");
         const reader = new FileReader();
         reader.onload = function(event) {
@@ -104,4 +104,27 @@ function getImageFiles(event) {
     }
 }
 
+// ajax(getImageFiles(event)호출)
+
+
+function imageCheck() {
+	const currentImageCount = document.querySelectorAll("div#image_container img.photo").length;
+	const form = document.getElementById("formSubmit");
+	
+	    // 이미지 개수 확인
+    if (currentImageCount == 0) {
+        alert(`이미지는 1장이상 업로드해야 합니다.`);
+        return;
+    }
+	else if (currentImageCount >= 1) {
+		form.submit();
+	}
+}
+// 1. 함수 생성
+// 2. 버튼 타입 button 변경
+// 3. 이미지 길이가 0인지 확인, 0이면 alert
+// 4. 이미지 길이가 1보다 크거나 같으면 form.submit();
+
+//  const form = documnet ~ formSubmit
+// form.submit();
 

@@ -100,10 +100,12 @@ public class FormController extends HttpServlet {
 			
 			int reviewNo = Integer.parseInt(request.getParameter("reviewNo"));
 			int restaurantNo = Integer.parseInt(request.getParameter("restaurantNo"));
+//			String profile = request.getParameter("profile");
 			
 			ReviewDto reviewDto = new ReviewDto();
 			reviewDto.setReviewNo(reviewNo);
 			reviewDto.setRestaurantNo(restaurantNo);
+//			reviewDto.setProfile(profile);
 
 			ReviewServiceImpl reviewService = new ReviewServiceImpl();
 			ReviewDto result = reviewService.ReviewEditForm(reviewDto);
@@ -116,6 +118,7 @@ public class FormController extends HttpServlet {
 			fileList = reviewService.uploadList(list);
 			request.setAttribute("fileList", fileList);
 			request.setAttribute("result", result);
+			request.setAttribute("list", list);
 			
 			nextPage = "/views/review/reviewEdit.jsp";
 			
