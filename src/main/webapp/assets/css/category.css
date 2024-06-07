@@ -1,10 +1,22 @@
 @charset "UTF-8";
-.category_wrap{
-	margin-left: 10%;
-    margin-right: 10%;
+
+::-webkit-scrollbar {
+  display: none;
+
 }
+.category_wrap{
+	background-color : white;
+	padding-left: 3%;
+    /* padding-right: 10%; */
+    display:flex;
+	border-right: 1px solid rgb(234, 234, 234);
+	overflow-y: scroll;
+	
+	}
 
 .res_list_wrap{
+	min-width:250px;
+	height:250px;
 	
 }
 .res_list_content{
@@ -12,8 +24,9 @@
 	
 }
 .photo_img{
-	width: 200px;
-	height: 200px;
+	width: 88px;
+	height: 88px;
 	
 }
+
 

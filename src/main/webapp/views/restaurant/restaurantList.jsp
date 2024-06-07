@@ -36,7 +36,9 @@ ${restaurantList.restaurantName }
 
 
 
+ 
 
+ 
 <%@ include file="/views/common/footer.jsp"%> 
 </body>
 </html>
