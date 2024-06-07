@@ -4,7 +4,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-<%@ include file="/views/common/head.jsp"%>
+    <%@ include file="/views/common/head.jsp"%>
 </head>
 <body>
 
@@ -20,7 +20,7 @@
         <a onclick="scrollToTop()">맨 위로</a>
     </div>
     
-    <main class="unique-main" >
+    <main class="unique-main">
         <section class="unique-food-category" id="slide1">
             <div class="sli_con">
                 <h2 onclick="location.href='/category.do?category=1'">#한식</h2>
@@ -42,8 +42,8 @@
                         <a href="/restaurantDetail.do?restaurantId=8" data-value="8"><img src="/assets/image/restaurant_images/고향맛손칼국수.jpg" alt="Image 8"></a>
                         <a href="/restaurantDetail.do?restaurantId=9" data-value="9"><img src="/assets/image/restaurant_images/고인돌 김치떡삼겹.jpg" alt="Image 9"></a>
                     </div>
-                    <button class="prev" onclick="changeOneSlide(-1)">&#10094;</button>
-                    <button class="next" onclick="changeOneSlide(1)">&#10095;</button>
+                    <button class="prev" onclick="changeSlide('slide1', -1)">&#10094;</button>
+                    <button class="next" onclick="changeSlide('slide1', 1)">&#10095;</button>
                 </div>
             </div>
         </section>
@@ -69,8 +69,8 @@
                         <a href="/restaurantDetail.do?restaurantId=17" data-value="17"><img src="/assets/image/restaurant_images/모이세분식.jpg" alt="Image 8"></a>
                         <a href="/restaurantDetail.do?restaurantId=18" data-value="18"><img src="/assets/image/restaurant_images/롤링파스타 안양일번가점.jpg" alt="Image 9"></a>
                     </div>
-                    <button class="prev" onclick="changeTwoSlide(-1)">&#10094;</button>
-                    <button class="next" onclick="changeTwoSlide(1)">&#10095;</button>
+                    <button class="prev" onclick="changeSlide('slide2', -1)">&#10094;</button>
+                    <button class="next" onclick="changeSlide('slide2', 1)">&#10095;</button>
                 </div>
             </div>
         </section>
@@ -96,8 +96,8 @@
                         <a href="/restaurantDetail.do?restaurantId=26" data-value="26"><img src="/assets/image/restaurant_images/고향맛손칼국수.jpg" alt="Image 8"></a>
                         <a href="/restaurantDetail.do?restaurantId=27" data-value="27"><img src="/assets/image/restaurant_images/고인돌 김치떡삼겹.jpg" alt="Image 9"></a>
                     </div>
-                    <button class="prev" onclick="changeThreeSlide(-1)">&#10094;</button>
-                    <button class="next" onclick="changeThreeSlide(1)">&#10095;</button>
+                    <button class="prev" onclick="changeSlide('slide3', -1)">&#10094;</button>
+                    <button class="next" onclick="changeSlide('slide3', 1)">&#10095;</button>
                 </div>
             </div>
         </section>
@@ -123,8 +123,8 @@
                         <a href="/restaurantDetail.do?restaurantId=35" data-value="35"><img src="/assets/image/restaurant_images/고향맛손칼국수.jpg" alt="Image 8"></a>
                         <a href="/restaurantDetail.do?restaurantId=36" data-value="36"><img src="/assets/image/restaurant_images/고인돌 김치떡삼겹.jpg" alt="Image 9"></a>
                     </div>
-                    <button class="prev" onclick="changeFourSlide(-1)">&#10094;</button>
-                    <button class="next" onclick="changeFourSlide(1)">&#10095;</button>
+                    <button class="prev" onclick="changeSlide('slide4', -1)">&#10094;</button>
+                    <button class="next" onclick="changeSlide('slide4', 1)">&#10095;</button>
                 </div>
             </div>
         </section>
