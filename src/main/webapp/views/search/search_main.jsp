@@ -36,9 +36,7 @@
                                     <p>사진 추가 예정</p>
                                 </div>
                                 <div class="restaurant-info">
-                                    <div>
-                                        <a href="/restaurantDetail.do?restaurantId=${restaurant.restaurantNo}" >${restaurant.restaurantName}</a>
-                                    </div>
+                                    <a href="/restaurantDetail.do?restaurantId=${restaurant.restaurantNo}" >${restaurant.restaurantName}</a>
                                     <div class="font-down">카테고리: ${restaurant.category}</div>
                                     <div class="font-down">위치: ${restaurant.location}</div>
                                     <div class="font-down">

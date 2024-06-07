@@ -67,9 +67,10 @@ body {
     text-decoration: none;
     color: #007bff;
     font-weight: bold;
-    display: block; /* 클릭 영역 확장 */
-    position: relative; /* 다른 요소들이 겹치지 않도록 설정 */
-    z-index: 1; /* 링크가 다른 요소들 위에 위치하도록 설정 */
+    display: block; 
+    position: relative; 
+    z-index: 1; 
+    width: 300px !important;
 }
 
 .restaurant-list li a:hover {
