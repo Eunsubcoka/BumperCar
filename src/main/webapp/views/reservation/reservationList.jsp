@@ -1,12 +1,31 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
+	pageEncoding="UTF-8"%>
+
+<!doctype html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<%@ include file="/views/common/head.jsp"%>
+    <link rel="stylesheet" href="/assets/css/notice.css">
 </head>
 <body>
 
+	<%@ include file="/views/common/header.jsp"%>
+	<%@ include file="/views/common/nav.jsp"%>
+
+
+
+	<main class="notice-main">
+		<div>
+			로그인한 사용자의 reservation list 출력 <br> reservationComplete가 해당
+			reservation 정보인거같은데, 클릭하면 해당 reservation 정보로 이동할수 있도록 하기 <br> 해당
+			reservation 삭제(취소)기능 추가 <br>
+		</div>
+	</main>
+
+	<%@ include file="/views/common/footer.jsp"%>
+
+	<script src="/assets/js/bootstrap.bundle.min.js"></script>
+	<script src="/assets/js/main.js"></script>
 </body>
 </html>
