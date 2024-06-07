@@ -203,7 +203,7 @@ body {
     max-height: 170px;
     background-color: #f0f0f0;
     padding: 10px;
-    padding-bottom:0px;
+    padding-bottom: 0px;
     border-radius: 10px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -212,7 +212,12 @@ body {
     right: 0;
     margin-right: 115px;
     margin-bottom: 5px;
-    display: none; 
+    display: none;
+    cursor: pointer; 
+}
+
+.review-box:hover {
+    background-color: #06060620; 
 }
 
 .review-box-y{
@@ -220,9 +225,6 @@ body {
 	color:inherit !important;
 }
 
-.review-box a:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-}
 
 .fa-star:before {
     content: "\f005";

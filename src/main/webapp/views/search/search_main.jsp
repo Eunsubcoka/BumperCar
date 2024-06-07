@@ -47,34 +47,32 @@
                                     </div>
                                     <button class="toggle-review-btn" onclick="toggleReview(this)">리뷰 열기</button>
                                     
-                                        <div class="review-box font-down-2" style="display: none;">
-                                            <c:choose>
-                                                <c:when test="${not empty top3ReviewsMap[restaurant.restaurantNo]}">
-                                                <a href="/review/review.do?restaurantNo=${restaurant.restaurantNo}" class="review-box-y" >
-                                                    <c:forEach var="review" items="${top3ReviewsMap[restaurant.restaurantNo]}">
-                                                        <div class="font-down">
-                                                            ${review.reviewTitle}
-                                                            <i class="fas fa-star"></i>
-                                                            ${review.ratings}
-                                                        </div>
-                                                        <p class="review-content">
-                                                            <c:choose>
-                                                                <c:when test="${fn:length(review.reviewContent) > 30}">
-                                                                    ${fn:substring(review.reviewContent, 0, 30)}...
-                                                                </c:when>
-                                                                <c:otherwise>
-                                                                    ${review.reviewContent}
-                                                                </c:otherwise>
-                                                            </c:choose>
-                                                        </p>
-                                                    </c:forEach>
-                                                    </a>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <p style= "font-size:20px;">리뷰가 없습니다</p>
-                                                </c:otherwise>
-                                            </c:choose>
-                                        </div>
+                                    <div class="review-box font-down-2" style="display: none;" onclick="navigateToReviews(${restaurant.restaurantNo})">
+                                        <c:choose>
+                                            <c:when test="${not empty top3ReviewsMap[restaurant.restaurantNo]}">
+                                                <c:forEach var="review" items="${top3ReviewsMap[restaurant.restaurantNo]}">
+                                                    <div class="font-down">
+                                                        ${review.reviewTitle}
+                                                        <i class="fas fa-star"></i>
+                                                        ${review.ratings}
+                                                    </div>
+                                                    <p class="review-content">
+                                                        <c:choose>
+                                                            <c:when test="${fn:length(review.reviewContent) > 30}">
+                                                                ${fn:substring(review.reviewContent, 0, 30)}...
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                ${review.reviewContent}
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                    </p>
+                                                </c:forEach>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <p style="font-size: 20px;">리뷰가 없습니다</p>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </div>
                                     
                                 </div>
                             </li>
@@ -122,6 +120,10 @@
     <script src="/assets/js/bootstrap.bundle.min.js"></script>
     <script src="/assets/js/main.js"></script>
     <script src="/assets/js/search.js"></script>
+    <script>
 
+
+
+    </script>
 </body>
 </html>
