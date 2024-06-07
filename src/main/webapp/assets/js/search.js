@@ -9,6 +9,7 @@ function toggleReview(btn) {
     }
 }
 
+
 function navigateToReviews(restaurantNo) {
     window.location.href = "/review/review.do?restaurantNo=" + restaurantNo;
 }
