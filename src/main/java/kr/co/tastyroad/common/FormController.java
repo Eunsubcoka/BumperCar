@@ -61,6 +61,7 @@ public class FormController extends HttpServlet {
 			int restaurantNo = Integer.parseInt(request.getParameter("restaurantNo"));
 			RestaurantDto result = new RestaurantDto();
 			RestaurantServiceImpl resService = new RestaurantServiceImpl();
+			
 			result = resService.getRestaurant(restaurantNo);
 			request.setAttribute("result", result);
 			
@@ -103,15 +104,13 @@ public class FormController extends HttpServlet {
 			ReviewDto reviewDto = new ReviewDto();
 			reviewDto.setReviewNo(reviewNo);
 			reviewDto.setRestaurantNo(restaurantNo);
-			
-//			request.setAttribute("restaurantNo", restaurantNo);
-			
+
 			ReviewServiceImpl reviewService = new ReviewServiceImpl();
 			ReviewDto result = reviewService.ReviewEditForm(reviewDto);
 			result.setRestaurantNo(restaurantNo);
 			
 			ArrayList<ReviewDto> list = new ArrayList<ReviewDto>();
-			list = reviewService.getReviewList(); // 게시글 리스트
+			list = reviewService.getReviewList(restaurantNo); // 게시글 리스트
 			
 			ArrayList<ReviewDto> fileList = new ArrayList<ReviewDto>(); 
 			fileList = reviewService.uploadList(list);

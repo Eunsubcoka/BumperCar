@@ -69,8 +69,9 @@
 					</c:forEach>
 					<input type="hidden" name="maxIndex" value="${maxIndex }"> <!-- 컨트롤러로 값보내기 -->
 				</div>
-                <div class="btn">
+                <div id="btn">
                      <button type="submit">수정</button>
+                     <!-- <label>태그의 for속성을 사용하여 연결 - input태그의 id값 입력 -->
                      <label for="file" class="btn-upload">이미지추가</label>
                      <input type="file" name="file" id="file" onchange="getImageFiles(event);" multiple>                    
                      <button onclick="window.history.back()">뒤로가기</button>
