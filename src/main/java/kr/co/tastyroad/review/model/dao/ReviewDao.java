@@ -118,15 +118,20 @@ public class ReviewDao {
 	}
 	
 	// 리뷰 리스트 로직
-    public ArrayList<ReviewDto> getReviewList() {
+    public ArrayList<ReviewDto> getReviewList(int restaurantNo) {
     ArrayList<ReviewDto> result = new ArrayList<>();
     
    
-    String query = "select reviewNo, reviewTitle, reviewContent, reviewDate, ratings, r.user_no from reviews r "
-                 + "join TASTY_MEMBER s on r.user_no = s.user_no order by reviewNo desc";
+    String query = "select r.reviewNo, r.reviewTitle, r.reviewContent, r.reviewDate, r.ratings, r.user_no, r.restaurantNo, res.restaurantname "
+    			 + "from reviews r "
+                 + "join TASTY_MEMBER s on r.user_no = s.user_no "
+                 + "join restaurant res on r.restaurantNo = res.restaurantNo "
+                 + "where r.restaurantNo = ?"
+                 + "order by reviewNo desc";
     
     try {
         pstmt = con.prepareStatement(query);
+        pstmt.setInt(1, restaurantNo);
         
         ResultSet rs = pstmt.executeQuery();
         
@@ -137,6 +142,8 @@ public class ReviewDao {
             String reviewDate = rs.getString("reviewDate");
             int ratings = rs.getInt("ratings"); 
 			int userNo = rs.getInt("user_no"); 
+			int resNo = rs.getInt("restaurantNo");
+			String resName = rs.getString("restaurantname");
             
             ReviewDto reviewDto = new ReviewDto();
             reviewDto.setReviewNo(reviewNo);
@@ -145,6 +152,8 @@ public class ReviewDao {
             reviewDto.setReviewDate(reviewDate);
             reviewDto.setRatings(ratings);
 			reviewDto.setUserNo(userNo);
+			reviewDto.setRestaurantNo(resNo);
+			reviewDto.setRestaurantName(resName);
             
             result.add(reviewDto);
             

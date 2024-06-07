@@ -55,11 +55,13 @@
                     <textarea name="reviewContent" required></textarea>
                 </div>
                 <!-- 버튼 -->
-                <div class="btn">
+                <div id="btn">
                     <p>*사진은 최대 3장까지 가능합니다.</p>
                     <div id="image_container"></div>
+                    <input type="hidden" name="removeImageName-${status.count}" id="removeImageName-${status.count}" value="${fileList.fileName}"/>
+					        <input type="hidden" name="removeImageStatus-${status.count}" id="removeImageStatus-${status.count}" value="false"/>
                     <label for="file" class="btn-upload">이미지추가</label>		<!-- accept 특정 파일 유형만 허용, multiple 속성을 추가하면 2개 이상의 파일을 추가 -->
-                    <input type="file" name="file" id="file" onchange="getImageFiles(event);" multiple>
+                    <input type="file" name="file" id="file" onchange="getImageFiles(event, '${status.count}');" multiple>
                     <button type="submit">작성</button>
                 </div>
             </div>
