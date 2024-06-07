@@ -1,4 +1,3 @@
-@charset "UTF-8";
 
 @charset "UTF-8";
 body {
@@ -112,7 +111,7 @@ textarea {
 /* 수정, 삭제 버튼 */
 .btn {
     margin-top: 15px;
-    border-radius: 10px;
+
     display: flex;
     margin-left: auto; 
 }
