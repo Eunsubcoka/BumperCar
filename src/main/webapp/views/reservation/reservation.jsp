@@ -3,8 +3,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%@ include file="/views/common/head.jsp"%>
  <link rel="stylesheet" href="/assets/css/reservation.css">
+<%@ include file="/views/common/head.jsp"%>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript"
         src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
