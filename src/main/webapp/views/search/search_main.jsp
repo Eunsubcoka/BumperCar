@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!doctype html>
 <html lang="en">
@@ -36,17 +36,46 @@
                                     <p>사진 추가 예정</p>
                                 </div>
                                 <div class="restaurant-info">
-                                    <a href="/restaurantDetail.do?restaurantId=${restaurant.restaurantNo}" >${restaurant.restaurantName}</a>
+                                    <div>
+                                        <a href="/restaurantDetail.do?restaurantId=${restaurant.restaurantNo}">${restaurant.restaurantName}</a>
+                                    </div>
                                     <div class="font-down">카테고리: ${restaurant.category}</div>
                                     <div class="font-down">위치: ${restaurant.location}</div>
                                     <div class="font-down">
                                         <i class="fas fa-star"></i>
-                                        <c:out value="${ratingsMap[restaurant.restaurantNo]}" />
+                                        <fmt:formatNumber value="${ratingsMap[restaurant.restaurantNo]}" type="number" minFractionDigits="1" maxFractionDigits="1" />
                                     </div>
                                     <button class="toggle-review-btn" onclick="toggleReview(this)">리뷰 열기</button>
-                                    <div class="review-box">
-                                        <p>이곳에 리뷰 내용을 추가할 예정</p>
-                                    </div>
+                                    
+                                        <div class="review-box font-down-2" style="display: none;">
+                                            <c:choose>
+                                                <c:when test="${not empty top3ReviewsMap[restaurant.restaurantNo]}">
+                                                <a href="/review/review.do?restaurantNo=${restaurant.restaurantNo}" class="review-box-y" >
+                                                    <c:forEach var="review" items="${top3ReviewsMap[restaurant.restaurantNo]}">
+                                                        <div class="font-down">
+                                                            ${review.reviewTitle}
+                                                            <i class="fas fa-star"></i>
+                                                            ${review.ratings}
+                                                        </div>
+                                                        <p class="review-content">
+                                                            <c:choose>
+                                                                <c:when test="${fn:length(review.reviewContent) > 30}">
+                                                                    ${fn:substring(review.reviewContent, 0, 30)}...
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    ${review.reviewContent}
+                                                                </c:otherwise>
+                                                            </c:choose>
+                                                        </p>
+                                                    </c:forEach>
+                                                    </a>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <p style= "font-size:20px;">리뷰가 없습니다</p>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </div>
+                                    
                                 </div>
                             </li>
                         </c:forEach>

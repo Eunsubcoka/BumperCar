@@ -4,5 +4,3 @@ function toggleReview(button) {
     reviewBox.style.display = isVisible ? 'none' : 'block';
     button.textContent = isVisible ? '리뷰 열기' : '리뷰 닫기';
 }
-
-

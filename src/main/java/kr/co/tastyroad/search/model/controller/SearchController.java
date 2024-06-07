@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kr.co.tastyroad.notice.model.dto.noticeDto;
-import kr.co.tastyroad.notice.model.service.noticeServiceImpl;
 import kr.co.tastyroad.restaurant.model.dto.RestaurantDto;
+import kr.co.tastyroad.review.model.dto.ReviewDto;
 import kr.co.tastyroad.restaurant.model.service.RestaurantServiceImpl;
 import kr.co.tastyroad.search.model.service.searchServiceImpl;
 
@@ -35,16 +35,21 @@ public class SearchController extends HttpServlet {
         RestaurantServiceImpl resService = new RestaurantServiceImpl();
         
         HashMap<Integer, Float> ratingsMap = new HashMap<>();
+        HashMap<Integer, ArrayList<ReviewDto>> top3ReviewsMap = new HashMap<>();
         for (RestaurantDto restaurant : restaurantList) {
             int resNo = restaurant.getRestaurantNo();
             float ratings = resService.ratings(resNo);
             ratingsMap.put(resNo, ratings);
+            
+            ArrayList<ReviewDto> top3Reviews = searchService.getReviewsRestaurant(resNo);
+            top3ReviewsMap.put(resNo, top3Reviews);
         }
         
         request.setAttribute("searchText", searchText);
         request.setAttribute("noticeList", noticeList);
         request.setAttribute("restaurantList", restaurantList);
         request.setAttribute("ratingsMap", ratingsMap);
+        request.setAttribute("top3ReviewsMap", top3ReviewsMap);
         
         RequestDispatcher view = request.getRequestDispatcher("/views/search/search_main.jsp");
         view.forward(request, response);
@@ -54,4 +59,3 @@ public class SearchController extends HttpServlet {
         doGet(request, response);
     }
 }
-
