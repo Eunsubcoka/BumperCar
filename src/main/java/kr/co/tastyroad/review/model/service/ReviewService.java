@@ -16,7 +16,7 @@ public interface ReviewService {
 	// 파일 정보 등록
 	public int fileUpload(ReviewDto reviewDto);
 	// 리뷰 리스트 조회
-	public ArrayList<ReviewDto> getReviewList();
+	public ArrayList<ReviewDto> getReviewList(int restaurantNo);
 	// 리뷰 파일명 가져오기
 	public ArrayList<ReviewDto> uploadList(ArrayList<ReviewDto> list);
 	// 리뷰 수정

@@ -76,6 +76,9 @@ public class ReviewEnrollController extends HttpServlet {
 				
 				int resultUpload = reviewService.fileUpload(resultDto);
 			}
+//			else {
+//				break;
+//			}
 		}
 		
 		if(result == 1) {

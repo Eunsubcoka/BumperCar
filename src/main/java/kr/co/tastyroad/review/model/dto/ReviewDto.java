@@ -8,6 +8,7 @@ public class ReviewDto {
 	private int ratings;
 	private int userNo;
 	private int restaurantNo;
+	private String restaurantName;
 	
 	private String filePath; // 파일경로
 	private String fileName; // 파일이름
@@ -70,7 +71,12 @@ public class ReviewDto {
 		this.restaurantNo = restaurantNo;
 	}
 	
-	
+	public String getRestaurantName() {
+		return restaurantName;
+	}
+	public void setRestaurantName(String restaurantName) {
+		this.restaurantName = restaurantName;
+	}
 	
 }
 
