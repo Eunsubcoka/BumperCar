@@ -71,7 +71,6 @@ public class ReviewEditController extends HttpServlet {
 					if (file.exists()) {
 						file.delete();
 					}
-					System.out.println("removeImageStatus : " + removeImageStatus);
 					// 데이터베이스에서도 해당 파일 삭제
 					reviewService.delete(reviewDto, removeImageName);
 				}

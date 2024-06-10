@@ -18,16 +18,15 @@
 	<!-- review section -->
 <section>
     <div class="container-review-box">
-        <h1>식당이름 리뷰</h1>
+        <h1>${list[0].restaurantName}</h1>
         <form action="/review/reviewEdit.do" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="reviewNo" value="${result.reviewNo}"/>
         <input type="hidden" name="restaurantNo" value="${result.restaurantNo}"/>
         <input type="hidden" name="ratings" id="ratingHidden" value="${result.ratings}"/>
-        
         <div class="container-review">
             <div class="review">
                 <div class="user-container">
-                    <img class="user-img" src="/assets/image/bom.jpg" alt="사용자프로필">
+                    <img class="user-img" src="/assets/image/member_profile/${result.profile}" alt="사용자프로필">
                         <div class="user-info">
                             <span class="user-name"><strong>${sessionScope.userName}</strong></span>
                             <span class="rating" id="user-rating">

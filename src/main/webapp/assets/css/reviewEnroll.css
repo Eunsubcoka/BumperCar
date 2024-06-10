@@ -138,7 +138,7 @@ button, .btn-upload {
     justify-content: center; /* 텍스트 수평 가운데 정렬 */
 }
 
-#file {
+#inputFile {
     display: none;
 }
 
