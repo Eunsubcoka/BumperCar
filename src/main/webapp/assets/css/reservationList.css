@@ -23,3 +23,14 @@
 .reservation-items:hover {
     background-color: #06060620; 
 }
+
+.respaystatus-Y{
+	color:blue;
+	display:inline-block;
+}
+
+.respaystatus-N{
+	color:red;
+	display:inline-block;
+}
+

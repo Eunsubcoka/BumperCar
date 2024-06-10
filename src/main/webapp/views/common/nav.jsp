@@ -17,7 +17,7 @@
                 <a href="/reservation/resList.do">내 예약</a>
             </c:when>
             <c:otherwise>
-                <a href="#" onclick="alertAndRedirect()">내 예약</a>
+                <a href="#" onclick="reservationalert()">내 예약</a>
             </c:otherwise>
         </c:choose>
     </div>
@@ -35,7 +35,7 @@
 </nav>
 
 <script>
-function alertAndRedirect() {
+function reservationalert() {
     alert("내 예약 현황을 확인하려면 로그인해야합니다");
     window.location.href = "/views/member/login.jsp";
 }

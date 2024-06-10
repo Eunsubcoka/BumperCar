@@ -3,7 +3,6 @@ package kr.co.tastyroad.search.model.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -38,11 +37,9 @@ public class SearchController extends HttpServlet {
         ArrayList<noticeDto> noticeList = searchService.searchNotices(searchText);
         ArrayList<RestaurantDto> restaurantList = new ArrayList<>();
 
-       if (searchText != null && !searchText.isEmpty()) {
+        if (searchText != null && !searchText.isEmpty()) {
             restaurantList = searchService.searchRestaurants(searchText);
         }
-       
-       
 
         int startIndex = (cpage - 1) * 5;
         int endIndexNotices = Math.min(startIndex + 5, noticeList.size());
@@ -67,6 +64,7 @@ public class SearchController extends HttpServlet {
         HashMap<Integer, Float> ratingsMap = new HashMap<>();
         HashMap<Integer, ArrayList<ReviewDto>> top3ReviewsMap = new HashMap<>();
         HashMap<Integer, ArrayList<String>> tagsMap = new HashMap<>();
+        ArrayList<String> addressList = new ArrayList<>();  // 주소 리스트 추가
 
         for (RestaurantDto restaurant : restaurantList) {
             int resNo = restaurant.getRestaurantNo();
@@ -78,6 +76,8 @@ public class SearchController extends HttpServlet {
 
             ArrayList<String> tags = searchService.getTagsForRestaurant(resNo);
             tagsMap.put(resNo, tags);
+
+            addressList.add(restaurant.getLocation());  // 주소 추가
         }
 
         request.setAttribute("searchText", searchText);
@@ -87,6 +87,7 @@ public class SearchController extends HttpServlet {
         request.setAttribute("tagsMap", tagsMap);
         request.setAttribute("totalNotices", noticeList.size());
         request.setAttribute("totalRestaurants", restaurantList.size());
+        request.setAttribute("addressList", addressList);  // 주소 리스트 설정
         request.setAttribute("cpage", cpage);
 
         RequestDispatcher view = request.getRequestDispatcher("/views/search/search_main.jsp");

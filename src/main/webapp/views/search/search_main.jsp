@@ -8,6 +8,7 @@
 <head>
     <%@ include file="/views/common/head.jsp"%>
     <link rel="stylesheet" href="/assets/css/search.css">
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=597a12321ce91d26c9101324b5955ebd&libraries=services"></script>
 </head>
 <body>
 
@@ -24,6 +25,16 @@
         <div class="search-header">
             <h1>검색 결과</h1>
         </div>
+
+        <div id="map" style="width:100%;height:350px;"></div>
+
+        <script>
+            var locations = [
+                <c:forEach var="restaurant" items="${restaurantList}" varStatus="status">
+                    { name: "${restaurant.restaurantName}", location: "${restaurant.location}" }<c:if test="${!status.last}">,</c:if>
+                </c:forEach>
+            ];
+        </script>
 
         <div class="search-tab" id="restaurant">
             <h3>레스토랑</h3>
@@ -134,8 +145,6 @@
 
     <%@ include file="/views/common/footer.jsp"%>
 
-    <script src="/assets/js/bootstrap.bundle.min.js"></script>
-    <script src="/assets/js/main.js"></script>
     <script src="/assets/js/search.js"></script>
 </body>
 </html>

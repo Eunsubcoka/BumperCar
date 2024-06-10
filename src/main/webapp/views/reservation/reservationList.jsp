@@ -28,7 +28,14 @@
 		        <div>인원 : ${reservation.headCount}</div>		
 		        <div>메뉴 : </div>
 		        <div>총 가격 : </div>
-		        <div>결제 여부 : ${reservation.paymentStatus }</div>
+		        <c:choose>
+		        <c:when test="${reservation.paymentStatus == 'Y'}">
+		        <div>결제 여부 : <div class = "respaystatus-Y">${reservation.paymentStatus}</div></div>
+		        </c:when>
+		        <c:otherwise>
+		        <div>결제 여부 : <div class = "respaystatus-N">${reservation.paymentStatus}</div></div>
+		        </c:otherwise>
+		        </c:choose>
 		        </div>
 		    </c:forEach>
 		</div>

@@ -10,6 +10,7 @@ import kr.co.tastyroad.common.DatabaseConnection;
 import kr.co.tastyroad.notice.model.dto.noticeDto;
 import kr.co.tastyroad.restaurant.model.dto.RestaurantDto;
 import kr.co.tastyroad.review.model.dto.ReviewDto;
+import kr.co.tastyroad.search.model.dto.searchDto;
 
 public class searchDao {
 	private Connection con;
@@ -129,6 +130,7 @@ public class searchDao {
 
 		return tags;
 	}
+	
 	
 
 }

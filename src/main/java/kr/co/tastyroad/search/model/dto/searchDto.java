@@ -3,6 +3,8 @@ package kr.co.tastyroad.search.model.dto;
 public class searchDto {
     private int restaurantNo;
     private String tags;
+    
+    
 
     public int getRestaurantNo() {
         return restaurantNo;
