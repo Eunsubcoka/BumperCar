@@ -49,7 +49,6 @@ public class RestaurantAddController extends HttpServlet {
 		String category = request.getParameter("category");
 		String phone = request.getParameter("phone");
 		String addr = request.getParameter("addr");
-		System.out.println(category);
 		RestaurantDto restaurant = new RestaurantDto();
 		
 		restaurant.setRestaurantName(name);
@@ -80,7 +79,6 @@ public class RestaurantAddController extends HttpServlet {
 				food = request.getParameter("menu"+count);
 				price = Integer.parseInt(request.getParameter("price"+count));
 			}
-			System.out.println(price);
 		}
 		while(food != null);
 		

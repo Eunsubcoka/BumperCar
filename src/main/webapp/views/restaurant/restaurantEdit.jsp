@@ -21,9 +21,9 @@
 <!-- review enroll section -->
 <section>
     <div class="container-review-box">
-        <form action="/restaurantAdd.do" method="POST" enctype="multipart/form-data">
+        <form action="/restaurantEdit.do" method="POST" enctype="multipart/form-data">
         
-        <h1>가게 등록</h1>
+        <h1>가게 수정</h1>
         <div class="container-review">
             <div class="review">
             <input type="hidden" name="userNo" value="${sessionScope.userNo}">
@@ -43,7 +43,7 @@
                 </div>
                 <div class="input-container">
                     <label for="title">카테고리:</label>
-                      <select class="res_category" name="category">
+         <select class="res_category" name="category">
           <option value = "1">중식</option>
           <option value = "2">한식</option>
           <option value = "3">양식</option>

@@ -222,4 +222,56 @@ public class RestaurantDao {
     	return 0;
     }
 		
+    public int updateRestaurant(RestaurantDto restaurant) {
+		String query = "Update restaurant set category = ?, location= ?, restaurantPhone =?, restaurantName = ?";
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, restaurant.getCategory());
+			pstmt.setString(2, restaurant.getLocation());
+			pstmt.setString(3, restaurant.getRestaurantPhone());
+			pstmt.setString(4, restaurant.getRestaurantName());
+			
+			int result = pstmt.executeUpdate();
+			
+			return result;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+
+    public int deleteTag(int resNo) {
+    	String query = "delete from res_tag where restaurantNo = ?";
+    	int result = 0;
+    	try {
+    			pstmt = con.prepareStatement(query);
+    			pstmt.setInt(1, resNo);
+    			
+    			pstmt.executeUpdate();
+    		return result;
+    	} catch (SQLException e) {
+    		e.printStackTrace();
+    	}
+    	
+    	return 0;
+    }
+    
+    public int deleteMenu(int resNo) {
+  		String query = "Delete from menu where restaurantNo = ?";
+  		int result = 0;
+  		try {
+  			
+  			
+  			pstmt = con.prepareStatement(query);
+  			pstmt.setInt(1, resNo);
+  			
+  			pstmt.executeUpdate();
+  			return result;
+  		} catch (SQLException e) {
+  			e.printStackTrace();
+  		}
+  		
+  		return 0;
+  	}
 }
