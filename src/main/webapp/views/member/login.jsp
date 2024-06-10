@@ -26,12 +26,13 @@
 				<button type="submit">회원가입</button>
 			</form>
 		     <div class="find-links">
-                <a href="/findId.do">아이디 찾기</a>
-                <a href="/views/member/findPassword.jsp">비밀번호 찾기</a>
+                <a href="/findId.do" class="no-underline">아이디 찾기</a>
+                <a href="/views/member/findPassword.jsp" class="no-underline">비밀번호 찾기</a>
             </div>
 		</div>
 	</section>
 
 	<%@ include file="/views/common/footer.jsp"%>
 </body>
+
 </html>

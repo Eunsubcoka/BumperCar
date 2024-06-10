@@ -19,7 +19,7 @@ public interface MemberService {
 
 	int updateMember(Member member);
 
-	Member getMemberByToken(String token);
+	Member getMemberByToken(String token) throws SQLException;
 
 	void verifyMember(String userId);
 

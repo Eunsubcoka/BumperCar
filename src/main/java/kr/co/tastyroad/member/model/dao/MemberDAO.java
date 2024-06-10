@@ -166,34 +166,59 @@ public class MemberDAO {
       }
    }
 
-   public Member getMemberByToken(String token) {
-      String query = "SELECT * FROM Tasty_member WHERE token = ?";
-
-      try (Connection conn = DatabaseConnection.getConnection();
-          PreparedStatement pstmt = conn.prepareStatement(query)) {
-
-         pstmt.setString(1, token);
-
-         try (ResultSet rs = pstmt.executeQuery()) {
-            if (rs.next()) {
-               Member member = new Member();
-               member.setUserId(rs.getString("userId"));
-               member.setUserName(rs.getString("userName"));
-               member.setUserEmail(rs.getString("userEmail"));
-               member.setUserPwd(rs.getString("userPwd"));
-               member.setUserAddress(rs.getString("userAddress"));
-               member.setUserPhone(rs.getString("userPhone"));
-               member.setToken(rs.getString("token"));
-               member.setVerified(rs.getBoolean("verified"));
-               return member;
-            }
-         }
-      } catch (SQLException e) {
-         e.printStackTrace();
-      }
-
-      return null;
+   public Member getMemberByToken(String token) throws SQLException {
+       String query = "SELECT user_id, user_name, user_email, user_pwd, user_address, user_phone, token, verified FROM Tasty_member WHERE token = ?";
+       try (Connection conn = DatabaseConnection.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(query)) {
+           pstmt.setString(1, token);
+           try (ResultSet rs = pstmt.executeQuery()) {
+               if (rs.next()) {
+                   Member member = new Member();
+                   member.setUserId(rs.getString("user_id"));
+                   member.setUserName(rs.getString("user_name"));
+                   member.setUserEmail(rs.getString("user_email"));
+                   member.setUserPwd(rs.getString("user_pwd"));
+                   member.setUserAddress(rs.getString("user_address"));
+                   member.setUserPhone(rs.getString("user_phone"));
+                   member.setToken(rs.getString("token"));
+                   member.setVerified(rs.getBoolean("verified"));
+                   return member;
+               }
+           }
+       }
+       return null;
    }
+   
+//   public Member getMemberByToken(String token) {
+//      String query = "SELECT * FROM Tasty_member WHERE token = ?";
+//
+//      try (Connection conn = DatabaseConnection.getConnection();
+//          PreparedStatement pstmt = conn.prepareStatement(query)) {
+//
+//         pstmt.setString(1, token);
+//
+//         try (ResultSet rs = pstmt.executeQuery()) {
+//            if (rs.next()) {
+//               Member member = new Member();
+//               member.setUserId(rs.getString("userId"));
+//               member.setUserName(rs.getString("userName"));
+//               member.setUserEmail(rs.getString("userEmail"));
+//               member.setUserPwd(rs.getString("userPwd"));
+//               member.setUserAddress(rs.getString("userAddress"));
+//               member.setUserPhone(rs.getString("userPhone"));
+//               member.setToken(rs.getString("token"));
+//               member.setVerified(rs.getBoolean("verified"));
+//               return member;
+//            }
+//         }
+//      } catch (SQLException e) {
+//         e.printStackTrace();
+//      }
+//
+//      return null;
+//   }
+//   
+   ////////////////////////////////////////////////////////////////////////
 
    public void verifyMember(String userId) {
       String query = "UPDATE Tasty_member SET verified = 1 WHERE userId = ?";
@@ -288,17 +313,27 @@ public class MemberDAO {
         return null;
     }
 
-    public void savePasswordResetToken(String userId, String token) {
+//    public void savePasswordResetToken(String userId, String token) {
+//        String query = "UPDATE Tasty_member SET token = ? WHERE user_id = ?";
+//        try (Connection conn = DatabaseConnection.getConnection();
+//             PreparedStatement pstmt = conn.prepareStatement(query)) {
+//            pstmt.setString(1, token);
+//            pstmt.setString(2, userId);
+//            pstmt.executeUpdate();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }  
+    
+    public void savePasswordResetToken(String userId, String token) throws SQLException {
         String query = "UPDATE Tasty_member SET token = ? WHERE user_id = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setString(1, token);
             pstmt.setString(2, userId);
             pstmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
-    }   
+    }
     public boolean updateToken(String userId, String token) {
         String query = "UPDATE Tasty_member SET token = ? WHERE user_id = ?";
         try (Connection conn = DatabaseConnection.getConnection();
@@ -313,33 +348,54 @@ public class MemberDAO {
         return false;
     }
 
-    public boolean verifyToken(String token) {
+//    public boolean verifyToken(String token) {
+//        String query = "SELECT COUNT(*) FROM Tasty_member WHERE token = ?";
+//        try (Connection conn = DatabaseConnection.getConnection();
+//             PreparedStatement pstmt = conn.prepareStatement(query)) {
+//            pstmt.setString(1, token);
+//            ResultSet rs = pstmt.executeQuery();
+//            if (rs.next() && rs.getInt(1) == 1) {
+//                return true;
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return false;
+//    }
+
+    public boolean verifyToken(String token) throws SQLException {
         String query = "SELECT COUNT(*) FROM Tasty_member WHERE token = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setString(1, token);
-            ResultSet rs = pstmt.executeQuery();
-            if (rs.next() && rs.getInt(1) == 1) {
-                return true;
+            try (ResultSet rs = pstmt.executeQuery()) {
+                return rs.next() && rs.getInt(1) == 1;
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
-        return false;
-    }
+    }    
 
-    public boolean updatePassword(String token, String newPassword) {
-        String query = "UPDATE Tasty_member SET user_pwd = ?, token = NULL WHERE token = ?";
+    public boolean updatePassword(String userId, String hashedPassword) throws SQLException {
+        String query = "UPDATE Tasty_member SET user_pwd = ?, token = NULL WHERE user_id = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
-            pstmt.setString(1, newPassword); // 비밀번호 암호화 필요
-            pstmt.setString(2, token);
-            int rows = pstmt.executeUpdate();
-            return rows > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
+            pstmt.setString(1, hashedPassword);
+            pstmt.setString(2, userId);
+            return pstmt.executeUpdate() > 0;
         }
-        return false;
-    }    
+    }
+
     
+//    public boolean updatePassword(String userId, String hashedPassword) {
+//        String query = "UPDATE Tasty_member SET password = ? WHERE user_id = ?";
+//        try (Connection conn = DatabaseConnection.getConnection();
+//             PreparedStatement pstmt = conn.prepareStatement(query)) {
+//            pstmt.setString(1, hashedPassword);
+//            pstmt.setString(2, userId);
+//            int rowsUpdated = pstmt.executeUpdate();
+//            return rowsUpdated > 0;
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return false;
+//    }
 }

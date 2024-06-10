@@ -303,7 +303,7 @@
 		const password = document.getElementById('new-password').value.trim();
 		const passwordMsg = document.getElementById('password-msg');
 		if (password.length < 8) {
-			passwordMsg.innerText = "비밀번호는 최소 6자 이상이어야 하며, 대문자와 특수문자(!@)를 포함해야 합니다.";
+			passwordMsg.innerText = "비밀번호는 최소 8자 이상이어야 하며, 대문자와 특수문자(!@)를 포함해야 합니다.";
 			passwordMsg.style.color = "red";
 		} else {
 			passwordMsg.innerText = "";
