@@ -41,6 +41,8 @@ public class SearchController extends HttpServlet {
        if (searchText != null && !searchText.isEmpty()) {
             restaurantList = searchService.searchRestaurants(searchText);
         }
+       
+       
 
         int startIndex = (cpage - 1) * 5;
         int endIndexNotices = Math.min(startIndex + 5, noticeList.size());

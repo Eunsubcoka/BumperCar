@@ -51,14 +51,15 @@ public class searchDao {
 		ArrayList<RestaurantDto> restaurantList = new ArrayList<>();
 		String query = "SELECT r.restaurantNo, r.restaurantName, r.category, r.location, LISTAGG(t.tag, ',') WITHIN GROUP (ORDER BY t.tag) AS tags "
 				+ "FROM restaurant r " + "LEFT JOIN res_tag t ON r.restaurantNo = t.restaurantNo "
-				+ "WHERE r.restaurantName LIKE ? OR r.category LIKE ? OR t.tag LIKE ?"
-				+ "GROUP BY r.restaurantNo, r.restaurantName, r.category, r.location " + "ORDER BY r.restaurantNo DESC";
+				+ "WHERE r.restaurantName LIKE ? OR r.category LIKE ? OR t.tag LIKE ? OR r.location LIKE ?"
+				+ "GROUP BY r.restaurantNo, r.restaurantName, r.category, r.location " + "ORDER BY r.restaurantNo asc";
 
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, "%" + searchText + "%");
 			pstmt.setString(2, "%" + searchText + "%");
 			pstmt.setString(3, "%" + searchText + "%");
+			pstmt.setString(4, "%" + searchText + "%");
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				RestaurantDto restaurant = new RestaurantDto();
@@ -128,4 +129,6 @@ public class searchDao {
 
 		return tags;
 	}
+	
+
 }

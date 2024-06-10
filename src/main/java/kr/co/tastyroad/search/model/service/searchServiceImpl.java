@@ -8,7 +8,6 @@ import kr.co.tastyroad.review.model.dto.ReviewDto;
 import kr.co.tastyroad.search.model.dao.searchDao;
 
 public class searchServiceImpl implements searchService {
-
     searchDao searchDao;
 
     public searchServiceImpl() {
@@ -29,11 +28,10 @@ public class searchServiceImpl implements searchService {
     public ArrayList<ReviewDto> getReviewsRestaurant(int restaurantNo) {
         return searchDao.getReviewsRestaurant(restaurantNo);
     }
-    
+
 
     @Override
     public ArrayList<String> getTagsForRestaurant(int restaurantNo) {
         return searchDao.getTagsForRestaurant(restaurantNo);
     }
-
 }

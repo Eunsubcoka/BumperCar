@@ -16,5 +16,4 @@ public interface searchService {
     
     
     public ArrayList<String> getTagsForRestaurant(int restaurantNo);
-
 }

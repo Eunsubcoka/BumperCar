@@ -65,3 +65,7 @@ function loadMoreNotices() {
             loadMoreButton.style.display = 'none';
         });
 }
+
+function navigateToReviews(restaurantNo) {
+    window.location.href = "/review/review.do?restaurantNo=" + restaurantNo;
+}
