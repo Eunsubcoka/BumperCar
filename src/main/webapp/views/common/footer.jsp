@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<footer class="text-muted py-5">
+<footer class="text-muted py-5" style="min-width:100%;">
   <div class="container">
     <p class="float-end mb-1">
       <a onclick="scrollToTop()">맨 위로</a>

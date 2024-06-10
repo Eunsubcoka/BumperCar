@@ -18,6 +18,14 @@ private int price;
 private int foodNo;
 private String imgName;
 
+private String tags;
+
+public String getTags() {
+	return tags;
+}
+public void setTags(String tags) {
+	this.tags = tags;
+}
 public String getImgName() {
 	return imgName;
 }

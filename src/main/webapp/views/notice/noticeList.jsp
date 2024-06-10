@@ -42,7 +42,7 @@
                 <c:choose>
                     <c:when test="${sessionScope.userType == 'admin'}">
                         <button onclick="window.location.href = '/tastyForm/noticeEnrollForm.do'"
-                            style="background-color : #ebb842;">등록</button>
+                            style="background-color : #ff9800;">등록</button>
                     </c:when>
                 </c:choose>
             </div>
