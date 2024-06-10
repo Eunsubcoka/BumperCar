@@ -20,7 +20,6 @@
 		<div class="container-review-box">
 
 			<h1>${list[0].restaurantName}</h1>                     
-			<input type="hidden" name="restaurantNo" value="${restaurantNo}">                                    
 			<button type="button" onclick="location.href='/tastyForm/enrollReviewForm.do?restaurantNo=${restaurantNo}'">등록</button>
 			<c:choose>
 				<c:when test="${empty list}">
@@ -61,14 +60,13 @@
 								<div id="btn">
 									<button type="button" onclick="window.history.back()">뒤로가기</button>
 									<c:if test="${sessionScope.userNo == item.userNo}">
-									<button type="button"
-										onclick="location.href='/tastyForm/editReviewForm.do?reviewNo=${item.reviewNo}&restaurantNo=${restaurantNo}&profile=${item.profile}'">수정</button>
-									 <button type="submit">삭제</button> 
-					</form>
+									<button type="button" onclick="location.href='/tastyForm/editReviewForm.do?reviewNo=${item.reviewNo}&restaurantNo=${restaurantNo}&profile=${item.profile}'">수정</button>
+									<button type="submit">삭제</button> 
 									</c:if>
 								</div>
 							</div>
 						</div>
+					</form>
 					</c:forEach>
 				</c:otherwise>
 			</c:choose>

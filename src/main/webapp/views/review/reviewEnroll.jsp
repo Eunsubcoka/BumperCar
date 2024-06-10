@@ -20,7 +20,7 @@
 <!-- review enroll section -->
 <section>
     <div class="container-review-box">
-        <form action="/review/reviewEnroll.do" id="formSubmit" method="POST" enctype="multipart/form-data">
+        <form enctype="multipart/form-data">
         
         <h1>리뷰작성</h1>
         <div class="container-review">
@@ -51,14 +51,14 @@
 
                 <div class="content">
                 	<label for="content">내용:</label>
-                    <textarea name="reviewContent" required></textarea>
+                    <textarea name="reviewContent" id="reviewContent" required></textarea>
                 </div>
                 <!-- 버튼 -->
                 <div id="btn">
                     <p>*사진은 최대 3장까지 가능합니다.</p>
                     <div id="image_container"></div>
-                    <label for="file" class="btn-upload">이미지추가</label>		<!-- accept 특정 파일 유형만 허용, multiple 속성을 추가하면 2개 이상의 파일을 추가 -->
-                    <input type="file" name="file" id="file" onchange="getImageFiles(event);" multiple>
+                    <label for="inputFile" class="btn-upload">이미지추가</label>		<!-- accept 특정 파일 유형만 허용, multiple 속성을 추가하면 2개 이상의 파일을 추가 -->
+                    <input type="file" name="file" id="inputFile" onchange="getImageFiles(event);" multiple>
                     <button type="button" onclick="imageCheck();">작성</button>
                 </div>
             </div>

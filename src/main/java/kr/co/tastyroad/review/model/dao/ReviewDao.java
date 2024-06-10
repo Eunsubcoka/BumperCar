@@ -221,9 +221,7 @@ public class ReviewDao {
 			pstmt.setString(2, reviewDto.getReviewContent());
 			pstmt.setInt(3, reviewDto.getRatings());
 			pstmt.setInt(4, reviewDto.getReviewNo());
-//			pstmt.setInt(5, reviewDto.getRestaurantNo());
 			int result = pstmt.executeUpdate();
-			System.out.println("리뷰수정 Dao");
 			return result;
 			
 		} catch (SQLException e) {
@@ -244,12 +242,10 @@ public class ReviewDao {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, reviewDto.getFilePath());
 			pstmt.setString(2, reviewDto.getFileName());
-//			pstmt.setString(2, reviewDto.getRemoveImageName());
 			pstmt.setInt(3, reviewDto.getReviewNo());
 			
 			int result = pstmt.executeUpdate();
 			
-			System.out.println("이미지업데이트 Dao");
 			return result;
 			
 		} catch (SQLException e) {
@@ -328,7 +324,6 @@ public class ReviewDao {
     	ArrayList<ReviewDto> result = new ArrayList<>();
     	
 		String query ="select distinct * from review_upload";
-		System.out.println("이미지 선택");
 		try {
 			pstmt = con.prepareStatement(query);
 			
@@ -345,7 +340,6 @@ public class ReviewDao {
 		        reviewDto.setFilePath(reviewFilePath);
 		        reviewDto.setFileName(reviewFileName);
 		            
-		        System.out.println(reviewFileName);
 		        result.add(reviewDto); 
 			}
 			return result;

@@ -41,6 +41,8 @@ public class ReviewController extends HttpServlet {
 		
 		RequestDispatcher view = request.getRequestDispatcher("/views/review/review.jsp");
 		view.forward(request, response);
+		
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
