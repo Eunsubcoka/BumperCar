@@ -24,4 +24,16 @@ public class RestaurantServiceImpl implements RestaurantService{
 	 public ArrayList<RestaurantDto> getRestaurantList(int category){
 		 return restaurantDao.getRestaurantList(category);
 	 }
+	 public int addMenu(ArrayList<RestaurantDto> menu) {
+	    	return restaurantDao.addMenu(menu);
+	  }
+	 
+	 public int addRestaurant(RestaurantDto restaurant) {
+		 	restaurantDao.addRestaurant(restaurant);
+		 	return restaurantDao.addResNo();
+	 }
+	    public int addTag(ArrayList<RestaurantDto> tag) {
+	    	return restaurantDao.addTag(tag);
+	    }
+	 
 }

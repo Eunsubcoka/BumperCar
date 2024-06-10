@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import kr.co.tastyroad.common.DatabaseConnection;
 import kr.co.tastyroad.restaurant.model.dto.RestaurantDto;
+import kr.co.tastyroad.review.model.dto.ReviewDto;
 
 
 public class RestaurantDao {
@@ -60,7 +61,6 @@ public class RestaurantDao {
 	// 리뷰 리스트 로직
     public ArrayList<RestaurantDto> getMenuList(int No) {
     	ArrayList<RestaurantDto> result = new ArrayList<RestaurantDto>();
-    	System.out.println(No);
     
    
     String query = "select r.restaurantNo,m.foodNo,m.foodName,m.price from restaurant r "
@@ -113,7 +113,6 @@ public class RestaurantDao {
     
     public ArrayList<RestaurantDto> getRestaurantList(int category) {
     	ArrayList<RestaurantDto> result = new ArrayList<RestaurantDto>();
-    	System.out.println(category);
     
    
     String query = "select r.restaurantNo ,r.restaurantName, r2.imgName from restaurant r "
@@ -128,7 +127,6 @@ public class RestaurantDao {
 			RestaurantDto resList = new RestaurantDto();
 			String imgName =rs.getString("imgName");
 			int resNo = rs.getInt("restaurantNo");
-			System.out.println(imgName);
 			String Name = rs.getString("restaurantName");
 			resList.setRestaurantName(Name);
 			resList.setImgName(imgName);
@@ -144,5 +142,84 @@ public class RestaurantDao {
     return result;
     }
 	
-	
+    
+    public int addMenu(ArrayList<RestaurantDto> menu) {
+		String query = "insert into menu values(menu_seq.nextval,?,?,?)";
+		int result = 0;
+		try {
+			
+			 for(RestaurantDto item : menu) {
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, item.getMenu());
+			pstmt.setInt(2, item.getPrice());
+			pstmt.setInt(3, item.getRestaurantNo());
+			
+			pstmt.executeUpdate();
+			 }
+			return result;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+    public int addTag(ArrayList<RestaurantDto> tag) {
+    	String query = "insert into res_tag values(?,?)";
+    	int result = 0;
+    	try {
+    		
+    		for(RestaurantDto item : tag) {
+    			
+    			pstmt = con.prepareStatement(query);
+    			pstmt.setString(1, item.getTag());
+    			pstmt.setInt(2, item.getRestaurantNo());
+    			
+    			pstmt.executeUpdate();
+    		}
+    		return result;
+    	} catch (SQLException e) {
+    		e.printStackTrace();
+    	}
+    	
+    	return 0;
+    }
+    public int addRestaurant(RestaurantDto restaurant) {
+		String query = "insert into restaurant values(restaurant_seq.nextval,?,?,?,?)";
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, restaurant.getCategory());
+			pstmt.setString(2, restaurant.getLocation());
+			pstmt.setString(3, restaurant.getRestaurantPhone());
+			pstmt.setString(4, restaurant.getRestaurantName());
+			
+			int result = pstmt.executeUpdate();
+			
+			return result;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+    public int addResNo() {
+    	String query = "SELECT max(RESTAURANTNO) as no FROM RESTAURANT r";
+    	try {
+    		int result = 0;
+    		pstmt = con.prepareStatement(query);
+    		
+    		 
+    		ResultSet rs = pstmt.executeQuery();
+    		 while(rs.next()) {
+    			 result = rs.getInt("no");
+    			 
+    		 }
+    		return result;
+    	} catch (SQLException e) {
+    		e.printStackTrace();
+    	}
+    	
+    	return 0;
+    }
+		
 }

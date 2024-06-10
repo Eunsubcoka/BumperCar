@@ -4,6 +4,7 @@ package kr.co.tastyroad.review.model.service;
 
 import java.util.ArrayList;
 
+import kr.co.tastyroad.restaurant.model.dto.RestaurantDto;
 import kr.co.tastyroad.review.model.dao.ReviewDao;
 import kr.co.tastyroad.review.model.dto.ReviewDto;
 
@@ -80,7 +81,10 @@ public class ReviewServiceImpl implements ReviewService {
 	public ArrayList<ReviewDto> uploadListOnce(){
 		return reviewDao.uploadListOnce();
 	}
-	
+	@Override
+    public ArrayList<ReviewDto> getReviewListOnce(ArrayList<RestaurantDto> restaurantList){
+		return reviewDao.getReviewListOnce(restaurantList);
+	}
 	
 }
 
