@@ -3,6 +3,7 @@ package kr.co.tastyroad.review.model.service;
 
 import java.util.ArrayList;
 
+import kr.co.tastyroad.restaurant.model.dto.RestaurantDto;
 import kr.co.tastyroad.review.model.dto.ReviewDto;
 
 public interface ReviewService {
@@ -26,9 +27,12 @@ public interface ReviewService {
 	
 	// 파일 하니씩 가져오기
 	public ArrayList<ReviewDto> uploadListOnce();
+	// 리뷰 하나씪 가져오기
+    public ArrayList<ReviewDto> getReviewListOnce(ArrayList<RestaurantDto> restaurantList);
 	
 	// 수정 업로드 파일 삭제
 	public int delete(ReviewDto reviewDto, String removeImageName);
+	
 		
 	
 }
