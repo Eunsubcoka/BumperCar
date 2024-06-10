@@ -132,7 +132,6 @@
 								<div class="res_review_rating">
 									<span class="rating"><i class="fas fa-star"></i>${item.ratings}점</span>
 								</div>
-
 								<div class="res_review_img">
 									<c:forEach var="fileList" items="${fileList}">
 									
