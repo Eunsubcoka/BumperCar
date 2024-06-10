@@ -1,6 +1,13 @@
 package kr.co.tastyroad.restaurant.model.dto;
 
 public class RestaurantDto {
+private String tag;
+public String getTag() {
+	return tag;
+}
+public void setTag(String tag) {
+	this.tag = tag;
+}
 private int restaurantNo;
 private String category;
 private String location;

@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import kr.co.tastyroad.common.DatabaseConnection;
+import kr.co.tastyroad.restaurant.model.dto.RestaurantDto;
 import kr.co.tastyroad.review.model.dto.ReviewDto;
 
 public class ReviewDao {
@@ -347,6 +348,59 @@ public class ReviewDao {
 		return result;
 	}
 
-  
+  // 리뷰 하나씩
+    public ArrayList<ReviewDto> getReviewListOnce(ArrayList<RestaurantDto> restaurantList) {
+    ArrayList<ReviewDto> result = new ArrayList<>();
+    
+   
+    String query = " select distinct r.reviewNo, r.reviewTitle, r.reviewContent, r.reviewDate, r.ratings, r.user_no, r.restaurantNo, res.restaurantname "
+    			 + " from reviews r "
+                 + " join TASTY_MEMBER s on r.user_no = s.user_no "
+                 + " join restaurant res on r.restaurantNo = res.restaurantNo "
+                 + " where r.restaurantNo = ? "
+                 + " order by reviewNo desc ";
+    
+    try {
+        pstmt = con.prepareStatement(query);
+        for(RestaurantDto item : restaurantList) {
+        	
+        pstmt.setInt(1, item.getRestaurantNo());
+        
+        ResultSet rs = pstmt.executeQuery();
+        
+        while(rs.next()) {
+            int reviewNo = rs.getInt("reviewNo");
+            String reviewTitle = rs.getString("reviewTitle");
+            String reviewContent =rs.getString("reviewContent");
+            String reviewDate = rs.getString("reviewDate");
+            int ratings = rs.getInt("ratings"); 
+			int userNo = rs.getInt("user_no"); 
+			int resNo = rs.getInt("restaurantNo");
+			String resName = rs.getString("restaurantname");
+            
+            ReviewDto reviewDto = new ReviewDto();
+            reviewDto.setReviewNo(reviewNo);
+            reviewDto.setReviewTitle(reviewTitle);
+            reviewDto.setReviewContent(reviewContent);
+            reviewDto.setReviewDate(reviewDate);
+            reviewDto.setRatings(ratings);
+			reviewDto.setUserNo(userNo);
+			reviewDto.setRestaurantNo(resNo);
+			reviewDto.setRestaurantName(resName);
+            
+            result.add(reviewDto);
+            
+        }
+        }
+        return result;
+        
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return result;
+    }
+    
+    
+    
 }
     
