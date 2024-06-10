@@ -30,10 +30,6 @@ public class searchServiceImpl implements searchService {
         return searchDao.getReviewsRestaurant(restaurantNo);
     }
     
-    @Override
-    public ArrayList<RestaurantDto> searchRestaurantsByTag(String tag) {
-        return searchDao.searchRestaurantsByTag(tag);
-    }
 
     @Override
     public ArrayList<String> getTagsForRestaurant(int restaurantNo) {

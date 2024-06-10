@@ -38,9 +38,7 @@ public class SearchController extends HttpServlet {
         ArrayList<noticeDto> noticeList = searchService.searchNotices(searchText);
         ArrayList<RestaurantDto> restaurantList = new ArrayList<>();
 
-        if (tag != null && !tag.isEmpty()) {
-            restaurantList = searchService.searchRestaurantsByTag(tag);
-        } else if (searchText != null && !searchText.isEmpty()) {
+       if (searchText != null && !searchText.isEmpty()) {
             restaurantList = searchService.searchRestaurants(searchText);
         }
 
@@ -81,7 +79,7 @@ public class SearchController extends HttpServlet {
         }
 
         request.setAttribute("searchText", searchText);
-        request.setAttribute("tag", tag); // 태그 추가
+        request.setAttribute("tag", tag);
         request.setAttribute("ratingsMap", ratingsMap);
         request.setAttribute("top3ReviewsMap", top3ReviewsMap);
         request.setAttribute("tagsMap", tagsMap);
