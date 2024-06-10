@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // 카카오맵 마커 표시
     var mapContainer = document.getElementById('map'),
         mapOption = {
-            center: new kakao.maps.LatLng(37.4003260238437, 126.922178588099), // 임시 중심좌표
+            center: new kakao.maps.LatLng(37.4003260238437, 126.922178588099), // 중심좌표
             level: 5 // 확대 레벨
         };
 
