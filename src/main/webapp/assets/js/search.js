@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var mapContainer = document.getElementById('map'),
         mapOption = {
             center: new kakao.maps.LatLng(37.4003260238437, 126.922178588099), // 임시 중심좌표
-            level: 7 // 확대 레벨
+            level: 5 // 확대 레벨
         };
 
     var map = new kakao.maps.Map(mapContainer, mapOption);
