@@ -2,6 +2,9 @@ package kr.co.tastyroad.member.model.service;
 
 import java.sql.SQLException;
 import java.util.UUID;
+import java.util.regex.Pattern;
+
+import org.mindrot.jbcrypt.BCrypt;
 
 import kr.co.tastyroad.common.EmailUtil;
 import kr.co.tastyroad.member.model.dao.MemberDAO;
@@ -46,8 +49,9 @@ public class MemberServiceImpl implements MemberService {
 		return 0;
 	}
 	@Override
-    public Member getMemberByToken(String token) {
+    public Member getMemberByToken(String token) throws SQLException {
         return memberDAO.getMemberByToken(token);
+//        return memberDAO.getMemberByToken(token);
     }
 	@Override
     public void verifyMember(String userId) {
@@ -69,62 +73,127 @@ public class MemberServiceImpl implements MemberService {
     public String findIdByEmail(String email) {
         return memberDAO.findIdByEmail(email);
     }
-//	@Override
-//    public boolean sendPasswordResetEmail(String userId, String email) {
-//        Member member = memberDAO.findMemberByIdAndEmail(userId, email);
-//        if (member != null) {
-//            // 이메일 발송 로직 구현
-//            String token = generateToken(); // 토큰 생성 로직 구현
-//            String resetLink = "http://yourwebsite.com/resetPassword?token=" + token;
-//            EmailUtil.sendEmail(email, "비밀번호 재설정", "다음 링크를 통해 비밀번호를 재설정하세요: " + resetLink);
-//            memberDAO.savePasswordResetToken(userId, token);
-//            return true;
-//        }
-//        return false;
-//    }
-//	private String generateToken() {
-//        // 토큰 생성 로직 구현
-//        return UUID.randomUUID().toString();
-    @Override
+	
+	@Override
     public boolean sendPasswordResetEmail(String userId, String userEmail) {
-        Member member = memberDAO.findMemberByIdAndEmail(userId, userEmail);
-        if (member != null) {
-            String token = generateToken();
-            String resetLink = "http://localhost/views/member/resetPassword.jsp";
-            boolean emailSent = EmailUtil.sendEmail(userEmail, "비밀번호 재설정", "다음 링크를 통해 비밀번호를 재설정하세요: " + resetLink);
-            
-            if (emailSent) {
-                memberDAO.savePasswordResetToken(userId, token);
-                return true;
-            } else {
-                return false;
+        try {
+            Member member = memberDAO.findMemberByIdAndEmail(userId, userEmail);
+            if (member != null) {
+                String token = generateToken();
+                String resetLink = "http://localhost/views/member/resetPassword.jsp?token=" + token;
+                boolean emailSent = EmailUtil.sendEmail(userEmail, "비밀번호 재설정", "다음 링크를 통해 비밀번호를 재설정하세요: " + resetLink);
+                if (emailSent) {
+                    memberDAO.savePasswordResetToken(userId, token);
+                    return true;
+                }
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return false;
     }
 
-	private String generateToken() {
-	    return UUID.randomUUID().toString();
-	}
-
-    @Override
-    public boolean verifyResetToken(String token) {
-        return memberDAO.verifyToken(token);
+    private String generateToken() {
+        return UUID.randomUUID().toString();
     }
+    
+    public boolean verifyResetToken(String token) {
+        try {
+            return memberDAO.verifyToken(token);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+//    @Override
+//    public boolean sendPasswordResetEmail(String userId, String userEmail) {
+//        Member member = memberDAO.findMemberByIdAndEmail(userId, userEmail);
+//        if (member != null) {
+//            String token = generateToken();
+//            String resetLink = "http://localhost/views/member/resetPassword.jsp";
+//            boolean emailSent = EmailUtil.sendEmail(userEmail, "비밀번호 재설정", "다음 링크를 통해 비밀번호를 재설정하세요: " + resetLink);
+//            
+//            if (emailSent) {
+//                memberDAO.savePasswordResetToken(userId, token);
+//                return true;
+//            } else {
+//                return false;
+//            }
+//        }
+//        return false;
+//    }
+//
+//	private String generateToken() {
+//	    return UUID.randomUUID().toString();
+//	}
+//
+//    @Override
+//    public boolean verifyResetToken(String token) {
+//        return memberDAO.verifyToken(token);
+//    }
 
 //    @Override
 //    public boolean resetPassword(String token, String newPassword) {
 //        return memberDAO.updatePassword(token, newPassword);
+//    @Override
+//    public boolean resetPassword(String token, String newPassword) {
+//        // 토큰으로 사용자 정보를 가져오는지 확인
+//        Member member = memberDAO.getMemberByToken(token);
+//        if (member == null) {
+//            return false; // 토큰에 해당하는 사용자가 없을 때
+//        }
+//        // 비밀번호 업데이트 로직
+//        boolean isUpdated = memberDAO.updatePassword(member.getUserId(), newPassword);
+//        return isUpdated;
+//    }
     @Override
     public boolean resetPassword(String token, String newPassword) {
-        // 토큰으로 사용자 정보를 가져오는지 확인
-        Member member = memberDAO.getMemberByToken(token);
-        if (member == null) {
-            return false; // 토큰에 해당하는 사용자가 없을 때
+        try {
+            if (!validatePassword(newPassword)) {
+                return false;
+            }
+
+            Member member = memberDAO.getMemberByToken(token);
+            if (member == null) {
+            	System.out.println("2");
+                return false;
+            }
+
+            String hashedPassword = hashPassword(newPassword);
+            return memberDAO.updatePassword(member.getUserId(), hashedPassword);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        // 비밀번호 업데이트 로직
-        boolean isUpdated = memberDAO.updatePassword(member.getUserId(), newPassword);
-        return isUpdated;
+        return false;
     }
+    private String hashPassword(String plainPassword) {
+        return BCrypt.hashpw(plainPassword, BCrypt.gensalt());
+    }
+
+//    private boolean checkPassword(String plainPassword, String hashedPassword) {
+//        return BCrypt.checkpw(plainPassword, hashedPassword);
+//    }
+    private boolean validatePassword(String password) {
+        // 최소 8자, 대문자, 소문자, 숫자, 특수 문자 포함 여부 검사
+        String passwordPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$";
+        return Pattern.matches(passwordPattern, password);
+    }
+    
+    
+    
+//    @Override
+//    public boolean resetPassword(String token, String newPassword) {
+//        if (!validatePassword(newPassword)) {
+//            return false;
+//        }
+//    	
+//        Member member = memberDAO.getMemberByToken(token);
+//        if (member == null) {
+//            return false;
+//        }
+//        String hashedPassword = hashPassword(newPassword);
+//        boolean isUpdated = memberDAO.updatePassword(member.getUserId(), hashedPassword);
+//        return isUpdated;
+//    }
 	
 }
