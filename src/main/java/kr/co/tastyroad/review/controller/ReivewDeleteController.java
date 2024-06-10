@@ -39,10 +39,6 @@ public class ReivewDeleteController extends HttpServlet {
 		ReviewServiceImpl reviewService = new ReviewServiceImpl();
 		int result = reviewService.reviewDelete(reviewDto);
 		
-		
-		request.setAttribute("restaurantNo", restaurantNo);
-		request.setAttribute("reviewNo", reviewNo);
-		
 		if(result == 1) {
 			response.sendRedirect("/review/review.do?reviewNo=" + reviewNo + "&restaurantNo=" + restaurantNo);	
 			// 디스패처 왜???????????

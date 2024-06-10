@@ -9,6 +9,8 @@ public class ReviewDto {
 	private int userNo;
 	private int restaurantNo;
 	private String restaurantName;
+	private String profile;
+	private String userName;
 	
 	private String filePath; // 파일경로
 	private String fileName; // 파일이름
@@ -78,5 +80,18 @@ public class ReviewDto {
 		this.restaurantName = restaurantName;
 	}
 	
+	public String getProfile() {
+		return profile;
+	}
+	public void setProfile(String profile) {
+		this.profile = profile;
+	}
+	
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 }
 

@@ -20,7 +20,6 @@
 		<div class="container-review-box">
 
 			<h1>${list[0].restaurantName}</h1>                     
-			<input type="hidden" name="restaurantNo" value="${restaurantNo}">                                    
 			<button type="button" onclick="location.href='/tastyForm/enrollReviewForm.do?restaurantNo=${restaurantNo}'">등록</button>
 			<c:choose>
 				<c:when test="${empty list}">
@@ -34,12 +33,11 @@
 					<input type="hidden" name="reviewNo" value="${item.reviewNo}"> 
 					<input type="hidden" name="ratings" value="${result.ratings}"/>
 						<div class="container-review">
-<!-- 							<input type="hidden" name="userNo" value=""> -->
 							<div class="review">
 								<div class="user-container">
-									<img class="user-img" src="/assets/image/bom.jpg" alt="사용자프로필">
+									<img class="user-img" src="/assets/image/member_profile/${item.profile}" alt="사용자프로필">
 									<div class="user-info">
-										<span class="user-name"><strong>${sessionScope.userName}</strong></span>
+										<span class="user-name"><strong>${item.userName}</strong></span>
 										<span class="rating"><i class="fas fa-star"></i>${item.ratings}점</span>
 									</div>
 								</div>
@@ -62,21 +60,16 @@
 								<div id="btn">
 									<button type="button" onclick="window.history.back()">뒤로가기</button>
 									<c:if test="${sessionScope.userNo == item.userNo}">
-									<button type="button"
-										onclick="location.href='/tastyForm/editReviewForm.do?reviewNo=${item.reviewNo}&restaurantNo=${restaurantNo}'">수정</button>
-									 <button type="submit">삭제</button> 
-					</form>
+									<button type="button" onclick="location.href='/tastyForm/editReviewForm.do?reviewNo=${item.reviewNo}&restaurantNo=${restaurantNo}&profile=${item.profile}'">수정</button>
+									<button type="submit">삭제</button> 
 									</c:if>
 								</div>
 							</div>
 						</div>
+					</form>
 					</c:forEach>
 				</c:otherwise>
 			</c:choose>
-
-
-
-
 		</div>
 	</section>
 
