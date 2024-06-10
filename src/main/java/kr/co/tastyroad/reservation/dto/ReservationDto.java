@@ -17,6 +17,15 @@ public class ReservationDto {
 	private String paymentStatus;
 	private String userName;
 	private String userEmail;
+	
+	private String restaurantName;
+	
+	public String getRestaurantName() {
+		return restaurantName;
+	}
+	public void setRestaurantName(String restaurantName) {
+		this.restaurantName = restaurantName;
+	}
 	public int getResNo() {
 		return resNo;
 	}

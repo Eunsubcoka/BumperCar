@@ -40,13 +40,17 @@
                                         <a href="/restaurantDetail.do?restaurantId=${restaurant.restaurantNo}">${restaurant.restaurantName}</a>
                                     </div>
                                     <div class="font-down">카테고리: ${restaurant.category}</div>
+                                    <div class="font-down">태그: 
+                                        <c:forEach var="tag" items="${fn:split(restaurant.tags, ',')}">
+                                            ${tag} 
+                                        </c:forEach>
+                                    </div>
                                     <div class="font-down">위치: ${restaurant.location}</div>
                                     <div class="font-down">
                                         <i class="fas fa-star"></i>
                                         <fmt:formatNumber value="${ratingsMap[restaurant.restaurantNo]}" type="number" minFractionDigits="1" maxFractionDigits="1" />
                                     </div>
                                     <button class="toggle-review-btn" onclick="toggleReview(this)">리뷰 열기</button>
-
                                     <div class="review-box font-down-2" style="display: none;" onclick="navigateToReviews(${restaurant.restaurantNo})">
                                         <c:choose>
                                             <c:when test="${not empty top3ReviewsMap[restaurant.restaurantNo]}">
@@ -73,7 +77,6 @@
                                             </c:otherwise>
                                         </c:choose>
                                     </div>
-
                                 </div>
                             </li>
                         </c:forEach>
@@ -85,7 +88,7 @@
             </c:if>
             <c:if test="${totalRestaurants > (cpage * 5)}">
                 <div class="d-flex justify-content-end">
-                    <button id="load-more-restaurants" data-page="${cpage}" data-search-text="${searchText}" data-category="restaurant" onclick="loadMoreRestaurants()">>>더보기</button>
+                    <button id="load-more-restaurants" data-page="${cpage}" data-search-text="${searchText}" data-tag="${tag}" data-category="restaurant" onclick="loadMoreRestaurants()">>>더보기</button>
                 </div>
             </c:if>
         </div>

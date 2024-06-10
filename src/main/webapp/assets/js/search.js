@@ -9,18 +9,15 @@ function toggleReview(btn) {
     }
 }
 
-
-function navigateToReviews(restaurantNo) {
-    window.location.href = "/review/review.do?restaurantNo=" + restaurantNo;
-}
-
-
 function loadMoreRestaurants() {
     const loadMoreButton = document.querySelector('#load-more-restaurants');
     const currentPage = parseInt(loadMoreButton.dataset.page || 1);
     const nextPage = currentPage + 1;
     const searchText = encodeURIComponent(loadMoreButton.dataset.searchText || '');
-    fetch(`/search.do?cpage=${nextPage}&search-text=${searchText}&category=restaurant`)
+    const tag = encodeURIComponent(loadMoreButton.dataset.tag || '');
+    const category = loadMoreButton.dataset.category || 'restaurant';
+
+    fetch(`/search.do?cpage=${nextPage}&search-text=${searchText}&tag=${tag}&category=${category}`)
         .then(response => response.text())
         .then(html => {
             const parser = new DOMParser();
@@ -46,14 +43,16 @@ function loadMoreNotices() {
     const currentPage = parseInt(loadMoreButton.dataset.page || 1);
     const nextPage = currentPage + 1;
     const searchText = encodeURIComponent(loadMoreButton.dataset.searchText || '');
-    fetch(`/search.do?cpage=${nextPage}&search-text=${searchText}&category=notice`)
+    const category = loadMoreButton.dataset.category || 'notice';
+
+    fetch(`/search.do?cpage=${nextPage}&search-text=${searchText}&category=${category}`)
         .then(response => response.text())
         .then(html => {
             const parser = new DOMParser();
             const doc = parser.parseFromString(html, 'text/html');
             const newNotices = doc.querySelectorAll('#notice-list .notice-item');
             newNotices.forEach(notice => {
-                document.querySelector('.notice-list').appendChild(notice);
+                document.querySelector('#notice-list').appendChild(notice);
             });
             if (newNotices.length < 5) {
                 loadMoreButton.style.display = 'none';

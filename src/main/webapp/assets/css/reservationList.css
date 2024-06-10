@@ -1,0 +1,25 @@
+.reservation-main {
+    margin: 20px;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding: 20px;
+    border: 1px solid #0000002b;
+    border-radius: 20px;
+    background-color: #f9f9f9;
+    min-height:600px;
+}
+
+.reservation-items{
+	background-color : #f0f0f0;
+	border: 1px solid #0000002b;
+	border-radius: 20px;
+	width:30%;
+	margin:1%;
+	padding:15px;
+	display: inline-block;
+	cursor: pointer; 
+}
+
+.reservation-items:hover {
+    background-color: #06060620; 
+}

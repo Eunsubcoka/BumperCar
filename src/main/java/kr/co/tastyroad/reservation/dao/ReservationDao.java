@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import kr.co.tastyroad.common.DatabaseConnection;
 import kr.co.tastyroad.reservation.dto.ReservationDto;
@@ -44,6 +46,34 @@ public class ReservationDao {
 		
 		return result;
 	}
+	
+	
+	 public List<ReservationDto> getReservations(int userNo) {
+	        List<ReservationDto> reservationList = new ArrayList<>();
+	        String query = "SELECT * FROM reservation res JOIN restaurant ret on res.restaurantNo = ret.restaurantNo WHERE user_no = ? ORDER BY reservationno asc";
+
+	        try {
+	            pstmt = con.prepareStatement(query);
+	            pstmt.setInt(1, userNo);
+	            ResultSet rs = pstmt.executeQuery();
+
+	            while (rs.next()) {
+	                ReservationDto resDto = new ReservationDto();
+	                resDto.setRestaurantName(rs.getString("RESTAURANTNAME"));
+	                resDto.setResNo(rs.getInt("RESERVATIONNO"));
+	                resDto.setHeadCount(rs.getInt("HEADCOUNT"));
+	                resDto.setDate(rs.getString("RESERVATIONDATE"));
+	                resDto.setPhone(rs.getString("RESERVATIONPHONE"));
+	                resDto.setUserNo(rs.getInt("user_no"));
+	                resDto.setPaymentStatus(rs.getString("PAYMENTSTATUS"));
+
+	                reservationList.add(resDto);
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	        return reservationList;
+	    }
 
 	
 

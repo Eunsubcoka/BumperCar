@@ -4,8 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import kr.co.tastyroad.common.DatabaseConnection;
@@ -33,20 +31,11 @@ public class searchDao {
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 noticeDto notice = new noticeDto();
-                String date = "";
-                try {
-                    SimpleDateFormat originalFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    SimpleDateFormat targetFormat = new SimpleDateFormat("yyyy-MM-dd");
-                    date = targetFormat.format(originalFormat.parse(rs.getString("noticeDate")));
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-
                 notice.setNoticeNo(rs.getInt("noticeNo"));
                 notice.setNoticeTitle(rs.getString("noticeTitle"));
                 notice.setNoticeContent(rs.getString("noticeContent"));
                 notice.setNoticeView(rs.getInt("noticeView"));
-                notice.setNoticeDate(date);
+                notice.setNoticeDate(rs.getString("noticeDate"));
                 notice.setUserNo(rs.getInt("user_no"));
                 noticeList.add(notice);
             }
@@ -60,19 +49,26 @@ public class searchDao {
 
     public ArrayList<RestaurantDto> searchRestaurants(String searchText) {
         ArrayList<RestaurantDto> restaurantList = new ArrayList<>();
-        String query = "SELECT * FROM restaurant WHERE restaurantName LIKE ? OR category LIKE ? ORDER BY restaurantNo DESC";
-        
+        String query = "SELECT r.restaurantNo, r.restaurantName, r.category, r.location, LISTAGG(t.tag, ',') WITHIN GROUP (ORDER BY t.tag) AS tags " +
+                       "FROM restaurant r " +
+                       "LEFT JOIN res_tag t ON r.restaurantNo = t.restaurantNo " +
+                       "WHERE r.restaurantName LIKE ? OR r.category LIKE ? OR t.tag LIKE ?" +
+                       "GROUP BY r.restaurantNo, r.restaurantName, r.category, r.location " +
+                       "ORDER BY r.restaurantNo DESC";
+
         try {
             pstmt = con.prepareStatement(query);
             pstmt.setString(1, "%" + searchText + "%");
             pstmt.setString(2, "%" + searchText + "%");
+            pstmt.setString(3, "%" + searchText + "%");
             ResultSet rs = pstmt.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 RestaurantDto restaurant = new RestaurantDto();
                 restaurant.setRestaurantName(rs.getString("restaurantName"));
                 restaurant.setRestaurantNo(rs.getInt("restaurantNo"));
                 restaurant.setCategory(rs.getString("category"));
                 restaurant.setLocation(rs.getString("location"));
+                restaurant.setTags(rs.getString("tags"));
                 restaurantList.add(restaurant);
             }
             rs.close();
@@ -80,9 +76,43 @@ public class searchDao {
         } catch(SQLException e) {
             e.printStackTrace();
         }
-        
+
         return restaurantList;
     }
+
+    public ArrayList<RestaurantDto> searchRestaurantsByTag(String tag) {
+        ArrayList<RestaurantDto> restaurantList = new ArrayList<>();
+        String query = "SELECT r.restaurantNo, r.restaurantName, r.category, r.location, LISTAGG(t.tag, ',') WITHIN GROUP (ORDER BY t.tag) AS tags " +
+                       "FROM restaurant r " +
+                       "INNER JOIN res_tag t ON r.restaurantNo = t.restaurantNo " +
+                       "WHERE t.tag LIKE ? " +
+                       "GROUP BY r.restaurantNo, r.restaurantName, r.category, r.location " +
+                       "ORDER BY r.restaurantNo DESC";
+
+        try {
+            pstmt = con.prepareStatement(query);
+            pstmt.setString(1, "%" + tag + "%");
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                RestaurantDto restaurant = new RestaurantDto();
+                restaurant.setRestaurantName(rs.getString("restaurantName"));
+                restaurant.setRestaurantNo(rs.getInt("restaurantNo"));
+                restaurant.setCategory(rs.getString("category"));
+                restaurant.setLocation(rs.getString("location"));
+                restaurant.setTags(rs.getString("tags"));
+                restaurantList.add(restaurant);
+            }
+            rs.close();
+            pstmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return restaurantList;
+    }
+
+
+
 
     public ArrayList<ReviewDto> getReviewsRestaurant(int restaurantNo) {
         ArrayList<ReviewDto> result = new ArrayList<>();
@@ -113,5 +143,25 @@ public class searchDao {
         }
 
         return result;
+    }
+
+    public ArrayList<String> getTagsForRestaurant(int restaurantNo) {
+        ArrayList<String> tags = new ArrayList<>();
+        String query = "SELECT tag FROM res_tag WHERE restaurantNo = ?";
+        
+        try {
+            pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, restaurantNo);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                tags.add(rs.getString("tag"));
+            }
+            rs.close();
+            pstmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return tags;
     }
 }

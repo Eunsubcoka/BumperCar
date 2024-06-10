@@ -27,7 +27,7 @@ public class SearchController extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String searchText = request.getParameter("search-text");
-        String category = request.getParameter("category");
+        String tag = request.getParameter("tag");
         int cpage = 1;
 
         if (request.getParameter("cpage") != null) {
@@ -36,13 +36,18 @@ public class SearchController extends HttpServlet {
 
         searchServiceImpl searchService = new searchServiceImpl();
         ArrayList<noticeDto> noticeList = searchService.searchNotices(searchText);
-        ArrayList<RestaurantDto> restaurantList = searchService.searchRestaurants(searchText);
+        ArrayList<RestaurantDto> restaurantList = new ArrayList<>();
+
+        if (tag != null && !tag.isEmpty()) {
+            restaurantList = searchService.searchRestaurantsByTag(tag);
+        } else if (searchText != null && !searchText.isEmpty()) {
+            restaurantList = searchService.searchRestaurants(searchText);
+        }
 
         int startIndex = (cpage - 1) * 5;
         int endIndexNotices = Math.min(startIndex + 5, noticeList.size());
         int endIndexRestaurants = Math.min(startIndex + 5, restaurantList.size());
 
-        // Ensure startIndex is within the bounds of the list size
         if (startIndex < noticeList.size()) {
             ArrayList<noticeDto> paginatedNoticeList = new ArrayList<>(noticeList.subList(startIndex, endIndexNotices));
             request.setAttribute("noticeList", paginatedNoticeList);
@@ -61,6 +66,8 @@ public class SearchController extends HttpServlet {
 
         HashMap<Integer, Float> ratingsMap = new HashMap<>();
         HashMap<Integer, ArrayList<ReviewDto>> top3ReviewsMap = new HashMap<>();
+        HashMap<Integer, ArrayList<String>> tagsMap = new HashMap<>();
+
         for (RestaurantDto restaurant : restaurantList) {
             int resNo = restaurant.getRestaurantNo();
             float ratings = resService.ratings(resNo);
@@ -68,11 +75,16 @@ public class SearchController extends HttpServlet {
 
             ArrayList<ReviewDto> top3Reviews = searchService.getReviewsRestaurant(resNo);
             top3ReviewsMap.put(resNo, top3Reviews);
+
+            ArrayList<String> tags = searchService.getTagsForRestaurant(resNo);
+            tagsMap.put(resNo, tags);
         }
 
         request.setAttribute("searchText", searchText);
+        request.setAttribute("tag", tag); // 태그 추가
         request.setAttribute("ratingsMap", ratingsMap);
         request.setAttribute("top3ReviewsMap", top3ReviewsMap);
+        request.setAttribute("tagsMap", tagsMap);
         request.setAttribute("totalNotices", noticeList.size());
         request.setAttribute("totalRestaurants", restaurantList.size());
         request.setAttribute("cpage", cpage);

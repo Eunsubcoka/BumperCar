@@ -13,4 +13,9 @@ public interface searchService {
     public ArrayList<RestaurantDto> searchRestaurants(String searchText);
     
     public ArrayList<ReviewDto> getReviewsRestaurant(int restaurantNo);
+    
+    public ArrayList<RestaurantDto> searchRestaurantsByTag(String tag);
+    
+    public ArrayList<String> getTagsForRestaurant(int restaurantNo);
+
 }
