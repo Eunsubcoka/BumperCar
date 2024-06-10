@@ -20,7 +20,7 @@
 <!-- review enroll section -->
 <section>
     <div class="container-review-box">
-        <form action="/review/reviewEnroll.do" method="POST" enctype="multipart/form-data">
+        <form enctype="multipart/form-data">
         
         <h1>리뷰작성</h1>
         <div class="container-review">
@@ -39,7 +39,6 @@
                         <i class="rating__star far fa-star"></i>
                         <i class="rating__star far fa-star"></i>
                     </div>
-                    <!-- <span class="rating-star">★★★★★</span> -->
                 </div>
                 <div class="input-container">
                     <label for="title">제목:</label>
@@ -52,17 +51,15 @@
 
                 <div class="content">
                 	<label for="content">내용:</label>
-                    <textarea name="reviewContent" required></textarea>
+                    <textarea name="reviewContent" id="reviewContent" required></textarea>
                 </div>
                 <!-- 버튼 -->
                 <div id="btn">
                     <p>*사진은 최대 3장까지 가능합니다.</p>
                     <div id="image_container"></div>
-                    <input type="hidden" name="removeImageName-${status.count}" id="removeImageName-${status.count}" value="${fileList.fileName}"/>
-					        <input type="hidden" name="removeImageStatus-${status.count}" id="removeImageStatus-${status.count}" value="false"/>
-                    <label for="file" class="btn-upload">이미지추가</label>		<!-- accept 특정 파일 유형만 허용, multiple 속성을 추가하면 2개 이상의 파일을 추가 -->
-                    <input type="file" name="file" id="file" onchange="getImageFiles(event, '${status.count}');" multiple>
-                    <button type="submit">작성</button>
+                    <label for="inputFile" class="btn-upload">이미지추가</label>		<!-- accept 특정 파일 유형만 허용, multiple 속성을 추가하면 2개 이상의 파일을 추가 -->
+                    <input type="file" name="file" id="inputFile" onchange="getImageFiles(event);" multiple>
+                    <button type="button" onclick="imageCheck();">작성</button>
                 </div>
             </div>
         </div>

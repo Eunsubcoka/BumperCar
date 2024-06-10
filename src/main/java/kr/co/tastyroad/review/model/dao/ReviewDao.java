@@ -41,7 +41,10 @@ public class ReviewDao {
 	}
 	
 	public ReviewDto reviewDetail(ReviewDto reviewDto) {
-		String query = "select * from reviews where reviewNo = ? ";
+		String query = "select * from reviews r "
+					 + "JOIN TASTY_MEMBER tm ON "
+					 + "r.user_no = tm.user_no "
+					 + "where reviewNo = ? ";
 					 
 		
 		try {
@@ -57,6 +60,7 @@ public class ReviewDao {
 				String reviewDate = rs.getString("reviewDate");
 				int ratings = rs.getInt("ratings"); 
 				int userNo = rs.getInt("user_no"); 
+				String profile = rs.getString("profile");
 				
 				
 				ReviewDto reviewResult = new ReviewDto();
@@ -66,6 +70,7 @@ public class ReviewDao {
 				reviewResult.setReviewDate(reviewDate);
 				reviewResult.setRatings(ratings);
 				reviewResult.setUserNo(userNo);
+				reviewResult.setProfile(profile);
 				
 				
 
@@ -123,9 +128,9 @@ public class ReviewDao {
     ArrayList<ReviewDto> result = new ArrayList<>();
     
    
-    String query = "select r.reviewNo, r.reviewTitle, r.reviewContent, r.reviewDate, r.ratings, r.user_no, r.restaurantNo, res.restaurantname "
+    String query = "select r.reviewNo, r.reviewTitle, r.reviewContent, r.reviewDate, r.ratings, r.user_no, r.restaurantNo, res.restaurantname, tm.profile, tm.user_name "
     			 + "from reviews r "
-                 + "join TASTY_MEMBER s on r.user_no = s.user_no "
+                 + "join TASTY_MEMBER tm on r.user_no = tm.user_no "
                  + "join restaurant res on r.restaurantNo = res.restaurantNo "
                  + "where r.restaurantNo = ?"
                  + "order by reviewNo desc";
@@ -145,6 +150,8 @@ public class ReviewDao {
 			int userNo = rs.getInt("user_no"); 
 			int resNo = rs.getInt("restaurantNo");
 			String resName = rs.getString("restaurantname");
+			String profile = rs.getString("profile");
+			String userName = rs.getString("user_name");
             
             ReviewDto reviewDto = new ReviewDto();
             reviewDto.setReviewNo(reviewNo);
@@ -155,6 +162,8 @@ public class ReviewDao {
 			reviewDto.setUserNo(userNo);
 			reviewDto.setRestaurantNo(resNo);
 			reviewDto.setRestaurantName(resName);
+			reviewDto.setProfile(profile);
+			reviewDto.setUserName(userName);
             
             result.add(reviewDto);
             
@@ -213,9 +222,7 @@ public class ReviewDao {
 			pstmt.setString(2, reviewDto.getReviewContent());
 			pstmt.setInt(3, reviewDto.getRatings());
 			pstmt.setInt(4, reviewDto.getReviewNo());
-//			pstmt.setInt(5, reviewDto.getRestaurantNo());
 			int result = pstmt.executeUpdate();
-			System.out.println("리뷰수정 Dao");
 			return result;
 			
 		} catch (SQLException e) {
@@ -236,12 +243,10 @@ public class ReviewDao {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, reviewDto.getFilePath());
 			pstmt.setString(2, reviewDto.getFileName());
-//			pstmt.setString(2, reviewDto.getRemoveImageName());
 			pstmt.setInt(3, reviewDto.getReviewNo());
 			
 			int result = pstmt.executeUpdate();
 			
-			System.out.println("이미지업데이트 Dao");
 			return result;
 			
 		} catch (SQLException e) {
@@ -320,7 +325,6 @@ public class ReviewDao {
     	ArrayList<ReviewDto> result = new ArrayList<>();
     	
 		String query ="select distinct * from review_upload";
-		System.out.println("이미지 선택");
 		try {
 			pstmt = con.prepareStatement(query);
 			
@@ -337,7 +341,6 @@ public class ReviewDao {
 		        reviewDto.setFilePath(reviewFilePath);
 		        reviewDto.setFileName(reviewFileName);
 		            
-		        System.out.println(reviewFileName);
 		        result.add(reviewDto); 
 			}
 			return result;

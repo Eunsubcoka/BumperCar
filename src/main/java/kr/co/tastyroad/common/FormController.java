@@ -116,6 +116,7 @@ public class FormController extends HttpServlet {
 			fileList = reviewService.uploadList(list);
 			request.setAttribute("fileList", fileList);
 			request.setAttribute("result", result);
+			request.setAttribute("list", list);
 			
 			nextPage = "/views/review/reviewEdit.jsp";
 			
