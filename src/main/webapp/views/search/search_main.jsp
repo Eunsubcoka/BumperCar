@@ -51,9 +51,14 @@
                                     </c:choose>
                                 </div>
                                 <div class="restaurant-info">
-                                    <div>
+                                    <div style="display:inline-block;">
                                         <a href="/restaurantDetail.do?restaurantId=${restaurant.restaurantNo}">${restaurant.restaurantName}</a>
+                                        <div style="display:inline-block;" class= "font-down">
+                                        <i class="fas fa-star"></i>
+                                        <fmt:formatNumber value="${ratingsMap[restaurant.restaurantNo]}" type="number" minFractionDigits="1" maxFractionDigits="1" />
+                                        </div>
                                     </div>
+                                    
                                     <div class="font-down">카테고리: ${restaurant.category}</div>
                                     <div class="font-down">태그: 
                                         <c:set var="tagString" value="" />
@@ -75,10 +80,7 @@
                                         </c:if>
                                     </div>
                                     <div class="font-down">위치: ${restaurant.location}</div>
-                                    <div class="font-down">
-                                        <i class="fas fa-star"></i>
-                                        <fmt:formatNumber value="${ratingsMap[restaurant.restaurantNo]}" type="number" minFractionDigits="1" maxFractionDigits="1" />
-                                    </div>
+                                    
                                     <button class="toggle-review-btn" onclick="toggleReview(this)">리뷰 열기</button>
                                     <div class="review-box font-down-2" style="display: none;" onclick="navigateToReviews(${restaurant.restaurantNo})">
                                         <c:choose>

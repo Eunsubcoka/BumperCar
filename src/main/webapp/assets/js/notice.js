@@ -52,7 +52,7 @@ function previewImage(event) {
 	var reader = new FileReader();
 	reader.onload = function() {
 		var output = document.getElementById('imagePreview');
-		output.innerHTML = '<img src="' + reader.result + '" alt="Image Preview" style="max-width: 100%; height: auto;">';
+		output.innerHTML = '<img src="' + reader.result + '" alt="Image Preview" style="max-width: 100%; max-height: 30%;">';
 	}
 	reader.readAsDataURL(event.target.files[0]);
 }
