@@ -58,7 +58,7 @@
                     <p>*사진은 최대 3장까지 가능합니다.</p>
                     <div id="image_container"></div>
                     <label for="inputFile" class="btn-upload">이미지추가</label>		<!-- accept 특정 파일 유형만 허용, multiple 속성을 추가하면 2개 이상의 파일을 추가 -->
-                    <input type="file" name="file" id="inputFile" onchange="getImageFiles(event);" multiple>
+                    <input type="file" name="file" id="inputFile" onchange="getImageFiles(event);"  multiple>
                     <button type="button" onclick="imageCheck();">작성</button>
                 </div>
             </div>

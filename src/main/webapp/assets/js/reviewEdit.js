@@ -1,3 +1,4 @@
+
 //별점 기능 함수
 function executeRating(stars, ratingValueElement, initialRating) {
     const starClassActive = "fas fa-star"; // 활성화된 별 아이콘 클래스
@@ -63,6 +64,8 @@ function getImageFiles(event) {
             break; // 반복문 종료;
         }
 
+		// 업로드한 이미지 append
+
         let img = document.createElement("img"); //img요소 생성
         const reader = new FileReader();
         reader.onload = function(event) {
@@ -74,18 +77,22 @@ function getImageFiles(event) {
             imageDiv.classList.add("review-photo");
 
 	        // 삭제 버튼 생성
-            const closeImg = document.createElement("img");
-            closeImg.classList.add("close");
-            closeImg.setAttribute("src", "/assets/image/close.png");
-            closeImg.onclick = function() {
+            const closeButton  = document.createElement("img");
+            closeButton.classList.add("close");
+            closeButton.setAttribute("src", "/assets/image/close.png");
+            closeButton.onclick = function() {
                 imageDiv.remove();
             };
             
-            imageDiv.appendChild(closeImg);
+            imageDiv.appendChild(closeButton);
             imageDiv.appendChild(img); // 이미지 추가
 
             // 이미지를 표시할 컨테이너에 추가 -> <div><imageDiv></imageDiv></div>
             document.querySelector("div#image_container").appendChild(imageDiv);
+
+			// FormData에 이미지 정보 추가
+            const fd = new FormData();
+            fd.append("image", image);
 
         }
         reader.readAsDataURL(image);
@@ -107,3 +114,5 @@ function imageClose(event, index) {
 		removeImageStatus.value = "true";
     }
 }
+
+

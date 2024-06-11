@@ -1,4 +1,5 @@
 var fd = new FormData();
+let fdCount = 0;
 
 // 별점 기능
 function executeRating(stars) {
@@ -51,6 +52,7 @@ window.onload = function() {
   updateRatingText(ratingStars, ratingTexts);
 };
 	
+	
 // 이미지 업로드 
 function getImageFiles(event) {
 	
@@ -70,26 +72,35 @@ function getImageFiles(event) {
             alert(`이미지는 ${maxImages}장까지 업로드할 수 있습니다.`);
 			break;
         }
-
-		fd.append("fileArr", document.getElementById('inputFile').files[0]);
-
+		
+			const imageName = `image_${fdCount}`; // 고유한 이미지 이름 생성
+			fd.append(imageName, image); // 다른 name -> imageDiv의 id값과 같게 설정
+			console.log(image);
+			fdCount++;
+			
+		
         let img = document.createElement("img");
         const reader = new FileReader(); 
         reader.onload = function(event) {
             img.setAttribute("src", event.target.result); //event.target.result는 FileReader 객체가 읽은 파일의 데이터 URL
 			img.classList.add("photo");
+			img.id = imageName; // 이미지에 고유한 id 부여
 
             // 이미지를 감싸는 div 요소 생성
             const imageDiv = document.createElement("div");
+			imageDiv.id = "imageName";
             imageDiv.classList.add("review-photo");
             imageDiv.appendChild(img); // 이미지 추가
+			// 위에서 생성된 name을 id같은 속성에 넣고
 
             // 이미지 삭제 버튼 생성
             const closeButton = document.createElement("img");
             closeButton.classList.add("close");
             closeButton.src = "/assets/image/close.png";
             closeButton.onclick = function() {
-                imageDiv.remove(); // 해당 이미지 요소를 삭제
+                imageDiv.remove(); // 이미지 요소 삭제
+                fd.delete(imageName); // FormData에서 이미지 삭제
+                console.log("Deleted image with key:", imageName);
             };
             
             // close 버튼 스타일 추가
@@ -106,29 +117,6 @@ function getImageFiles(event) {
     }
 }
 
-
-
-// 1. 함수 생성
-// 2. 버튼 타입 button 변경
-// 3. 이미지 길이가 0인지 확인, 0이면 alert
-// 4. 이미지 길이가 1보다 크거나 같으면 form.submit();
-
-//  const form = documnet ~ formSubmit
-// form.submit();
-/*function imageCheck() {
-	const currentImageCount = document.querySelectorAll("div#image_container img.photo").length;
-	const form = document.getElementById("formSubmit");
-	
-	
-	    // 이미지 개수 확인
-    if (currentImageCount == 0) {
-        alert(`이미지는 1장이상 업로드해야 합니다.`);
-        return;
-    }
-	else if (currentImageCount >= 1) {
-		form.submit();
-	}
-}*/
 
 //이미지 함수 + 데이터 전송 함수
 function imageCheck() { 
