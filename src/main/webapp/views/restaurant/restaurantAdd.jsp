@@ -29,7 +29,7 @@
             <input type="hidden" name="userNo" value="${sessionScope.userNo}">
                  <!-- 버튼 -->
                 <div id="btn">
-                    <p>*사진은 최대 3장까지 가능합니다.</p>
+                    <p>대표 사진 하나를 넣어주세요.</p>
                     <div id="image_container"></div>
                     <input type="hidden" name="removeImageName-${status.count}" id="removeImageName-${status.count}" value="${fileList.fileName}"/>
 					        <input type="hidden" name="removeImageStatus-${status.count}" id="removeImageStatus-${status.count}" value="false"/>

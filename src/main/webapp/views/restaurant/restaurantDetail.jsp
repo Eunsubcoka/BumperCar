@@ -205,6 +205,6 @@
 	<script src="/assets/js/bootstrap.bundle.min.js"></script>
 
 	<div class="bg"></div>
-<%@ include file="/views/common/footer.jsp"%> 
+	<%@ include file="/views/common/footer.jsp"%>
 </body>
 </html>

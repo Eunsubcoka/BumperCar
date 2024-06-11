@@ -59,6 +59,7 @@ public class FormController extends HttpServlet {
 		// 은섭
 		else if(action.equals("/reservation.do")) { // 레스토랑 예약
 			int restaurantNo = Integer.parseInt(request.getParameter("restaurantNo"));
+			
 			RestaurantDto result = new RestaurantDto();
 			RestaurantServiceImpl resService = new RestaurantServiceImpl();
 			
@@ -66,13 +67,30 @@ public class FormController extends HttpServlet {
 			request.setAttribute("result", result);
 			
 			HttpSession session = request.getSession();
-			int userNo = (int)session.getAttribute("userNo");
-			
-			request.setAttribute("userNo", userNo);
-			nextPage = "/views/reservation/reservation.jsp";
+			Integer userNo = (Integer)session.getAttribute("userNo");
+			if(userNo==null) {
+				nextPage = "/views/member/login.jsp";
+			}else {
+				
+				request.setAttribute("userNo", userNo);
+				nextPage = "/views/reservation/reservation.jsp";
+			}
 		}
 		
-		
+		else if(action.equals("/resEdit.do")) { 
+			int resNo = Integer.parseInt(request.getParameter("resNo"));
+			RestaurantServiceImpl resService = new RestaurantServiceImpl();
+			RestaurantDto resDto = new RestaurantDto();
+			resDto = resService.getRestaurant(resNo);
+			
+			request.setAttribute("resNo", resNo);
+			request.setAttribute("resDto", resDto);
+
+			nextPage = "/views/restaurant/restaurantEdit.jsp";
+		}
+		else if(action.equals("/resAdd.do")) {
+			nextPage = "/views/restaurant/restaurantAdd.jsp";
+		}
 		
 		// 아태
 		else if(action.equals("/noticeEnrollForm.do")) { // 공지 등록

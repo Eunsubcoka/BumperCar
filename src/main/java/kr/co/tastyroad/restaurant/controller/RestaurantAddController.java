@@ -1,13 +1,16 @@
 package kr.co.tastyroad.restaurant.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import kr.co.tastyroad.restaurant.model.dto.RestaurantDto;
 import kr.co.tastyroad.restaurant.model.service.RestaurantServiceImpl;
@@ -64,6 +67,29 @@ public class RestaurantAddController extends HttpServlet {
 		
 		ArrayList<RestaurantDto> menu = new ArrayList<RestaurantDto>(); // 메뉴 리스트
 		
+		RestaurantDto resDto = new RestaurantDto();
+		//파일 업로드
+				Collection<Part> parts = request.getParts();
+				String uploadDirectory = "C:\\dev\\work-space\\semiProject\\BumperCar\\src\\main\\webapp\\assets\\image";
+				
+				//파일 업로드 디렉토리가 존재하지 않으면 생성
+				File filePath = new File(uploadDirectory);
+				if(!filePath.exists()) {
+					filePath.mkdirs();
+				}
+				String fileName = null;
+				
+				for(Part part : parts) {
+					fileName = getFileName(part);
+					if(fileName != null ) {
+						part.write(filePath+File.separator+fileName); 
+						
+						resDto.setFilePath(uploadDirectory);
+						resDto.setFileName(fileName);
+
+						int resultUpload = resService.fileUpload(resDto);
+					}
+				}
 		
 		do {
 			RestaurantDto obj = new RestaurantDto();
@@ -113,4 +139,15 @@ public class RestaurantAddController extends HttpServlet {
 		
 		
 	}
+	private String getFileName(Part part) {
+        String contentDisposition = part.getHeader("content-disposition");
+        String[] tokens = contentDisposition.split(";");
+        for (String token : tokens) {
+            if (token.trim().startsWith("filename")) {
+                return token.substring(token.indexOf('=') + 2, token.length() - 1);
+            }
+        }
+        return null;
+    }
+
 }
