@@ -8,6 +8,31 @@ public String getTag() {
 public void setTag(String tag) {
 	this.tag = tag;
 }
+
+
+public int fileNo;
+public String filePath;
+public String fileName;
+public int getFileNo() {
+	return fileNo;
+}
+public void setFileNo(int fileNo) {
+	this.fileNo = fileNo;
+}
+public String getFilePath() {
+	return filePath;
+}
+public void setFilePath(String filePath) {
+	this.filePath = filePath;
+}
+public String getFileName() {
+	return fileName;
+}
+public void setFileName(String fileName) {
+	this.fileName = fileName;
+}
+
+
 private int restaurantNo;
 private String category;
 private String location;
@@ -17,7 +42,13 @@ private String menu;
 private int price;
 private int foodNo;
 private String imgName;
-
+private float ratings;
+public float getRatings() {
+	return ratings;
+}
+public void setRatings(float ratings) {
+	this.ratings = ratings;
+}
 private String tags;
 
 public String getTags() {
