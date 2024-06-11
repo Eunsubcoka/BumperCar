@@ -18,6 +18,8 @@ public class ReservationDto {
 	private String userName;
 	private String userEmail;
 	
+	private String resPhone;
+	
 	private String restaurantName;
 	
 	public String getRestaurantName() {
@@ -76,4 +78,11 @@ public class ReservationDto {
 	public void setUserEmail(String userEmail) {
 		this.userEmail = userEmail;
 	}
+	public String getResPhone() {
+		return resPhone;
+	}
+	public void setResPhone(String resPhone) {
+		this.resPhone = resPhone;
+	}
+	
 }

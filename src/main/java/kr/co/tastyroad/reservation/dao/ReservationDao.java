@@ -50,7 +50,7 @@ public class ReservationDao {
 	
 	 public List<ReservationDto> getReservations(int userNo) {
 	        List<ReservationDto> reservationList = new ArrayList<>();
-	        String query = "SELECT * FROM reservation res JOIN restaurant ret on res.restaurantNo = ret.restaurantNo WHERE user_no = ? ORDER BY reservationno asc";
+	        String query = "SELECT * FROM reservation res JOIN restaurant ret ON res.restaurantNo = ret.restaurantNo JOIN TASTY_MEMBER tm ON res.USER_NO = tm.USER_NO WHERE res.user_no = ? ORDER BY reservationno ASC";
 
 	        try {
 	            pstmt = con.prepareStatement(query);
@@ -64,8 +64,10 @@ public class ReservationDao {
 	                resDto.setHeadCount(rs.getInt("HEADCOUNT"));
 	                resDto.setDate(rs.getString("RESERVATIONDATE"));
 	                resDto.setPhone(rs.getString("RESERVATIONPHONE"));
-	                resDto.setUserNo(rs.getInt("user_no"));
+	                resDto.setUserNo(rs.getInt("USER_NO"));
 	                resDto.setPaymentStatus(rs.getString("PAYMENTSTATUS"));
+	                resDto.setUserName(rs.getString("USER_NAME"));
+	                resDto.setResPhone(rs.getString("RESTAURANTPHONE"));
 
 	                reservationList.add(resDto);
 	            }
