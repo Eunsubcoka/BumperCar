@@ -41,7 +41,14 @@
                         <c:forEach var="restaurant" items="${restaurantList}">
                             <li class="restaurant-item">
                                 <div class="restaurant-image">
-                                    <p>사진 추가 예정 <br><br> 레스토랑 상세 페이지 완성되면 레스토랑 페이지의 사진 끌어오기</p>
+                                    <c:choose>
+                                        <c:when test="${not empty restaurant.imgName}">
+                                            <img src="/assets/image/${restaurant.imgName}" alt="${restaurant.restaurantName}">
+                                        </c:when>
+                                        <c:otherwise>
+                                            <p>사진 추가 예정</p>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </div>
                                 <div class="restaurant-info">
                                     <div>

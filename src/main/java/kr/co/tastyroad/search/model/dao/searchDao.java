@@ -49,36 +49,42 @@ public class searchDao {
 	}
 
 	public ArrayList<RestaurantDto> searchRestaurants(String searchText) {
-		ArrayList<RestaurantDto> restaurantList = new ArrayList<>();
-		String query = "SELECT r.restaurantNo, r.restaurantName, r.category, r.location, LISTAGG(t.tag, ',') WITHIN GROUP (ORDER BY t.tag) AS tags "
-				+ "FROM restaurant r " + "LEFT JOIN res_tag t ON r.restaurantNo = t.restaurantNo "
-				+ "WHERE r.restaurantName LIKE ? OR r.category LIKE ? OR t.tag LIKE ? OR r.location LIKE ?"
-				+ "GROUP BY r.restaurantNo, r.restaurantName, r.category, r.location " + "ORDER BY r.restaurantNo asc";
+	    ArrayList<RestaurantDto> restaurantList = new ArrayList<>();
+	    String query = "SELECT r.restaurantNo, r.restaurantName, r.category, r.location, ri.imgName, "
+	                 + "LISTAGG(t.tag, ',') WITHIN GROUP (ORDER BY t.tag) AS tags "
+	                 + "FROM restaurant r "
+	                 + "LEFT JOIN res_tag t ON r.restaurantNo = t.restaurantNo "
+	                 + "LEFT JOIN res_img ri ON ri.restaurantNo = r.restaurantNo "
+	                 + "WHERE r.restaurantName LIKE ? OR r.category LIKE ? OR t.tag LIKE ? OR r.location LIKE ? "
+	                 + "GROUP BY r.restaurantNo, r.restaurantName, r.category, r.location, ri.imgName "
+	                 + "ORDER BY r.restaurantNo asc";
 
-		try {
-			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, "%" + searchText + "%");
-			pstmt.setString(2, "%" + searchText + "%");
-			pstmt.setString(3, "%" + searchText + "%");
-			pstmt.setString(4, "%" + searchText + "%");
-			ResultSet rs = pstmt.executeQuery();
-			while (rs.next()) {
-				RestaurantDto restaurant = new RestaurantDto();
-				restaurant.setRestaurantName(rs.getString("restaurantName"));
-				restaurant.setRestaurantNo(rs.getInt("restaurantNo"));
-				restaurant.setCategory(rs.getString("category"));
-				restaurant.setLocation(rs.getString("location"));
-				restaurant.setTags(rs.getString("tags"));
-				restaurantList.add(restaurant);
-			}
-			rs.close();
-			pstmt.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+	    try {
+	        pstmt = con.prepareStatement(query);
+	        pstmt.setString(1, "%" + searchText + "%");
+	        pstmt.setString(2, "%" + searchText + "%");
+	        pstmt.setString(3, "%" + searchText + "%");
+	        pstmt.setString(4, "%" + searchText + "%");
+	        ResultSet rs = pstmt.executeQuery();
+	        while (rs.next()) {
+	            RestaurantDto restaurant = new RestaurantDto();
+	            restaurant.setRestaurantName(rs.getString("restaurantName"));
+	            restaurant.setRestaurantNo(rs.getInt("restaurantNo"));
+	            restaurant.setCategory(rs.getString("category"));
+	            restaurant.setLocation(rs.getString("location"));
+	            restaurant.setImgName(rs.getString("imgName"));
+	            restaurant.setTags(rs.getString("tags"));
+	            restaurantList.add(restaurant);
+	        }
+	        rs.close();
+	        pstmt.close();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
 
-		return restaurantList;
+	    return restaurantList;
 	}
+
 
 	public ArrayList<ReviewDto> getReviewsRestaurant(int restaurantNo) {
 		ArrayList<ReviewDto> result = new ArrayList<>();

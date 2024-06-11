@@ -6,10 +6,8 @@
     border: 1px solid #0000002b;
     border-radius: 20px;
     background-color: #f9f9f9;
-    min-height:600px;
+    min-height: 600px;
 }
-
-
 
 .notice-container {
     position: relative;
@@ -41,6 +39,7 @@ table.notice-table {
     margin: 40px auto !important;
     border-collapse: collapse;
 }
+
 th {
     background-color: #ff9800;
 }
@@ -76,6 +75,7 @@ button {
 .card {
     --bs-card-border-width: 0px;
 }
+
 .card-header {
     background-color: white !important;
     text-align: left;
@@ -144,3 +144,8 @@ table thead tr th {
     max-width: 100%;
     height: auto;
 }
+
+.image-center {
+    text-align: center;
+}
+

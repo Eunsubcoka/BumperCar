@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import kr.co.green.board.model.dto.FreeDtoImpl;
 import kr.co.tastyroad.common.DatabaseConnection;
 import kr.co.tastyroad.restaurant.model.dto.RestaurantDto;
 import kr.co.tastyroad.review.model.dto.ReviewDto;
