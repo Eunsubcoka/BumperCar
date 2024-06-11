@@ -47,23 +47,69 @@
 }
 
 .popup-content {
-	background-color: #fff;
-	margin: 15% auto;
-	padding: 20px;
-	border: 1px solid #888;
-	width: 700px;
+    position: relative;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 700px;
 	height:350px;
+    background-color: #fff;
+    margin: 15% auto;
+}
+.popup-content div{
+	color:#ff9800;
+}
+.popup-content div span{
+	color:black;
+}
+
+.delete-btn {
+    background-color: red;
+    margin-top: 30px;
+    border: 0px;
+    border-radius: 10px;
+    color: #ffffff;
+    padding: 10px;
+    z-index: 2;
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+}
+.detail-btn {
+    background-color: #ff9800;
+    margin-top: 30px;
+    border: 0px;
+    border-radius: 10px;
+    color: #ffffff;
+    padding: 10px;
+    z-index: 2;
+    position: absolute;
+    right: 120px;
+    bottom: 20px;
 }
 
 .close {
-	color: #aaa;
-	float: right;
-	font-size: 28px;
-	font-weight: bold;
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
 }
 
-.close:hover, .close:focus {
-	color: black;
-	text-decoration: none;
-	cursor: pointer;
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+.reservation-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: #9194972b;
+	padding: 20px;
+	padding-bottom: 8px;
+	border-radius: 20px 20px 0px 0px;
+	text-align: center;
+	margin-bottom: 20px;
 }

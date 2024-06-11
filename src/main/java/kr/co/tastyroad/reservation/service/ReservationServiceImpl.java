@@ -19,6 +19,11 @@ public class ReservationServiceImpl implements ReservationService {
 		return resDao.getReservations(userNo);
 	}
 	
+    @Override
+    public boolean deleteReservation(int resNo) {
+        return resDao.deleteReservation(resNo);
+    }
+	
 	
 
 }

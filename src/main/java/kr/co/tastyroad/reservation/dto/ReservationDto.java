@@ -20,6 +20,7 @@ public class ReservationDto {
 	
 	private String resPhone;
 	
+	private int restaurantNo;
 	private String restaurantName;
 	
 	public String getRestaurantName() {
@@ -84,5 +85,12 @@ public class ReservationDto {
 	public void setResPhone(String resPhone) {
 		this.resPhone = resPhone;
 	}
+	public int getRestaurantNo() {
+		return restaurantNo;
+	}
+	public void setRestaurantNo(int restaurantNo) {
+		this.restaurantNo = restaurantNo;
+	}
+	
 	
 }

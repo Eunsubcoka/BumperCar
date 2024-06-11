@@ -13,30 +13,15 @@
     <%@ include file="/views/common/nav.jsp"%>
 
     <main class="reservation-main">
-        <div>
-            로그인한 사용자의 reservation list 출력 <br> 
-            reservationComplete가 해당 reservation 정보인거같은데, 클릭하면 해당 reservation 정보로 이동할수 있도록 하기 <br> 
-            해당 reservation 삭제(취소)기능 추가 <br>
-        </div>
-        
         <div class="reservation-list">
+        <h1 class="reservation-header">예약 현황</h1>
             <c:forEach var="reservation" items="${reservationList}">
-            <div class="reservation-items" onclick="openPopup(${reservation.resNo}, '${reservation.userName}', '${reservation.phone}', '${reservation.restaurantName}','${reservation.resPhone}', '${reservation.date}', ${reservation.headCount}, '${reservation.paymentStatus}')">
+            <div class="reservation-items" onclick="openPopup(${reservation.resNo}, '${reservation.userName}', '${reservation.phone}', '${reservation.restaurantName}', '${reservation.resPhone}', '${reservation.date}', ${reservation.headCount}, '${reservation.paymentStatus}', ${reservation.restaurantNo})">
                 <h5>예약 ${reservation.resNo}</h5>
                 <div>가게 이름 : ${reservation.restaurantName}</div>
                 <div>날짜 및 시간 : ${reservation.date}</div>        
                 <div>인원 : ${reservation.headCount}</div>        
-                <%-- <div>메뉴 : </div>
-                <div>총 가격 : </div>
-                <c:choose>
-                <c:when test="${reservation.paymentStatus == 'Y'}">
-                <div>결제 여부 : <div class="respaystatus-Y">${reservation.paymentStatus}</div></div>
-                </c:when>
-                <c:otherwise>
-                <div>결제 여부 : <div class="respaystatus-N">${reservation.paymentStatus}</div></div>
-                </c:otherwise>
-                </c:choose> --%>
-                </div>
+            </div>
             </c:forEach>
         </div>
     </main>
@@ -53,6 +38,9 @@
             <div>날짜 및 시간: <span id="popupDate"></span></div>
             <div>인원: <span id="popupHeadCount"></span></div>
             <div>결제 여부: <span id="popupPaymentStatus"></span></div>
+            <input type="hidden" id="popupRestaurantNo">
+            <button class="delete-btn" onclick="deleteReservation()">예약 삭제</button>
+            <button class="detail-btn" onclick="gotoRestaurant()">레스토랑으로 이동</button>
         </div>
     </div>
 
