@@ -16,9 +16,10 @@ public interface RestaurantService {
     public int updateRestaurant(RestaurantDto restaurant);
     public int deleteTag(int resNo);
     public int deleteMenu(int resNo);
+    public ArrayList<RestaurantDto> getTag(ArrayList<RestaurantDto> resDto);
     public ArrayList<String> getTag(int resNo);
     public int fileUpload(RestaurantDto resDto);
-    public ArrayList<Float> ratingsList(ArrayList<RestaurantDto> resDto);
+    public ArrayList<RestaurantDto> ratingsList(ArrayList<RestaurantDto> resDto);
 
 
 	

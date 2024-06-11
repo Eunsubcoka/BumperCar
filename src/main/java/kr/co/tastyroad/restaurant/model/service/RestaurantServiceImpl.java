@@ -66,11 +66,15 @@ public class RestaurantServiceImpl implements RestaurantService {
 		return restaurantDao.getTag(resNo);
 	}
 	@Override
+	 public ArrayList<RestaurantDto> getTag(ArrayList<RestaurantDto> resDto) {
+		return restaurantDao.getTag(resDto);
+	}
+	@Override
     public int fileUpload(RestaurantDto resDto) {
 	return restaurantDao.fileUpload(resDto);
 	}
 	@Override
-    public ArrayList<Float> ratingsList(ArrayList<RestaurantDto> resDto){
+    public ArrayList<RestaurantDto> ratingsList(ArrayList<RestaurantDto> resDto){
     	return restaurantDao.ratingsList(resDto);
     }
 
