@@ -43,8 +43,8 @@ public class RestaurantEditController extends HttpServlet {
 		response.setContentType("text/html; charset=utf-8");
 		response.setCharacterEncoding("utf-8");
 		request.setCharacterEncoding("utf-8");
-		int resNo = 14;
-//		int resNo = Integer.parseInt(request.getParameter("resNo"));
+//		int resNo = 14;
+		int resNo = Integer.parseInt(request.getParameter("resNo"));
 		
 		int count =1;
 		String food = request.getParameter("menu"+count);
