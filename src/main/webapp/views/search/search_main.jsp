@@ -21,20 +21,17 @@
         <a onclick="scrollToSection('notice')">공지사항</a>
         <a onclick="scrollToTop()">맨 위로</a>
     </div>
-    <main class="search-main">
+    <main class="search-main" id="search-main"
+          data-locations='[
+            <c:forEach var="restaurant" items="${restaurantList}" varStatus="status">
+                {"location": "${restaurant.location}", "name": "${restaurant.restaurantName}", "category": "${restaurant.category}", "restaurantNo": ${restaurant.restaurantNo}}<c:if test="${!status.last}">,</c:if>
+            </c:forEach>
+          ]'>
         <div class="search-header">
             <h1>검색 결과</h1>
         </div>
 
         <div id="map" style="width:100%;height:350px;"></div>
-
-        <script>
-            var locations = [
-                <c:forEach var="restaurant" items="${restaurantList}" varStatus="status">
-                    { name: "${restaurant.restaurantName}", location: "${restaurant.location}" }<c:if test="${!status.last}">,</c:if>
-                </c:forEach>
-            ];
-        </script>
 
         <div class="search-tab" id="restaurant">
             <h3>레스토랑</h3>

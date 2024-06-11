@@ -1,248 +1,355 @@
 body {
-    line-height: 20px !important;
+	line-height: 20px !important;
 }
 
 .search-main {
-    margin: 20px;
-    margin-left: 10%;
-    margin-right: 10%;
-    padding: 20px;
-    border: 1px solid #0000002b;
-    border-radius: 20px;
-    background-color: #f9f9f9;
-    min-height: 600px;
+	margin: 20px;
+	margin-left: 10%;
+	margin-right: 10%;
+	padding: 20px;
+	border: 1px solid #0000002b;
+	border-radius: 20px;
+	background-color: #f9f9f9;
+	min-height: 600px;
 }
 
 /* 검색 헤더 */
 .search-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #9194972b;
-    padding: 20px;
-    padding-bottom: 0px;
-    border-radius: 20px 20px 0px 0px;
-    text-align: center;
-    margin-bottom: 20px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: #9194972b;
+	padding: 20px;
+	padding-bottom: 0px;
+	border-radius: 20px 20px 0px 0px;
+	text-align: center;
+	margin-bottom: 20px;
 }
 
 /* 검색 탭 스타일 */
 .search-tab {
-    margin-top: 20px;
-    padding-left: 20px;
-    padding-right: 20px;
-    margin-bottom: 40px;
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+	margin-top: 20px;
+	padding-left: 20px;
+	padding-right: 20px;
+	margin-bottom: 40px;
+	background-color: #ffffff;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .search-tab h3 {
-    margin-bottom: 20px;
-    border-bottom: 2px solid #ddd;
-    padding-bottom: 10px;
+	margin-bottom: 20px;
+	border-bottom: 2px solid #ddd;
+	padding-bottom: 10px;
 }
 
 .search-tab ul {
-    list-style-type: none;
-    padding: 0;
+	list-style-type: none;
+	padding: 0;
 }
 
 /* 레스토랑 스타일 */
 .restaurant-list li {
-    padding: 10px 0;
-    border-bottom: 1px solid #eee;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: relative;
+	padding: 10px 0;
+	border-bottom: 1px solid #eee;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	position: relative;
 }
 
 .restaurant-list li:last-child {
-    border-bottom: none;
+	border-bottom: none;
 }
 
 .restaurant-list li a {
-    text-decoration: none;
-    color: #007bff;
-    font-weight: bold;
-    display: inline-block; 
-    position: relative; 
+	text-decoration: none;
+	color: #007bff;
+	font-weight: bold;
+	display: inline-block;
+	position: relative;
 }
 
 .restaurant-list li a:hover {
-    text-decoration: underline;
+	text-decoration: underline;
 }
 
 .restaurant-list li div {
-    font-size: 20px;
-    color: #666;
-    margin-top: 5px;
-    z-index: 0; /* 링크 아래에 위치하도록 설정 */
+	font-size: 20px;
+	color: #666;
+	margin-top: 5px;
+	z-index: 0; /* 링크 아래에 위치하도록 설정 */
 }
 
 /* 버튼 스타일 */
 .toggle-review-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: #ff9800;
-    border: 0px;
-    border-radius: 10px;
-    color: #ffffff;
-    padding: 10px;
-    z-index: 2; /* 링크 위에 위치하도록 설정 */
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	background-color: #ff9800;
+	border: 0px;
+	border-radius: 10px;
+	color: #ffffff;
+	padding: 10px;
+	z-index: 2; /* 링크 위에 위치하도록 설정 */
 }
 
 /* 공지사항 스타일 */
 .notice-list li {
-    padding: 10px 0;
-    border-bottom: 1px solid #eee;
-    display: flex;
-    flex-direction: column; /* 요소를 세로로 정렬 */
+	padding: 10px 0;
+	border-bottom: 1px solid #eee;
+	display: flex;
+	flex-direction: column; /* 요소를 세로로 정렬 */
 }
 
 .notice-list li a {
-    text-decoration: none;
-    color: #007bff;
-    font-weight: bold;
-    font-size: 20px;
+	text-decoration: none;
+	color: #007bff;
+	font-weight: bold;
+	font-size: 20px;
 }
 
 .notice-list li a:hover {
-    text-decoration: underline;
+	text-decoration: underline;
 }
 
 .notice-list li .notice-date {
-    font-size: 16px;
-    color: #666;
-    margin-top: 5px;
+	font-size: 16px;
+	color: #666;
+	margin-top: 5px;
 }
 
 .search-tab .d-flex {
-    margin-top: 20px;
+	margin-top: 20px;
 }
 
 .search-tab .d-flex a {
-    color: #007bff;
-    font-weight: bold;
-    text-decoration: none;
+	color: #007bff;
+	font-weight: bold;
+	text-decoration: none;
 }
 
 .search-tab .d-flex a:hover {
-    text-decoration: underline;
+	text-decoration: underline;
 }
 
 /* 플로팅 네비게이션 바 */
 .floating-nav {
-    position: fixed;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: #ff9800;
-    color: #ffffff;
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    text-align: center;
+	position: fixed;
+	right: 20px;
+	top: 50%;
+	transform: translateY(-50%);
+	background-color: #ff9800;
+	color: #ffffff;
+	padding: 10px;
+	border-radius: 10px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+	text-align: center;
 }
 
 .floating-nav a {
-    display: block;
-    color: #ffffff;
-    margin-bottom: 10px;
-    text-decoration: none;
+	display: block;
+	color: #ffffff;
+	margin-bottom: 10px;
+	text-decoration: none;
 }
 
 .floating-nav a:hover {
-    background-color: #e68900;
-    text-decoration: underline;
+	background-color: #e68900;
+	text-decoration: underline;
 }
 
 .floating-nav a:last-child {
-    margin-bottom: 0;
+	margin-bottom: 0;
 }
 
 /* 좌우 레이아웃 설정 */
 .search-results {
-    display: flex;
-    flex-direction: column;
+	display: flex;
+	flex-direction: column;
 }
 
 .restaurant-item {
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    width: 100%;
-    gap: 15px;
-    position: relative;
+	display: flex;
+	justify-content: flex-start;
+	align-items: flex-start;
+	width: 100%;
+	gap: 15px;
+	position: relative;
 }
 
 .restaurant-info {
-    width: calc(100% - 200px);
-    margin-left: 30px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    font-size: 20px;
+	width: calc(100% - 200px);
+	margin-left: 30px;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	font-size: 20px;
 }
 
 .restaurant-image {
-    width: 150px;
-    height: 150px;
-    background-color: #f0f0f0;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 10px;
-    flex-shrink: 0;
+	width: 150px;
+	height: 150px;
+	background-color: #f0f0f0;
+	padding: 10px;
+	margin-bottom: 10px;
+	border-radius: 10px;
+	flex-shrink: 0;
 }
 
 .review-box {
-    width: 30%;
-    max-height: 170px;
-    background-color: #f0f0f0;
-    padding: 10px;
-    padding-bottom: 0px;
-    border-radius: 10px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    margin-right: 115px;
-    margin-bottom: 5px;
-    display: none;
-    cursor: pointer; 
+	width: 30%;
+	max-height: 170px;
+	background-color: #f0f0f0;
+	padding: 10px;
+	padding-bottom: 0px;
+	border-radius: 10px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	margin-right: 115px;
+	margin-bottom: 5px;
+	display: none;
+	cursor: pointer;
 }
 
 .review-box:hover {
-    background-color: #06060620; 
+	background-color: #06060620;
 }
 
-.review-box-y{
-	text-decoration:none !important;
-	color:inherit !important;
+.review-box-y {
+	text-decoration: none !important;
+	color: inherit !important;
 }
-
 
 .fa-star:before {
-    content: "\f005";
-    color: #ff9800;
+	content: "\f005";
+	color: #ff9800;
 }
 
 .font-down {
-    font-size: 16px !important;
+	font-size: 16px !important;
 }
 
 .font-down-2 {
-    font-size: 12px !important;
+	font-size: 12px !important;
 }
 
 .review-box p {
-    margin-bottom: 5px;
+	margin-bottom: 5px;
 }
 
-.review-content{
-	font-weight:normal;
+.review-content {
+	font-weight: normal;
+}
+
+.wrap {
+	position: absolute;
+	left: 0;
+	bottom: 40px;
+	width: 288px;
+	height: 132px;
+	margin-left: -144px;
+	text-align: left;
+	overflow: hidden;
+	font-size: 12px;
+	font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;
+	line-height: 1.5;
+}
+
+.wrap * {
+	padding: 0;
+	margin: 0;
+}
+
+.wrap .info {
+	width: 286px;
+	height: 120px;
+	border-radius: 5px;
+	border-bottom: 2px solid #ccc;
+	border-right: 1px solid #ccc;
+	overflow: hidden;
+	background: #fff;
+}
+
+.wrap .info:nth-child(1) {
+	border: 0;
+	box-shadow: 0px 1px 2px #888;
+}
+
+.info .title {
+	padding: 5px 0 0 10px;
+	height: 30px;
+	background: #eee;
+	border-bottom: 1px solid #ddd;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.info .close {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	color: #888;
+	width: 17px;
+	height: 17px;
+	background:
+		url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');
+}
+
+.info .close:hover {
+	cursor: pointer;
+}
+
+.info .body {
+	position: relative;
+	overflow: hidden;
+}
+
+.info .desc {
+	position: relative;
+	margin: 13px 0 0 90px;
+	height: 75px;
+}
+
+.desc .ellipsis {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.desc .jibun {
+	font-size: 11px;
+	color: #888;
+	margin-top: -2px;
+}
+
+.info .img {
+	position: absolute;
+	top: 6px;
+	left: 5px;
+	width: 73px;
+	height: 71px;
+	border: 1px solid #ddd;
+	color: #888;
+	overflow: hidden;
+}
+
+.info:after {
+	content: '';
+	position: absolute;
+	margin-left: -12px;
+	left: 50%;
+	bottom: 0;
+	width: 22px;
+	height: 12px;
+	background:
+		url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')
+}
+
+.info .link {
+	color: #5085BB;
 }

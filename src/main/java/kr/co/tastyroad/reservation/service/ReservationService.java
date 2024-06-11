@@ -8,4 +8,5 @@ public interface ReservationService {
 	public int resEnroll(ReservationDto resDto);
 	public List<ReservationDto> getReservations(int userNo);
 
+	
 }
