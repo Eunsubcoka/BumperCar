@@ -29,9 +29,7 @@
 			<div class="res_left_container">
 				<div class="res_info_wrap">
 					<div class="res_header">
-						<img src="/assets/image/restaurant_images/김볶스.jpg" alt="대한옥">
-						<img src="/assets/image/restaurant_images/니뽕내뽕 안양1번가점.jpg"
-							alt="대한옥">
+						<img src="/assets/image/${result.imgName }" alt="대한옥">
 					</div>
 					<div class="details">
 						<h1 class="">${result.restaurantName }</h1>
@@ -57,31 +55,18 @@
 						</div>
 						<p class="address">&nbsp 주소: ${result.location }</p>
 						<p class="contact">&nbsp 전화: ${result.restaurantPhone }</p>
-						<p class="features">&nbsp 서민적인, 점심식사, 저녁식사, 좌식테이블</p>
 						<div class="share" onclick="openPop()">링크</div>
 					</div>
 
 					<div class="recommendations">
-						<h2>'띵호' 같은 중식 맛집</h2>
+						<h2>태그</h2>
+						<c:forEach var="tag" items="${tag}">
 						<div class="item">
-							<img src="/assets/image/logo.png" alt="대한옥">
 							<div class="info">
-								<span>하이디라오 영등포지점</span> <span>훠궈, 토마토</span>
+								<span>#${tag }</span> 
 							</div>
 						</div>
-						<div class="item">
-							<img src="/assets/image/logo.png" alt="대한옥">
-							<div class="info">
-								<span>승남집</span> <span>우삼겹, 야채 꽃살</span>
-							</div>
-						</div>
-						<div class="item">
-							<img src="/assets/image/logo.png" alt="대한옥">
-							<div class="info">
-								<span>부일갈비</span> <span>돼지갈비, 숯불갈비</span>
-							</div>
-
-						</div>
+						</c:forEach>
 					</div>
 				</div>
 				<div class="res_menu_wrap">
@@ -124,32 +109,32 @@
 						</c:when>
 						<c:otherwise>
 							<c:forEach var="item" items="${list}">
-							<div class="res_wrapper">
-					
-				<h5>${item.reviewTitle } </h5>
-					<div class="res_review_id">${sessionScope.userName}</div>
+								<div class="res_wrapper">
 
-								<div class="res_review_rating">
-									<span class="rating"><i class="fas fa-star"></i>${item.ratings}점</span>
+									<h5>${item.reviewTitle }</h5>
+									<div class="res_review_id">${sessionScope.userName}</div>
+
+									<div class="res_review_rating">
+										<span class="rating"><i class="fas fa-star"></i>${item.ratings}점</span>
+									</div>
+									<div class="res_review_img">
+										<c:forEach var="fileList" items="${fileList}">
+
+											<c:if test="${fileList.reviewNo == item.reviewNo}">
+												<img src="/assets/uploads/review/${fileList.fileName}"
+													alt="리뷰 사진 1">
+											</c:if>
+										</c:forEach>
+
+									</div>
+
+									<div class="res_review_content">
+										<a>${item.reviewContent}</a>
+									</div>
+
+
+
 								</div>
-								<div class="res_review_img">
-									<c:forEach var="fileList" items="${fileList}">
-									
-										<c:if test="${fileList.reviewNo == item.reviewNo}">
-											<img src="/assets/uploads/review/${fileList.fileName}"
-												alt="리뷰 사진 1">
-										</c:if>
-									</c:forEach>
-
-								</div>
-
-								<div class="res_review_content">
-									<a>${item.reviewContent}</a>
-								</div>
-
-
-
-							</div>
 							</c:forEach>
 						</c:otherwise>
 					</c:choose>
@@ -212,6 +197,6 @@
 	<script src="/assets/js/bootstrap.bundle.min.js"></script>
 
 	<div class="bg"></div>
-<%@ include file="/views/common/footer.jsp"%> 
+	<%@ include file="/views/common/footer.jsp"%>
 </body>
 </html>

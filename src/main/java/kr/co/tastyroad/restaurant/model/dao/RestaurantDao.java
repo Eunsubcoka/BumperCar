@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import kr.co.green.board.model.dto.FreeDtoImpl;
 import kr.co.tastyroad.common.DatabaseConnection;
 import kr.co.tastyroad.restaurant.model.dto.RestaurantDto;
 import kr.co.tastyroad.review.model.dto.ReviewDto;
@@ -25,8 +26,8 @@ public class RestaurantDao {
 
 	public RestaurantDto getRestaurant(int No) {
 		RestaurantDto result = new RestaurantDto();
-		String query = "Select * from restaurant "
-				+ " where restaurantNo = ?";
+		String query = "Select * from restaurant r JOIN RES_IMG ri ON ri.RESTAURANTNO = r.RESTAURANTNO  "
+				+ " where r.restaurantNo = ?";
 		
 		try {
 			System.out.println("여기는 겟레스 실행문입니다.");
@@ -40,12 +41,14 @@ public class RestaurantDao {
 				String location = rs.getString("location");
 				String phone = rs.getString("restaurantPhone");
 				String name = rs.getString("restaurantName");
+				String imgName = rs.getString("imgName");
 				
 				result.setRestaurantNo(No);
 				result.setCategory(category);
 				result.setLocation(location);
 				result.setRestaurantPhone(phone);
 				result.setRestaurantName(name);
+				result.setImgName(imgName);
 				
 				return result;
 			}
@@ -274,4 +277,71 @@ public class RestaurantDao {
   		
   		return 0;
   	}
+    public ArrayList<String> getTag(int resNo) {
+    	String query = "select * from res_tag where restaurantNo = ?";
+    	ArrayList<String> result = new ArrayList<String>();
+    	try {
+    			pstmt = con.prepareStatement(query);
+    			pstmt.setInt(1, resNo);
+    			
+    			ResultSet rs = pstmt.executeQuery();
+    			
+    			while(rs.next()) {
+    				result.add(rs.getString("tag"));
+    			}
+    			
+    		return result;
+    	} catch (SQLException e) {
+    		e.printStackTrace();
+    	}
+    	
+    	return null;
+    }
+    public int fileUpload(RestaurantDto resDto) {
+		String query = "Insert into res_img "
+					  +" Values(?,?)";
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, resDto.getFileName());
+			pstmt.setInt(2, resDto.getRestaurantNo());
+			
+			int result = pstmt.executeUpdate();
+			
+			return result;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		return 0;
+	}
+   
+    public void getFileName(RestaurantDto result) {
+		String query = "Select restaurantNo from restaurant "
+					+  " where restaurantNo = ? ";
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, result.No());
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				int no = rs.getInt("FBU_NO");
+				String name = rs.getString("fbu_name");
+				
+				result.setFileNo(no);
+				result.setFileName(name);
+				System.out.println(name);
+				System.out.println(no);
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+    
 }

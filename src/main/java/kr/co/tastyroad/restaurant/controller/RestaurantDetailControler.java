@@ -48,6 +48,9 @@ public class RestaurantDetailControler extends HttpServlet {
 		ArrayList<ReviewDto> list = new ArrayList<ReviewDto>(); 
 		list = reviewService.getReviewList(resNo); // 게시글 리스트
 		
+		ArrayList<String> tag = new ArrayList<String>();
+		tag = resService.getTag(resNo);
+		
 		float ratings = resService.ratings(resNo);
 		// uploadList = 각각의 게시글에 대한 파일명, 게시글 번호
 		ArrayList<ReviewDto> fileList = new ArrayList<ReviewDto>(); 
@@ -55,8 +58,8 @@ public class RestaurantDetailControler extends HttpServlet {
 		request.setAttribute("list", list);
 		request.setAttribute("fileList", fileList);
 		
-		request.setAttribute("ratings", ratings);
 		request.setAttribute("result", result);
+		request.setAttribute("tag", tag);
 		request.setAttribute("menuList", menuList);
 		
 		RequestDispatcher view = request.getRequestDispatcher("/views/restaurant/restaurantDetail.jsp");

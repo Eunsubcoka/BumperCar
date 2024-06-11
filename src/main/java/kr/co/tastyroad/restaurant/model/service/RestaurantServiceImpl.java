@@ -61,5 +61,13 @@ public class RestaurantServiceImpl implements RestaurantService {
 	public int deleteMenu(int resNo) {
 		return restaurantDao.deleteMenu(resNo);
 	}
+	@Override
+	 public ArrayList<String> getTag(int resNo) {
+		return restaurantDao.getTag(resNo);
+	}
+	@Override
+    public int fileUpload(RestaurantDto resDto) {
+	return restaurantDao.fileUpload(resDto);
+	}
 
 }

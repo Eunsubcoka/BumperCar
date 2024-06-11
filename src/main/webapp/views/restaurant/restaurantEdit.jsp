@@ -39,7 +39,7 @@
                 </div>                
                 <div class="input-container">
                     <label for="title">상호명:</label>
-                    <input type="text" id="name" name="restaurantName" required>
+                    <input type="text" id="name" name="restaurantName" value="${resDto.restaurantName }" required>
                 </div>
                 <div class="input-container">
                     <label for="title">카테고리:</label>
@@ -52,7 +52,7 @@
                 </div>
                 <div class="input-container">
                     <label for="title">가게 전화번호:</label>
-                    <input type="text" id="phone" name="phone" required>
+                    <input type="text" id="phone" name="phone" value="${resDto.restaurantPhone }" required>
                 </div>
                 <div class="input-container">
                     <label for="title">태그:</label>
@@ -66,7 +66,7 @@
                 </div>
                 <div class="input-container">
                     <label for="author">주소:</label>
-                    <input type="text" id="sample5_address" name="addr" placeholder="주소">
+                    <input type="text" id="sample5_address" name="addr" placeholder="주소" value="${resDto.location }">
 
 					<input type="button" onclick="sample5_execDaumPostcode()" value="주소 검색"><br>
 
