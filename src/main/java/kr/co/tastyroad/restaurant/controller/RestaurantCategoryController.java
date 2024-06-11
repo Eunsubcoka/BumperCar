@@ -45,14 +45,14 @@ public class RestaurantCategoryController extends HttpServlet {
 		restaurantList = resService.getRestaurantList(category);
 		
 
-		ArrayList<ReviewDto> reviewList = new ArrayList<ReviewDto>();
+//		ArrayList<ReviewDto> reviewList = new ArrayList<ReviewDto>();
 //		reviewList = reviewService.getReviewListOnce(restaurantList); // 게시글 리스트
-//		float ratings = resService.ratings(resNo);
+		float ratings = resService.ratings(restaurantList);
 
 		
 		request.setAttribute("restaurantList", restaurantList);
 //		request.setAttribute("reviewList", reviewList);
-//		request.setAttribute("ratings", ratings);
+		request.setAttribute("ratings", ratings);
 
 	
 		RequestDispatcher view = request.getRequestDispatcher("/views/restaurant/restaurantList.jsp");

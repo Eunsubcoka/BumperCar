@@ -113,6 +113,29 @@ public class RestaurantDao {
 		}
     	return 0;
     }
+    public ArrayList<Float> ratingsList(ArrayList<RestaurantDto> resDto) {
+    	String query = "SELECT AVG(r2.RATINGS) FROM RESTAURANT r " 
+    			+ "JOIN REVIEWS r2  ON r2.RESTAURANTNO = ?"; 
+
+    	float result = 0;
+    	try {
+    		for(RestaurantDto item : resDto) {
+			pstmt=con.prepareStatement(query);
+			pstmt.setInt(1, item.getRestaurantNo());
+			
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				result = rs.getFloat("AVG(r2.RATINGS)");
+				item.setRatings(result);
+				
+			}
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	return 0;
+    }
     
     public ArrayList<RestaurantDto> getRestaurantList(int category) {
     	ArrayList<RestaurantDto> result = new ArrayList<RestaurantDto>();

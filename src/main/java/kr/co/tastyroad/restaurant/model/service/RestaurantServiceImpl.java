@@ -69,5 +69,9 @@ public class RestaurantServiceImpl implements RestaurantService {
     public int fileUpload(RestaurantDto resDto) {
 	return restaurantDao.fileUpload(resDto);
 	}
+	@Override
+    public ArrayList<Float> ratingsList(ArrayList<RestaurantDto> resDto){
+    	return restaurantDao.ratingsList(resDto);
+    }
 
 }
