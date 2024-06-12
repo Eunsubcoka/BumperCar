@@ -41,19 +41,20 @@ public class RestaurantCategoryController extends HttpServlet {
 		
 		RestaurantDto result = new RestaurantDto();
 		ArrayList<RestaurantDto> restaurantList = new ArrayList<RestaurantDto>();
+		String type = request.getParameter("seleType");
+		
+		System.out.println(type);
 		
 		restaurantList = resService.getRestaurantList(category);
 		
-
-		ArrayList<ReviewDto> reviewList = new ArrayList<ReviewDto>();
+		System.out.println(restaurantList);
+//		ArrayList<ReviewDto> reviewList = new ArrayList<ReviewDto>();
 //		reviewList = reviewService.getReviewListOnce(restaurantList); // 게시글 리스트
-//		float ratings = resService.ratings(resNo);
-
+		resService.ratingsList(restaurantList);
+		resService.getTag(restaurantList);
 		
 		request.setAttribute("restaurantList", restaurantList);
 //		request.setAttribute("reviewList", reviewList);
-//		request.setAttribute("ratings", ratings);
-
 	
 		RequestDispatcher view = request.getRequestDispatcher("/views/restaurant/restaurantList.jsp");
 		view.forward(request,response);

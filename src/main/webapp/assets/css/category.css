@@ -56,6 +56,7 @@
 	padding-right: 12px;
         padding-left: 12px;
         padding-bottom: 0;
+        text-align: -webkit-center;
 }
 .title02{
 	display: block;
@@ -69,18 +70,21 @@
 
 }
 .res_ul{
-	    overflow: hidden;
-    display: table;
-    width: 100%;
+	overflow: hidden;
+    width: 1200px;
+    display: flex;
     table-layout: fixed;
+    flex-wrap: wrap;
+    flex-direction: row;
+
+	}
 	
-}
 .res_li{
-	    float: left;
+	float: left;
     width: 280px;
     padding-bottom: 44px;
     display: table-cell;
-    margin-right: 40px;
+    margin: 0 40px 0 40px;
     vertical-align: top;
 	
 }

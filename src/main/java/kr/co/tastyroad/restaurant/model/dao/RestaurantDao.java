@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import kr.co.green.board.model.dto.FreeDtoImpl;
 import kr.co.tastyroad.common.DatabaseConnection;
 import kr.co.tastyroad.restaurant.model.dto.RestaurantDto;
 import kr.co.tastyroad.review.model.dto.ReviewDto;
@@ -37,7 +36,7 @@ public class RestaurantDao {
 			ResultSet rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				String category = rs.getString("category");
+				int category = rs.getInt("category");
 				String location = rs.getString("location");
 				String phone = rs.getString("restaurantPhone");
 				String name = rs.getString("restaurantName");
@@ -113,6 +112,30 @@ public class RestaurantDao {
 		}
     	return 0;
     }
+    public ArrayList<RestaurantDto> ratingsList(ArrayList<RestaurantDto> resDto) {
+    	String query = "SELECT AVG(r2.RATINGS) FROM RESTAURANT r " 
+    			+ "JOIN REVIEWS r2  ON r2.RESTAURANTNO = ?"; 
+
+    	
+    	try {
+    		for(RestaurantDto item : resDto) {
+			pstmt=con.prepareStatement(query);
+			pstmt.setInt(1, item.getRestaurantNo());
+			
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				
+				item.setRatings(rs.getFloat("AVG(r2.RATINGS)"));
+				
+				
+			}
+			}
+			return resDto;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	return null;
+    }
     
     public ArrayList<RestaurantDto> getRestaurantList(int category) {
     	ArrayList<RestaurantDto> result = new ArrayList<RestaurantDto>();
@@ -133,6 +156,7 @@ public class RestaurantDao {
 			String Name = rs.getString("restaurantName");
 			resList.setRestaurantName(Name);
 			resList.setImgName(imgName);
+			resList.setCategory(category);
 			resList.setRestaurantNo(resNo);
 			result.add(resList) ;
 			
@@ -191,7 +215,7 @@ public class RestaurantDao {
 		String query = "insert into restaurant values(restaurant_seq.nextval,?,?,?,?)";
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, restaurant.getCategory());
+			pstmt.setInt(1, restaurant.getCategory());
 			pstmt.setString(2, restaurant.getLocation());
 			pstmt.setString(3, restaurant.getRestaurantPhone());
 			pstmt.setString(4, restaurant.getRestaurantName());
@@ -229,7 +253,7 @@ public class RestaurantDao {
 		String query = "Update restaurant set category = ?, location= ?, restaurantPhone =?, restaurantName = ?";
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, restaurant.getCategory());
+			pstmt.setInt(1, restaurant.getCategory());
 			pstmt.setString(2, restaurant.getLocation());
 			pstmt.setString(3, restaurant.getRestaurantPhone());
 			pstmt.setString(4, restaurant.getRestaurantName());
@@ -277,12 +301,32 @@ public class RestaurantDao {
   		
   		return 0;
   	}
+    public ArrayList<RestaurantDto> getTag(ArrayList<RestaurantDto> resDto) {
+    	String query = "select * from res_tag where restaurantNo = ?";
+    	try {
+    			pstmt = con.prepareStatement(query);
+    			for(RestaurantDto item : resDto) {
+    			pstmt.setInt(1,item.getRestaurantNo() );
+    			
+    			ResultSet rs = pstmt.executeQuery();
+    			
+    			while(rs.next()) {
+    				item.setTag(rs.getString("tag"));
+    			}
+    			}
+    		return resDto;
+    	} catch (SQLException e) {
+    		e.printStackTrace();
+    	}
+    	
+    	return null;
+    }
     public ArrayList<String> getTag(int resNo) {
     	String query = "select * from res_tag where restaurantNo = ?";
     	ArrayList<String> result = new ArrayList<String>();
     	try {
     			pstmt = con.prepareStatement(query);
-    			pstmt.setInt(1, resNo);
+    			pstmt.setInt(1,resNo);
     			
     			ResultSet rs = pstmt.executeQuery();
     			
@@ -297,6 +341,7 @@ public class RestaurantDao {
     	
     	return null;
     }
+    
     public int fileUpload(RestaurantDto resDto) {
 		String query = "Insert into res_img "
 					  +" Values(?,?)";
@@ -320,7 +365,8 @@ public class RestaurantDao {
 		return 0;
 	}
    
-//  public void getFileName(RestaurantDto result) {
+
+//    public void getFileName(RestaurantDto result) {
 //		String query = "Select restaurantNo from restaurant "
 //					+  " where restaurantNo = ? ";
 //		try {

@@ -49,7 +49,7 @@ public class RestaurantAddController extends HttpServlet {
 		String food = request.getParameter("menu"+count);
 		int price = Integer.parseInt(request.getParameter("price"+count));
 		String name = request.getParameter("restaurantName");
-		String category = request.getParameter("category");
+		int category = Integer.parseInt(request.getParameter("category"));
 		String phone = request.getParameter("phone");
 		String addr = request.getParameter("addr");
 		RestaurantDto restaurant = new RestaurantDto();
@@ -68,9 +68,10 @@ public class RestaurantAddController extends HttpServlet {
 		ArrayList<RestaurantDto> menu = new ArrayList<RestaurantDto>(); // 메뉴 리스트
 		
 		RestaurantDto resDto = new RestaurantDto();
+		resDto.setRestaurantNo(no);
 		//파일 업로드
 				Collection<Part> parts = request.getParts();
-				String uploadDirectory = "C:\\dev\\work-space\\semiProject\\BumperCar\\src\\main\\webapp\\assets\\image";
+				String uploadDirectory = "C:\\DEV\\semiProject\\src\\main\\webapp\\assets\\image";
 				
 				//파일 업로드 디렉토리가 존재하지 않으면 생성
 				File filePath = new File(uploadDirectory);
