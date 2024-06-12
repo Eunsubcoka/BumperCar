@@ -20,7 +20,7 @@ public interface RestaurantService {
     public ArrayList<String> getTag(int resNo);
     public int fileUpload(RestaurantDto resDto);
     public ArrayList<RestaurantDto> ratingsList(ArrayList<RestaurantDto> resDto);
-
+    public int deleteImg(int resNo);
 
 	
 }

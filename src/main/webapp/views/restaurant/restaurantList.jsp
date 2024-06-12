@@ -41,7 +41,9 @@
                             <div class="cnt">
                                 <div class="score">평점: ${restaurant.ratings }</div>
                                 <div class="box_tit">${restaurant.restaurantName}</div>
-                                <div class="res_tag">${restaurant.tag}</div>
+								<div class="res_tag"><c:forEach var="tag" items="${tag}">
+                                <c:if test="${restaurant.restaurantNo == tag.restaurantNo }">#${tag.tag} </c:if>
+                                </c:forEach></div>
                             </div>
                             
                             <button type="button" onclick="location.href='/tastyForm/resEdit.do?resNo=${restaurant.restaurantNo}'">수정하기</button>

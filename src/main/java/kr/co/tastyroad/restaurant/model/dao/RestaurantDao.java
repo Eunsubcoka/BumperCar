@@ -297,6 +297,21 @@ public class RestaurantDao {
     	
     	return 0;
     }
+    public int deleteImg(int resNo) {
+    	String query = "delete from res_img where restaurantNo = ?";
+    	int result = 0;
+    	try {
+    		pstmt = con.prepareStatement(query);
+    		pstmt.setInt(1, resNo);
+    		
+    		pstmt.executeUpdate();
+    		return result;
+    	} catch (SQLException e) {
+    		e.printStackTrace();
+    	}
+    	
+    	return 0;
+    }
     
     public int deleteMenu(int resNo) {
   		String query = "Delete from menu where restaurantNo = ?";
@@ -317,6 +332,7 @@ public class RestaurantDao {
   	}
     public ArrayList<RestaurantDto> getTag(ArrayList<RestaurantDto> resDto) {
     	String query = "select * from res_tag where restaurantNo = ?";
+    	ArrayList<RestaurantDto> tag = new ArrayList<RestaurantDto>();
     	try {
     			pstmt = con.prepareStatement(query);
     			for(RestaurantDto item : resDto) {
@@ -325,10 +341,15 @@ public class RestaurantDao {
     			ResultSet rs = pstmt.executeQuery();
     			
     			while(rs.next()) {
-    				item.setTag(rs.getString("tag"));
+    				RestaurantDto tagCon = new RestaurantDto();
+    				
+    				tagCon.setTag(rs.getString("tag"));
+    				tagCon.setRestaurantNo(rs.getInt("restaurantNo"));
+    				
+    				tag.add(tagCon);
     			}
     			}
-    		return resDto;
+    		return tag;
     	} catch (SQLException e) {
     		e.printStackTrace();
     	}

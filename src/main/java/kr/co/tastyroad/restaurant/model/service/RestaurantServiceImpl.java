@@ -77,5 +77,9 @@ public class RestaurantServiceImpl implements RestaurantService {
     public ArrayList<RestaurantDto> ratingsList(ArrayList<RestaurantDto> resDto){
     	return restaurantDao.ratingsList(resDto);
     }
+	@Override
+    public int deleteImg(int resNo) {
+		return restaurantDao.deleteImg(resNo);
+	}
 
 }

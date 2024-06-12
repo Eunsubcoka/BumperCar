@@ -25,6 +25,7 @@
         <div class="container-review">
             <div class="review">
             <input type="hidden" name="userNo" value="${sessionScope.userNo}">
+            <input type="hidden" name="resNo" value="${resDto.restaurantNo}">
                  <!-- 버튼 -->
                 <div id="btn">
                     <img alt="" src="/assets/image/${resDto.imgName }">
