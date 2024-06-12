@@ -34,7 +34,7 @@ public void setFileName(String fileName) {
 
 
 private int restaurantNo;
-private String category;
+private int category;
 private String location;
 private String restaurantPhone;
 private String restaurantName;
@@ -49,14 +49,7 @@ public float getRatings() {
 public void setRatings(float ratings) {
 	this.ratings = ratings;
 }
-private String tags;
 
-public String getTags() {
-	return tags;
-}
-public void setTags(String tags) {
-	this.tags = tags;
-}
 public String getImgName() {
 	return imgName;
 }
@@ -88,10 +81,10 @@ public int getRestaurantNo() {
 public void setRestaurantNo(int restaurantNo) {
 	this.restaurantNo = restaurantNo;
 }
-public String getCategory() {
+public int getCategory() {
 	return category;
 }
-public void setCategory(String category) {
+public void setCategory(int category) {
 	this.category = category;
 }
 public String getLocation() {

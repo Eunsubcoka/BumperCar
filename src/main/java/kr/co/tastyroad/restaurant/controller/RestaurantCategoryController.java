@@ -37,24 +37,27 @@ public class RestaurantCategoryController extends HttpServlet {
 		int category = Integer.parseInt(request.getParameter("category"));
 		ReviewServiceImpl reviewService = new ReviewServiceImpl();
 		RestaurantServiceImpl resService = new RestaurantServiceImpl();
-
+		
 		
 		RestaurantDto result = new RestaurantDto();
 		ArrayList<RestaurantDto> restaurantList = new ArrayList<RestaurantDto>();
+		ArrayList<RestaurantDto> tag = new ArrayList<RestaurantDto>();
+		String seleType = request.getParameter("seleType");
 		
-		restaurantList = resService.getRestaurantList(category);
 		
-
-		ArrayList<ReviewDto> reviewList = new ArrayList<ReviewDto>();
+		restaurantList = resService.getRestaurantList(category,seleType);
+		
+//		ArrayList<ReviewDto> reviewList = new ArrayList<ReviewDto>();
 //		reviewList = reviewService.getReviewListOnce(restaurantList); // 게시글 리스트
-//		float ratings = resService.ratings(resNo);
-
+		resService.ratingsList(restaurantList);
+		tag = resService.getTag(restaurantList);
 		
 		request.setAttribute("restaurantList", restaurantList);
+		request.setAttribute("category", category);
+		request.setAttribute("seleType", seleType);
+		request.setAttribute("tag", tag);
 //		request.setAttribute("reviewList", reviewList);
-//		request.setAttribute("ratings", ratings);
-
-	
+		
 		RequestDispatcher view = request.getRequestDispatcher("/views/restaurant/restaurantList.jsp");
 		view.forward(request,response);
 		
