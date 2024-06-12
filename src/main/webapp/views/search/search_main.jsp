@@ -24,7 +24,7 @@
     <main class="search-main" id="search-main"
           data-locations='[
             <c:forEach var="restaurant" items="${restaurantList}" varStatus="status">
-                {"location": "${restaurant.location}", "name": "${restaurant.restaurantName}", "category": "${restaurant.category}", "restaurantNo": ${restaurant.restaurantNo}}<c:if test="${!status.last}">,</c:if>
+                {"location": "${restaurant.location}", "name": "${restaurant.restaurantName}", "tags": "${restaurant.tag}", "restaurantNo": ${restaurant.restaurantNo}}<c:if test="${!status.last}">,</c:if>
             </c:forEach>
           ]'>
         <div class="search-header">

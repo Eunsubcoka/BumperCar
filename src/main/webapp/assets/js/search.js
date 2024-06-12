@@ -76,7 +76,7 @@ function addMarkers() {
     var searchMain = document.getElementById('search-main');
     var locations = JSON.parse(searchMain.dataset.locations);
 
-//검색된 list의 각각의 위치를 표시 
+    // 검색된 list의 각각의 위치를 표시 
     locations.forEach(function(location) {
         geocoder.addressSearch(location.location, function(result, status) {	// addressSearch -> 주소로 입력하면, 해당 주소를 위도 경도로 변환해줌
             if (status === kakao.maps.services.Status.OK) {
@@ -86,6 +86,16 @@ function addMarkers() {
                     position: coords
                 });
                 markers.push(marker);
+
+                // 태그를 배열로 나눔
+                var tags = location.tags.split(',');
+
+                // 태그를 리스트로 만듦
+                var tagsList = '<ul class="tags">';
+                tags.forEach(function(tag) {
+                    tagsList += '<li>' + tag.trim() + '</li>';
+                });
+                tagsList += '</ul>';
 
                 var content = document.createElement('div');
                 content.className = 'wrap';
@@ -101,7 +111,7 @@ function addMarkers() {
                     '        </div>' +
                     '        <div class="desc">' +
                     '            <div class="ellipsis">' + location.location + '</div>' +
-                    '            <div class="category ellipsis">' + location.category + '</div>' +
+                    '            <div class="tags ellipsis">' + tagsList + '</div>' +
                     '            <div><a href="/restaurantDetail.do?restaurantId=' + location.restaurantNo + '" target="_blank" class="link">상세보기</a></div>' +
                     '        </div>' +
                     '    </div>' +
