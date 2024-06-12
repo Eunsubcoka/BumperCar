@@ -72,12 +72,9 @@ function getImageFiles(event) {
             alert(`이미지는 ${maxImages}장까지 업로드할 수 있습니다.`);
 			break;
         }
-		
-			const imageName = `image_${fdCount}`; // 고유한 이미지 이름 생성
-			fd.append(imageName, image); // 다른 name -> imageDiv의 id값과 같게 설정
-			console.log(image);
-			fdCount++;
-			
+		const imageName = `image_${fdCount}`; // 고유한 이미지 이름 생성
+		fd.append(imageName, image); 
+		fdCount++;
 		
         let img = document.createElement("img");
         const reader = new FileReader(); 
@@ -88,10 +85,8 @@ function getImageFiles(event) {
 
             // 이미지를 감싸는 div 요소 생성
             const imageDiv = document.createElement("div");
-			imageDiv.id = "imageName";
             imageDiv.classList.add("review-photo");
             imageDiv.appendChild(img); // 이미지 추가
-			// 위에서 생성된 name을 id같은 속성에 넣고
 
             // 이미지 삭제 버튼 생성
             const closeButton = document.createElement("img");
@@ -100,7 +95,6 @@ function getImageFiles(event) {
             closeButton.onclick = function() {
                 imageDiv.remove(); // 이미지 요소 삭제
                 fd.delete(imageName); // FormData에서 이미지 삭제
-                console.log("Deleted image with key:", imageName);
             };
             
             // close 버튼 스타일 추가

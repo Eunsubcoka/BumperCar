@@ -39,7 +39,6 @@ public class ReviewEditController extends HttpServlet {
 		
 		int maxIndex = Integer.parseInt(request.getParameter("maxIndex"));
 		
-		
 		ReviewDto reviewDto = new ReviewDto();
 		reviewDto.setReviewNo(reviewNo);
 		reviewDto.setRestaurantNo(restaurantNo);

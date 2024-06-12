@@ -1,4 +1,3 @@
-
 //별점 기능 함수
 function executeRating(stars, ratingValueElement, initialRating) {
     const starClassActive = "fas fa-star"; // 활성화된 별 아이콘 클래스
@@ -42,8 +41,10 @@ window.onload = function() {
     executeRating(ratingStars, ratingValueElement, initialRating);
 };
 
-
 // 이미지 업로드 
+let fd = new FormData();
+let fdCount = 0; 
+
 function getImageFiles(event) {
     const maxImages = 3; // 최대 이미지 개수
 
@@ -63,18 +64,22 @@ function getImageFiles(event) {
             alert(`이미지는 ${maxImages}장까지 업로드할 수 있습니다.`);
             break; // 반복문 종료;
         }
-
-		// 업로드한 이미지 append
+        
+		const imageName = `image_${fdCount}`; // 고유한 이미지 이름 생성
+		fd.append(imageName, image); 
+		fdCount++;
 
         let img = document.createElement("img"); //img요소 생성
         const reader = new FileReader();
         reader.onload = function(event) {
             img.setAttribute("src", event.target.result); // 생성된 img 요소에 src 속성 추가하기
 			img.classList.add("photo"); //img태그에 class명 추가 photo
-
+			img.id = imageName; // 이미지에 고유한 id 부여
+			
             // 이미지를 감싸는 div 요소 생성
             const imageDiv = document.createElement("div"); //div요소 생성
             imageDiv.classList.add("review-photo");
+			imageDiv.appendChild(img); // 이미지 추가
 
 	        // 삭제 버튼 생성
             const closeButton  = document.createElement("img");
@@ -82,6 +87,7 @@ function getImageFiles(event) {
             closeButton.setAttribute("src", "/assets/image/close.png");
             closeButton.onclick = function() {
                 imageDiv.remove();
+				fd.delete(imageName);
             };
             
             imageDiv.appendChild(closeButton);
@@ -89,14 +95,46 @@ function getImageFiles(event) {
 
             // 이미지를 표시할 컨테이너에 추가 -> <div><imageDiv></imageDiv></div>
             document.querySelector("div#image_container").appendChild(imageDiv);
-
-			// FormData에 이미지 정보 추가
-            const fd = new FormData();
-            fd.append("image", image);
-
+			
         }
         reader.readAsDataURL(image);
     }
+}
+
+/*// "리뷰 수정" 버튼 클릭 시 실행되는 함수
+function submitReview(event) {
+    // FormData에 추가할 데이터 가져오기
+    const title = document.getElementById("title").value;
+    const reviewContent = document.getElementById("reviewContent").value;
+    const ratingStars = document.getElementById("ratingHidden").value;
+    const reviewNo = document.getElementById("reviewNo").value;
+    const restaurantNo = document.getElementById("restaurantNo").value;
+
+    fd.append("title", title);
+    fd.append("reviewContent", reviewContent);
+    fd.append("ratingStars", ratingStars);
+    fd.append("reviewNo", reviewNo);
+    fd.append("restaurantNo", restaurantNo);
+
+    $.ajax({
+        url: '/review/reviewEdit.do',
+        type: 'POST',
+        data: fd,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+            console.log(response);
+            // 성공 메시지 표시
+            alert("리뷰가 성공적으로 등록되었습니다!");
+            // 페이지 이동
+            location.href = '/review/review.do?reviewNo=' + reviewNo + '&restaurantNo=' + restaurantNo;
+        },
+        error: function(error) {
+            console.error("Error:", error);
+            // 실패 메시지 표시
+            alert("리뷰 등록에 실패했습니다. 다시 시도해주세요.");
+        }
+    });*/
 }
 
 // 이미지 삭제 함수 (Edit)
@@ -114,5 +152,4 @@ function imageClose(event, index) {
 		removeImageStatus.value = "true";
     }
 }
-
 

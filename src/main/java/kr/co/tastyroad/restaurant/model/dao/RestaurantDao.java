@@ -320,28 +320,28 @@ public class RestaurantDao {
 		return 0;
 	}
    
-    public void getFileName(RestaurantDto result) {
-		String query = "Select restaurantNo from restaurant "
-					+  " where restaurantNo = ? ";
-		try {
-			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, result.No());
-			ResultSet rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				int no = rs.getInt("FBU_NO");
-				String name = rs.getString("fbu_name");
-				
-				result.setFileNo(no);
-				result.setFileName(name);
-				System.out.println(name);
-				System.out.println(no);
-			}
-		
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-	}
+//  public void getFileName(RestaurantDto result) {
+//		String query = "Select restaurantNo from restaurant "
+//					+  " where restaurantNo = ? ";
+//		try {
+//			pstmt = con.prepareStatement(query);
+//			pstmt.setInt(1, result.No());
+//			ResultSet rs = pstmt.executeQuery();
+//			
+//			while(rs.next()) {
+//				int no = rs.getInt("FBU_NO");
+//				String name = rs.getString("fbu_name");
+//				
+//				result.setFileNo(no);
+//				result.setFileName(name);
+//				System.out.println(name);
+//				System.out.println(no);
+//			}
+//		
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		
+//	}
     
 }
