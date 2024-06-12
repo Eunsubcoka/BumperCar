@@ -19,9 +19,9 @@
 <section>
     <div class="container-review-box">
         <h1>${list[0].restaurantName}</h1>
-        <form action="/review/reviewEdit.do" method="POST" enctype="multipart/form-data">
-        <input type="hidden" name="reviewNo" value="${result.reviewNo}"/>
-        <input type="hidden" name="restaurantNo" value="${result.restaurantNo}"/>
+        <!-- <form action="/review/reviewEdit.do" method="POST" enctype="multipart/form-data"> -->
+        <input type="hidden" name="reviewNo" id="reviewNo" value="${result.reviewNo}"/>
+        <input type="hidden" name="restaurantNo" id="restaurantNo" value="${result.restaurantNo}"/>
         <input type="hidden" name="ratings" id="ratingHidden" value="${result.ratings}"/>
         <div class="container-review">
             <div class="review">
@@ -45,7 +45,7 @@
                	</div>
                 <div class="content">
                 	<label for="content">내용:</label>
-                    <textarea name="reviewContent" required>${result.reviewContent}</textarea>
+                    <textarea name="reviewContent" id="reviewContent" required>${result.reviewContent}</textarea>
                 </div>
                      <p>*사진은 최대 3장까지 가능합니다.</p>
 				<div class="image_container" id="image_container"> <!-- varStatus : 상태변수 , ${status.count} :1부터 시작 순서-->
@@ -58,18 +58,18 @@
 							<c:set var="maxIndex" value="${status.count}" /> 
 					        <input type="hidden" name="removeImageName-${status.count}" id="removeImageName-${status.count}" value="${fileList.fileName}"/>
 					        <input type="hidden" name="removeImageStatus-${status.count}" id="removeImageStatus-${status.count}" value="false"/>
-							<input type="hidden" name="fileName" value="${fileList.fileName}"/>
-							<input type="hidden" name="filePath" value="${fileList.filePath}"/>
+							<input type="hidden" name="fileName" id="fileName" value="${fileList.fileName}"/>
+							<input type="hidden" name="filePath" id="filePath" value="${fileList.filePath}"/>
 							<div class="review-photo">
 								<img class="close" src="/assets/image/close.png" onclick="imageClose(event, '${status.count}')">
 								<img class="photo" src="/assets/uploads/review/${fileList.fileName}" alt="리뷰 사진">
 							</div>
 						</c:if>
 					</c:forEach>
-					<input type="hidden" name="maxIndex" value="${maxIndex }"> <!-- 컨트롤러로 값보내기 -->
+					<input type="hidden" name="maxIndex" id="maxIndex" value="${maxIndex }"> <!-- 컨트롤러로 값보내기 -->
 				</div>
                 <div id="btn">
-                     <button type="submit">수정</button>
+                     <button onclick="submitReview()">수정</button>
                      <!-- <label>태그의 for속성을 사용하여 연결 - input태그의 id값 입력 -->
                      <label for="file" class="btn-upload">이미지추가</label>
                      <input type="file" name="file" id="file" onchange="getImageFiles(event);" multiple>                    
@@ -77,7 +77,7 @@
                 </div>
             </div>
         </div>
-        </form>
+        <!-- </form> -->
     </div>
 </section> 
 

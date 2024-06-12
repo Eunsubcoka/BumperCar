@@ -41,7 +41,6 @@ public class ReivewDeleteController extends HttpServlet {
 		
 		if(result == 1) {
 			response.sendRedirect("/review/review.do?reviewNo=" + reviewNo + "&restaurantNo=" + restaurantNo);	
-			// 디스패처 왜???????????
 		}
 		else {
 			response.sendRedirect("/");
