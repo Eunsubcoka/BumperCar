@@ -4,6 +4,7 @@ public class searchDto {
     private int restaurantNo;
     private String tags;
     private String imgName;
+    
 
     public String getImgName() {
         return imgName;

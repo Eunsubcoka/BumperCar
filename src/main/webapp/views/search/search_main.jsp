@@ -7,8 +7,8 @@
 <html lang="en">
 <head>
     <%@ include file="/views/common/head.jsp"%>
-    <link rel="stylesheet" href="/assets/css/search.css">
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=597a12321ce91d26c9101324b5955ebd&libraries=services"></script>
+    <link rel="stylesheet" href="/assets/css/search.css">
 </head>
 <body>
 
@@ -31,7 +31,7 @@
             <h1>검색 결과</h1>
         </div>
 
-        <div id="map" style="width:100%;height:350px;"></div>
+        <div id="map" style="width:100%;height:450px;"></div>
 
         <div class="search-tab" id="restaurant">
             <h3>레스토랑</h3>

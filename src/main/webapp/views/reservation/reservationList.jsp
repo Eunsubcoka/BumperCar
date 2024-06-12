@@ -15,9 +15,9 @@
     <main class="reservation-main">
         <div class="reservation-list">
         <h1 class="reservation-header">예약 현황</h1>
-            <c:forEach var="reservation" items="${reservationList}">
+            <c:forEach var="reservation" items="${reservationList}" varStatus="status">
             <div class="reservation-items" onclick="openPopup(${reservation.resNo}, '${reservation.userName}', '${reservation.phone}', '${reservation.restaurantName}', '${reservation.resPhone}', '${reservation.date}', ${reservation.headCount}, '${reservation.paymentStatus}', ${reservation.restaurantNo})">
-                <h5>예약 ${reservation.resNo}</h5>
+                <h5>예약 ${status.index + 1}</h5> 
                 <div>가게 이름 : &nbsp;${reservation.restaurantName}</div>
                 <div>날짜 및 시간 : &nbsp;${reservation.date}</div>        
                 <div>인원 : &nbsp;${reservation.headCount}</div>        

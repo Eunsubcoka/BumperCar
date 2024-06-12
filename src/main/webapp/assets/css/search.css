@@ -353,3 +353,9 @@ body {
 .info .link {
 	color: #5085BB;
 }
+
+.user-info-content{
+	padding:5px; 
+	width:150px;
+	text-align:center !important;
+}

@@ -1,63 +1,138 @@
-var mapContainer = document.getElementById('map'),
-    mapOption = {
-        center: new kakao.maps.LatLng(37.3987966098124, 126.920790701382), // 중심좌표
-        level: 5 // 확대 레벨
-    };
+var mapContainer = document.getElementById('map');
+var map;
+var userInfoWindow; // 내 위치 인포윈도우 변수
+var userMarker; // 내 위치 마커 변수
+var markers = []; // 모든 마커를 저장할 배열
+var overlays = []; // 모든 오버레이를 저장할 배열
 
-var map = new kakao.maps.Map(mapContainer, mapOption);
+// 사용자 위치를 가져옴
+function initializeMap() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var lat = position.coords.latitude;	//위도
+            var lon = position.coords.longitude;	//경도
+            var userLocation = new kakao.maps.LatLng(lat, lon);	//-> 나의 (위도,경도)
 
-var geocoder = new kakao.maps.services.Geocoder();
+            map = new kakao.maps.Map(mapContainer, {
+                center: userLocation,
+                level: 5 
+            });
 
-// search-main 요소에서 locations 데이터를 가져옵니다
-var searchMain = document.getElementById('search-main');
-var locations = JSON.parse(searchMain.dataset.locations);
-
-locations.forEach(function(location) {
-    geocoder.addressSearch(location.location, function(result, status) {
-        if (status === kakao.maps.services.Status.OK) {
-            var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-            var marker = new kakao.maps.Marker({
+            // 사용자 위치에 마커 추가
+            userMarker = new kakao.maps.Marker({
                 map: map,
-                position: coords
+                position: userLocation
             });
 
-            var content = document.createElement('div');
-            content.className = 'wrap';
-            content.innerHTML = 
-                '<div class="info">' +
-                '    <div class="title">' +
-                location.name +
-                '        <div class="close" title="닫기"></div>' +
-                '    </div>' +
-                '    <div class="body">' +
-                '        <div class="img">' +
-                '            <img src="https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/thumnail.png" width="73" height="70">' +
-                '        </div>' +
-                '        <div class="desc">' +
-                '            <div class="ellipsis">' + location.location + '</div>' +
-                '            <div class="category ellipsis">' + location.category + '</div>' +
-                '            <div><a href="/restaurantDetail.do?restaurantId=' + location.restaurantNo + '" target="_blank" class="link">상세보기</a></div>' +
-                '        </div>' +
-                '    </div>' +
-                '</div>';
+            // 사용자 위치에 인포윈도우 추가
+            var userInfoContent = '<div class = "user-info-content">내 위치</div>'; 
 
-            var overlay = new kakao.maps.CustomOverlay({
-                content: content,
-                map: null,
-                position: marker.getPosition()
+            userInfoWindow = new kakao.maps.InfoWindow({
+                position: userLocation,
+                content: userInfoContent,
+                removable: false
             });
 
-            kakao.maps.event.addListener(marker, 'click', function() {
-                overlay.setMap(map);
+            userInfoWindow.open(map, userMarker);
+
+            // 사용자 위치 마커 클릭 이벤트 추가
+            kakao.maps.event.addListener(userMarker, 'click', function() {
+                if (userInfoWindow.getMap()) {
+                    userInfoWindow.close();
+                } else {
+                    userInfoWindow.open(map, userMarker);
+                }
             });
 
-            var closeBtn = content.querySelector('.close');
-            closeBtn.addEventListener('click', function() {
-                overlay.setMap(null);
-            });
-        }
+            // 지도에 다른 마커들 추가
+            addMarkers();
+        }, function(error) {
+            console.error("Error occurred. Error code: " + error.code);
+            initializeDefaultMap();
+        });
+    } else {
+        console.error("Geolocation is not supported by this browser.");
+        initializeDefaultMap();
+    }
+}
+
+// 내 위치가 입력되지 않았을 때 기본 중심 좌표로 지도 초기화
+function initializeDefaultMap() {
+    var defaultLocation = new kakao.maps.LatLng(37.3987966098124, 126.920790701382);
+    map = new kakao.maps.Map(mapContainer, {
+        center: defaultLocation,
+        level: 5 // 확대 레벨
     });
-});
+
+    // 지도에 다른 마커들 추가
+    addMarkers();
+}
+
+// 지도에 마커 추가
+function addMarkers() {
+    var geocoder = new kakao.maps.services.Geocoder();
+
+    // search-main 요소에서 locations 데이터를 가져옴
+    var searchMain = document.getElementById('search-main');
+    var locations = JSON.parse(searchMain.dataset.locations);
+
+//검색된 list의 각각의 위치를 표시 
+    locations.forEach(function(location) {
+        geocoder.addressSearch(location.location, function(result, status) {	// addressSearch -> 주소로 입력하면, 해당 주소를 위도 경도로 변환해줌
+            if (status === kakao.maps.services.Status.OK) {
+                var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+                var marker = new kakao.maps.Marker({
+                    map: map,
+                    position: coords
+                });
+                markers.push(marker);
+
+                var content = document.createElement('div');
+                content.className = 'wrap';
+                content.innerHTML = 
+                    '<div class="info">' +
+                    '    <div class="title">' +
+                    location.name +
+                    '        <div class="close" title="닫기"></div>' +
+                    '    </div>' +
+                    '    <div class="body">' +
+                    '        <div class="img">' +
+                    '            <img src="https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/thumnail.png" width="73" height="70">' +
+                    '        </div>' +
+                    '        <div class="desc">' +
+                    '            <div class="ellipsis">' + location.location + '</div>' +
+                    '            <div class="category ellipsis">' + location.category + '</div>' +
+                    '            <div><a href="/restaurantDetail.do?restaurantId=' + location.restaurantNo + '" target="_blank" class="link">상세보기</a></div>' +
+                    '        </div>' +
+                    '    </div>' +
+                    '</div>';
+
+                var overlay = new kakao.maps.CustomOverlay({
+                    content: content,
+                    map: null,
+                    position: marker.getPosition()
+                });
+                overlays.push(overlay);
+
+                kakao.maps.event.addListener(marker, 'click', function() {
+                    if (overlay.getMap()) {
+                        overlay.setMap(null);
+                    } else {
+                        overlay.setMap(map);
+                    }
+                });
+
+                var closeBtn = content.querySelector('.close');
+                closeBtn.addEventListener('click', function() {
+                    overlay.setMap(null);
+                });
+            }
+        });
+    });
+}
+
+// 지도 초기화
+initializeMap();
 
 function loadMoreRestaurants() {
     const loadMoreButton = document.querySelector('#load-more-restaurants');
