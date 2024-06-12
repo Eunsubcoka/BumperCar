@@ -41,7 +41,7 @@ public class RestaurantDao {
 				String phone = rs.getString("restaurantPhone");
 				String name = rs.getString("restaurantName");
 				String imgName = rs.getString("imgName");
-				
+				System.out.println(No);
 				result.setRestaurantNo(No);
 				result.setCategory(category);
 				result.setLocation(location);

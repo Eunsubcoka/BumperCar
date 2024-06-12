@@ -134,8 +134,8 @@ function submitReview(event) {
             // 실패 메시지 표시
             alert("리뷰 등록에 실패했습니다. 다시 시도해주세요.");
         }
-    });*/
-}
+    });
+}*/
 
 // 이미지 삭제 함수 (Edit)
 function imageClose(event, index) {
