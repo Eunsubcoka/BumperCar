@@ -108,10 +108,9 @@
 							<p>등록된 글이 없습니다.</p>
 						</c:when>
 						<c:otherwise>
-							<c:forEach var="item" items="${list}">
+							<c:forEach var="item" items="${list}" begin="0" end="2">
 								<div class="res_wrapper">
-
-									<h5>${item.reviewTitle }</h5>
+									<h5>${item.reviewTitle } </h5>
 									<div class="res_review_id">${sessionScope.userName}</div>
 
 									<div class="res_review_rating">
@@ -119,21 +118,16 @@
 									</div>
 									<div class="res_review_img">
 										<c:forEach var="fileList" items="${fileList}">
-
 											<c:if test="${fileList.reviewNo == item.reviewNo}">
 												<img src="/assets/uploads/review/${fileList.fileName}"
 													alt="리뷰 사진 1">
 											</c:if>
 										</c:forEach>
-
 									</div>
 
 									<div class="res_review_content">
 										<a>${item.reviewContent}</a>
 									</div>
-
-
-
 								</div>
 							</c:forEach>
 						</c:otherwise>
@@ -165,6 +159,11 @@
 		var geocoder = new kakao.maps.services.Geocoder();
 		geocoder.addressSearch('${result.location }', function(result, status) {
 
+		// 주소로 좌표를 검색합니다
+		geocoder
+				.addressSearch(
+						'${result.location }',
+						function(result, status) {
 		    // 정상적으로 검색이 완료됐으면 
 		     if (status === kakao.maps.services.Status.OK) {
 

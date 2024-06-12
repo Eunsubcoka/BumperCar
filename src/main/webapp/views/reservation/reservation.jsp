@@ -27,7 +27,7 @@
 <form class="quick-reservation" action="/reservation/resEnroll.do" method = "get">
    
 <div class="container">
-   <header class="quick-reservation__header">
+   <div class="quick-reservation__header">
       <h1 class="title">
          ${result.restaurantName}
       </h1>
@@ -36,7 +36,7 @@
          <span></span>
          <span></span>
       </div>
-   </header>
+   </div>
    
    <div class="quick-reservation__form">
       <section class="form__content">
@@ -91,12 +91,12 @@
       </div>
    </div>
    
-   <footer class="form__footer">
+   <div class="form__footer">
       <div class="footer-wrapper">
          <input type="submit" value="예약하기" onclick="sendEmail()" class="">
           <!-- <input type="button" value="이메일" > -->
       </div>
-   </footer>
+   </div>
 </div>
    
 </form>

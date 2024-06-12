@@ -18,5 +18,12 @@ public class ReservationServiceImpl implements ReservationService {
 	public List<ReservationDto> getReservations(int userNo) {
 		return resDao.getReservations(userNo);
 	}
+	
+    @Override
+    public boolean deleteReservation(int resNo) {
+        return resDao.deleteReservation(resNo);
+    }
+	
+	
 
 }

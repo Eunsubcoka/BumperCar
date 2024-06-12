@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<header style="min-width:100%;"> 
+<header> 
   <div class="navbar navbar-dark bg-white shadow-sm" id="main-top" >
     <div class="container" >
       <a href="/" class="navbar-brand d-flex align-items-center">
@@ -16,7 +16,7 @@
             <a href="/views/member/register.jsp" class="no-underline">회원가입</a>
           </c:when>
           <c:otherwise>
-            <a href="/member/logout.do" class="no-underline">로그아웃</a>
+            <a href="#" class="no-underline" onclick="logoutalert()">로그아웃</a>
             <a href="/tastyForm/profile.do" class="no-underline">내 정보</a>
           </c:otherwise>
         </c:choose>
@@ -25,6 +25,12 @@
   </div>
 </header>
 
+<script>
+function logoutalert(){
+	alert("로그아웃되었습니다. ");
+	window.location.href = "/member/logout.do";
+}
+</script>
 <style>
   .no-underline {
     text-decoration: none;

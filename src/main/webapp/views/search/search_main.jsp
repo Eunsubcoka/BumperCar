@@ -7,8 +7,8 @@
 <html lang="en">
 <head>
     <%@ include file="/views/common/head.jsp"%>
-    <link rel="stylesheet" href="/assets/css/search.css">
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=597a12321ce91d26c9101324b5955ebd&libraries=services"></script>
+    <link rel="stylesheet" href="/assets/css/search.css">
 </head>
 <body>
 
@@ -21,20 +21,17 @@
         <a onclick="scrollToSection('notice')">공지사항</a>
         <a onclick="scrollToTop()">맨 위로</a>
     </div>
-    <main class="search-main">
+    <main class="search-main" id="search-main"
+          data-locations='[
+            <c:forEach var="restaurant" items="${restaurantList}" varStatus="status">
+                {"location": "${restaurant.location}", "name": "${restaurant.restaurantName}", "category": "${restaurant.category}", "restaurantNo": ${restaurant.restaurantNo}}<c:if test="${!status.last}">,</c:if>
+            </c:forEach>
+          ]'>
         <div class="search-header">
             <h1>검색 결과</h1>
         </div>
 
-        <div id="map" style="width:100%;height:350px;"></div>
-
-        <script>
-            var locations = [
-                <c:forEach var="restaurant" items="${restaurantList}" varStatus="status">
-                    { name: "${restaurant.restaurantName}", location: "${restaurant.location}" }<c:if test="${!status.last}">,</c:if>
-                </c:forEach>
-            ];
-        </script>
+        <div id="map" style="width:100%;height:450px;"></div>
 
         <div class="search-tab" id="restaurant">
             <h3>레스토랑</h3>
@@ -44,13 +41,24 @@
                         <c:forEach var="restaurant" items="${restaurantList}">
                             <li class="restaurant-item">
                                 <div class="restaurant-image">
-                                    <p>사진 추가 예정 <br><br> 레스토랑 상세 페이지 완성되면 레스토랑 페이지의 사진 끌어오기</p>
+                                    <c:choose>
+                                        <c:when test="${not empty restaurant.imgName}">
+                                            <img src="/assets/image/${restaurant.imgName}" alt="${restaurant.restaurantName}">
+                                        </c:when>
+                                        <c:otherwise>
+                                            <p>사진 추가 예정</p>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </div>
                                 <div class="restaurant-info">
-                                    <div>
+                                    <div style="display:inline-block;">
                                         <a href="/restaurantDetail.do?restaurantId=${restaurant.restaurantNo}">${restaurant.restaurantName}</a>
+                                        <div style="display:inline-block;" class= "font-down">
+                                        <i class="fas fa-star"></i>
+                                        <fmt:formatNumber value="${ratingsMap[restaurant.restaurantNo]}" type="number" minFractionDigits="1" maxFractionDigits="1" />
+                                        </div>
                                     </div>
-                                    <div class="font-down">카테고리: ${restaurant.category}</div>
+                                    
                                     <div class="font-down">태그: 
                                         <c:set var="tagString" value="" />
                                         <c:forEach var="tag" items="${tagsMap[restaurant.restaurantNo]}" varStatus="status">
@@ -71,10 +79,7 @@
                                         </c:if>
                                     </div>
                                     <div class="font-down">위치: ${restaurant.location}</div>
-                                    <div class="font-down">
-                                        <i class="fas fa-star"></i>
-                                        <fmt:formatNumber value="${ratingsMap[restaurant.restaurantNo]}" type="number" minFractionDigits="1" maxFractionDigits="1" />
-                                    </div>
+                                    
                                     <button class="toggle-review-btn" onclick="toggleReview(this)">리뷰 열기</button>
                                     <div class="review-box font-down-2" style="display: none;" onclick="navigateToReviews(${restaurant.restaurantNo})">
                                         <c:choose>
@@ -145,6 +150,7 @@
 
     <%@ include file="/views/common/footer.jsp"%>
 
+    <script src="/assets/js/main.js"></script>
     <script src="/assets/js/search.js"></script>
 </body>
 </html>

@@ -3,6 +3,17 @@ package kr.co.tastyroad.search.model.dto;
 public class searchDto {
     private int restaurantNo;
     private String tags;
+    private String imgName;
+    
+
+    public String getImgName() {
+        return imgName;
+    }
+
+    public void setImgName(String imgName) {
+        this.imgName = imgName;
+    }
+
     
     
 

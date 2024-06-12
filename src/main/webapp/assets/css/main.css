@@ -1,3 +1,6 @@
+
+
+
 /* 플로팅 네비게이션 바 스타일 */
 .floating-nav {
     position: fixed;
@@ -10,6 +13,7 @@
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     text-align: center;
+    z-index:1000;
 }
 
 .floating-nav a {
@@ -146,7 +150,18 @@ body {
 
 footer{
 	background-color : #ececec !important;
-	height:10rem !important;
+	height:14rem !important;
+	width:100%;
+	min-width:1000px !important;
+}
+.spliter{
+	background-color:#212529;
+	height:15px;
+	width:1px;
+	position:flex;
+	display:inline-block;
+	margin:0;
+	padding:0;
 }
 
 
@@ -158,9 +173,20 @@ footer{
 	box-sizing: border-box;
 }
 
+/* 메인 컨테이너 최소 길이/높이 지정 */
+main{
+	min-height: 600px;
+	min-width: 800px;
+}
+
 body {
     background-color: #06060640;
     height:100%;
+}
+
+header{
+	width:100% !important;
+	min-width:1000px !important;
 }
 
 
@@ -233,12 +259,13 @@ body {
 
 /* nav */
 .unique-nav {
+	width:100%;
     position: relative;
     display: flex;
     justify-content: center;
     background-color: #ececec;
     padding: 10px 0;
-    min-width:100%;
+    min-width:1000px;
 }
 
 .nav-align-center {
@@ -271,3 +298,43 @@ body {
     margin-bottom: 20px;
 }
 
+
+
+
+.footer-policyinfo{
+	font-size: 14px;
+	font-weight:bold;
+	text-decoration:none;
+	color:black;
+	margin-top:5px;
+	margin-bottom:5px;
+	margin-left:20px;
+	margin-right:20px;
+	position:flex;
+	display:inline-block;
+}
+.footer-policyinfo:hover{
+	color:black;
+}
+
+.privacy-content ul li a{
+	text-decoration:none;
+	color:black;
+}
+
+.privacy-content ul li a:hover{
+	color:black;
+}
+
+.company-info div{
+	margin-top:5px;
+	margin-bottom:5px;
+	margin-left:20px;
+	margin-right:20px;
+	position:flex;
+	display:inline-block;
+}
+
+.font-down{
+	font-size:12px;
+}

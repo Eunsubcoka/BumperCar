@@ -18,10 +18,16 @@ public class LogoutController extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		session.invalidate();
-		
-		response.sendRedirect("/");
+		try {
+			HttpSession session = request.getSession();
+			session.invalidate();
+			
+			response.sendRedirect("/");
+        }catch(Exception e) {
+            e.printStackTrace();
+            response.sendRedirect("/views/error.html");
+        }
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

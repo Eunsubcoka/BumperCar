@@ -2,11 +2,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<link href="/assets/css/login.css" rel="stylesheet">
 <html>
 <head>
 <%@ include file="/views/common/head.jsp"%>
 <link rel="stylesheet" href="styles.css">
+<link href="/assets/css/login.css" rel="stylesheet">
 </head>
 <body>
 	<%@ include file="/views/common/header.jsp"%>

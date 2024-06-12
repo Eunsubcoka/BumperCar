@@ -25,30 +25,36 @@ public class noticeListController extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        noticeServiceImpl noticeService = new noticeServiceImpl();
+    	try {
+    		noticeServiceImpl noticeService = new noticeServiceImpl();
 
-        int cpage = Integer.parseInt(request.getParameter("cpage"));
-        String category = request.getParameter("category");
-        String searchText = request.getParameter("search-text");
-        int boardLimit = request.getParameter("boardLimit") != null ? Integer.parseInt(request.getParameter("boardLimit")) : 10; // 게시글 수를 파라미터로 받음
+            int cpage = Integer.parseInt(request.getParameter("cpage"));
+            String category = request.getParameter("category");
+            String searchText = request.getParameter("search-text");
+            int boardLimit = request.getParameter("boardLimit") != null ? Integer.parseInt(request.getParameter("boardLimit")) : 10; // 게시글 수를 파라미터로 받음
 
-        int listCount = noticeService.getListCount(category, searchText);
+            int listCount = noticeService.getListCount(category, searchText);
 
-        int pageLimit = 5; // 한번에 보여지는 페이지 수 
+            int pageLimit = 5; // 한번에 보여지는 페이지 수 
 
-        PageInfo pi = Pagination.getPageInfo(listCount, cpage, pageLimit, boardLimit);
+            PageInfo pi = Pagination.getPageInfo(listCount, cpage, pageLimit, boardLimit);
 
-        ArrayList<noticeDto> list = noticeService.getList(pi, category, searchText);
+            ArrayList<noticeDto> list = noticeService.getList(pi, category, searchText);
 
-        int row = listCount - (cpage - 1) * boardLimit;
+            int row = listCount - (cpage - 1) * boardLimit;
 
-        request.setAttribute("list", list);
-        request.setAttribute("row", row);
-        request.setAttribute("pi", pi);
-        request.setAttribute("boardLimit", boardLimit); // 현재 선택된 게시글 수를 저장
+            request.setAttribute("list", list);
+            request.setAttribute("row", row);
+            request.setAttribute("pi", pi);
+            request.setAttribute("boardLimit", boardLimit); // 현재 선택된 게시글 수를 저장
 
-        RequestDispatcher view = request.getRequestDispatcher("/views/notice/noticeList.jsp");
-        view.forward(request, response);
+            RequestDispatcher view = request.getRequestDispatcher("/views/notice/noticeList.jsp");
+            view.forward(request, response);
+        }catch(Exception e) {
+            e.printStackTrace();
+            response.sendRedirect("/views/error.html");
+        }
+        
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
