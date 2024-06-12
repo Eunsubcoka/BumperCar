@@ -16,7 +16,7 @@
             <a href="/views/member/register.jsp" class="no-underline">회원가입</a>
           </c:when>
           <c:otherwise>
-            <a href="/member/logout.do" class="no-underline">로그아웃</a>
+            <a href="#" class="no-underline" onclick="logoutalert()">로그아웃</a>
             <a href="/tastyForm/profile.do" class="no-underline">내 정보</a>
           </c:otherwise>
         </c:choose>
@@ -25,6 +25,12 @@
   </div>
 </header>
 
+<script>
+function logoutalert(){
+	alert("로그아웃되었습니다. ");
+	window.location.href = "/member/logout.do";
+}
+</script>
 <style>
   .no-underline {
     text-decoration: none;

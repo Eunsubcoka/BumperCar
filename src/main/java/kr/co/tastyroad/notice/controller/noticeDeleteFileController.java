@@ -48,7 +48,10 @@ public class noticeDeleteFileController extends HttpServlet {
                 response.getWriter().write("fail");
             }
         } catch (NumberFormatException e) {
+        	e.printStackTrace();
             response.getWriter().write("fail");
+            response.sendRedirect("/views/error.html");
+            
         }
     }
 }

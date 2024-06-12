@@ -36,7 +36,7 @@
 
 <script>
 function reservationalert() {
-    alert("내 예약 현황을 확인하려면 로그인해야합니다");
+    alert("내 예약 현황을 확인하려면 로그인해야합니다. ");
     window.location.href = "/views/member/login.jsp";
 }
 </script>
