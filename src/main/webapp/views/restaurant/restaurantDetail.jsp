@@ -166,7 +166,7 @@
 		// 주소로 좌표를 검색합니다
 		geocoder
 				.addressSearch(
-						'경기도 안양시 만안구 안양4동 707-25',
+						${result.location},
 						function(result, status) {
 
 							// 정상적으로 검색이 완료됐으면 
