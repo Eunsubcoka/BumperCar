@@ -74,7 +74,7 @@
 					<div class="details">
 						<h1>메뉴 정보</h1>
 						<div class="share"
-							onclick="location.href='/tastyForm/reservation.do?restaurantNo=${result.restaurantNo}'">
+							onclick="location.href='/tastyForm/reservation.do?restaurantNo=${resNo}'">
 							예약하기</div>
 					</div>
 
