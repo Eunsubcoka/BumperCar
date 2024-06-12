@@ -153,8 +153,15 @@ footer{
 	height:14rem !important;
 	width:100%;
 	min-width:1000px !important;
-	padding-top:2rem !important;
-	padding-bottom:2rem !important;
+}
+.spliter{
+	background-color:#212529;
+	height:15px;
+	width:1px;
+	position:flex;
+	display:inline-block;
+	margin:0;
+	padding:0;
 }
 
 
@@ -295,6 +302,7 @@ header{
 
 
 .footer-policyinfo{
+	font-size: 14px;
 	font-weight:bold;
 	text-decoration:none;
 	color:black;
@@ -325,4 +333,8 @@ header{
 	margin-right:20px;
 	position:flex;
 	display:inline-block;
+}
+
+.font-down{
+	font-size:12px;
 }
