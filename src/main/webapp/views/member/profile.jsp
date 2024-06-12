@@ -37,7 +37,7 @@
 					id="userEmail-msg" class="error-msg"></span> <label
 					for="userAddress">주소:</label> <input type="text" id="new-address"
 					name="new-address" value="${member.userAddress}" required>
-				<input type="text" id="new-address1" name="new-address1" required>
+				<input type="text" id="new-address1" name="new-address1">
 				<button type="button" class="check-btn" onclick="searchAddress()">주소찾기</button>
 				<span id="userAddress-msg" class="error-msg"></span> <label
 					for="userPhone">전화번호:</label> <input type="text" id="userPhone"

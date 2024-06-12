@@ -63,7 +63,7 @@ public class ProfileController extends HttpServlet {
         int result = memberService.userUpdate(member);
 
 
-        String uploadDirectory = "C:\\dev\\work-space\\semiProject\\BumperCar\\src\\main\\webapp\\assets\\image\\member_profile";
+        String uploadDirectory = request.getServletContext().getRealPath("/assets/image/member_profile/");
         Part filePart = request.getPart("profileImage");
 
         if (filePart != null && filePart.getSize() > 0) {
