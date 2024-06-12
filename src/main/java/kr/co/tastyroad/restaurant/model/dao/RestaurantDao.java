@@ -264,13 +264,15 @@ public class RestaurantDao {
     }
 		
     public int updateRestaurant(RestaurantDto restaurant) {
-		String query = "Update restaurant set category = ?, location= ?, restaurantPhone =?, restaurantName = ?";
+		String query = "Update restaurant set category = ?, location= ?, restaurantPhone =?, restaurantName = ?"
+				+ " where restaurantNo = ?";
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, restaurant.getCategory());
 			pstmt.setString(2, restaurant.getLocation());
 			pstmt.setString(3, restaurant.getRestaurantPhone());
 			pstmt.setString(4, restaurant.getRestaurantName());
+			pstmt.setInt(5, restaurant.getRestaurantNo());
 			
 			int result = pstmt.executeUpdate();
 			
