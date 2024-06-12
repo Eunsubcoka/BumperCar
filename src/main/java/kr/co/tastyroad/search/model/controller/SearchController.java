@@ -45,6 +45,8 @@ public class SearchController extends HttpServlet {
         int endIndexNotices = Math.min(startIndex + 5, noticeList.size());
         int endIndexRestaurants = Math.min(startIndex + 5, restaurantList.size());
 
+       
+//        기존에 5개만 출력 / 5개보다 많을때 버튼 클릭시 이후 인덱스 출력 
         if (startIndex < noticeList.size()) {
             ArrayList<noticeDto> paginatedNoticeList = new ArrayList<>(noticeList.subList(startIndex, endIndexNotices));
             request.setAttribute("noticeList", paginatedNoticeList);
