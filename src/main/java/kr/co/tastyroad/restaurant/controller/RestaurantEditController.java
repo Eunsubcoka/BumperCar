@@ -50,7 +50,7 @@ public class RestaurantEditController extends HttpServlet {
 		String food = request.getParameter("menu"+count);
 		int price = Integer.parseInt(request.getParameter("price"+count));
 		String name = request.getParameter("restaurantName");
-		String category = request.getParameter("category");
+		int category = Integer.parseInt(request.getParameter("category"));
 		String phone = request.getParameter("phone");
 		String addr = request.getParameter("addr");
 		RestaurantDto restaurant = new RestaurantDto();

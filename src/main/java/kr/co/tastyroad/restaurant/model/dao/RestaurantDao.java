@@ -137,17 +137,31 @@ public class RestaurantDao {
     	return null;
     }
     
-    public ArrayList<RestaurantDto> getRestaurantList(int category) {
+    public ArrayList<RestaurantDto> getRestaurantList(int category, String seleType) {
     	ArrayList<RestaurantDto> result = new ArrayList<RestaurantDto>();
     
    
-    String query = "select r.restaurantNo ,r.restaurantName, r2.imgName from restaurant r "
-                 + " join res_img r2 on r2.restaurantNo = r.restaurantNo  where r.category= ?";
+    String query = "SELECT "
+    		+ "    r.restaurantNo,"
+    		+ "    r.restaurantName,"
+    		+ "    r2.imgName, "
+    		+ "    AVG(r3.ratings) AS ratings "
+    		+ "FROM "
+    		+ "    restaurant r "
+    		+ "JOIN "
+    		+ "    res_img r2 ON r2.restaurantNo = r.restaurantNo "
+    		+ "LEFT outer JOIN "
+    		+ "    reviews r3 ON r.restaurantNo = r3.restaurantNo "
+    		+ "WHERE "
+    		+ "    r.category = ?"
+    		+ "GROUP BY "
+    		+ "    r.restaurantNo, r.restaurantName, r2.imgName "
+    		+ " ORDER BY "+seleType
+    		+ " DESC nulls last ";
     
     try {
 		pstmt = con.prepareStatement(query);
 		pstmt.setInt(1, category);
-		
 		ResultSet rs = pstmt.executeQuery();
 		while (rs.next()) {
 			RestaurantDto resList = new RestaurantDto();

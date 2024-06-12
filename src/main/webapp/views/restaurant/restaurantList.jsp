@@ -18,11 +18,16 @@
     <div class="main_con">
         <div class="list_type"> 
             <h2 class="title02">음식점 목록</h2>
-            	<select class="form-select" id="inputGroupSelect02" name="seleType"
-				style="width: 200px; height: 46px; flex: 0 0 auto;" onchange="location.href='/category.do?category=${category }'">
-				<option value="name">가게이름순</option>
-				<option value="ratings">별점순</option>
-			</select>
+			<form id="categoryForm" action="/category.do" method="get">
+				<input type="hidden" name="category" value="${category}">
+			    <select class="form-select" id="inputGroupSelect02" name="seleType"
+			            style="width: 200px; height: 46px; flex: 0 0 auto;" onchange="this.form.submit()">
+			                            <option value="restaurantName" <c:if test="${seleType == 'restaurantName'}">selected</c:if>>가게이름순</option>
+                    <option value="ratings" <c:if test="${seleType == 'ratings'}">selected</c:if>>별점순</option>
+
+			    </select>
+			</form>
+
              <button type="button" onclick="location.href='/tastyForm/resAdd.do'">등록하기</button>
             
             <ul class="res_ul">
@@ -53,7 +58,19 @@
             </ul>
         </div>
     </div>
-
+    
+<!-- <script>
+function submitFormWithCategory() {
+    var form = document.getElementById('categoryForm');
+    /* var select = document.getElementById('inputGroupSelect02');
+    var selectedValue = select.value;
+    var actionUrl = form.action +'?category='+${category}+'&seleType=' + encodeURIComponent(selectedValue);
+    
+    form.action = actionUrl;
+    console.log(form.action); */
+    form.submit();
+}
+</script> -->
     <%@ include file="/views/common/footer.jsp"%>
 </body>
 </html>

@@ -101,7 +101,7 @@
 				</div>
 
 				<div class="res_review_wrap"
-					onclick="location.href='/review/review.do?restaurantNo=${result.restaurantNo}'">
+					onclick="location.href='/review/review.do?restaurantNo=${resNo}'">
 					<c:choose>
 						<c:when test="${empty list}">
 							<!-- 조건: list객체가 비워져 있을때 -->

@@ -71,7 +71,8 @@ public class RestaurantAddController extends HttpServlet {
 		resDto.setRestaurantNo(no);
 		//파일 업로드
 				Collection<Part> parts = request.getParts();
-				String uploadDirectory = "C:\\DEV\\semiProject\\src\\main\\webapp\\assets\\image";
+				String uploadDirectory = "//assets//image//restaurant_images//";
+
 				
 				//파일 업로드 디렉토리가 존재하지 않으면 생성
 				File filePath = new File(uploadDirectory);
