@@ -150,9 +150,11 @@ body {
 
 footer{
 	background-color : #ececec !important;
-	height:10rem !important;
+	height:14rem !important;
 	width:100%;
 	min-width:1000px !important;
+	padding-top:2rem !important;
+	padding-bottom:2rem !important;
 }
 
 
@@ -289,3 +291,38 @@ header{
     margin-bottom: 20px;
 }
 
+
+
+
+.footer-policyinfo{
+	font-weight:bold;
+	text-decoration:none;
+	color:black;
+	margin-top:5px;
+	margin-bottom:5px;
+	margin-left:20px;
+	margin-right:20px;
+	position:flex;
+	display:inline-block;
+}
+.footer-policyinfo:hover{
+	color:black;
+}
+
+.privacy-content ul li a{
+	text-decoration:none;
+	color:black;
+}
+
+.privacy-content ul li a:hover{
+	color:black;
+}
+
+.company-info div{
+	margin-top:5px;
+	margin-bottom:5px;
+	margin-left:20px;
+	margin-right:20px;
+	position:flex;
+	display:inline-block;
+}
