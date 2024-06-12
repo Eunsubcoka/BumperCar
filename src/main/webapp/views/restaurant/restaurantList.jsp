@@ -19,7 +19,7 @@
         <div class="list_type"> 
             <h2 class="title02">음식점 목록</h2>
             	<select class="form-select" id="inputGroupSelect02" name="seleType"
-				style="width: 200px; height: 46px; flex: 0 0 auto;" onchange="location.href='/category.do?category=1'">
+				style="width: 200px; height: 46px; flex: 0 0 auto;" onchange="location.href='/category.do?category=${category }'">
 				<option value="name">가게이름순</option>
 				<option value="ratings">별점순</option>
 			</select>
