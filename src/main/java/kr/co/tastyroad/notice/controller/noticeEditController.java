@@ -2,6 +2,9 @@ package kr.co.tastyroad.notice.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -56,9 +59,15 @@ public class noticeEditController extends HttpServlet {
                 
                 // 실제 파일 시스템에서 파일 삭제
                 String existingFileName = "boardNo_" + boardNo + ".jpg"; 
-                File existingFile = new File(filePath, existingFileName);
-                if (existingFile.exists()) {
-                    existingFile.delete();
+                File existingTempFile = new File(filePath, existingFileName);
+                if (existingTempFile.exists()) {
+                    existingTempFile.delete();
+                }
+
+                String realDirectory = "C:/dev/workspace/semiProject/BumperCar/src/main/webapp/assets/uploads/notice/";
+                File existingRealFile = new File(realDirectory, existingFileName);
+                if (existingRealFile.exists()) {
+                    existingRealFile.delete();
                 }
                 
                 noticeDto.setFileName(null);
@@ -66,7 +75,18 @@ public class noticeEditController extends HttpServlet {
             }
         } else if (uploadFilePart != null && uploadFilePart.getSize() > 0) {
             String fileName = "boardNo_" + boardNo + ".jpg"; //파일 이름 지정 
-            uploadFilePart.write(new File(filePath, fileName).getAbsolutePath());
+            String tempFilePath = new File(filePath, fileName).getAbsolutePath();
+
+            // 임시 디렉토리에 파일 저장
+            uploadFilePart.write(tempFilePath);
+
+            // 프로젝트의 실제 경로에 파일 저장
+            String realDirectory = "C:/dev/workspace/semiProject/BumperCar/src/main/webapp/assets/uploads/notice/";
+            File realFilePath = new File(realDirectory);
+            if (!realFilePath.exists()) {
+                realFilePath.mkdirs();
+            }
+            Files.copy(Paths.get(tempFilePath), Paths.get(realFilePath.getAbsolutePath(), fileName), StandardCopyOption.REPLACE_EXISTING);
 
             noticeDto.setFileName(fileName);
             noticeDto.setFilePath("/assets/uploads/notice/");

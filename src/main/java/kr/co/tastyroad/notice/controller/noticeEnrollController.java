@@ -2,6 +2,9 @@ package kr.co.tastyroad.notice.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -65,18 +68,26 @@ public class noticeEnrollController extends HttpServlet {
                 filePath.mkdirs();
             }
             String fileName = "boardNo_" + boardNo + ".jpg"; // 파일이름 지정 
-            uploadFilePart.write(new File(filePath, fileName).getAbsolutePath());
+            String tempFilePath = new File(filePath, fileName).getAbsolutePath();
+            
+            // 임시 디렉토리에 파일 저장
+            uploadFilePart.write(tempFilePath);
 
-        
+            // 프로젝트의 실제 경로에 파일 저장
+            String realDirectory = "C:/dev/workspace/semiProject/BumperCar/src/main/webapp/assets/uploads/notice/";
+            File realFilePath = new File(realDirectory);
+            if (!realFilePath.exists()) {
+                realFilePath.mkdirs();
+            }
+            Files.copy(Paths.get(tempFilePath), Paths.get(realFilePath.getAbsolutePath(), fileName), StandardCopyOption.REPLACE_EXISTING);
+
             noticeDto.setFileName(fileName);
             noticeDto.setFilePath("/assets/uploads/notice/");
             noticeService.fileUpload(noticeDto);
-            
         }
 
         if (result == 1) {
             response.sendRedirect("/notice/list.do?cpage=1&category=noticeTitle&search-text=");
         }
-        
     }
 }
