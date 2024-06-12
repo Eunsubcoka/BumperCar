@@ -27,8 +27,8 @@ public class RestaurantServiceImpl implements RestaurantService {
 	}
 
 	@Override
-	public ArrayList<RestaurantDto> getRestaurantList(int category) {
-		return restaurantDao.getRestaurantList(category);
+	public ArrayList<RestaurantDto> getRestaurantList(int category,String seleType) {
+		return restaurantDao.getRestaurantList(category,seleType);
 	}
 
 	@Override
@@ -66,8 +66,20 @@ public class RestaurantServiceImpl implements RestaurantService {
 		return restaurantDao.getTag(resNo);
 	}
 	@Override
+	 public ArrayList<RestaurantDto> getTag(ArrayList<RestaurantDto> resDto) {
+		return restaurantDao.getTag(resDto);
+	}
+	@Override
     public int fileUpload(RestaurantDto resDto) {
 	return restaurantDao.fileUpload(resDto);
+	}
+	@Override
+    public ArrayList<RestaurantDto> ratingsList(ArrayList<RestaurantDto> resDto){
+    	return restaurantDao.ratingsList(resDto);
+    }
+	@Override
+    public int deleteImg(int resNo) {
+		return restaurantDao.deleteImg(resNo);
 	}
 
 }

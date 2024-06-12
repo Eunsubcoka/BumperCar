@@ -57,6 +57,8 @@ public class RestaurantDetailControler extends HttpServlet {
 		fileList = reviewService.uploadListOnce(); // 게시글 리스트
 		request.setAttribute("list", list);
 		request.setAttribute("fileList", fileList);
+		request.setAttribute("resNo", resNo);
+		request.setAttribute("ratings", ratings);
 		
 		request.setAttribute("result", result);
 		request.setAttribute("tag", tag);
