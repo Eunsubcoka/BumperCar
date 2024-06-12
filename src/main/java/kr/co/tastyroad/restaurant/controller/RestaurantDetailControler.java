@@ -63,7 +63,7 @@ public class RestaurantDetailControler extends HttpServlet {
 		request.setAttribute("result", result);
 		request.setAttribute("tag", tag);
 		request.setAttribute("menuList", menuList);
-		
+		System.out.println(resNo);
 		RequestDispatcher view = request.getRequestDispatcher("/views/restaurant/restaurantDetail.jsp");
 		view.forward(request,response);
 		

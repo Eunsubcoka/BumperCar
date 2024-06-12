@@ -50,7 +50,8 @@ public class ReviewEnrollController extends HttpServlet {
 		
 		//파일 업로드
 		Collection<Part> parts = request.getParts();
-		String uploadDirectory = "C:\\dev\\work-space\\semiProject\\BumperCar\\src\\main\\webapp\\assets\\uploads\\review";
+//		String uploadDirectory = "C:\\dev\\work-space\\semiProject\\BumperCar\\src\\main\\webapp\\assets\\uploads\\review";
+		String uploadDirectory = request.getServletContext().getRealPath("/assets/uploads/review");
 		
 		//파일 업로드 디렉토리가 존재하지 않으면 생성
 		File filePath = new File(uploadDirectory);
@@ -88,7 +89,6 @@ public class ReviewEnrollController extends HttpServlet {
     private String getFileName(Part part) {
         String contentDisposition = part.getHeader("content-disposition");
         
-        System.out.println("contentDisposition : " + contentDisposition);
         String[] tokens = contentDisposition.split(";");
         for (String token : tokens) {
             if (token.trim().startsWith("filename")) {
