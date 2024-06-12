@@ -3,6 +3,7 @@ package kr.co.tastyroad.review.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Objects;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -37,7 +38,6 @@ public class ReviewEditController extends HttpServlet {
 		String fileName = request.getParameter("fileName");
 		String filePath = request.getParameter("filePath");
 		
-		int maxIndex = Integer.parseInt(request.getParameter("maxIndex"));
 		
 		ReviewDto reviewDto = new ReviewDto();
 		reviewDto.setReviewNo(reviewNo);
@@ -55,23 +55,27 @@ public class ReviewEditController extends HttpServlet {
 		if(result == 1) {  
 			//파일 업로드 설정
 			Collection<Part> parts = request.getParts();
-			String uploadDirectory = "C:\\dev\\work-space\\semiProject\\BumperCar\\src\\main\\webapp\\assets\\uploads\\review";
-
+			String uploadDirectory = request.getServletContext().getRealPath("/assets/uploads/review");
+			
 			// 이미 업로드 되어있는 이미지 삭제,  Edit.jsp에서 maxIndex 변수선언
+			int maxIndex = Integer.parseInt(request.getParameter("maxIndex"));
 			for(int i = 1; i <= maxIndex; i++) {
 				// removeImageName-, removeImageStatus- 받기
 				String removeImageName = request.getParameter("removeImageName-" + i);
-				boolean removeImageStatus = Boolean.parseBoolean(request.getParameter("removeImageStatus-" + i));
-				
-				// removeImageStatus- 가 true인 애가 있는지 체크
-				// 만약 있으면 삭제를 해야 되는데 uploadDirectory + File.separator + removeImageName
-				if(removeImageStatus) {
-					File file = new File(uploadDirectory + File.separator + removeImageName);
-					if (file.exists()) {
-						file.delete();
+				try {
+					String removeImageStatus = request.getParameter("removeImageStatus-" + i);
+					// removeImageStatus- 가 true인 애가 있는지 체크
+					// 만약 있으면 삭제를 해야 되는데 uploadDirectory + File.separator + removeImageName
+					if(!removeImageStatus.equals("none")) {
+						File file = new File(uploadDirectory + File.separator + removeImageStatus);
+						if (file.exists()) {
+							file.delete();
+						}
+						// 데이터베이스에서도 해당 파일 삭제
+						reviewService.delete(reviewDto, removeImageStatus);
 					}
-					// 데이터베이스에서도 해당 파일 삭제
-					reviewService.delete(reviewDto, removeImageName);
+				} catch(NullPointerException e) {
+					
 				}
 			}
 
@@ -80,8 +84,6 @@ public class ReviewEditController extends HttpServlet {
 			if(!editFilePath.exists()) {
 				editFilePath.mkdirs();
 			}
-			
-			
 			
 			for(Part part : parts) {
 				fileName = getFileName(part);

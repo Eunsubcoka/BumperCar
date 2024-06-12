@@ -21,7 +21,6 @@
 <section>
     <div class="container-review-box">
         <form enctype="multipart/form-data">
-        
         <h1>리뷰작성</h1>
         <div class="container-review">
             <div class="review">
