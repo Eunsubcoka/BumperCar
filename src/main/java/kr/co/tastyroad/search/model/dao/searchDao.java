@@ -70,10 +70,10 @@ public class searchDao {
 	            RestaurantDto restaurant = new RestaurantDto();
 	            restaurant.setRestaurantName(rs.getString("restaurantName"));
 	            restaurant.setRestaurantNo(rs.getInt("restaurantNo"));
-	            restaurant.setCategory(rs.getString("category"));
+	            restaurant.setCategory(rs.getInt("category"));
 	            restaurant.setLocation(rs.getString("location"));
 	            restaurant.setImgName(rs.getString("imgName"));
-	            restaurant.setTags(rs.getString("tags"));
+	            restaurant.setTag(rs.getString("tags"));
 	            restaurantList.add(restaurant);
 	        }
 	        rs.close();

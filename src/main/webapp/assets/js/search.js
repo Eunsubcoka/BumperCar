@@ -142,7 +142,7 @@ function loadMoreRestaurants() {
     const tag = encodeURIComponent(loadMoreButton.dataset.tag || '');
     const category = loadMoreButton.dataset.category || 'restaurant';
 
-    fetch(`/search.do?cpage=${nextPage}&search-text=${searchText}&tag=${tag}&category=${category}`)
+    fetch(`/search.do?cpage=${nextPage}&search-text=${searchText}&tag=${tag}`)
         .then(response => response.text())
         .then(html => {
             const parser = new DOMParser();

@@ -59,7 +59,6 @@
                                         </div>
                                     </div>
                                     
-                                    <div class="font-down">카테고리: ${restaurant.category}</div>
                                     <div class="font-down">태그: 
                                         <c:set var="tagString" value="" />
                                         <c:forEach var="tag" items="${tagsMap[restaurant.restaurantNo]}" varStatus="status">
