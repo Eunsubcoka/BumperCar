@@ -151,6 +151,7 @@
 
     <%@ include file="/views/common/footer.jsp"%>
 
+    <script src="/assets/js/main.js"></script>
     <script src="/assets/js/search.js"></script>
 </body>
 </html>
