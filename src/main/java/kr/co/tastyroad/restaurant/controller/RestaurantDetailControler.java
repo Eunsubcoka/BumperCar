@@ -58,6 +58,7 @@ public class RestaurantDetailControler extends HttpServlet {
 		request.setAttribute("list", list);
 		request.setAttribute("fileList", fileList);
 		request.setAttribute("resNo", resNo);
+		request.setAttribute("ratings", ratings);
 		
 		request.setAttribute("result", result);
 		request.setAttribute("tag", tag);

@@ -27,8 +27,8 @@ public class RestaurantServiceImpl implements RestaurantService {
 	}
 
 	@Override
-	public ArrayList<RestaurantDto> getRestaurantList(int category) {
-		return restaurantDao.getRestaurantList(category);
+	public ArrayList<RestaurantDto> getRestaurantList(int category,String seleType) {
+		return restaurantDao.getRestaurantList(category,seleType);
 	}
 
 	@Override
@@ -77,5 +77,9 @@ public class RestaurantServiceImpl implements RestaurantService {
     public ArrayList<RestaurantDto> ratingsList(ArrayList<RestaurantDto> resDto){
     	return restaurantDao.ratingsList(resDto);
     }
+	@Override
+    public int deleteImg(int resNo) {
+		return restaurantDao.deleteImg(resNo);
+	}
 
 }

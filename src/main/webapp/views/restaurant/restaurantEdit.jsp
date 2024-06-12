@@ -25,9 +25,11 @@
         <div class="container-review">
             <div class="review">
             <input type="hidden" name="userNo" value="${sessionScope.userNo}">
+            <input type="hidden" name="resNo" value="${resDto.restaurantNo}">
                  <!-- 버튼 -->
                 <div id="btn">
-                    <p>대표 사진 하나를 넣어주세요.</p>
+                    <img alt="" src="/assets/image/${resDto.imgName }">
+                    <p>현재 이미지</p>
                     <div id="image_container"></div>
                     <input type="hidden" name="removeImageName-${status.count}" id="removeImageName-${status.count}" value="${fileList.fileName}"/>
 					        <input type="hidden" name="removeImageStatus-${status.count}" id="removeImageStatus-${status.count}" value="false"/>

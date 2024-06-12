@@ -137,17 +137,31 @@ public class RestaurantDao {
     	return null;
     }
     
-    public ArrayList<RestaurantDto> getRestaurantList(int category) {
+    public ArrayList<RestaurantDto> getRestaurantList(int category, String seleType) {
     	ArrayList<RestaurantDto> result = new ArrayList<RestaurantDto>();
     
    
-    String query = "select r.restaurantNo ,r.restaurantName, r2.imgName from restaurant r "
-                 + " join res_img r2 on r2.restaurantNo = r.restaurantNo  where r.category= ?";
+    String query = "SELECT "
+    		+ "    r.restaurantNo,"
+    		+ "    r.restaurantName,"
+    		+ "    r2.imgName, "
+    		+ "    AVG(r3.ratings) AS ratings "
+    		+ "FROM "
+    		+ "    restaurant r "
+    		+ "JOIN "
+    		+ "    res_img r2 ON r2.restaurantNo = r.restaurantNo "
+    		+ "LEFT outer JOIN "
+    		+ "    reviews r3 ON r.restaurantNo = r3.restaurantNo "
+    		+ "WHERE "
+    		+ "    r.category = ?"
+    		+ "GROUP BY "
+    		+ "    r.restaurantNo, r.restaurantName, r2.imgName "
+    		+ " ORDER BY "+seleType
+    		+ " DESC nulls last ";
     
     try {
 		pstmt = con.prepareStatement(query);
 		pstmt.setInt(1, category);
-		
 		ResultSet rs = pstmt.executeQuery();
 		while (rs.next()) {
 			RestaurantDto resList = new RestaurantDto();
@@ -250,13 +264,15 @@ public class RestaurantDao {
     }
 		
     public int updateRestaurant(RestaurantDto restaurant) {
-		String query = "Update restaurant set category = ?, location= ?, restaurantPhone =?, restaurantName = ?";
+		String query = "Update restaurant set category = ?, location= ?, restaurantPhone =?, restaurantName = ?"
+				+ " where restaurantNo = ?";
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, restaurant.getCategory());
 			pstmt.setString(2, restaurant.getLocation());
 			pstmt.setString(3, restaurant.getRestaurantPhone());
 			pstmt.setString(4, restaurant.getRestaurantName());
+			pstmt.setInt(5, restaurant.getRestaurantNo());
 			
 			int result = pstmt.executeUpdate();
 			
@@ -276,6 +292,21 @@ public class RestaurantDao {
     			pstmt.setInt(1, resNo);
     			
     			pstmt.executeUpdate();
+    		return result;
+    	} catch (SQLException e) {
+    		e.printStackTrace();
+    	}
+    	
+    	return 0;
+    }
+    public int deleteImg(int resNo) {
+    	String query = "delete from res_img where restaurantNo = ?";
+    	int result = 0;
+    	try {
+    		pstmt = con.prepareStatement(query);
+    		pstmt.setInt(1, resNo);
+    		
+    		pstmt.executeUpdate();
     		return result;
     	} catch (SQLException e) {
     		e.printStackTrace();
@@ -303,6 +334,7 @@ public class RestaurantDao {
   	}
     public ArrayList<RestaurantDto> getTag(ArrayList<RestaurantDto> resDto) {
     	String query = "select * from res_tag where restaurantNo = ?";
+    	ArrayList<RestaurantDto> tag = new ArrayList<RestaurantDto>();
     	try {
     			pstmt = con.prepareStatement(query);
     			for(RestaurantDto item : resDto) {
@@ -311,10 +343,15 @@ public class RestaurantDao {
     			ResultSet rs = pstmt.executeQuery();
     			
     			while(rs.next()) {
-    				item.setTag(rs.getString("tag"));
+    				RestaurantDto tagCon = new RestaurantDto();
+    				
+    				tagCon.setTag(rs.getString("tag"));
+    				tagCon.setRestaurantNo(rs.getInt("restaurantNo"));
+    				
+    				tag.add(tagCon);
     			}
     			}
-    		return resDto;
+    		return tag;
     	} catch (SQLException e) {
     		e.printStackTrace();
     	}
