@@ -1,11 +1,11 @@
 @charset "UTF-8";
 
 body {
-    font-family: 'Noto Sans KR', sans-serif;
     background-color: #f4f4f4;
     color: #333;
     margin: 0;
     padding: 0;
+    min-width: 1000px;
 }
 
 .main_con {
@@ -22,8 +22,14 @@ body {
     margin: 0.83em 0;
     font-weight: bold;
     color: #333;
+    margin-left: 20%;
 }
-
+button.left_btn {
+    float: right;
+    right: 100px;
+    position: relative;
+    top: 30px;
+}
 .form-select {
     width: 150px;
     top: 20px;

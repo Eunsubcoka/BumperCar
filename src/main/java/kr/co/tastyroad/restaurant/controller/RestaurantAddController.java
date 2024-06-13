@@ -69,25 +69,22 @@ public class RestaurantAddController extends HttpServlet {
         }
         resService.addTag(tagList);
 
-        Collection<Part> parts = request.getParts();
-        String uploadDirectory = getServletContext().getRealPath("/assets/image/");
-
-        File filePath = new File(uploadDirectory);
-        if (!filePath.exists()) {
-            filePath.mkdirs();
-        }
-
-        for (Part part : parts) {
-            String fileName = getFileName(part);
-            if (fileName != null) {
-                part.write(uploadDirectory + File.separator + fileName);
-
-                RestaurantDto fileDto = new RestaurantDto();
-                fileDto.setFilePath(uploadDirectory);
-                fileDto.setFileName(fileName);
-                fileDto.setRestaurantNo(no);
-                resService.fileUpload(fileDto);
+        Part filePart = request.getPart("file");
+        if (filePart != null && filePart.getSubmittedFileName() != null && !filePart.getSubmittedFileName().isEmpty()) {
+            String fileName = getFileName(filePart);
+            String uploadDirectory = getServletContext().getRealPath("/assets/image/");
+            File filePath = new File(uploadDirectory);
+            if (!filePath.exists()) {
+                filePath.mkdirs();
             }
+            filePart.write(uploadDirectory + File.separator + fileName);
+
+            RestaurantDto fileDto = new RestaurantDto();
+            fileDto.setFilePath(uploadDirectory);
+            fileDto.setFileName(fileName);
+            fileDto.setRestaurantNo(no);
+
+            resService.fileUpload(fileDto);
         }
 
         response.sendRedirect("/index.jsp");

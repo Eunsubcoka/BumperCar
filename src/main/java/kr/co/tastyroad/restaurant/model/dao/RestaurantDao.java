@@ -380,27 +380,24 @@ public class RestaurantDao {
     }
     
     public int fileUpload(RestaurantDto resDto) {
-		String query = "Insert into res_img "
-					  +" Values(?,?)";
-		
-		try {
-			pstmt = con.prepareStatement(query);
-			
-			pstmt.setString(1, resDto.getFileName());
-			pstmt.setInt(2, resDto.getRestaurantNo());
-			
-			int result = pstmt.executeUpdate();
-			
-			return result;
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		
-		
-		return 0;
-	}
+        String query = "INSERT INTO res_img (imgName, restaurantNo) VALUES (?, ?)";
+        	System.out.println(resDto.getFileName());
+        try {
+            pstmt = con.prepareStatement(query);
+            pstmt.setString(1, resDto.getFileName());
+            pstmt.setInt(2, resDto.getRestaurantNo());
+
+            int result = pstmt.executeUpdate();
+            return result;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+    }
+
+
    
 
 //    public void getFileName(RestaurantDto result) {

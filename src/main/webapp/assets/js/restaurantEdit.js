@@ -59,4 +59,3 @@ wrapper1.on('click', '.remove_field2', function(e) {
     $(this).parent('.input_list1').remove(); // 필드 제거
     fieldCount1--; // 필드 수 감소
 });
-
