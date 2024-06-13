@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>공지사항 상세페이지 | TastyRoad</title>
 <%@ include file="/views/common/head.jsp"%>
 <link rel="stylesheet" href="/assets/css/notice.css">
 </head>

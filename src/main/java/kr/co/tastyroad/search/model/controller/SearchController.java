@@ -25,8 +25,8 @@ public class SearchController extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	try {
-    		String searchText = request.getParameter("search-text");
+        try {
+            String searchText = request.getParameter("search-text");
             String tag = request.getParameter("tag");
             int cpage = 1;
 
@@ -46,8 +46,6 @@ public class SearchController extends HttpServlet {
             int endIndexNotices = Math.min(startIndex + 5, noticeList.size());
             int endIndexRestaurants = Math.min(startIndex + 5, restaurantList.size());
 
-           
-//            기존에 5개만 출력 / 5개보다 많을때 버튼 클릭시 이후 인덱스 출력 
             if (startIndex < noticeList.size()) {
                 ArrayList<noticeDto> paginatedNoticeList = new ArrayList<>(noticeList.subList(startIndex, endIndexNotices));
                 request.setAttribute("noticeList", paginatedNoticeList);
@@ -95,11 +93,10 @@ public class SearchController extends HttpServlet {
 
             RequestDispatcher view = request.getRequestDispatcher("/views/search/search_main.jsp");
             view.forward(request, response);
-        }catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             response.sendRedirect("/views/error.html");
         }
-    	
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

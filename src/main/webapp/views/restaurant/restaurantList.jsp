@@ -5,6 +5,7 @@
 <!doctype html>
 <html lang="en">
 <head>
+<title>레스토랑 목록 | TastyRoad</title>
 <link rel="stylesheet" href="/assets/css/category.css">
 <script type="text/javascript" src="/assets/js/restaurant.js"></script>
 

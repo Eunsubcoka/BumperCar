@@ -5,6 +5,7 @@
 <!doctype html>
 <html lang="en">
 <head>
+<title>리뷰 등록 | TastyRoad</title>
 <%@ include file="/views/common/head.jsp"%>
 
 	<link rel="stylesheet" href="/assets/css/reviewEnroll.css">

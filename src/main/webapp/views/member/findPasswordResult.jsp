@@ -4,12 +4,13 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>비밀번호 재설정 요청 결과</title>
+    <title>비밀번호 재설정 요청 결과 | TastyRoad</title>
     <%@ include file="/views/common/head.jsp"%>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/idPassword.css">
 </head>
 <body>
     <%@ include file="/views/common/header.jsp"%>
+    <%@ include file="/views/common/nav.jsp"%>
     <div class="form-container">
         <h2>비밀번호 재설정 요청 결과</h2>
         <c:choose>

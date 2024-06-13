@@ -5,6 +5,7 @@
 <!doctype html>
 <html lang="en">
 <head>
+<title>리뷰 목록 | TastyRoad</title>
 <%@ include file="/views/common/head.jsp"%>
 <link rel="stylesheet" href="/assets/css/review.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">

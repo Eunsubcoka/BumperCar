@@ -5,6 +5,7 @@
 <!doctype html>
 <html lang="en">
 <head>
+<title>공지사항 등록 | TastyRoad</title>
 <%@ include file="/views/common/head.jsp"%>
 <link rel="stylesheet" href="/assets/css/notice.css">
 <script type="text/javascript" src="/assets/smarteditor2/js/HuskyEZCreator.js" charset="utf-8"></script>

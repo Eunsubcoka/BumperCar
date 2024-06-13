@@ -33,44 +33,51 @@ public class ReservationEnrollController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html; charset=UTF-8");
-		ReservationDto resDto = new ReservationDto();
-		
-		HttpSession session = request.getSession();
-		int memberNo = (int)session.getAttribute("userNo");
+        try {
+        	request.setCharacterEncoding("UTF-8");
+    		response.setContentType("text/html; charset=UTF-8");
+    		ReservationDto resDto = new ReservationDto();
+    		
+    		HttpSession session = request.getSession();
+    		int memberNo = (int)session.getAttribute("userNo");
 
-		
-		String name = request.getParameter("name");
-		resDto.setUserName(name); 
-		
-		
-		int headCount = Integer.parseInt(request.getParameter("headCount"));
-		resDto.setHeadCount(headCount); 
-		String email = request.getParameter("email");
-		resDto.setUserEmail(email); 
-		String phone = request.getParameter("phone");
-		resDto.setPhone(phone);
-		String date = request.getParameter("datepicker");
-		System.out.println(date);
-		resDto.setDate(date);
-		resDto.setUserNo(memberNo);
-		
-		ReservationServiceImpl resService = new ReservationServiceImpl();
-		
-		int result = resService.resEnroll(resDto);
-		
-		if(result == 1) {
-			RequestDispatcher view = request.getRequestDispatcher("/index.jsp");
-			view.forward(request,response);
-			
-		}
-		else {
-			RequestDispatcher view = request.getRequestDispatcher("/views/reservation/reservation.jsp");
-			view.forward(request,response);
-			
-		}
-		
+    		
+    		String name = request.getParameter("name");
+    		resDto.setUserName(name); 
+    		
+    		
+    		int headCount = Integer.parseInt(request.getParameter("headCount"));
+    		resDto.setHeadCount(headCount); 
+    		String email = request.getParameter("email");
+    		resDto.setUserEmail(email); 
+    		String phone = request.getParameter("phone");
+    		resDto.setPhone(phone);
+    		String date = request.getParameter("datepicker");
+    		System.out.println(date);
+    		resDto.setDate(date);
+    		resDto.setUserNo(memberNo);
+    		
+    		ReservationServiceImpl resService = new ReservationServiceImpl();
+    		
+    		int result = resService.resEnroll(resDto);
+    		
+    		if(result == 1) {
+    			RequestDispatcher view = request.getRequestDispatcher("/index.jsp");
+    			view.forward(request,response);
+    			
+    		}
+    		else {
+    			RequestDispatcher view = request.getRequestDispatcher("/views/reservation/reservation.jsp");
+    			view.forward(request,response);
+    			
+    		}
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendRedirect("/views/error.html");
+        }
+				
 	}
 	
 	/**

@@ -5,6 +5,7 @@
 <!doctype html>
 <html lang="en">
 <head>
+<title>레스토랑 상세페이지 | TastyRoad</title>
 <link rel="stylesheet" href="/assets/css/restaurantDetail.css">
 <script type="text/javascript" src="/assets/js/restaurant.js"></script>
 <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"

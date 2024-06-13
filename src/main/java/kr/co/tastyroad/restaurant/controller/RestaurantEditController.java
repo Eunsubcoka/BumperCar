@@ -32,60 +32,67 @@ public class RestaurantEditController extends HttpServlet {
 	 */
 		
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html; charset=utf-8");
-        request.setCharacterEncoding("utf-8");
-
         try {
-            int resNo = Integer.parseInt(request.getParameter("resNo"));
-            String name = request.getParameter("restaurantName");
-            int category = Integer.parseInt(request.getParameter("category"));
-            String phone = request.getParameter("phone");
-            String addr = request.getParameter("addr");
+        	response.setContentType("text/html; charset=utf-8");
+            request.setCharacterEncoding("utf-8");
 
-            RestaurantDto restaurant = new RestaurantDto();
-            restaurant.setRestaurantNo(resNo);
-            restaurant.setRestaurantName(name);
-            restaurant.setCategory(category);
-            restaurant.setRestaurantPhone(phone);
-            restaurant.setLocation(addr);
+            try {
+                int resNo = Integer.parseInt(request.getParameter("resNo"));
+                String name = request.getParameter("restaurantName");
+                int category = Integer.parseInt(request.getParameter("category"));
+                String phone = request.getParameter("phone");
+                String addr = request.getParameter("addr");
 
-            RestaurantServiceImpl resService = new RestaurantServiceImpl();
+                RestaurantDto restaurant = new RestaurantDto();
+                restaurant.setRestaurantNo(resNo);
+                restaurant.setRestaurantName(name);
+                restaurant.setCategory(category);
+                restaurant.setRestaurantPhone(phone);
+                restaurant.setLocation(addr);
 
-            resService.updateRestaurant(restaurant);
+                RestaurantServiceImpl resService = new RestaurantServiceImpl();
 
-            updateMenus(request, resService, resNo);
-            updateTags(request, resService, resNo);
-            resService.deleteImg(resNo);
-            Collection<Part> parts = request.getParts();
-            String uploadDirectory = getServletContext().getRealPath("/assets/image/");
+                resService.updateRestaurant(restaurant);
 
-            File filePath = new File(uploadDirectory);
-            if (!filePath.exists()) {
-                filePath.mkdirs();
-            }
+                updateMenus(request, resService, resNo);
+                updateTags(request, resService, resNo);
+                resService.deleteImg(resNo);
+                Collection<Part> parts = request.getParts();
+                String uploadDirectory = getServletContext().getRealPath("/assets/image/");
 
-            for (Part part : parts) {
-                String fileName = getFileName(part);
-                if (fileName != null) {
-                    part.write(uploadDirectory + File.separator + fileName);
-
-                    RestaurantDto fileDto = new RestaurantDto();
-                    fileDto.setFilePath(uploadDirectory);
-                    fileDto.setFileName(fileName);
-                    fileDto.setRestaurantNo(resNo);
-                    resService.fileUpload(fileDto);
+                File filePath = new File(uploadDirectory);
+                if (!filePath.exists()) {
+                    filePath.mkdirs();
                 }
+
+                for (Part part : parts) {
+                    String fileName = getFileName(part);
+                    if (fileName != null) {
+                        part.write(uploadDirectory + File.separator + fileName);
+
+                        RestaurantDto fileDto = new RestaurantDto();
+                        fileDto.setFilePath(uploadDirectory);
+                        fileDto.setFileName(fileName);
+                        fileDto.setRestaurantNo(resNo);
+                        resService.fileUpload(fileDto);
+                    }
+                }
+
+                
+                
+                
+                response.sendRedirect("/index.jsp");
+            } catch (Exception e) {
+                e.printStackTrace();
+                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             }
 
-            
-            
-            
-            response.sendRedirect("/index.jsp");
+
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            response.sendRedirect("/views/error.html");
         }
-    }
+            }
 
     private String getFileName(Part part) {
         String contentDisposition = part.getHeader("content-disposition");

@@ -9,9 +9,9 @@ var overlays = []; // 모든 오버레이를 저장할 배열
 function initializeMap() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
-            var lat = position.coords.latitude;	//위도
-            var lon = position.coords.longitude;	//경도
-            var userLocation = new kakao.maps.LatLng(lat, lon);	//-> 나의 (위도,경도)
+            var lat = position.coords.latitude; //위도
+            var lon = position.coords.longitude; //경도
+            var userLocation = new kakao.maps.LatLng(lat, lon); //-> 나의 (위도,경도)
 
             map = new kakao.maps.Map(mapContainer, {
                 center: userLocation,
@@ -78,7 +78,7 @@ function addMarkers() {
 
     // 검색된 list의 각각의 위치를 표시 
     locations.forEach(function(location) {
-        geocoder.addressSearch(location.location, function(result, status) {	// addressSearch -> 주소로 입력하면, 해당 주소를 위도 경도로 변환해줌
+        geocoder.addressSearch(location.location, function(result, status) { // addressSearch -> 주소로 입력하면, 해당 주소를 위도 경도로 변환해줌
             if (status === kakao.maps.services.Status.OK) {
                 var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
                 var marker = new kakao.maps.Marker({
@@ -87,15 +87,11 @@ function addMarkers() {
                 });
                 markers.push(marker);
 
-                // 태그를 배열로 나눔
-                var tags = location.tags.split(',');
-
-                // 태그를 리스트로 만듦
-                var tagsList = '<ul class="tags">';
-                tags.forEach(function(tag) {
-                    tagsList += '<li>' + tag.trim() + '</li>';
-                });
-                tagsList += '</ul>';
+                // 태그를 한 줄로 표시하고 20글자 이상이면 ... 처리
+                var tags = location.tags.join(', ');
+                if (tags.length > 20) {
+                    tags = tags.substring(0, 20) + '...';
+                }
 
                 var content = document.createElement('div');
                 content.className = 'wrap';
@@ -111,7 +107,7 @@ function addMarkers() {
                     '        </div>' +
                     '        <div class="desc">' +
                     '            <div class="ellipsis">' + location.location + '</div>' +
-                    '            <div class="tags ellipsis">' + tagsList + '</div>' +
+                    '            <div class="tags ellipsis">' + tags + '</div>' +
                     '            <div><a href="/restaurantDetail.do?restaurantId=' + location.restaurantNo + '" target="_blank" class="link">상세보기</a></div>' +
                     '        </div>' +
                     '    </div>' +
