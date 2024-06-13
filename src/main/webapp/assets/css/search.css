@@ -373,3 +373,9 @@ body {
 	width:150px;
 	text-align:center !important;
 }
+
+.restaurant-tab{
+	width:100%;
+	display:inline-block;
+}
+

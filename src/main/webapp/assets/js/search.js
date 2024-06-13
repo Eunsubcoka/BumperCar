@@ -4,6 +4,7 @@ var userInfoWindow; // 내 위치 인포윈도우 변수
 var userMarker; // 내 위치 마커 변수
 var markers = []; // 모든 마커를 저장할 배열
 var overlays = []; // 모든 오버레이를 저장할 배열
+var userLocation; // 사용자의 위치
 
 // 사용자 위치를 가져옴
 function initializeMap() {
@@ -11,7 +12,7 @@ function initializeMap() {
         navigator.geolocation.getCurrentPosition(function(position) {
             var lat = position.coords.latitude; //위도
             var lon = position.coords.longitude; //경도
-            var userLocation = new kakao.maps.LatLng(lat, lon); //-> 나의 (위도,경도)
+            userLocation = new kakao.maps.LatLng(lat, lon); //-> 나의 (위도,경도)
 
             map = new kakao.maps.Map(mapContainer, {
                 center: userLocation,
@@ -58,9 +59,9 @@ function initializeMap() {
 
 // 내 위치가 입력되지 않았을 때 기본 중심 좌표로 지도 초기화
 function initializeDefaultMap() {
-    var defaultLocation = new kakao.maps.LatLng(37.3987966098124, 126.920790701382);
+    userLocation = new kakao.maps.LatLng(37.3987966098124, 126.920790701382);
     map = new kakao.maps.Map(mapContainer, {
-        center: defaultLocation,
+        center: userLocation,
         level: 5 // 확대 레벨
     });
 
@@ -93,6 +94,9 @@ function addMarkers() {
                     tags = tags.substring(0, 20) + '...';
                 }
 
+                // 이미지가 있는지 확인하고, 없으면 기본 이미지 사용
+                var imgSrc = location.imgName ? "/assets/image/" + location.imgName : "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/thumnail.png";
+
                 var content = document.createElement('div');
                 content.className = 'wrap';
                 content.innerHTML = 
@@ -103,7 +107,7 @@ function addMarkers() {
                     '    </div>' +
                     '    <div class="body">' +
                     '        <div class="img">' +
-                    '            <img src="https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/thumnail.png" width="73" height="70">' +
+                    '            <img src="' + imgSrc + '" width="73" height="70">' +
                     '        </div>' +
                     '        <div class="desc">' +
                     '            <div class="ellipsis">' + location.location + '</div>' +
@@ -210,4 +214,34 @@ function toggleReview(btn) {
         reviewBox.style.display = "none";
         btn.textContent = "리뷰 열기";
     }
+}
+
+function sortResults() {
+    const sortOrder = document.getElementById('sortOrder').value;
+    const searchText = encodeURIComponent(document.querySelector('#load-more-restaurants').dataset.searchText || '');
+    const tag = encodeURIComponent(document.querySelector('#load-more-restaurants').dataset.tag || '');
+    const cpage = 1;
+    const lat = userLocation.getLat();
+    const lon = userLocation.getLng();
+
+    let url = `/search.do?cpage=${cpage}&search-text=${searchText}&tag=${tag}&sortOrder=${sortOrder}`;
+    if (sortOrder === 'distance') {
+        url += `&lat=${lat}&lon=${lon}`;
+    }
+
+    fetch(url)
+        .then(response => response.text())
+        .then(html => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const newRestaurants = doc.querySelectorAll('#restaurant-list .restaurant-item');
+            const restaurantList = document.querySelector('#restaurant-list');
+            restaurantList.innerHTML = '';
+            newRestaurants.forEach(restaurant => {
+                restaurantList.appendChild(restaurant);
+            });
+        })
+        .catch(error => {
+            console.error('Error sorting restaurants:', error);
+        });
 }

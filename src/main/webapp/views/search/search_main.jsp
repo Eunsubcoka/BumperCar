@@ -25,7 +25,7 @@
     <main class="search-main" id="search-main"
           data-locations='[
             <c:forEach var="restaurant" items="${allRestaurantList}" varStatus="status">
-                {"location": "${restaurant.location}", "name": "${restaurant.restaurantName}", "tags": [<c:forEach var="tag" items="${tagsMap[restaurant.restaurantNo]}" varStatus="tagStatus">"${tag}"<c:if test="${!tagStatus.last}">,</c:if></c:forEach>], "restaurantNo": ${restaurant.restaurantNo}}<c:if test="${!status.last}">,</c:if>
+                {"location": "${restaurant.location}", "name": "${restaurant.restaurantName}", "tags": [<c:forEach var="tag" items="${tagsMap[restaurant.restaurantNo]}" varStatus="tagStatus">"${tag}"<c:if test="${!tagStatus.last}">,</c:if></c:forEach>], "restaurantNo": ${restaurant.restaurantNo}, "imgName": "${restaurant.imgName}"}<c:if test="${!status.last}">,</c:if>
             </c:forEach>
           ]'>
         <div class="search-header">
@@ -36,6 +36,12 @@
 
         <div class="search-tab" id="restaurant">
             <h3>레스토랑</h3>
+            <div class="sort-options">
+                <select id="sortOrder" onchange="sortResults()">
+                    <option value="latest">최신순</option>
+                    <option value="distance">거리순</option>
+                </select>
+            </div>
             <c:if test="${not empty restaurantList}">
                 <div class="search-results">
                     <ul class="restaurant-list" id="restaurant-list">
@@ -155,3 +161,4 @@
     <script src="/assets/js/search.js"></script>
 </body>
 </html>
+                

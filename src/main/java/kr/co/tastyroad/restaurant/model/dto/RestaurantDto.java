@@ -9,6 +9,15 @@ public void setTag(String tag) {
 	this.tag = tag;
 }
 
+private double distance;
+
+
+public double getDistance() {
+	return distance;
+}
+public void setDistance(double distance) {
+	this.distance = distance;
+}
 
 public int fileNo;
 public String filePath;

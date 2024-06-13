@@ -20,9 +20,11 @@ public class searchServiceImpl implements searchService {
     }
 
     @Override
-    public ArrayList<RestaurantDto> searchRestaurants(String searchText) {
-        return searchDao.searchRestaurants(searchText);
+    public ArrayList<RestaurantDto> searchRestaurants(String searchText, String sortOrder) {
+        return searchDao.searchRestaurants(searchText, sortOrder);
     }
+
+
 
     @Override
     public ArrayList<ReviewDto> getReviewsRestaurant(int restaurantNo) {

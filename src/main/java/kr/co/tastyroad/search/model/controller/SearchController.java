@@ -28,8 +28,13 @@ public class SearchController extends HttpServlet {
         try {
             String searchText = request.getParameter("search-text");
             String tag = request.getParameter("tag");
-            int cpage = 1;
+            String sortOrder = request.getParameter("sortOrder");
 
+            if (sortOrder == null || sortOrder.trim().isEmpty()) {
+                sortOrder = "latest"; // 기본 정렬 기준을 최신순으로 설정
+            }
+
+            int cpage = 1;
             if (request.getParameter("cpage") != null) {
                 cpage = Integer.parseInt(request.getParameter("cpage"));
             }
@@ -40,9 +45,10 @@ public class SearchController extends HttpServlet {
             ArrayList<RestaurantDto> paginatedRestaurantList = new ArrayList<>();
 
             if (searchText != null && !searchText.isEmpty()) {
-                allRestaurantList = searchService.searchRestaurants(searchText);
+                allRestaurantList = searchService.searchRestaurants(searchText, sortOrder);
             }
 
+            // 페이징 로직
             int startIndex = (cpage - 1) * 5;
             int endIndexNotices = Math.min(startIndex + 5, noticeList.size());
             int endIndexRestaurants = Math.min(startIndex + 5, allRestaurantList.size());
@@ -61,8 +67,8 @@ public class SearchController extends HttpServlet {
                 request.setAttribute("restaurantList", new ArrayList<RestaurantDto>());
             }
 
+            // 기타 설정
             RestaurantServiceImpl resService = new RestaurantServiceImpl();
-
             HashMap<Integer, Float> ratingsMap = new HashMap<>();
             HashMap<Integer, ArrayList<ReviewDto>> top3ReviewsMap = new HashMap<>();
             HashMap<Integer, ArrayList<String>> tagsMap = new HashMap<>();
@@ -84,6 +90,7 @@ public class SearchController extends HttpServlet {
 
             request.setAttribute("searchText", searchText);
             request.setAttribute("tag", tag);
+            request.setAttribute("sortOrder", sortOrder); // 정렬 기준 설정
             request.setAttribute("ratingsMap", ratingsMap);
             request.setAttribute("top3ReviewsMap", top3ReviewsMap);
             request.setAttribute("tagsMap", tagsMap);
@@ -101,7 +108,6 @@ public class SearchController extends HttpServlet {
         }
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request, response);
-    }
+
+
 }

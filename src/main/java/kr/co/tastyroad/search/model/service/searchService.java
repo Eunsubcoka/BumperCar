@@ -10,7 +10,9 @@ public interface searchService {
 
     public ArrayList<noticeDto> searchNotices(String searchText);
     
-    public ArrayList<RestaurantDto> searchRestaurants(String searchText);
+    public ArrayList<RestaurantDto> searchRestaurants(String searchText, String sortOrder);
+
+
     
     public ArrayList<ReviewDto> getReviewsRestaurant(int restaurantNo);
     
