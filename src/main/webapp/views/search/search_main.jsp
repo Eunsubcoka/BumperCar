@@ -24,7 +24,7 @@
     </div>
     <main class="search-main" id="search-main"
           data-locations='[
-            <c:forEach var="restaurant" items="${restaurantList}" varStatus="status">
+            <c:forEach var="restaurant" items="${allRestaurantList}" varStatus="status">
                 {"location": "${restaurant.location}", "name": "${restaurant.restaurantName}", "tags": [<c:forEach var="tag" items="${tagsMap[restaurant.restaurantNo]}" varStatus="tagStatus">"${tag}"<c:if test="${!tagStatus.last}">,</c:if></c:forEach>], "restaurantNo": ${restaurant.restaurantNo}}<c:if test="${!status.last}">,</c:if>
             </c:forEach>
           ]'>
