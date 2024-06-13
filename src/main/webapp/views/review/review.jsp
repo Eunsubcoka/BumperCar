@@ -40,9 +40,16 @@
 										<span class="user-name"><strong>${item.userName}</strong></span>
 										<span class="rating"><i class="fas fa-star"></i>${item.ratings}점</span>
 									</div>
+									<!-- 좋아요 기능 -->
+									<div class="right_area">
+  										<a href="javascript:void(0);" class="heartA">
+     										<span class="heart heartEmpty">♡</span>
+     										<span class="heart heartFull">♥</span>
+  										</a>
+									</div>
 								</div>
 								<div class="date">${item.reviewDate}</div>
-								<div class="title">
+								<div class="title" required>
 									<h2>${item.reviewTitle}</h2>
 								</div>
 								<div class="content">
@@ -70,6 +77,9 @@
 					</c:forEach>
 				</c:otherwise>
 			</c:choose>
+		<c:if test="${not empty list}">
+		<a href="#" id="more"> 리뷰 더보기 + </a>
+		</c:if>
 		</div>
 	</section>
 
@@ -77,7 +87,7 @@
 
 
 	<script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+	<script type="text/javascript" src="/assets/js/review.js"></script> 
 
 </body>
 </html>
-
