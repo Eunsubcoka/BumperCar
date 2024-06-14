@@ -21,6 +21,7 @@ public interface RestaurantService {
     public int fileUpload(RestaurantDto resDto);
     public ArrayList<RestaurantDto> ratingsList(ArrayList<RestaurantDto> resDto);
     public int deleteImg(int resNo);
+	public ArrayList<String> getImg(int resNo);
 
 	
 }
