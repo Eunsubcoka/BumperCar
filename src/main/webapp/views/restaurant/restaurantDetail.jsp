@@ -30,7 +30,9 @@
 			<div class="res_left_container">
 				<div class="res_info_wrap">
 					<div class="res_header">
-						<img src="/assets/image/${result.imgName }" alt="대한옥">
+						<c:forEach var = "imgList" items="${imgList }">
+						<img src="/assets/image/${imgList}" alt="대한옥">
+						</c:forEach>
 					</div>
 					<div class="details">
 						<h1 class="">${result.restaurantName }</h1>
@@ -74,8 +76,7 @@
 
 					<div class="details">
 						<h1>메뉴 정보</h1>
-						<div class="share"
-							onclick="location.href='/tastyForm/reservation.do?restaurantNo=${resNo}'">
+							<div class="share" onclick="checkLoginAndReserve(${resNo})">
 							예약하기</div>
 					</div>
 
@@ -145,12 +146,10 @@
 	<script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=597a12321ce91d26c9101324b5955ebd&libraries=services"></script>
 	<script>
-		
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		mapOption = {
 			center : new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-			level : 3
-		// 지도의 확대 레벨
+			level : 3 // 지도의 확대 레벨
 		};
 
 		// 지도를 생성합니다    
@@ -158,16 +157,11 @@
 
 		// 주소-좌표 변환 객체를 생성합니다
 		var geocoder = new kakao.maps.services.Geocoder();
-		geocoder.addressSearch('${result.location }', function(result, status) {
-
+		
 		// 주소로 좌표를 검색합니다
-		geocoder
-				.addressSearch(
-						'${result.location }',
-						function(result, status) {
+		geocoder.addressSearch('${result.location }', function(result, status) {
 		    // 정상적으로 검색이 완료됐으면 
-		     if (status === kakao.maps.services.Status.OK) {
-
+		    if (status === kakao.maps.services.Status.OK) {
 		        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
 		        // 결과값으로 받은 위치를 마커로 표시합니다
@@ -185,10 +179,17 @@
 		        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
 		        map.setCenter(coords);
 		    } 
-		});    
-		
-		
-		
+		});   
+		function checkLoginAndReserve(resNo) {
+			<c:if test="${empty sessionScope.userNo}">
+				alert("로그인이 필요합니다.");
+				
+			</c:if>
+			<c:if test="${!empty sessionScope.userNo}">
+				location.href='/tastyForm/reservation.do?restaurantNo=' + resNo;
+			</c:if>
+		}
+
 	</script>
 
 	<script src="/assets/js/bootstrap.bundle.min.js"></script>

@@ -58,10 +58,17 @@
                 <div class="input-container">
                     <label for="title">태그:</label>
 				 <div class="input_wrap1">
+				 <c:set var = "count" value = "0"/>
+                <c:forEach var="tag" items="${tag}">
+                
         <div class="input_list1">
-            <input type="text" name="tag1" placeholder="태그" /><br>
+        
+				 <c:set var = "count" value = "${count + 1 }"/>
+            <input type="text" name="tag${count }" placeholder="태그" value="${tag }"/><br>
+			<a href="javascript:void(0);" class="remove_field2">삭제</a>
             
         </div>
+    </c:forEach>
     </div>
     <button class="add_field1">추가하기</button>
                 </div>
@@ -78,11 +85,18 @@
                 <div class="content" style="overflow:hidden; height:auto;">
                 	<label for="content">메뉴:</label>
 				 <div class="input_wrap">
+				 <c:set var = "menuCnt" value = "0"/>
+				 <c:set var = "priceCnt" value = "0"/>
+                <c:forEach var="menuList" items="${menuList}">
         <div class="input_list">
-            <input type="text" name="menu1" placeholder="음식명" /><br>
-            <input type="text" name="price1" placeholder="가격" />
+				 <c:set var = "menuCnt" value = "${menuCnt + 1 }"/>
+				 <c:set var = "priceCnt" value = "${priceCnt + 1 }"/>
+            <input type="text" name="menu${menuCnt }" placeholder="음식명" value="${menuList.menu }" /><br>
+            <input type="text" name="price${priceCnt }" placeholder="가격" value= ${menuList.price }/><br>
+            <a href="javascript:void(0);" class="remove_field">삭제</a>
             
         </div>
+        </c:forEach>
     </div>
     <button class="add_field">추가하기</button>
 				
@@ -99,7 +113,6 @@
 
 
 	<script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
-	<script src="/assets/js/restaurantAdd.js"></script>
 	<script type="text/javascript" src="/assets/js/reviewEnroll.js"></script> 
 	
 	
@@ -151,6 +164,63 @@
             }
         }).open();
     }
+    const wrapper = $('.input_wrap'); // 입력 필드를 포함하는 컨테이너 선택
+    const addButton = $('.add_field'); // 추가 버튼 선택
+    const maxFields = 10; // 최대 입력 필드 수 설정
+    let fieldCount = ${menuCnt}; // 현재 입력 필드 수
+
+    // '추가하기' 버튼 클릭 시 이벤트
+    addButton.click(function(e) {
+        e.preventDefault(); // 페이지 리로드 방지
+        if (fieldCount < maxFields) { // 최대 필드 수 체크
+            fieldCount++; // 필드 수 증가
+            // 새 입력 필드 추가
+            wrapper.append(`
+                <div class="input_list">
+                    <input type="text" name="menu`+fieldCount+`" placeholder="메뉴" />
+                   <br>
+    <input type="text" name="price`+fieldCount+`" placeholder="가격" />
+                    <a href="javascript:void(0);" class="remove_field">삭제</a>
+                </div>
+            `);
+        }
+    });
+
+    // '삭제' 링크 클릭 시 이벤트
+    wrapper.on('click', '.remove_field', function(e) {
+        e.preventDefault(); // 페이지 리로드 방지
+        $(this).parent('.input_list').remove(); // 필드 제거
+        fieldCount--; // 필드 수 감소
+    });
+
+
+
+    const wrapper1 = $('.input_wrap1'); // 입력 필드를 포함하는 컨테이너 선택
+    const addButton1 = $('.add_field1'); // 추가 버튼 선택
+    const maxFields1 = 10; // 최대 입력 필드 수 설정
+    let fieldCount1 = ${count}; // 현재 입력 필드 수
+
+    // '추가하기' 버튼 클릭 시 이벤트
+    addButton1.click(function(e) {
+        e.preventDefault(); // 페이지 리로드 방지
+        if (fieldCount1 < maxFields1) { // 최대 필드 수 체크
+            fieldCount1++; // 필드 수 증가
+            // 새 입력 필드 추가
+            wrapper1.append(`
+                <div class="input_list1">
+                    <input type="text" name="tag`+fieldCount1+`" placeholder="태그" />
+                    <a href="javascript:void(0);" class="remove_field2">삭제</a>
+                </div>
+            `);
+        }
+    });
+
+    // '삭제' 링크 클릭 시 이벤트
+    wrapper1.on('click', '.remove_field2', function(e) {
+        e.preventDefault(); // 페이지 리로드 방지
+        $(this).parent('.input_list1').remove(); // 필드 제거
+        fieldCount1--; // 필드 수 감소
+    });
 </script>
 	
 </body>

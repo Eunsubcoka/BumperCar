@@ -28,15 +28,15 @@
 						<c:if test="${seleType == 'ratings'}">selected</c:if>>별점순</option>
 				</select>
 			</form>
-		<div class="list_type">
-			<h2 class="title02">음식점 목록</h2>
-
 			<c:choose>
 				<c:when test="${sessionScope.userType == 'admin'}">
 					<button type="button"
-						onclick="location.href='/tastyForm/resAdd.do'">등록하기</button>
+						onclick="location.href='/tastyForm/resAdd.do'" class="left_btn">등록하기</button>
 				</c:when>
 			</c:choose>
+		<div class="list_type">
+			<h2 class="title02">음식점 목록</h2>
+
 			<ul class="res_ul">
 				<c:forEach var="restaurant" items="${restaurantList}">
 					<li class="res_li">
@@ -50,7 +50,7 @@
 								<div class="score">평점: ${restaurant.ratings }</div>
 								<div class="res_tag">
 									<c:forEach var="tag" items="${tag}">
-										<c:if test="${restaurant.restaurantNo == tag.restaurantNo }">#${tag.tag}, </c:if>
+										<c:if test="${restaurant.restaurantNo == tag.restaurantNo }">#${tag.tag} </c:if>
 									</c:forEach>
 								</div>
 							</div>
