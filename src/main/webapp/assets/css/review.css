@@ -139,7 +139,7 @@ a {
 }
 
 /* 좋아요 */
-.right_area {
+.heart_area {
 	margin-left: auto; /* 오른쪽으로 정렬 */
 	padding-top:6.5px;
  	width: 50px;
@@ -162,7 +162,7 @@ a {
 }
 
 
-.right_area .heartEmpty.active {
+.heart_area .heartEmpty.active {
     animation: animateHeart .3s linear forwards;
 }
 

@@ -30,7 +30,7 @@
 					<c:forEach var="item" items="${list}">
 					<form action="/review/delete.do" method="POST">
 					<input type="hidden" name="restaurantNo" value="${restaurantNo}">                                    
-					<input type="hidden" name="reviewNo" value="${item.reviewNo}"> 
+					<input type="hidden" name="reviewNo" id="reviewNo" value="${item.reviewNo}"> 
 					<input type="hidden" name="ratings" value="${result.ratings}"/>
 						<div class="container-review">
 							<div class="review">
@@ -41,8 +41,8 @@
 										<span class="rating"><i class="fas fa-star"></i>${item.ratings}점</span>
 									</div>
 									<!-- 좋아요 기능 -->
-									<div class="right_area">
-  										<a href="javascript:void(0);" class="heartA">
+									<div class="heart_area">
+  										<a href="javascript:void(0);" class="heartA" data-reviewNo="${item.reviewNo}">
      										<span class="heart heartEmpty">♡</span>
      										<span class="heart heartFull">♥</span>
   										</a>

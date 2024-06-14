@@ -33,6 +33,8 @@ public interface ReviewService {
 	// 수정 업로드 파일 삭제
 	public int delete(ReviewDto reviewDto, String removeImageName);
 	
+	// 리뷰 좋아요
+	public int reviewLike(ReviewDto reviewDto);
 		
 	
 }

@@ -1,11 +1,11 @@
 /* 리뷰 더보기 기능 */
-// 모든 항목 숨기기
+// 모든 리뷰 숨기기
 let items = document.querySelectorAll('.container-review');
 let moreBtn = document.getElementById('more');
 	for (let i = 0; i < items.length; i++) {
 		items[i].style.display = 'none';
 	}
-//처음 5항목만 보여주기
+//처음 5개의 리뷰만 보여주기
 	for (let i = 0; i < items.length; i++) {
 		if(i < 5) {
 			items[i].style.display = 'block';
@@ -15,28 +15,24 @@ let moreBtn = document.getElementById('more');
 	moreBtn.addEventListener('click', function(event) {
 	event.preventDefault();
 	
-	// 숨겨진 항목 가져오기
+	// 숨겨진 리뷰 가져오기
 	let hiddenItems = [];
 	for(let i = 0; i <items.length; i++) {
 		if(items[i].style.display === 'none') {
 			hiddenItems.push(items[i]);
 		}
 	}	
-	// 3개의 숨겨진 항목을 표시
+	// 3개의 숨겨진 리뷰를 표시
 	for(let i = 0; i < 3; i++) { 
 		if(hiddenItems[i]) {
 			hiddenItems[i].style.display = 'block';
 		}
 	}
-    // 리뷰의 개수가 5개 이상인 경우에만 더보기 링크를 나타내기
-    let reviewCount = items.length;
-    if (reviewCount >= 5) {
-        moreBtn.style.display = 'inline';
-    } else {
+ 	// 더이상 숨겨진 리뷰가 없을때
+    if (hiddenItems.length === 0) {
         moreBtn.style.display = 'none';
         alert("더 이상 리뷰가 없습니다.");
     }
-console.log("리뷰 개수:", items.length);
 })
 
 
@@ -67,3 +63,35 @@ window.onload = function() {
         });
     });
 };
+
+// 좋아요 
+// 좋아요 버튼 클릭 이벤트 핸들러
+document.querySelectorAll('.heartA').forEach(function(likeBtn) {
+    likeBtn.addEventListener('click', function() {
+        // 좋아요를 누른 리뷰번호 가져오기
+        const reviewNo = likeBtn.dataset.reviewNo;
+
+        // AJAX를 통해 서버에 좋아요 요청 보내기
+        $.ajax({
+            url: '/review/reviewLike.do', // 좋아요를 처리할 서버의 URL
+            type: 'POST',
+            data: { reviewNo: reviewNo },
+            success: function(response) {
+                // 서버 응답을 받아 처리
+                console.log(response);
+            }, 
+            error: function(error) {
+                console.error(error);
+                alert("좋아요 실패!!");
+            }
+        });
+    });
+});
+
+
+
+
+
+
+
+
