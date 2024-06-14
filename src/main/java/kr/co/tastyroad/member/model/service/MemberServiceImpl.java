@@ -51,7 +51,6 @@ public class MemberServiceImpl implements MemberService {
 	@Override
     public Member getMemberByToken(String token) throws SQLException {
         return memberDAO.getMemberByToken(token);
-//        return memberDAO.getMemberByToken(token);
     }
 	@Override
     public void verifyMember(String userId) {
@@ -105,47 +104,6 @@ public class MemberServiceImpl implements MemberService {
         }
         return false;
     }
-//    @Override
-//    public boolean sendPasswordResetEmail(String userId, String userEmail) {
-//        Member member = memberDAO.findMemberByIdAndEmail(userId, userEmail);
-//        if (member != null) {
-//            String token = generateToken();
-//            String resetLink = "http://localhost/views/member/resetPassword.jsp";
-//            boolean emailSent = EmailUtil.sendEmail(userEmail, "비밀번호 재설정", "다음 링크를 통해 비밀번호를 재설정하세요: " + resetLink);
-//            
-//            if (emailSent) {
-//                memberDAO.savePasswordResetToken(userId, token);
-//                return true;
-//            } else {
-//                return false;
-//            }
-//        }
-//        return false;
-//    }
-//
-//	private String generateToken() {
-//	    return UUID.randomUUID().toString();
-//	}
-//
-//    @Override
-//    public boolean verifyResetToken(String token) {
-//        return memberDAO.verifyToken(token);
-//    }
-
-//    @Override
-//    public boolean resetPassword(String token, String newPassword) {
-//        return memberDAO.updatePassword(token, newPassword);
-//    @Override
-//    public boolean resetPassword(String token, String newPassword) {
-//        // 토큰으로 사용자 정보를 가져오는지 확인
-//        Member member = memberDAO.getMemberByToken(token);
-//        if (member == null) {
-//            return false; // 토큰에 해당하는 사용자가 없을 때
-//        }
-//        // 비밀번호 업데이트 로직
-//        boolean isUpdated = memberDAO.updatePassword(member.getUserId(), newPassword);
-//        return isUpdated;
-//    }
     @Override
     public boolean resetPassword(String token, String newPassword) {
         try {
@@ -170,30 +128,63 @@ public class MemberServiceImpl implements MemberService {
         return BCrypt.hashpw(plainPassword, BCrypt.gensalt());
     }
 
-//    private boolean checkPassword(String plainPassword, String hashedPassword) {
-//        return BCrypt.checkpw(plainPassword, hashedPassword);
-//    }
     private boolean validatePassword(String password) {
         // 최소 8자, 대문자, 소문자, 숫자, 특수 문자 포함 여부 검사
         String passwordPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$";
         return Pattern.matches(passwordPattern, password);
     }
+    @Override
+    public Member findOrCreateMember(String googleId, String email, String name) {
+        Member member = memberDAO.getMemberByGoogleId(googleId);
+        if (member == null) {
+            member = new Member();
+            member.setGoogleId(googleId);
+            member.setUserEmail(email);
+            member.setUserName(name);
+            member.setUserId("user_" + googleId); // 고유한 userId 생성
+            member.setUserPwd(""); // Google 사용자에 대한 비밀번호는 비워둠
+            member.setUserType("google"); // 사용자 유형을 Google로 설정
+            memberDAO.insertMember(member);
+        }
+        return member;
+    }
     
-    
-    
-//    @Override
-//    public boolean resetPassword(String token, String newPassword) {
-//        if (!validatePassword(newPassword)) {
-//            return false;
-//        }
-//    	
-//        Member member = memberDAO.getMemberByToken(token);
+//    public Member findOrCreateMember(String googleId, String email, String name) {
+//        Member member = memberDAO.findByGoogleId(googleId);
 //        if (member == null) {
-//            return false;
+//            // Google ID로 찾지 못하면 이메일로 기존 사용자 확인
+//            member = memberDAO.findByEmail(email);
+//            if (member == null) {
+//                // 사용자 정보가 없으면 새로 생성
+//                member = new Member();
+//                member.setUserId("user_" + googleId); // 고유한 userId 설정
+//                member.setUserName(name);
+//                member.setUserEmail(email);
+//                member.setUserPwd(""); // 초기 비밀번호 설정 (필요에 따라 처리)
+//                member.setUserAddress("");
+//                member.setUserPhone("");
+//                member.setToken(""); // 토큰 초기화
+//                member.setVerified(true); // Google 로그인 사용자는 기본적으로 인증된 것으로 설정
+//                member.setGoogleId(googleId);
+//                memberDAO.insertMember(member);
+//            } else {
+//                // 기존 사용자의 google_id 업데이트
+//                member.setGoogleId(googleId);
+//                memberDAO.updateGoogleId(member.getUserId(), googleId);
+//            }
 //        }
-//        String hashedPassword = hashPassword(newPassword);
-//        boolean isUpdated = memberDAO.updatePassword(member.getUserId(), hashedPassword);
-//        return isUpdated;
+//        return member;
 //    }
-	
+//    public Member findOrCreateMember(String userId, String email, String name) {
+//        Member member = memberDAO.getMemberByUserId(userId);
+//        if (member == null) {
+//            member = new Member();
+//            member.setUserId(userId);
+//            member.setUserEmail(email);
+//            member.setUserName(name);
+//            member.setUserType("Google"); // 예: 사용자 유형을 'Google'로 설정
+//            memberDAO.insertMember(member);
+//        }
+//        return member;
+//    }
 }

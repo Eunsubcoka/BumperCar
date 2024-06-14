@@ -1,9 +1,11 @@
 package kr.co.tastyroad.member.controller;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.security.GeneralSecurityException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,49 +13,70 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
-import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.jackson2.JacksonFactory;
+import org.json.JSONObject;
 
 import kr.co.tastyroad.member.model.dto.Member;
 import kr.co.tastyroad.member.model.service.MemberServiceImpl;
 
-@WebServlet("/tastyForm/googleLogin.do")
+@WebServlet("/googleLogin.do")
 public class GoogleLoginController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
+    private static final String CLIENT_ID = "553555922743-ld3bj5fceveid5bdlo69ss1uhmqetevt.apps.googleusercontent.com";
+
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String credential = request.getParameter("credential");
-        NetHttpTransport transport = new NetHttpTransport();
-        JacksonFactory jsonFactory = new JacksonFactory();
-        GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(transport, jsonFactory)
-                .setAudience(java.util.Collections.singletonList("YOUR_CLIENT_ID")) // 구글 클라이언트 ID로 교체해야 합니다.
-                .build();
+        String idToken = request.getParameter("credential");
 
-        try {
-            GoogleIdToken idToken = verifier.verify(credential);
-            if (idToken != null) {
-                GoogleIdToken.Payload payload = idToken.getPayload();
-                String userId = payload.getSubject(); // 고유 사용자 ID
-                String email = payload.getEmail();
-                String name = (String) payload.get("name");
+        if (idToken == null || idToken.isEmpty()) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().write("Credential is missing.");
+            return;
+        }
 
-                // 사용자 정보를 조회하거나 새로 생성
-                MemberServiceImpl memberService = new MemberServiceImpl();
-                Member member = memberService.findOrCreateMember(userId, email, name);
+        String tokenInfoUrl = "https://oauth2.googleapis.com/tokeninfo?id_token=" + idToken;
+        HttpURLConnection conn = (HttpURLConnection) new URL(tokenInfoUrl).openConnection();
+        conn.setRequestMethod("GET");
 
-                HttpSession session = request.getSession();
-                session.setAttribute("userNo", member.getUserNo());
-                session.setAttribute("userName", member.getUserName());
-                session.setAttribute("userType", member.getUserType());
-
-                response.setStatus(HttpServletResponse.SC_OK);
-            } else {
-                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "구글 인증 실패");
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
+            String inputLine;
+            StringBuilder content = new StringBuilder();
+            while ((inputLine = in.readLine()) != null) {
+                content.append(inputLine);
             }
-        } catch (GeneralSecurityException e) {
-            throw new ServletException("구글 인증 오류", e);
+
+            JSONObject tokenInfo = new JSONObject(content.toString());
+
+            if (tokenInfo.has("error_description")) {
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.getWriter().write("Invalid ID token.");
+                return;
+            }
+
+            if (!CLIENT_ID.equals(tokenInfo.getString("aud"))) {
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.getWriter().write("Audience mismatch.");
+                return;
+            }
+
+            String googleId = tokenInfo.getString("sub");
+            String email = tokenInfo.getString("email");
+            String name = tokenInfo.optString("name", "");
+
+            MemberServiceImpl memberService = new MemberServiceImpl();
+            Member member = memberService.findOrCreateMember(googleId, email, name);
+
+            HttpSession session = request.getSession();
+            session.setAttribute("userNo", member.getUserNo());
+            session.setAttribute("userName", member.getUserName());
+            session.setAttribute("userType", member.getUserType());
+
+            response.setStatus(HttpServletResponse.SC_OK);
+            response.sendRedirect("/");
+        } catch (IOException e) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            response.getWriter().write("Token verification failed.");
+            e.printStackTrace();
         }
     }
 }
