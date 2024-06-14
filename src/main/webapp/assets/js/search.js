@@ -98,6 +98,9 @@ function addMarkers(sortOrder = 'latest', page = 1) {
             if (status === kakao.maps.services.Status.OK) {
                 var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
                 var distance = calculateDistance(userLocation.getLat(), userLocation.getLng(), coords.getLat(), coords.getLng());
+                console.log(coords.getLat());
+                console.log(coords.getLng());
+                console.log('------');
                 distances.push({
                     location: location,
                     coords: coords,
