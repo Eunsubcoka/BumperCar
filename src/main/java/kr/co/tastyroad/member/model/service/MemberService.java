@@ -2,6 +2,7 @@ package kr.co.tastyroad.member.model.service;
 
 import java.sql.SQLException;
 
+
 import kr.co.tastyroad.member.model.dto.Member;
 
 public interface MemberService {
@@ -37,5 +38,7 @@ public interface MemberService {
     boolean verifyResetToken(String token);
     
     boolean resetPassword(String token, String newPassword);
+
+	Member findOrCreateMember(String googleId, String email, String name);
 	
 }
