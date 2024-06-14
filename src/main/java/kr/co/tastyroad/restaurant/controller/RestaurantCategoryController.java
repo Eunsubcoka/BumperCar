@@ -15,42 +15,57 @@ import kr.co.tastyroad.restaurant.model.service.RestaurantServiceImpl;
 import kr.co.tastyroad.review.model.dto.ReviewDto;
 import kr.co.tastyroad.review.model.service.ReviewServiceImpl;
 
+/**
+ * Servlet implementation class RestaurantCategoryController
+ */
 @WebServlet("/category.do")
 public class RestaurantCategoryController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
     public RestaurantCategoryController() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int resNo = Integer.parseInt(request.getParameter("restaurantId"));
-		
+		int category = Integer.parseInt(request.getParameter("category"));
+		ReviewServiceImpl reviewService = new ReviewServiceImpl();
 		RestaurantServiceImpl resService = new RestaurantServiceImpl();
-		RestaurantDto result = resService.getRestaurant(resNo);
-		ArrayList<RestaurantDto> menuList = resService.getMenuList(resNo);
-        ReviewServiceImpl reviewService = new ReviewServiceImpl();
-		ArrayList<ReviewDto> list = reviewService.getReviewList(resNo);
-		ArrayList<String> tag = resService.getTag(resNo);
-		float ratings = resService.ratings(resNo);
-		ArrayList<ReviewDto> fileList = reviewService.uploadListOnce();
-		ArrayList<String> imgList = resService.getImg(resNo);
 		
 		
-		request.setAttribute("imgList", imgList);
-		request.setAttribute("list", list);
-		request.setAttribute("fileList", fileList);
-		request.setAttribute("resNo", resNo);
-		request.setAttribute("ratings", ratings);
-		request.setAttribute("result", result);
+		RestaurantDto result = new RestaurantDto();
+		ArrayList<RestaurantDto> restaurantList = new ArrayList<RestaurantDto>();
+		ArrayList<RestaurantDto> tag = new ArrayList<RestaurantDto>();
+		String seleType = request.getParameter("seleType");
+		
+		
+		restaurantList = resService.getRestaurantList(category,seleType);
+		
+		resService.ratingsList(restaurantList);
+		tag = resService.getTag(restaurantList);
+		
+		request.setAttribute("restaurantList", restaurantList);
+		request.setAttribute("category", category);
+		request.setAttribute("seleType", seleType);
 		request.setAttribute("tag", tag);
-		request.setAttribute("menuList", menuList);
+//		request.setAttribute("reviewList", reviewList);
 		
-		RequestDispatcher view = request.getRequestDispatcher("/views/restaurant/restaurantDetail.jsp");
-		view.forward(request, response);
+		RequestDispatcher view = request.getRequestDispatcher("/views/restaurant/restaurantList.jsp");
+		view.forward(request,response);
+		
 	}
 
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		
 	}
+
 }
