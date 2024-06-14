@@ -1,97 +1,106 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 
 <!doctype html>
 <html lang="en">
 <head>
 <%@ include file="/views/common/head.jsp"%>
-
-    <link rel="stylesheet" href="/assets/css/reviewEnroll.css">
-    <link rel="stylesheet" href="/assets/css/restaurantAdd.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
-
+<link rel="stylesheet" href="/assets/css/reviewEnroll.css">
+<link rel="stylesheet" href="/assets/css/restaurantAdd.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
 </head>
 <body>
 
-    <%@ include file="/views/common/header.jsp"%>
-    <%@ include file="/views/common/nav.jsp"%>
+	<%@ include file="/views/common/header.jsp"%>
+	<%@ include file="/views/common/nav.jsp"%>
 
-<!-- review enroll section -->
-<section>
-    <div class="container-review-box">
-        <form action="/restaurantAdd.do" method="POST" enctype="multipart/form-data">
-        
-        <h1>가게 등록</h1>
-        <div class="container-review">
-            <div class="review">
-                <input type="hidden" name="userNo" value="${sessionScope.userNo}">
-                 <!-- 버튼 -->
-                <div id="btn">
-                    <p>대표 사진을 한 장 업로드 해주세요.</p>
-                    <div id="image_container"></div>
-                    <label for="file" class="btn-upload">이미지추가</label>
-                    <input type="file" name="file" id="file" onchange="getImageFile(event);" style="display:none;">
-                    <button type="submit" onclick="return validateForm();">작성</button>
-                </div>                
-                <div class="input-container">
-                    <label for="name">상호명:</label>
-                    <input type="text" id="name" name="restaurantName" required>
-                </div>
-                <div class="input-container">
-                    <label for="category">카테고리:</label>
-                    <select class="res_category" name="category" id="category">
-                        <option value="1">중식</option>
-                        <option value="2">한식</option>
-                        <option value="3">양식</option>
-                        <option value="4">양식</option>
-                    </select>
-                </div>
-                <div class="input-container">
-                    <label for="phone">가게 전화번호:</label>
-                    <input type="text" id="phone" name="phone" required>
-                </div>
-                
-                <div class="input-container">
-                    <label for="sample5_address">주소:</label>
-                    <input type="text" id="sample5_address" name="addr" placeholder="주소">
-                    <input type="button" onclick="sample5_execDaumPostcode()" value="주소 검색"><br>
-                    <div id="map" style="width:300px;height:300px;margin-top:10px;display:none"></div>
-                </div>                
-                <div class="content" style="overflow:hidden; height:auto;">
-                    <label for="menu1">메뉴:</label>
-                    <div class="input_wrap">
-                        <div class="input_list">
-                            <input type="text" name="menu1" placeholder="음식명" /><br>
-                            <input type="text" name="price1" placeholder="가격" />
-                        </div>
-                    </div>
-                    <button class="add_field">추가하기</button>
-                </div>
-                <div class="input-container">
-                    <label for="tag">태그:</label>
-                    <div class="input_wrap1">
-                        <div class="input_list1">
-                            <input type="text" name="tag1" placeholder="태그" /><br>
-                        </div>
-                    </div>
-                    <button class="add_field1">추가하기</button>
-                </div>
-            </div>
-        </div>
-        </form>
-    </div>
-</section> 
+	<!-- review enroll section -->
+	<section>
+		<div class="container-review-box">
+			<form id="restaurantForm" method="POST" enctype="multipart/form-data">
 
-<%@ include file="/views/common/footer.jsp"%>
+				<h1>가게 등록</h1>
+				<div class="container-review">
+					<div class="review">
+						<input type="hidden" name="userNo" value="${sessionScope.userNo}">
+						<!-- 버튼 -->
+						<div id="btn">
+							<p>대표 사진을 두 장 업로드 해주세요.</p>
+							<div id="image_container"></div>
+							<label for="inputFile" class="btn-upload">이미지추가</label>
+							<!-- accept 특정 파일 유형만 허용, multiple 속성을 추가하면 2개 이상의 파일을 추가 -->
+							<input type="file" name="file" id="inputFile" onchange="getImageFiles(event);" multiple>
+						</div>
+						<div class="input-container">
+							<label for="name">상호명:</label> <input type="text" id="name"
+								name="restaurantName" required>
+						</div>
+						<div class="input-container">
+							<label for="category">카테고리:</label> <select class="res_category"
+								name="category" id="category">
+								<option value="1">중식</option>
+								<option value="2">한식</option>
+								<option value="3">양식</option>
+								<option value="4">일식</option>
+							</select>
+						</div>
+						<div class="input-container">
+							<label for="phone">가게 전화번호:</label> <input type="text" id="phone"
+								name="phone" required>
+						</div>
 
-<script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
-<script src="/assets/js/restaurantAdd.js"></script>
-<script type="text/javascript" src="/assets/js/reviewEnroll.js"></script> 
+						<div class="input-container">
+							<label for="sample5_address">주소:</label> <input type="text"
+								id="sample5_address" name="addr" placeholder="주소"> <input
+								type="button" onclick="sample5_execDaumPostcode()" value="주소 검색"><br>
+							<div id="map"
+								style="width: 300px; height: 300px; margin-top: 10px; display: none"></div>
+						</div>
 
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=597a12321ce91d26c9101324b5955ebd&libraries=services"></script>
-<script>
+						<div class="content" style="overflow: hidden; height: auto;">
+							<label for="content">메뉴:</label>
+							<div class="input_wrap">
+								<c:set var="menuCnt" value="1" />
+								<c:set var="priceCnt" value="1" />
+								<div class="input_list">
+									<input type="text" name="menu${menuCnt }" placeholder="음식명" /><br>
+									<input type="text" name="price${priceCnt }" placeholder="가격" /><br>
+									<a href="javascript:void(0);" class="remove_field">삭제</a>
+
+								</div>
+							</div>
+							<button class="add_field">추가하기</button>
+
+
+						</div>
+						<div class="input-container">
+							<label for="title">태그:</label>
+							<div class="input_wrap1">
+								<c:set var="count" value="1" />
+								<div class="input_list1">
+									<input type="text" name="tag${count }" placeholder="태그" /><br>
+									<a href="javascript:void(0);" class="remove_field2">삭제</a>
+								</div>
+							</div>
+							<button class="add_field1">추가하기</button>
+						</div>
+
+					</div>
+				</div>
+				<button type="button" onclick="imageCheck();">작성</button>
+			</form>
+		</div>
+	</section>
+
+	<%@ include file="/views/common/footer.jsp"%>
+
+	<script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=597a12321ce91d26c9101324b5955ebd&libraries=services"></script>
+	<script>
     var mapContainer = document.getElementById('map'), // 지도를 표시할 div
         mapOption = {
             center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
@@ -136,55 +145,177 @@
             }
         }).open();
     }
+    var fd = new FormData();
+    let fdCount = 0;
+ // 이미지 업로드 
+    function getImageFiles(event) {
+    	const maxImages = 2; // 최대 이미지 개수
+    	// 현재 이미지 개수 확인
+        const currentImageCount = document.querySelectorAll("div#image_container img.photo").length;
 
-    function getImageFile(event) {
-        const imageContainer = document.getElementById("image_container");
-        imageContainer.innerHTML = ''; // 기존 이미지를 제거
+        // 이미지 개수 제한 확인
+        if (event.target.files.length + currentImageCount > maxImages) {
+            alert(`이미지는 ${maxImages}장까지 업로드할 수 있습니다.`);
+            return;
+        }
 
-        const imageFile = event.target.files[0];
-        const reader = new FileReader();
-        reader.onload = function(event) {
+        for (let image of event.target.files) {
+            // 현재 이미지 개수 확인
+            if (currentImageCount.length >= maxImages) {
+                alert(`이미지는 ${maxImages}장까지 업로드할 수 있습니다.`);
+    			break;
+            }
+    		const imageName = `file`; // 고유한 이미지 이름 생성
+    		fd.append(imageName, image); 
+    		fdCount++;
+    		
             let img = document.createElement("img");
-            img.setAttribute("src", event.target.result); // event.target.result는 FileReader 객체가 읽은 파일의 데이터 URL
-            img.classList.add("photo");
+            const reader = new FileReader(); 
+            reader.onload = function(event) {
+                img.setAttribute("src", event.target.result); //event.target.result는 FileReader 객체가 읽은 파일의 데이터 URL
+    			img.classList.add("photo");
+    			img.id = imageName + fdCount; // 이미지에 고유한 id 부여
 
-            // 이미지를 감싸는 div 요소 생성
-            const imageDiv = document.createElement("div");
-            imageDiv.classList.add("review-photo");
-            imageDiv.style.position = "relative"; // close 버튼 위치를 위한 상대 위치 설정
-            imageDiv.appendChild(img); // 이미지 추가
+                // 이미지를 감싸는 div 요소 생성
+                const imageDiv = document.createElement("div");
+                imageDiv.classList.add("review-photo");
+                imageDiv.appendChild(img); // 이미지 추가
 
-            // 이미지 삭제 버튼 생성
-            const closeButton = document.createElement("img");
-            closeButton.classList.add("close");
-            closeButton.src = "/assets/image/close.png";
-            closeButton.onclick = function() {
-                imageDiv.remove(); // 이미지 요소 삭제
-                document.getElementById("file").value = ""; // 파일 입력 초기화
-            };
+                // 이미지 삭제 버튼 생성
+                const closeButton = document.createElement("img");
+                closeButton.classList.add("close");
+                closeButton.src = "/assets/image/close.png";
+                closeButton.onclick = function() {
+                    imageDiv.remove(); // 이미지 요소 삭제
+                    fd.delete(imageName); // FormData에서 이미지 삭제
+                };
+                
+                // close 버튼 스타일 추가
+                closeButton.style.width = "10px";
+                closeButton.style.height = "10px";
+                closeButton.style.float = "right";
+                closeButton.style.position = "absolute";
+                imageDiv.appendChild(closeButton); // 삭제 버튼 추가
 
-            // close 버튼 스타일 추가
-            closeButton.style.width = "10px";
-            closeButton.style.height = "10px";
-            closeButton.style.float = "right";
-            closeButton.style.position = "absolute";
-            closeButton.style.top = "0";
-            closeButton.style.right = "0";
-            imageDiv.appendChild(closeButton); // 삭제 버튼 추가
-
-            // 이미지를 표시할 컨테이너에 추가
-            imageContainer.appendChild(imageDiv);
+                // 이미지를 표시할 컨테이너에 추가
+                document.querySelector("div#image_container").appendChild(imageDiv);
+            }
+            reader.readAsDataURL(image);
         }
-        reader.readAsDataURL(imageFile);
     }
+    /**
+     * 
+     */
 
-    function validateForm() {
-        const currentImageCount = document.getElementById("image_container").querySelectorAll("img.photo").length;
-        if (currentImageCount == 0) {
-            alert("하나의 이미지를 업로드해야 합니다.");
-            return false;
+    const wrapper = $('.input_wrap'); // 입력 필드를 포함하는 컨테이너 선택
+    const addButton = $('.add_field'); // 추가 버튼 선택
+    const maxFields = 10; // 최대 입력 필드 수 설정
+    let fieldCount = 1; // 현재 입력 필드 수
+
+    // '추가하기' 버튼 클릭 시 이벤트
+    addButton.click(function(e) {
+        e.preventDefault(); // 페이지 리로드 방지
+        if (fieldCount < maxFields) { // 최대 필드 수 체크
+            fieldCount++; // 필드 수 증가
+            // 새 입력 필드 추가
+            wrapper.append(`
+                <div class="input_list">
+                    <input type="text" name="menu`+fieldCount+`" placeholder="메뉴" />
+                   <br>
+    <input type="text" name="price`+fieldCount+`" placeholder="가격" />
+                    <a href="javascript:void(0);" class="remove_field">삭제</a>
+                </div>
+            `);
         }
-        return true;
+    });
+
+    // '삭제' 링크 클릭 시 이벤트
+    wrapper.on('click', '.remove_field', function(e) {
+        e.preventDefault(); // 페이지 리로드 방지
+        $(this).parent('.input_list').remove(); // 필드 제거
+        fieldCount--; // 필드 수 감소
+    });
+
+
+
+    const wrapper1 = $('.input_wrap1'); // 입력 필드를 포함하는 컨테이너 선택
+    const addButton1 = $('.add_field1'); // 추가 버튼 선택
+    const maxFields1 = 10; // 최대 입력 필드 수 설정
+    let fieldCount1 = 1; // 현재 입력 필드 수
+
+    // '추가하기' 버튼 클릭 시 이벤트
+    addButton1.click(function(e) {
+        e.preventDefault(); // 페이지 리로드 방지
+        if (fieldCount1 < maxFields1) { // 최대 필드 수 체크
+            fieldCount1++; // 필드 수 증가
+            // 새 입력 필드 추가
+            wrapper1.append(`
+                <div class="input_list1">
+                    <input type="text" name="tag`+fieldCount1+`" placeholder="태그" />
+                    <a href="javascript:void(0);" class="remove_field2">삭제</a>
+                </div>
+            `);
+        }
+    });
+
+    // '삭제' 링크 클릭 시 이벤트
+    wrapper1.on('click', '.remove_field2', function(e) {
+        e.preventDefault(); // 페이지 리로드 방지
+        $(this).parent('.input_list1').remove(); // 필드 제거
+        fieldCount1--; // 필드 수 감소
+    });
+
+    
+  //이미지 함수 + 데이터 전송 함수
+    function imageCheck() { 
+    	const currentImageCount = document.querySelectorAll("div#image_container img.photo").length;
+	console.log("진입");
+    	
+    	    // 이미지 개수 확인
+        if (currentImageCount == 0) {
+            alert(`이미지는 1장이상 업로드해야 합니다.`);
+            return;
+        }
+    	const restaurantName = document.getElementById("name").value;
+    	const category = document.getElementById("category").value;
+    	const phone = document.getElementById("phone").value;
+    	const addr = document.getElementById("sample5_address").value;
+    	console.log(addr);
+    	fd.append("restaurantName", restaurantName);
+    	fd.append("category", category);
+    	fd.append("phone", phone);
+    	fd.append("addr", addr);
+    	
+    	for(var i = 1 ; i<=fieldCount1; i++){
+    		const tag = document.getElementsByName('tag'+i)[0].value;
+    		fd.append('tag'+i,tag);
+    	}
+    	for(var i = 1 ; i<=fieldCount; i++){
+    		const menu = document.getElementsByName('menu'+i)[0].value;
+    		const price = document.getElementsByName('price'+i)[0].value;
+    		fd.append('menu'+i,menu);
+    		fd.append('price'+i,price);
+    	}
+
+    	$.ajax({
+    		url: '/restaurantAdd.do',
+    		type: 'POST',
+    		data: fd,
+    		processData: false,
+        	contentType: false,
+    		success: function(response){
+    			console.log(response);
+    		// 성공 메시지 표시
+        	alert("등록 성공!");
+    		// 페이지 이동
+        	location.href = '/index.jsp';
+    		},
+    		error: function(error) {
+           		console.error("Error:", error);
+    		// 실패 메시지 표시
+        	alert("등록에 실패했습니다. 다시 시도해주세요.");
+       		}
+    	});
     }
 </script>
 </body>

@@ -34,7 +34,10 @@ public class RestaurantDetailControler extends HttpServlet {
 		ArrayList<String> tag = resService.getTag(resNo);
 		float ratings = resService.ratings(resNo);
 		ArrayList<ReviewDto> fileList = reviewService.uploadListOnce();
+		ArrayList<String> imgList = resService.getImg(resNo);
 		
+		
+		request.setAttribute("imgList", imgList);
 		request.setAttribute("list", list);
 		request.setAttribute("fileList", fileList);
 		request.setAttribute("resNo", resNo);

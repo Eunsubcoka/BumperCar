@@ -69,22 +69,27 @@ public class RestaurantAddController extends HttpServlet {
         }
         resService.addTag(tagList);
 
-        Part filePart = request.getPart("file");
-        if (filePart != null && filePart.getSubmittedFileName() != null && !filePart.getSubmittedFileName().isEmpty()) {
-            String fileName = getFileName(filePart);
-            String uploadDirectory = getServletContext().getRealPath("/assets/image/");
-            File filePath = new File(uploadDirectory);
-            if (!filePath.exists()) {
-                filePath.mkdirs();
+        Collection<Part> fileParts = request.getParts();
+        int imageCount = 0;
+        for (Part filePart : fileParts) {
+            if (filePart.getName().equals("file") && filePart.getSubmittedFileName() != null && !filePart.getSubmittedFileName().isEmpty()) {
+                if (imageCount >= 2) break; // 최대 2개의 이미지 처리
+                String fileName = getFileName(filePart);
+                String uploadDirectory = getServletContext().getRealPath("/assets/image/");
+                File filePath = new File(uploadDirectory);
+                if (!filePath.exists()) {
+                    filePath.mkdirs();
+                }
+                filePart.write(uploadDirectory + File.separator + fileName);
+
+                RestaurantDto fileDto = new RestaurantDto();
+                fileDto.setFilePath(uploadDirectory);
+                fileDto.setFileName(fileName);
+                fileDto.setRestaurantNo(no);
+
+                resService.fileUpload(fileDto);
+                imageCount++;
             }
-            filePart.write(uploadDirectory + File.separator + fileName);
-
-            RestaurantDto fileDto = new RestaurantDto();
-            fileDto.setFilePath(uploadDirectory);
-            fileDto.setFileName(fileName);
-            fileDto.setRestaurantNo(no);
-
-            resService.fileUpload(fileDto);
         }
 
         response.sendRedirect("/index.jsp");

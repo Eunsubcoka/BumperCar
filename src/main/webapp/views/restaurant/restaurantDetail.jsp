@@ -29,7 +29,9 @@
 			<div class="res_left_container">
 				<div class="res_info_wrap">
 					<div class="res_header">
-						<img src="/assets/image/${result.imgName }" alt="대한옥">
+						<c:forEach var = "imgList" items="${imgList }">
+						<img src="/assets/image/${imgList}" alt="대한옥">
+						</c:forEach>
 					</div>
 					<div class="details">
 						<h1 class="">${result.restaurantName }</h1>
