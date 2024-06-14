@@ -30,8 +30,24 @@ public class SearchController extends HttpServlet {
             String tag = request.getParameter("tag");
             String sortOrder = request.getParameter("sortOrder");
 
+            // 위도와 경도를 파라미터로 받기
+            String latParam = request.getParameter("lat");
+            String lonParam = request.getParameter("lon");
+            double userLat = 0;
+            double userLon = 0;
+
+            if (latParam != null && lonParam != null) {
+                try {
+                    userLat = Double.parseDouble(latParam.trim());
+                    userLon = Double.parseDouble(lonParam.trim());
+                } catch (NumberFormatException e) {
+                    // 유효하지 않은 위도, 경도 값 처리 (기본값 사용)
+                }
+            }
+
+            // sortOrder가 null 또는 비어 있는 경우 기본값 설정
             if (sortOrder == null || sortOrder.trim().isEmpty()) {
-                sortOrder = "latest"; // 기본 정렬 기준을 최신순으로 설정
+                sortOrder = "latest";
             }
 
             int cpage = 1;
@@ -45,7 +61,7 @@ public class SearchController extends HttpServlet {
             ArrayList<RestaurantDto> paginatedRestaurantList = new ArrayList<>();
 
             if (searchText != null && !searchText.isEmpty()) {
-                allRestaurantList = searchService.searchRestaurants(searchText, sortOrder);
+                allRestaurantList = searchService.searchRestaurants(searchText, sortOrder, userLat, userLon);
             }
 
             // 페이징 로직

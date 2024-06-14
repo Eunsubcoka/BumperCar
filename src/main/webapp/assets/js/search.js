@@ -254,9 +254,21 @@ function loadMoreRestaurants() {
             const parser = new DOMParser();
             const doc = parser.parseFromString(html, 'text/html');
             const newRestaurants = doc.querySelectorAll('#restaurant-list .restaurant-item');
+            const restaurantList = document.querySelector('#restaurant-list');
             newRestaurants.forEach(restaurant => {
-                document.querySelector('#restaurant-list').appendChild(restaurant);
+                const locationElement = restaurant.querySelector('.restaurant-info > .font-down:nth-child(4)');
+                if (locationElement) {
+                    const locationText = locationElement.textContent.split(': ')[1];
+                    const coords = new kakao.maps.LatLng(locationText.split(', ')[0], locationText.split(', ')[1]);
+                    const distance = calculateDistance(userLocation.getLat(), userLocation.getLng(), coords.getLat(), coords.getLng());
+                    const distanceElement = restaurant.querySelector('.font-down:nth-child(5)');
+                    if (distanceElement) {
+                        distanceElement.textContent = `거리: ${distance.toFixed(2)} km`;
+                    }
+                }
+                restaurantList.appendChild(restaurant);
             });
+
             if (newRestaurants.length < 5) {
                 hideLoadMoreButton(); // 더보기 버튼 숨기기
             } else {
@@ -319,7 +331,7 @@ function sortResults(sortOrder) {
     const tag = encodeURIComponent(document.querySelector('#load-more-restaurants').dataset.tag || '');
     const cpage = 1;
 
-    let url = `/search.do?cpage=${cpage}&search-text=${searchText}&tag=${tag}&sortOrder=${sortOrder}`;
+    let url = `/search.do?cpage=${cpage}&search-text=${searchText}&tag=${tag}&sortOrder=${sortOrder}&userLat=${userLocation.getLat()}&userLon=${userLocation.getLng()}`;
     fetch(url)
         .then(response => response.text())
         .then(html => {
@@ -329,20 +341,31 @@ function sortResults(sortOrder) {
             const restaurantList = document.querySelector('#restaurant-list');
             restaurantList.innerHTML = '';
             newRestaurants.forEach(restaurant => {
+                const locationElement = restaurant.querySelector('.restaurant-info > .font-down:nth-child(4)');
+                if (locationElement) {
+                    const locationText = locationElement.textContent.split(': ')[1];
+                    const coords = new kakao.maps.LatLng(locationText.split(', ')[0], locationText.split(', ')[1]);
+                    const distance = calculateDistance(userLocation.getLat(), userLocation.getLng(), coords.getLat(), coords.getLng());
+                    const distanceElement = restaurant.querySelector('.font-down:nth-child(5)');
+                    if (distanceElement) {
+                        distanceElement.textContent = `거리: ${distance.toFixed(2)} km`;
+                    }
+                }
                 restaurantList.appendChild(restaurant);
             });
 
             if (sortOrder === 'distance') {
-                // 거리순 정렬 적용
                 const distances = Array.from(newRestaurants).map(restaurant => {
-                    const location = restaurant.querySelector('.restaurant-info > .font-down:nth-child(4)').textContent.split(': ')[1];
-                    const coords = new kakao.maps.LatLng(location.split(', ')[0], location.split(', ')[1]);
-                    const distance = calculateDistance(userLocation.getLat(), userLocation.getLng(), coords.getLat(), coords.getLng());
-                    return { restaurant, distance };
-                });
+                    const locationElement = restaurant.querySelector('.restaurant-info > .font-down:nth-child(4)');
+                    if (locationElement) {
+                        const locationText = locationElement.textContent.split(': ')[1];
+                        const coords = new kakao.maps.LatLng(locationText.split(', ')[0], locationText.split(', ')[1]);
+                        const distance = calculateDistance(userLocation.getLat(), userLocation.getLng(), coords.getLat(), coords.getLng());
+                        return { restaurant, distance };
+                    }
+                }).filter(item => item !== undefined);
                 distances.sort((a, b) => a.distance - b.distance).forEach(({ restaurant }) => restaurantList.appendChild(restaurant));
             } else {
-                // 최신순 정렬 적용
                 const restaurantsArray = Array.from(newRestaurants);
                 restaurantsArray.sort((a, b) => {
                     const aNo = parseInt(a.querySelector('a').href.split('=')[1]);

@@ -28,6 +28,9 @@
                 {"location": "${restaurant.location}", "name": "${restaurant.restaurantName}", "tags": [<c:forEach var="tag" items="${tagsMap[restaurant.restaurantNo]}" varStatus="tagStatus">"${tag}"<c:if test="${!tagStatus.last}">,</c:if></c:forEach>], "restaurantNo": ${restaurant.restaurantNo}, "imgName": "${restaurant.imgName}", "ratings": ${ratingsMap[restaurant.restaurantNo]}, "reviews": [<c:forEach var="review" items="${top3ReviewsMap[restaurant.restaurantNo]}" varStatus="reviewStatus">{"reviewTitle": "${review.reviewTitle}", "reviewContent": "${review.reviewContent}", "ratings": ${review.ratings}}<c:if test="${!reviewStatus.last}">,</c:if></c:forEach>]}<c:if test="${!status.last}">,</c:if>
             </c:forEach>
           ]'>
+        <input type="hidden" id="userLat" name="userLat">
+        <input type="hidden" id="userLon" name="userLon">
+
         <div class="search-header">
             <h1>검색 결과</h1>
         </div>
@@ -87,6 +90,7 @@
                                         </c:if>
                                     </div>
                                     <div class="font-down">위치: ${restaurant.location}</div>
+                                    <div class="font-down">거리: ${restaurant.distance} km</div>
                                     
                                     <button class="toggle-review-btn" onclick="toggleReview(this)">리뷰 열기</button>
                                     <div class="review-box font-down-2" style="display: none;" onclick="navigateToReviews(${restaurant.restaurantNo})">
@@ -160,6 +164,16 @@
 
     <script src="/assets/js/main.js"></script>
     <script src="/assets/js/search.js"></script>
+    <script>
+        // 내 위치 정보를 가져와서 숨겨진 필드에 설정
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                document.getElementById('userLat').value = position.coords.latitude;
+                document.getElementById('userLon').value = position.coords.longitude;
+                console.log(position.coords.latitude);
+                console.log(position.coords.longitude);
+            });
+        }
+    </script>
 </body>
 </html>
-

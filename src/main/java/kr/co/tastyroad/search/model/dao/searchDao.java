@@ -55,7 +55,7 @@ public class searchDao {
                      + "LEFT JOIN res_img ri ON ri.restaurantNo = r.restaurantNo "
                      + "WHERE r.restaurantName LIKE ? OR r.category LIKE ? OR t.tag LIKE ? OR r.location LIKE ? "
                      + "GROUP BY r.restaurantNo, r.restaurantName, r.category, r.location, ri.imgName "
-                     + "ORDER BY " + (sortOrder.equals("latest") ? "r.restaurantNo DESC" : "r.restaurantNo ASC"); // 최신순: restaurantNo가 낮은 순
+                     + "ORDER BY " + (sortOrder.equals("latest") ? "r.restaurantNo DESC" : "r.restaurantNo ASC");
 
         try {
             pstmt = con.prepareStatement(query);
@@ -82,7 +82,6 @@ public class searchDao {
 
         return restaurantList;
     }
-
 
     public ArrayList<ReviewDto> getReviewsRestaurant(int restaurantNo) {
         ArrayList<ReviewDto> result = new ArrayList<>();
