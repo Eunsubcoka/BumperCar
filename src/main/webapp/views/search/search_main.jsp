@@ -25,7 +25,7 @@
     <main class="search-main" id="search-main"
           data-locations='[
             <c:forEach var="restaurant" items="${allRestaurantList}" varStatus="status">
-                {"location": "${restaurant.location}", "name": "${restaurant.restaurantName}", "tags": [<c:forEach var="tag" items="${tagsMap[restaurant.restaurantNo]}" varStatus="tagStatus">"${tag}"<c:if test="${!tagStatus.last}">,</c:if></c:forEach>], "restaurantNo": ${restaurant.restaurantNo}, "imgName": "${restaurant.imgName}"}<c:if test="${!status.last}">,</c:if>
+                {"location": "${restaurant.location}", "name": "${restaurant.restaurantName}", "tags": [<c:forEach var="tag" items="${tagsMap[restaurant.restaurantNo]}" varStatus="tagStatus">"${tag}"<c:if test="${!tagStatus.last}">,</c:if></c:forEach>], "restaurantNo": ${restaurant.restaurantNo}, "imgName": "${restaurant.imgName}", "ratings": ${ratingsMap[restaurant.restaurantNo]}, "reviews": [<c:forEach var="review" items="${top3ReviewsMap[restaurant.restaurantNo]}" varStatus="reviewStatus">{"reviewTitle": "${review.reviewTitle}", "reviewContent": "${review.reviewContent}", "ratings": ${review.ratings}}<c:if test="${!reviewStatus.last}">,</c:if></c:forEach>]}<c:if test="${!status.last}">,</c:if>
             </c:forEach>
           ]'>
         <div class="search-header">
@@ -37,11 +37,12 @@
         <div class="search-tab" id="restaurant">
             <h3>레스토랑</h3>
             <div class="sort-options">
-                <select id="sortOrder" onchange="sortResults()">
-                    <option value="latest">최신순</option>
-                    <option value="distance">거리순</option>
-                </select>
+                정렬 :
+                <button onclick="sortResults('latest')" selected>최신순</button>
+                <button onclick="sortResults('distance')">거리순</button>
             </div>
+            <!-- 추가된 부분 -->
+            <input type="hidden" id="sortOrder" value="latest">
             <c:if test="${not empty restaurantList}">
                 <div class="search-results">
                     <ul class="restaurant-list" id="restaurant-list">
@@ -60,9 +61,9 @@
                                 <div class="restaurant-info">
                                     <div style="display:inline-block;">
                                         <a href="/restaurantDetail.do?restaurantId=${restaurant.restaurantNo}">${restaurant.restaurantName}</a>
-                                        <div style="display:inline-block;" class= "font-down">
-                                        <i class="fas fa-star"></i>
-                                        <fmt:formatNumber value="${ratingsMap[restaurant.restaurantNo]}" type="number" minFractionDigits="1" maxFractionDigits="1" />
+                                        <div style="display:inline-block;" class="font-down">
+                                            <i class="fas fa-star"></i>
+                                            <fmt:formatNumber value="${ratingsMap[restaurant.restaurantNo]}" type="number" minFractionDigits="1" maxFractionDigits="1" />
                                         </div>
                                     </div>
                                     
@@ -161,4 +162,4 @@
     <script src="/assets/js/search.js"></script>
 </body>
 </html>
-                
+

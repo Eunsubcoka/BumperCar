@@ -107,7 +107,4 @@ public class SearchController extends HttpServlet {
             response.sendRedirect("/views/error.html");
         }
     }
-
-
-
 }
