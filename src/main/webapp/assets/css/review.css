@@ -5,6 +5,7 @@ body {
     background-color: #f0f0f3;
 }
 
+
 /* 전체 리뷰 박스 */
 .container-review-box {
     max-width: 800px;
@@ -116,7 +117,7 @@ textarea {
     
 }
 
-button {
+button, #more {
     width: 250px;
     height: 30px;
     cursor: pointer;
@@ -132,3 +133,56 @@ button {
     align-items: center;
 }
 
+a {
+	text-decoration-line: none;
+    cursor: pointer;
+}
+
+/* 좋아요 */
+.heart_area {
+	margin-left: auto; /* 오른쪽으로 정렬 */
+	padding-top:6.5px;
+ 	width: 50px;
+ 	height: 50px;
+	border-radius: 35%;
+	border: solid 2px rgba(255, 152, 0, 0.5);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: xx-large;
+}
+.heartEmpty{
+	color: rgba(255, 152, 0, 1);
+}
+
+
+.heartFull {
+    display: none;
+    color: #ff6347;
+}
+
+
+.heart_area .heartEmpty.active {
+    animation: animateHeart .3s linear forwards;
+}
+
+@keyframes animateHeart {
+  0% {
+    transform: scale(.2);
+  }
+  40% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* 리뷰 더보기 */
+#more {
+	width: 120px;
+    height: 30px;
+    opacity: 0.5;
+    display: flex;
+    margin-left: auto;
+}
