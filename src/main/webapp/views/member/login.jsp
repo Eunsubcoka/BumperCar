@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>로그인 | TastyRoad</title>
     <%@ include file="/views/common/head.jsp"%>
     <link rel="stylesheet" href="styles.css">
     <link href="/assets/css/login.css" rel="stylesheet">

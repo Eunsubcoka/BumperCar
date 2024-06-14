@@ -5,6 +5,7 @@
 <!doctype html>
 <html lang="en">
 <head>
+<title>레스토랑 정보 수정 | TastyRoad</title>
 <%@ include file="/views/common/head.jsp"%>
 
 	<link rel="stylesheet" href="/assets/css/reviewEnroll.css">

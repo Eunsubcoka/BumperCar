@@ -23,15 +23,21 @@ public class ReservationListController extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		int userNo = (int) session.getAttribute("userNo");
+        try {
+        	HttpSession session = request.getSession();
+    		int userNo = (int) session.getAttribute("userNo");
+    		
+    		ReservationServiceImpl resService = new ReservationServiceImpl();
+    		List<ReservationDto> reservationList = resService.getReservations(userNo);
+    		
+    		request.setAttribute("reservationList", reservationList);
+    		RequestDispatcher view = request.getRequestDispatcher("/views/reservation/reservationList.jsp");
+    		view.forward(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendRedirect("/views/error.html");
+        }
 		
-		ReservationServiceImpl resService = new ReservationServiceImpl();
-		List<ReservationDto> reservationList = resService.getReservations(userNo);
-		
-		request.setAttribute("reservationList", reservationList);
-		RequestDispatcher view = request.getRequestDispatcher("/views/reservation/reservationList.jsp");
-		view.forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -5,6 +5,7 @@
 <!doctype html>
 <html lang="en">
 <head>
+<title>공지사항 목록 | TastyRoad</title>
     <%@ include file="/views/common/head.jsp"%>
     <link rel="stylesheet" href="/assets/css/notice.css">
     

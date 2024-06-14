@@ -4,6 +4,7 @@
 <!doctype html>
 <html lang="en">
 <head>
+<title>예약 목록 | TastyRoad</title>
 <%@ include file="/views/common/head.jsp"%>
     <link rel="stylesheet" href="/assets/css/reservationList.css">
 </head>

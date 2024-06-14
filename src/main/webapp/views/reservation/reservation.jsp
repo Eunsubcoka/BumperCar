@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>예약하기 | TastyRoad</title>
  <link rel="stylesheet" href="/assets/css/reservation.css">
 <%@ include file="/views/common/head.jsp"%>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

@@ -5,12 +5,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>내 정보 변경</title>
+<title>내 정보 변경 | TastyRoad</title>
 <%@ include file="/views/common/head.jsp"%>
 <link rel="stylesheet" href="/assets/css/profile.css">
 </head>
 <body>
 	<%@ include file="/views/common/header.jsp"%>
+	<%@ include file="/views/common/nav.jsp"%>
 	<section>
 		<div class="profile-form">
 			<h2>내 정보 변경</h2>

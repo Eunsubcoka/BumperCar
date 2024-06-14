@@ -14,9 +14,9 @@
     <!-- 플로팅 네비게이션 바 -->
     <div class="floating-nav">
         <a onclick="scrollToSection('slide1')">한식</a>
-        <a onclick="scrollToSection('slide2')">양식</a>
-        <a onclick="scrollToSection('slide3')">중식</a>
-        <a onclick="scrollToSection('slide4')">양식</a>
+        <a onclick="scrollToSection('slide2')">중식</a>
+        <a onclick="scrollToSection('slide3')">양식</a>
+        <a onclick="scrollToSection('slide4')">일식</a>
         <a onclick="scrollToTop()">맨 위로</a>
     </div>
     
@@ -50,7 +50,7 @@
         
         <section class="unique-food-category" id="slide2">
             <div class="sli_con">
-                <h2>#중식</h2>
+                <h2 onclick="location.href='/category.do?category=2'">#중식</h2>
             </div>
             <div class="slider">
                 <div class="slides">
@@ -77,7 +77,7 @@
 
         <section class="unique-food-category" id="slide3">
             <div class="sli_con">
-                <h2>#양식</h2>
+                <h2 onclick="location.href='/category.do?category=3'">#양식</h2>
             </div>
             <div class="slider">
                 <div class="slides">
@@ -104,7 +104,7 @@
 
         <section class="unique-food-category" id="slide4">
             <div class="sli_con">
-                <h2>#양식</h2>
+                <h2 onclick="location.href='/category.do?category=4'">#일식</h2>
             </div>
             <div class="slider">
                 <div class="slides">

@@ -25,29 +25,50 @@ public class SearchController extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	try {
-    		String searchText = request.getParameter("search-text");
+        try {
+            String searchText = request.getParameter("search-text");
             String tag = request.getParameter("tag");
-            int cpage = 1;
+            String sortOrder = request.getParameter("sortOrder");
 
+            // 위도와 경도를 파라미터로 받기
+            String latParam = request.getParameter("lat");
+            String lonParam = request.getParameter("lon");
+            double userLat = 0;
+            double userLon = 0;
+
+            if (latParam != null && lonParam != null) {
+                try {
+                    userLat = Double.parseDouble(latParam.trim());
+                    userLon = Double.parseDouble(lonParam.trim());
+                } catch (NumberFormatException e) {
+                    // 유효하지 않은 위도, 경도 값 처리 (기본값 사용)
+                }
+            }
+
+            // sortOrder가 null 또는 비어 있는 경우 기본값 설정
+            if (sortOrder == null || sortOrder.trim().isEmpty()) {
+                sortOrder = "latest";
+            }
+
+            int cpage = 1;
             if (request.getParameter("cpage") != null) {
                 cpage = Integer.parseInt(request.getParameter("cpage"));
             }
 
             searchServiceImpl searchService = new searchServiceImpl();
             ArrayList<noticeDto> noticeList = searchService.searchNotices(searchText);
-            ArrayList<RestaurantDto> restaurantList = new ArrayList<>();
+            ArrayList<RestaurantDto> allRestaurantList = new ArrayList<>();
+            ArrayList<RestaurantDto> paginatedRestaurantList = new ArrayList<>();
 
             if (searchText != null && !searchText.isEmpty()) {
-                restaurantList = searchService.searchRestaurants(searchText);
+                allRestaurantList = searchService.searchRestaurants(searchText, sortOrder, userLat, userLon);
             }
 
+            // 페이징 로직
             int startIndex = (cpage - 1) * 5;
             int endIndexNotices = Math.min(startIndex + 5, noticeList.size());
-            int endIndexRestaurants = Math.min(startIndex + 5, restaurantList.size());
+            int endIndexRestaurants = Math.min(startIndex + 5, allRestaurantList.size());
 
-           
-//            기존에 5개만 출력 / 5개보다 많을때 버튼 클릭시 이후 인덱스 출력 
             if (startIndex < noticeList.size()) {
                 ArrayList<noticeDto> paginatedNoticeList = new ArrayList<>(noticeList.subList(startIndex, endIndexNotices));
                 request.setAttribute("noticeList", paginatedNoticeList);
@@ -55,21 +76,21 @@ public class SearchController extends HttpServlet {
                 request.setAttribute("noticeList", new ArrayList<noticeDto>());
             }
 
-            if (startIndex < restaurantList.size()) {
-                ArrayList<RestaurantDto> paginatedRestaurantList = new ArrayList<>(restaurantList.subList(startIndex, endIndexRestaurants));
+            if (startIndex < allRestaurantList.size()) {
+                paginatedRestaurantList = new ArrayList<>(allRestaurantList.subList(startIndex, endIndexRestaurants));
                 request.setAttribute("restaurantList", paginatedRestaurantList);
             } else {
                 request.setAttribute("restaurantList", new ArrayList<RestaurantDto>());
             }
 
+            // 기타 설정
             RestaurantServiceImpl resService = new RestaurantServiceImpl();
-
             HashMap<Integer, Float> ratingsMap = new HashMap<>();
             HashMap<Integer, ArrayList<ReviewDto>> top3ReviewsMap = new HashMap<>();
             HashMap<Integer, ArrayList<String>> tagsMap = new HashMap<>();
             ArrayList<String> addressList = new ArrayList<>();  // 주소 리스트 추가
 
-            for (RestaurantDto restaurant : restaurantList) {
+            for (RestaurantDto restaurant : allRestaurantList) {
                 int resNo = restaurant.getRestaurantNo();
                 float ratings = resService.ratings(resNo);
                 ratingsMap.put(resNo, ratings);
@@ -85,24 +106,21 @@ public class SearchController extends HttpServlet {
 
             request.setAttribute("searchText", searchText);
             request.setAttribute("tag", tag);
+            request.setAttribute("sortOrder", sortOrder); // 정렬 기준 설정
             request.setAttribute("ratingsMap", ratingsMap);
             request.setAttribute("top3ReviewsMap", top3ReviewsMap);
             request.setAttribute("tagsMap", tagsMap);
             request.setAttribute("totalNotices", noticeList.size());
-            request.setAttribute("totalRestaurants", restaurantList.size());
+            request.setAttribute("totalRestaurants", allRestaurantList.size());
             request.setAttribute("addressList", addressList);  // 주소 리스트 설정
             request.setAttribute("cpage", cpage);
+            request.setAttribute("allRestaurantList", allRestaurantList); // 모든 레스토랑 리스트 전달
 
             RequestDispatcher view = request.getRequestDispatcher("/views/search/search_main.jsp");
             view.forward(request, response);
-        }catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             response.sendRedirect("/views/error.html");
         }
-    	
-    }
-
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request, response);
     }
 }

@@ -5,6 +5,7 @@
 <!doctype html>
 <html lang="en">
 <head>
+<title>개인정보처리방침 | TastyRoad</title>
 <%@ include file="/views/common/head.jsp"%>
 </head>
 <body>

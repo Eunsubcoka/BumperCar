@@ -26,26 +26,32 @@ public class ReivewDeleteController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int reviewNo = Integer.parseInt(request.getParameter("reviewNo"));
-		int restaurantNo = Integer.parseInt(request.getParameter("restaurantNo"));
 		
-		String fileName = request.getParameter("fileName"); 
-		
-		ReviewDto reviewDto = new ReviewDto();
-		reviewDto.setReviewNo(reviewNo);
-		reviewDto.setFileName(fileName);
-		reviewDto.setRestaurantNo(restaurantNo);
-		
-		ReviewServiceImpl reviewService = new ReviewServiceImpl();
-		int result = reviewService.reviewDelete(reviewDto);
-		
-		if(result == 1) {
-			response.sendRedirect("/review/review.do?reviewNo=" + reviewNo + "&restaurantNo=" + restaurantNo);	
-		}
-		else {
-			response.sendRedirect("/");
-		}
-			
+        try {
+        	int reviewNo = Integer.parseInt(request.getParameter("reviewNo"));
+    		int restaurantNo = Integer.parseInt(request.getParameter("restaurantNo"));
+    		
+    		String fileName = request.getParameter("fileName"); 
+    		
+    		ReviewDto reviewDto = new ReviewDto();
+    		reviewDto.setReviewNo(reviewNo);
+    		reviewDto.setFileName(fileName);
+    		reviewDto.setRestaurantNo(restaurantNo);
+    		
+    		ReviewServiceImpl reviewService = new ReviewServiceImpl();
+    		int result = reviewService.reviewDelete(reviewDto);
+    		
+    		if(result == 1) {
+    			response.sendRedirect("/review/review.do?reviewNo=" + reviewNo + "&restaurantNo=" + restaurantNo);	
+    		}
+    		else {
+    			response.sendRedirect("/");
+    		}
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendRedirect("/views/error.html");
+        }			
 	
 	
 	

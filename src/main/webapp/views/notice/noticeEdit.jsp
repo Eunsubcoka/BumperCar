@@ -3,6 +3,7 @@
 <!doctype html>
 <html lang="en">
 <head>
+<title>공지사항 수정 | TastyRoad</title>
 <%@ include file="/views/common/head.jsp"%>
 <link rel="stylesheet" href="/assets/css/notice.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>

@@ -9,6 +9,15 @@ public void setTag(String tag) {
 	this.tag = tag;
 }
 
+private double distance;
+
+
+public double getDistance() {
+	return distance;
+}
+public void setDistance(double distance) {
+	this.distance = distance;
+}
 
 public int fileNo;
 public String filePath;
@@ -107,8 +116,20 @@ public void setRestaurantName(String restaurantName) {
 }
 
 
-
-
+private double latitude;
+private double longitude;
+public double getLatitude() {
+	return latitude;
+}
+public void setLatitude(double latitude) {
+	this.latitude = latitude;
+}
+public double getLongitude() {
+	return longitude;
+}
+public void setLongitude(double longitude) {
+	this.longitude = longitude;
+}
 
 
 }

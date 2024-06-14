@@ -6,6 +6,7 @@
 <!doctype html>
 <html lang="en">
 <head>
+    <title>검색 결과 | TastyRoad</title>
     <%@ include file="/views/common/head.jsp"%>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=597a12321ce91d26c9101324b5955ebd&libraries=services"></script>
     <link rel="stylesheet" href="/assets/css/search.css">
@@ -23,10 +24,13 @@
     </div>
     <main class="search-main" id="search-main"
           data-locations='[
-            <c:forEach var="restaurant" items="${restaurantList}" varStatus="status">
-                {"location": "${restaurant.location}", "name": "${restaurant.restaurantName}", "category": "${restaurant.category}", "restaurantNo": ${restaurant.restaurantNo}}<c:if test="${!status.last}">,</c:if>
+            <c:forEach var="restaurant" items="${allRestaurantList}" varStatus="status">
+                {"location": "${restaurant.location}", "name": "${restaurant.restaurantName}", "tags": [<c:forEach var="tag" items="${tagsMap[restaurant.restaurantNo]}" varStatus="tagStatus">"${tag}"<c:if test="${!tagStatus.last}">,</c:if></c:forEach>], "restaurantNo": ${restaurant.restaurantNo}, "imgName": "${restaurant.imgName}", "ratings": ${ratingsMap[restaurant.restaurantNo]}, "reviews": [<c:forEach var="review" items="${top3ReviewsMap[restaurant.restaurantNo]}" varStatus="reviewStatus">{"reviewTitle": "${review.reviewTitle}", "reviewContent": "${review.reviewContent}", "ratings": ${review.ratings}}<c:if test="${!reviewStatus.last}">,</c:if></c:forEach>]}<c:if test="${!status.last}">,</c:if>
             </c:forEach>
           ]'>
+        <input type="hidden" id="userLat" name="userLat">
+        <input type="hidden" id="userLon" name="userLon">
+
         <div class="search-header">
             <h1>검색 결과</h1>
         </div>
@@ -35,6 +39,13 @@
 
         <div class="search-tab" id="restaurant">
             <h3>레스토랑</h3>
+            <div class="sort-options">
+                정렬 :
+                <button onclick="sortResults('latest')" selected>최신순</button>
+                <button onclick="sortResults('distance')">거리순</button>
+            </div>
+            <!-- 추가된 부분 -->
+            <input type="hidden" id="sortOrder" value="latest">
             <c:if test="${not empty restaurantList}">
                 <div class="search-results">
                     <ul class="restaurant-list" id="restaurant-list">
@@ -53,9 +64,9 @@
                                 <div class="restaurant-info">
                                     <div style="display:inline-block;">
                                         <a href="/restaurantDetail.do?restaurantId=${restaurant.restaurantNo}">${restaurant.restaurantName}</a>
-                                        <div style="display:inline-block;" class= "font-down">
-                                        <i class="fas fa-star"></i>
-                                        <fmt:formatNumber value="${ratingsMap[restaurant.restaurantNo]}" type="number" minFractionDigits="1" maxFractionDigits="1" />
+                                        <div style="display:inline-block;" class="font-down">
+                                            <i class="fas fa-star"></i>
+                                            <fmt:formatNumber value="${ratingsMap[restaurant.restaurantNo]}" type="number" minFractionDigits="1" maxFractionDigits="1" />
                                         </div>
                                     </div>
                                     
@@ -79,6 +90,7 @@
                                         </c:if>
                                     </div>
                                     <div class="font-down">위치: ${restaurant.location}</div>
+                                    <div class="font-down">거리: ${restaurant.distance} km</div>
                                     
                                     <button class="toggle-review-btn" onclick="toggleReview(this)">리뷰 열기</button>
                                     <div class="review-box font-down-2" style="display: none;" onclick="navigateToReviews(${restaurant.restaurantNo})">
@@ -152,5 +164,16 @@
 
     <script src="/assets/js/main.js"></script>
     <script src="/assets/js/search.js"></script>
+    <script>
+        // 내 위치 정보를 가져와서 숨겨진 필드에 설정
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                document.getElementById('userLat').value = position.coords.latitude;
+                document.getElementById('userLon').value = position.coords.longitude;
+                console.log(position.coords.latitude);
+                console.log(position.coords.longitude);
+            });
+        }
+    </script>
 </body>
 </html>

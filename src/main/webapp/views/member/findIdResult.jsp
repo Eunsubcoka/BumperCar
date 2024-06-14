@@ -4,12 +4,13 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>아이디 찾기 결과</title>
+    <title>아이디 찾기 결과 | TastyRoad</title>
         <%@ include file="/views/common/head.jsp"%>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/idPassword.css">
 </head>
 <body>
 <%@ include file="/views/common/header.jsp"%>
+<%@ include file="/views/common/nav.jsp"%>
     <div class="form-container">
         <h2>아이디 찾기 결과</h2>
         <c:choose>
