@@ -40,14 +40,13 @@
                     </div>
                 </div>
                 <div class="input-container">
-                    <label for="title">제목:</label>
-                    <input type="text" id="title" name="reviewTitle" required>
-                </div>
-                <div class="input-container">
                     <label for="author">작성자:</label>
                     <input type="text" id="author" value="${sessionScope.userName}" disabled>
                 </div>                
-
+                <div class="input-container">
+                    <label for="title">제목:</label>
+                    <input type="text" id="title" name="reviewTitle" required>
+                </div>
                 <div class="content">
                 	<label for="content">내용:</label>
                     <textarea name="reviewContent" id="reviewContent" required></textarea>

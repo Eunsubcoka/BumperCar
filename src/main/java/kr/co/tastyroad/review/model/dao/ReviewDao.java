@@ -403,7 +403,21 @@ public class ReviewDao {
     return result;
     }
     
-    
+    public int reviewLike(ReviewDto reviewDto) {
+    	String query = "insert into likes values(?, DEFAULT)";
+    	try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, reviewDto.getReviewNo());
+			int result = pstmt.executeUpdate();
+			
+			return result;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	return 0;
+    	
+    }
     
 }
     
