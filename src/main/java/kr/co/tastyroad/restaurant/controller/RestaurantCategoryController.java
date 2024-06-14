@@ -15,7 +15,7 @@ import kr.co.tastyroad.restaurant.model.service.RestaurantServiceImpl;
 import kr.co.tastyroad.review.model.dto.ReviewDto;
 import kr.co.tastyroad.review.model.service.ReviewServiceImpl;
 
-@WebServlet("/restaurantDetail.do")
+@WebServlet("/category.do")
 public class RestaurantCategoryController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
