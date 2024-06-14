@@ -15,8 +15,17 @@ public class Member {
     private String profile;
     private String profileImageUrl;
     private String fileName;
+    private String googleId;
     
-    public String getFileName() {
+    public String getGoogleId() {
+		return googleId;
+	}
+
+	public void setGoogleId(String googleId) {
+		this.googleId = googleId;
+	}
+
+	public String getFileName() {
 		return fileName;
 	}
 
