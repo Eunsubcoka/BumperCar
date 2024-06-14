@@ -47,8 +47,6 @@ public class RestaurantCategoryController extends HttpServlet {
 		
 		restaurantList = resService.getRestaurantList(category,seleType);
 		
-//		ArrayList<ReviewDto> reviewList = new ArrayList<ReviewDto>();
-//		reviewList = reviewService.getReviewListOnce(restaurantList); // 게시글 리스트
 		resService.ratingsList(restaurantList);
 		tag = resService.getTag(restaurantList);
 		

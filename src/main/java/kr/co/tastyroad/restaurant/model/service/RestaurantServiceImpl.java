@@ -15,7 +15,11 @@ public class RestaurantServiceImpl implements RestaurantService {
 		return restaurantDao.getRestaurant(No);
 
 	}
-
+	@Override
+	public ArrayList<String> getImg(int resNo) {
+		return restaurantDao.getImg(resNo);
+	}
+	
 	@Override
 	public ArrayList<RestaurantDto> getMenuList(int No) {
 		return restaurantDao.getMenuList(No);

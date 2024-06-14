@@ -45,6 +45,9 @@
                <label for="date">날짜</label>
 			<input type="text" id="datepicker" name="datepicker"  onchange="printDate()">
             </div>
+            <div class="ele first-name a">
+               <h6>9시부터 11시까지 가능합니다.<h6>
+            </div>
             </div>
          <div class="row-wrapper">
             <div class="ele first-name">
