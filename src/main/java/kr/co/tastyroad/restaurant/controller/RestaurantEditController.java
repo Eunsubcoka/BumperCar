@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +17,12 @@ import kr.co.tastyroad.restaurant.model.dto.RestaurantDto;
 import kr.co.tastyroad.restaurant.model.service.RestaurantServiceImpl;
 
 @WebServlet("/restaurantEdit.do")
+@MultipartConfig(
+	    fileSizeThreshold = 1024 * 1024 * 1, // 1MB
+	    maxFileSize = 1024 * 1024 * 50,      // 50MB
+	    maxRequestSize = 1024 * 1024 * 100   // 100MB (필요에 따라 조정 가능)
+	)
+
 public class RestaurantEditController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 

@@ -233,7 +233,7 @@
     const wrapper = $('.input_wrap'); // 입력 필드를 포함하는 컨테이너 선택
     const addButton = $('.add_field'); // 추가 버튼 선택
     const maxFields = 10; // 최대 입력 필드 수 설정
-    let fieldCount = 1; // 현재 입력 필드 수
+    let fieldCount = ${menuCnt}; // 현재 입력 필드 수
 
     // '추가하기' 버튼 클릭 시 이벤트
     addButton.click(function(e) {
@@ -264,7 +264,7 @@
     const wrapper1 = $('.input_wrap1'); // 입력 필드를 포함하는 컨테이너 선택
     const addButton1 = $('.add_field1'); // 추가 버튼 선택
     const maxFields1 = 10; // 최대 입력 필드 수 설정
-    let fieldCount1 = 1; // 현재 입력 필드 수
+    let fieldCount1 = ${count}; // 현재 입력 필드 수
 
     // '추가하기' 버튼 클릭 시 이벤트
     addButton1.click(function(e) {
@@ -305,7 +305,6 @@
     	const category = document.getElementById("category").value;
     	const phone = document.getElementById("phone").value;
     	const addr = document.getElementById("sample5_address").value;
-    	console.log(addr);
     	fd.append("resNo", restaurantNo);
     	fd.append("restaurantName", restaurantName);
     	fd.append("category", category);
