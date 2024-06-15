@@ -2,19 +2,20 @@ package kr.co.tastyroad.restaurant.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
+
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+
 import kr.co.tastyroad.restaurant.model.dto.RestaurantDto;
 import kr.co.tastyroad.restaurant.model.service.RestaurantServiceImpl;
 
 @WebServlet("/restaurantEdit.do")
-@MultipartConfig
 public class RestaurantEditController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -23,52 +24,66 @@ public class RestaurantEditController extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html; charset=utf-8");
-        request.setCharacterEncoding("utf-8");
+        try {
+            response.setContentType("text/html; charset=utf-8");
+            request.setCharacterEncoding("utf-8");
 
-        int resNo = Integer.parseInt(request.getParameter("resNo"));
-        String name = request.getParameter("restaurantName");
-        int category = Integer.parseInt(request.getParameter("category"));
-        String phone = request.getParameter("phone");
-        String addr = request.getParameter("addr");
+            String resNoParam = request.getParameter("resNo");
+            if (resNoParam == null || resNoParam.isEmpty()) {
+                throw new IllegalArgumentException("resNo is missing or invalid");
+            }
+            int resNo = Integer.parseInt(resNoParam);
+            String name = request.getParameter("restaurantName");
+            String categoryParam = request.getParameter("category");
+            if (categoryParam == null || categoryParam.isEmpty()) {
+                throw new IllegalArgumentException("category is missing or invalid");
+            }
+            int category = Integer.parseInt(categoryParam);
+            String phone = request.getParameter("phone");
+            String addr = request.getParameter("addr");
 
-        RestaurantDto restaurant = new RestaurantDto();
-        restaurant.setRestaurantNo(resNo);
-        restaurant.setRestaurantName(name);
-        restaurant.setCategory(category);
-        restaurant.setRestaurantPhone(phone);
-        restaurant.setLocation(addr);
+            RestaurantDto restaurant = new RestaurantDto();
+            restaurant.setRestaurantNo(resNo);
+            restaurant.setRestaurantName(name);
+            restaurant.setCategory(category);
+            restaurant.setRestaurantPhone(phone);
+            restaurant.setLocation(addr);
 
-        RestaurantServiceImpl resService = new RestaurantServiceImpl();
-        resService.updateRestaurant(restaurant);
+            RestaurantServiceImpl resService = new RestaurantServiceImpl();
+            resService.updateRestaurant(restaurant);
 
-        Collection<Part> parts = request.getParts();
-        int fileCount = 0;
-        String uploadDirectory = getServletContext().getRealPath("/assets/image/");
-        File filePath = new File(uploadDirectory);
-        if (!filePath.exists()) {
-            filePath.mkdirs();
-        }
+            updateMenus(request, resService, resNo);
+            updateTags(request, resService, resNo);
+            resService.deleteImg(resNo);
 
-        for (Part part : parts) {
-            if (part.getName().startsWith("file") && part.getSubmittedFileName() != null && !part.getSubmittedFileName().isEmpty()) {
-                String fileName = getFileName(part);
-                if (fileName != null) {
-                    part.write(uploadDirectory + File.separator + fileName);
+            Collection<Part> fileParts = request.getParts();
+            int imageCount = 0;
+            for (Part filePart : fileParts) {
+                if (filePart.getName().equals("file") && filePart.getSubmittedFileName() != null && !filePart.getSubmittedFileName().isEmpty()) {
+                    if (imageCount >= 2) break;
+                    String fileName = getFileName(filePart);
+                    String uploadDirectory = getServletContext().getRealPath("/assets/image/");
+                    File filePath = new File(uploadDirectory);
+                    if (!filePath.exists()) {
+                        filePath.mkdirs();
+                    }
+                    filePart.write(uploadDirectory + File.separator + fileName);
+
                     RestaurantDto fileDto = new RestaurantDto();
                     fileDto.setFilePath(uploadDirectory);
                     fileDto.setFileName(fileName);
                     fileDto.setRestaurantNo(resNo);
+
                     resService.fileUpload(fileDto);
-                    fileCount++;
+                    imageCount++;
                 }
             }
-            if (fileCount >= 2) {
-                break;
-            }
-        }
 
-        response.sendRedirect("/index.jsp");
+            response.sendRedirect("/index.jsp");
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
     }
 
     private String getFileName(Part part) {
@@ -80,5 +95,37 @@ public class RestaurantEditController extends HttpServlet {
             }
         }
         return null;
+    }
+
+    private void updateMenus(HttpServletRequest request, RestaurantServiceImpl resService, int resNo) throws Exception {
+        resService.deleteMenu(resNo);
+        ArrayList<RestaurantDto> menuList = new ArrayList<>();
+        int count = 1;
+        String food;
+        while ((food = request.getParameter("menu" + count)) != null) {
+            int price = Integer.parseInt(request.getParameter("price" + count));
+            RestaurantDto menu = new RestaurantDto();
+            menu.setMenu(food);
+            menu.setPrice(price);
+            menu.setRestaurantNo(resNo);
+            menuList.add(menu);
+            count++;
+        }
+        resService.addMenu(menuList);
+    }
+
+    private void updateTags(HttpServletRequest request, RestaurantServiceImpl resService, int resNo) throws Exception {
+        resService.deleteTag(resNo);
+        ArrayList<RestaurantDto> tagList = new ArrayList<>();
+        int count = 1;
+        String tag;
+        while ((tag = request.getParameter("tag" + count)) != null) {
+            RestaurantDto tagDto = new RestaurantDto();
+            tagDto.setTag(tag);
+            tagDto.setRestaurantNo(resNo);
+            tagList.add(tagDto);
+            count++;
+        }
+        resService.addTag(tagList);
     }
 }
