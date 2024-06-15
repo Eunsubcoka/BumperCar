@@ -58,23 +58,6 @@
                     <input type="text" id="phone" name="phone" value="${resDto.restaurantPhone }" required>
                 </div>
                 <div class="input-container">
-                    <label for="title">태그:</label>
-				 <div class="input_wrap1">
-				 <c:set var = "count" value = "0"/>
-                <c:forEach var="tag" items="${tag}">
-                
-        <div class="input_list1">
-        
-				 <c:set var = "count" value = "${count + 1 }"/>
-            <input type="text" name="tag${count }" placeholder="태그" value="${tag }"/><br>
-			<a href="javascript:void(0);" class="remove_field2">삭제</a>
-            
-        </div>
-    </c:forEach>
-    </div>
-    <button class="add_field1">추가하기</button>
-                </div>
-                <div class="input-container">
                     <label for="author">주소:</label>
                     <input type="text" id="sample5_address" name="addr" placeholder="주소" value="${resDto.location }">
 
@@ -103,6 +86,23 @@
     <button class="add_field">추가하기</button>
 				
 				
+                </div>
+                <div class="input-container">
+                    <label for="title">태그:</label>
+				 <div class="input_wrap1">
+				 <c:set var = "count" value = "0"/>
+                <c:forEach var="tag" items="${tag}">
+                
+        <div class="input_list1">
+        
+				 <c:set var = "count" value = "${count + 1 }"/>
+            <input type="text" name="tag${count }" placeholder="태그" value="${tag }"/><br>
+			<a href="javascript:void(0);" class="remove_field2">삭제</a>
+            
+        </div>
+    </c:forEach>
+    </div>
+    <button class="add_field1">추가하기</button>
                 </div>
             </div>
         </div>
