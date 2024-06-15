@@ -83,8 +83,10 @@ public class FormController extends HttpServlet {
 			RestaurantDto resDto = new RestaurantDto();
 			resDto = resService.getRestaurant(resNo);
 			ArrayList<RestaurantDto> menuList = resService.getMenuList(resNo);
-
+			ArrayList<String> imgList = resService.getImg(resNo);
+    		
 			ArrayList<String> tag = resService.getTag(resNo);
+			request.setAttribute("imgList", imgList);
 			request.setAttribute("menuList", menuList);
 			request.setAttribute("tag", tag);
 			request.setAttribute("resNo", resNo);
