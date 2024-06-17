@@ -160,6 +160,10 @@ a {
     display: none;
     color: #ff6347;
 }
+.heartCount {
+    color: #ff6347;
+    margin-left: 3.5px;
+}
 
 
 .heart_area .heartEmpty.active {

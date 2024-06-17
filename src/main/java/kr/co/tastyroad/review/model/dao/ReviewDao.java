@@ -403,21 +403,91 @@ public class ReviewDao {
     return result;
     }
     
-    public int reviewLike(ReviewDto reviewDto) {
-    	String query = "insert into likes values(?, DEFAULT)";
-    	try {
-			pstmt = con.prepareStatement(query);
-			
-			pstmt.setInt(1, reviewDto.getReviewNo());
-			int result = pstmt.executeUpdate();
-			
-			return result;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-    	return 0;
-    	
+    
+//    public boolean checkIfLiked(ReviewDto reviewDto) {
+//        // 이미 좋아요를 했는지 확인하는 메서드 구현
+//        String query = "SELECT * FROM likes WHERE user_no = ? AND reviewNo = ?";
+//        try {
+//            pstmt = con.prepareStatement(query);
+//            pstmt.setInt(1, reviewDto.getUserNo());
+//            pstmt.setInt(2, reviewDto.getReviewNo());
+//            ResultSet rs = pstmt.executeQuery();
+//            return rs.next(); // 결과가 있으면 true (이미 좋아요 한 상태)
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return false;
+//    }
+    
+    public boolean checkIfLiked(ReviewDto reviewDto) {
+        String query = "SELECT * FROM likes WHERE user_no = ? AND reviewNo = ?";
+        try (PreparedStatement pstmt = con.prepareStatement(query)) {
+            pstmt.setInt(1, reviewDto.getUserNo());
+            pstmt.setInt(2, reviewDto.getReviewNo());
+            try (ResultSet rs = pstmt.executeQuery()) {
+                return rs.next(); // 결과가 있으면 true (이미 좋아요 한 상태)
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
+
+    public int addLike(ReviewDto reviewDto) {
+        String query = "INSERT INTO likes (user_no, reviewNo) VALUES (?, ?)";
+        try (PreparedStatement pstmt = con.prepareStatement(query)) {
+            pstmt.setInt(1, reviewDto.getUserNo());
+            pstmt.setInt(2, reviewDto.getReviewNo());
+            return pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public int removeLike(ReviewDto reviewDto) {
+        String query = "DELETE FROM likes WHERE user_no = ? AND reviewNo = ?";
+        try (PreparedStatement pstmt = con.prepareStatement(query)) {
+            pstmt.setInt(1, reviewDto.getUserNo());
+            pstmt.setInt(2, reviewDto.getReviewNo());
+            return pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    
+//    public int removeLike(ReviewDto reviewDto) {
+//        // 좋아요 취소하는 메서드 구현
+//        String query = "DELETE FROM likes WHERE user_no = ? AND reviewNo = ?";
+//        try {
+//            pstmt = con.prepareStatement(query);
+//            pstmt.setInt(1, reviewDto.getUserNo());
+//            pstmt.setInt(2, reviewDto.getReviewNo());
+//            return pstmt.executeUpdate();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return 0;
+//    }
+
+    public int getLikeCount(int reviewNo) {
+        // 좋아요 수를 가져오는 메서드는 이전과 동일
+        String query = "SELECT COUNT(*) AS likeCount FROM likes WHERE reviewNo = ?";
+        try (PreparedStatement pstmt = con.prepareStatement(query)) {
+            pstmt.setInt(1, reviewNo);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("likeCount");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     
 }
     
