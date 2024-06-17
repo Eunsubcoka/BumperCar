@@ -2,26 +2,47 @@ package kr.co.tastyroad.restaurant.model.dto;
 
 import java.util.List;
 
-public class RestaurantSampleDto extends RestaurantDto {
-    private List<String> imgNames;
-    private List<String> tags;
+public class RestaurantSampleDto {
+    private int category;
+    private String location;
+    private String restaurantPhone;
+    private String restaurantName;
     private List<MenuDto> menus;
+    private String imgName; // 첫 번째 이미지
+    private String imageName; // 두 번째 이미지
+    private String tag;
 
-    // Getters and Setters for the additional fields
-    public List<String> getImgNames() {
-        return imgNames;
+    // Getter 및 Setter 메서드
+    public int getCategory() {
+        return category;
     }
 
-    public void setImgNames(List<String> imgNames) {
-        this.imgNames = imgNames;
+    public void setCategory(int category) {
+        this.category = category;
     }
 
-    public List<String> getTags() {
-        return tags;
+    public String getLocation() {
+        return location;
     }
 
-    public void setTags(List<String> tags) {
-        this.tags = tags;
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getRestaurantPhone() {
+        return restaurantPhone;
+    }
+
+    public void setRestaurantPhone(String restaurantPhone) {
+        this.restaurantPhone = restaurantPhone;
+    }
+
+    public String getRestaurantName() {
+        return restaurantName;
+    }
+
+    public void setRestaurantName(String restaurantName) {
+        this.restaurantName = restaurantName;
     }
 
     public List<MenuDto> getMenus() {
@@ -32,7 +53,30 @@ public class RestaurantSampleDto extends RestaurantDto {
         this.menus = menus;
     }
 
-    // MenuDto 내부 클래스 정의
+    public String getImgName() {
+        return imgName;
+    }
+
+    public void setImgName(String imgName) {
+        this.imgName = imgName;
+    }
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
     public static class MenuDto {
         private String foodName;
         private String price;
