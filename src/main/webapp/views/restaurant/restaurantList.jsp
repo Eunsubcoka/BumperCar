@@ -1,6 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+	
 
 <!doctype html>
 <html lang="en">
@@ -41,9 +44,17 @@
 				<c:forEach var="restaurant" items="${restaurantList}">
 					<li class="res_li">
 						<div class="cont">
-							<span class="res_img"> <img
-								src="/assets/image/${restaurant.imgName}" class="photo_img"
+							<span class="res_img"> 
+							<c:choose>
+							<c:when test = "${fn:contains(restaurant.imgName, 'https')}">
+							<img src="${restaurant.imgName}" class="photo_img"
 								onclick="location.href='/restaurantDetail.do?restaurantId=${restaurant.restaurantNo}'">
+							</c:when>
+							<c:otherwise>
+							<img src="/assets/image/${restaurant.imgName}" class="photo_img"
+								onclick="location.href='/restaurantDetail.do?restaurantId=${restaurant.restaurantNo}'">
+							</c:otherwise>
+							</c:choose>
 							</span>
 							<div class="cnt">
 								<div class="box_tit">${restaurant.restaurantName}</div>

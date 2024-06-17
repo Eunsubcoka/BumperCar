@@ -115,7 +115,14 @@ public void setRestaurantName(String restaurantName) {
 	this.restaurantName = restaurantName;
 }
 
+public String getFoodName() {
+	return foodName;
+}
+public void setFoodName(String foodName) {
+	this.foodName = foodName;
+}
 
+private String foodName;
 private double latitude;
 private double longitude;
 public double getLatitude() {
