@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -31,7 +31,16 @@
 				<div class="res_info_wrap">
 					<div class="res_header">
 						<c:forEach var = "imgList" items="${imgList }">
-						<img src="/assets/image/${imgList}" alt="대한옥">
+						<c:choose>
+							<c:when test = "${fn:contains(imgList, 'https')}">
+							<img src="${imgList}" class="photo_img"
+								onclick="location.href='/restaurantDetail.do?restaurantId=${restaurant.restaurantNo}'">
+							</c:when>
+							<c:otherwise>
+							<img src="/assets/image/${imgList}" class="photo_img"
+								onclick="location.href='/restaurantDetail.do?restaurantId=${restaurant.restaurantNo}'">
+							</c:otherwise>
+							</c:choose>
 						</c:forEach>
 					</div>
 					<div class="details">
