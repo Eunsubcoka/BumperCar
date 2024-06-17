@@ -142,49 +142,10 @@ public class MemberServiceImpl implements MemberService {
             member.setUserEmail(email);
             member.setUserName(name);
             member.setUserId("user_" + googleId); // 고유한 userId 생성
-            member.setUserPwd(""); // Google 사용자에 대한 비밀번호는 비워둠
+            member.setUserPwd("default_password"); // Google 사용자에 대한 비밀번호는 비워둠
             member.setUserType("google"); // 사용자 유형을 Google로 설정
             memberDAO.insertMember(member);
         }
         return member;
     }
-    
-//    public Member findOrCreateMember(String googleId, String email, String name) {
-//        Member member = memberDAO.findByGoogleId(googleId);
-//        if (member == null) {
-//            // Google ID로 찾지 못하면 이메일로 기존 사용자 확인
-//            member = memberDAO.findByEmail(email);
-//            if (member == null) {
-//                // 사용자 정보가 없으면 새로 생성
-//                member = new Member();
-//                member.setUserId("user_" + googleId); // 고유한 userId 설정
-//                member.setUserName(name);
-//                member.setUserEmail(email);
-//                member.setUserPwd(""); // 초기 비밀번호 설정 (필요에 따라 처리)
-//                member.setUserAddress("");
-//                member.setUserPhone("");
-//                member.setToken(""); // 토큰 초기화
-//                member.setVerified(true); // Google 로그인 사용자는 기본적으로 인증된 것으로 설정
-//                member.setGoogleId(googleId);
-//                memberDAO.insertMember(member);
-//            } else {
-//                // 기존 사용자의 google_id 업데이트
-//                member.setGoogleId(googleId);
-//                memberDAO.updateGoogleId(member.getUserId(), googleId);
-//            }
-//        }
-//        return member;
-//    }
-//    public Member findOrCreateMember(String userId, String email, String name) {
-//        Member member = memberDAO.getMemberByUserId(userId);
-//        if (member == null) {
-//            member = new Member();
-//            member.setUserId(userId);
-//            member.setUserEmail(email);
-//            member.setUserName(name);
-//            member.setUserType("Google"); // 예: 사용자 유형을 'Google'로 설정
-//            memberDAO.insertMember(member);
-//        }
-//        return member;
-//    }
 }
