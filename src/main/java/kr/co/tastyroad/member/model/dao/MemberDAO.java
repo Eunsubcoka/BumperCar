@@ -312,7 +312,6 @@ public class MemberDAO {
             e.printStackTrace();
         }
     }
-
     public void insertMember(Member member) {
         String query = "INSERT INTO Tasty_member (user_name, user_id, user_email, user_pwd, user_address, user_phone, token, verified, google_id, user_type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = DatabaseConnection.getConnection();
@@ -320,7 +319,8 @@ public class MemberDAO {
             pstmt.setString(1, member.getUserName());
             pstmt.setString(2, member.getUserId());
             pstmt.setString(3, member.getUserEmail());
-            pstmt.setString(4, member.getUserPwd());
+            // 기본 비밀번호 설정
+            pstmt.setString(4, member.getUserPwd() == null ? "default_password" : member.getUserPwd());
             pstmt.setString(5, member.getUserAddress());
             pstmt.setString(6, member.getUserPhone());
             pstmt.setString(7, member.getToken());
@@ -332,6 +332,7 @@ public class MemberDAO {
             e.printStackTrace();
         }
     }
+    
     private Member mapResultSetToMember(ResultSet rs) throws SQLException {
         Member member = new Member();
         member.setUserId(rs.getString("user_id"));
@@ -450,28 +451,27 @@ public class MemberDAO {
             e.printStackTrace();
         }
     }
-
     public Member getMemberByGoogleId(String googleId) {
         String query = "SELECT * FROM Tasty_member WHERE google_id = ?";
+        Member member = null;
 
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
+        try (Connection con = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = con.prepareStatement(query)) {
             pstmt.setString(1, googleId);
-
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
-                    Member member = new Member();
+                    member = new Member();
                     member.setUserNo(rs.getInt("user_no"));
+                    member.setUserId(rs.getString("user_id"));
                     member.setUserName(rs.getString("user_name"));
                     member.setUserEmail(rs.getString("user_email"));
-                    member.setGoogleId(rs.getString("google_id"));
-                    return member;
+                    member.setUserType(rs.getString("user_type"));
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return null;
+        return member;
     }
 }
