@@ -86,10 +86,31 @@ public class ReviewServiceImpl implements ReviewService {
 		return reviewDao.getReviewListOnce(restaurantList);
 	}
 	
+
+	// 좋아요 했는지 체크
+	@Override
+	public boolean checkIfLiked(ReviewDto reviewDto) {
+		return reviewDao.checkIfLiked(reviewDto);
+	}
+	
 	// 리뷰 좋아요
 	@Override
-	public int reviewLike(ReviewDto reviewDto) {
-		return reviewDao.reviewLike(reviewDto);
-	};
+	public int addLike(ReviewDto reviewDto) {
+		return reviewDao.addLike(reviewDto);
+	}
+	
+	// 좋아요 취소
+	@Override
+	public int removeLike(ReviewDto reviewDto) {
+		return reviewDao.removeLike(reviewDto);
+	}
+	
+	// 리뷰 좋아요 갯수
+	@Override
+	// 리뷰 좋아요 갯수
+	public int getLikeCount(int reviewNo) {
+		return reviewDao.getLikeCount(reviewNo);
+	}
+	
 }
 

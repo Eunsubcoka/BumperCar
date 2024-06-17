@@ -64,9 +64,27 @@ window.onload = function() {
     });
 };
 
-// 좋아요 
 // 좋아요 버튼 클릭 이벤트 핸들러
-document.querySelectorAll('.heartA').forEach(function(likeBtn) {
+$(document).ready(function() {
+	$("#likeBtn").click(function() {
+        // AJAX를 통해 서버에 좋아요 요청 보내기
+        $.ajax({
+            url: '/review/reviewLike.do', // 좋아요를 처리할 서버의 URL
+            type: 'POST',
+            data: { "reviewNo": $("#reviewNo").val()},
+            success: function(response) {
+                // 서버 응답을 받아 처리
+                console.log(response);
+            }, 
+            error: function(error) {
+                console.error(error);
+                alert("좋아요 실패!!");
+            }
+		});
+	});
+})
+
+/*document.querySelectorAll('.heartA').forEach(function(likeBtn) {
     likeBtn.addEventListener('click', function() {
         // 좋아요를 누른 리뷰번호 가져오기
         const reviewNo = likeBtn.dataset.reviewNo;
@@ -87,7 +105,7 @@ document.querySelectorAll('.heartA').forEach(function(likeBtn) {
         });
     });
 });
-
+*/
 
 
 
