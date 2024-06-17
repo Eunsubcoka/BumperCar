@@ -28,14 +28,7 @@ public class ReviewLikeController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    int reviewNo = Integer.parseInt(request.getParameter("reviewNo"));
 	    HttpSession session = request.getSession();
-	    
-	    // 세션에서 userNo 가져오기
-	    Integer userNo = (Integer) session.getAttribute("userNo");
-	    if (userNo == null) {
-	        // 로그인되지 않은 상태에서 좋아요 요청이 들어온 경우
-	        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 401 Unauthorized
-	        return;
-	    }
+	    int userNo = (int) session.getAttribute("userNo");
 
 	    ReviewDto reviewDto = new ReviewDto();
 	    reviewDto.setReviewNo(reviewNo);
@@ -69,5 +62,8 @@ public class ReviewLikeController extends HttpServlet {
 	    response.setContentType("application/json");
 	    response.setCharacterEncoding("UTF-8");
 	    response.getWriter().write(jsonResponse.toString());
+	    
+	    // 좋아요 수를 request에 설정
+	    request.setAttribute("likeCount", likeCount);
 	}
 }
