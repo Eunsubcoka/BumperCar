@@ -587,5 +587,34 @@ public class RestaurantDao {
         }
     }
     
+
+    public List<RestaurantDto> getRestaurantListByCategory(int category) {
+        List<RestaurantDto> result = new ArrayList<>();
+        String query = "SELECT r.restaurantNo, r.category, r.location, r.restaurantPhone, r.restaurantName, ri.imgName "
+                     + "FROM restaurant r "
+                     + "LEFT JOIN (SELECT restaurantNo, MIN(imgName) AS imgName FROM res_img GROUP BY restaurantNo) ri "
+                     + "ON r.restaurantNo = ri.restaurantNo "
+                     + "WHERE r.category = ?";
+
+        try {
+            pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, category);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                RestaurantDto restaurant = new RestaurantDto();
+                restaurant.setRestaurantNo(rs.getInt("restaurantNo"));
+                restaurant.setCategory(rs.getInt("category"));
+                restaurant.setLocation(rs.getString("location"));
+                restaurant.setRestaurantPhone(rs.getString("restaurantPhone"));
+                restaurant.setRestaurantName(rs.getString("restaurantName"));
+                restaurant.setImgName(rs.getString("imgName"));
+                result.add(restaurant);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } 
+        
+        return result;
+    }
 }
 

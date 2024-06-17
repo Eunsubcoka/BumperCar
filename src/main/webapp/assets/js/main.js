@@ -20,7 +20,8 @@ let slideIndices = {
 	slide1: 0,
 	slide2: 0,
 	slide3: 0,
-	slide4: 0
+	slide4: 0,
+	slide5: 0
 };
 
 function changeSlide(slideId, n) {
@@ -39,7 +40,7 @@ function showSlides(slideId, n) {
 }
 
 // 각 카테고리의 첫 번째 슬라이드 출력
-['slide1', 'slide2', 'slide3', 'slide4'].forEach(slideId => {
+['slide1', 'slide2', 'slide3', 'slide4','slide5'].forEach(slideId => {
 	showSlides(slideId, slideIndices[slideId]);
 });
 

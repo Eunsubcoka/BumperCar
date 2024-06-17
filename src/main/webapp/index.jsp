@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!doctype html>
 <html lang="en">
@@ -14,9 +15,10 @@
     <!-- 플로팅 네비게이션 바 -->
     <div class="floating-nav">
         <a onclick="scrollToSection('slide1')">한식</a>
-        <a onclick="scrollToSection('slide2')">중식</a>
-        <a onclick="scrollToSection('slide3')">양식</a>
-        <a onclick="scrollToSection('slide4')">일식</a>
+        <a onclick="scrollToSection('slide2')">일식</a>
+        <a onclick="scrollToSection('slide3')">중식</a>
+        <a onclick="scrollToSection('slide4')">디저트</a>
+        <a onclick="scrollToSection('slide5')">패스트푸드</a>
         <a onclick="scrollToTop()">맨 위로</a>
     </div>
     
@@ -27,104 +29,145 @@
             </div>
             <div class="slider">
                 <div class="slides">
-                    <div class="slide">
-                        <a href="/restaurantDetail.do?restaurantId=1" data-value="1"><img src="/assets/image/restaurant_images/김볶스.jpg" alt="Image 1"></a>
-                        <a href="/restaurantDetail.do?restaurantId=2" data-value="2"><img src="/assets/image/restaurant_images/24시한방전주콩나물국밥.jpg" alt="Image 2"></a>
-                        <a href="/restaurantDetail.do?restaurantId=3" data-value="3"><img src="/assets/image/restaurant_images/김밥스토리.jpg" alt="Image 3"></a>
-                    </div>
-                    <div class="slide">
-                        <a href="/restaurantDetail.do?restaurantId=4" data-value="4"><img src="/assets/image/restaurant_images/비아김밥.jpg" alt="Image 4"></a>
-                        <a href="/restaurantDetail.do?restaurantId=5" data-value="5"><img src="/assets/image/restaurant_images/안양 감자탕.jpg" alt="Image 5"></a>
-                        <a href="/restaurantDetail.do?restaurantId=6" data-value="6"><img src="/assets/image/restaurant_images/형제들감자탕 안양점.jpg" alt="Image 6"></a>
-                    </div>
-                    <div class="slide">
-                        <a href="/restaurantDetail.do?restaurantId=7" data-value="7"><img src="/assets/image/restaurant_images/하남돼지집.jpg" alt="Image 7"></a>
-                        <a href="/restaurantDetail.do?restaurantId=8" data-value="8"><img src="/assets/image/restaurant_images/고향맛손칼국수.jpg" alt="Image 8"></a>
-                        <a href="/restaurantDetail.do?restaurantId=9" data-value="9"><img src="/assets/image/restaurant_images/고인돌 김치떡삼겹.jpg" alt="Image 9"></a>
-                    </div>
-                    <button class="prev" onclick="changeSlide('slide1', -1)">&#10094;</button>
-                    <button class="next" onclick="changeSlide('slide1', 1)">&#10095;</button>
-                </div>
-            </div>
-        </section>
-        
-        <section class="unique-food-category" id="slide2">
-            <div class="sli_con">
-                <h2 onclick="location.href='/category.do?category=2'">#중식</h2>
-            </div>
-            <div class="slider">
-                <div class="slides">
-                    <div class="slide">
-                        <a href="/restaurantDetail.do?restaurantId=10" data-value="10"><img src="/assets/image/restaurant_images/마약떡볶이.jpg" alt="Image 1"></a>
-                        <a href="/restaurantDetail.do?restaurantId=11" data-value="11"><img src="/assets/image/restaurant_images/신전떡볶이.jpg" alt="Image 2"></a>
-                        <a href="/restaurantDetail.do?restaurantId=12" data-value="12"><img src="/assets/image/restaurant_images/두끼떡볶이.jpg" alt="Image 3"></a>
-                    </div>
-                    <div class="slide">
-                        <a href="/restaurantDetail.do?restaurantId=13" data-value="13"><img src="/assets/image/restaurant_images/홍미집.jpg" alt="Image 4"></a>
-                        <a href="/restaurantDetail.do?restaurantId=14" data-value="14"><img src="/assets/image/restaurant_images/역전우동0410 안양일번가점.jpg" alt="Image 5"></a>
-                        <a href="/restaurantDetail.do?restaurantId=15" data-value="15"><img src="/assets/image/restaurant_images/버섯칼국수.jpg" alt="Image 6"></a>
-                    </div>
-                    <div class="slide">
-                        <a href="/restaurantDetail.do?restaurantId=16" data-value="16"><img src="/assets/image/restaurant_images/로렌스308.jpg" alt="Image 7"></a>
-                        <a href="/restaurantDetail.do?restaurantId=17" data-value="17"><img src="/assets/image/restaurant_images/모이세분식.jpg" alt="Image 8"></a>
-                        <a href="/restaurantDetail.do?restaurantId=18" data-value="18"><img src="/assets/image/restaurant_images/롤링파스타 안양일번가점.jpg" alt="Image 9"></a>
-                    </div>
-                    <button class="prev" onclick="changeSlide('slide2', -1)">&#10094;</button>
-                    <button class="next" onclick="changeSlide('slide2', 1)">&#10095;</button>
+                    <c:forEach var="restaurant" items="${koreanRestaurants}" varStatus="status">
+                        <c:if test="${status.index % 3 == 0}">
+                            <div class="slide">
+                        </c:if>
+                        <a href="/restaurantDetail.do?restaurantId=${restaurant.restaurantNo}" data-value="${restaurant.restaurantNo}">
+                            <c:if test="${restaurant.imgName != null && fn:contains(restaurant.imgName, 'https')}">
+                                <img src="${restaurant.imgName}" alt="${restaurant.restaurantName}">
+                            </c:if>
+                            <c:if test="${restaurant.imgName != null && !fn:contains(restaurant.imgName, 'https')}">
+                                <img src="/assets/image/restaurant_images/${restaurant.imgName}" alt="${restaurant.restaurantName}">
+                            </c:if>
+                            <div>${restaurant.restaurantName}</div>
+                        </a>
+                        <c:if test="${status.index % 3 == 2 || status.last}">
+                            </div>
+                        </c:if>
+                    </c:forEach>
+                    <button class="prev" onclick="changeSlide('slide1', -1)">❮</button>
+                    <button class="next" onclick="changeSlide('slide1', 1)">❯</button>
                 </div>
             </div>
         </section>
 
-        <section class="unique-food-category" id="slide3">
+        <!-- Similar sections for other categories (일식, 중식, 디저트, 패스트푸드) -->
+
+        <section class="unique-food-category" id="slide2">
             <div class="sli_con">
-                <h2 onclick="location.href='/category.do?category=3'">#양식</h2>
+                <h2 onclick="location.href='/category.do?category=2'">#일식</h2>
             </div>
             <div class="slider">
                 <div class="slides">
-                    <div class="slide">
-                        <a href="/restaurantDetail.do?restaurantId=19" data-value="19"><img src="/assets/image/restaurant_images/김볶스.jpg" alt="Image 1"></a>
-                        <a href="/restaurantDetail.do?restaurantId=20" data-value="20"><img src="/assets/image/restaurant_images/24시한방전주콩나물국밥.jpg" alt="Image 2"></a>
-                        <a href="/restaurantDetail.do?restaurantId=21" data-value="21"><img src="/assets/image/restaurant_images/김밥스토리.jpg" alt="Image 3"></a>
-                    </div>
-                    <div class="slide">
-                        <a href="/restaurantDetail.do?restaurantId=22" data-value="22"><img src="/assets/image/restaurant_images/비아김밥.jpg" alt="Image 4"></a>
-                        <a href="/restaurantDetail.do?restaurantId=23" data-value="23"><img src="/assets/image/restaurant_images/안양 감자탕.jpg" alt="Image 5"></a>
-                        <a href="/restaurantDetail.do?restaurantId=24" data-value="24"><img src="/assets/image/restaurant_images/형제들감자탕 안양점.jpg" alt="Image 6"></a>
-                    </div>
-                    <div class="slide">
-                        <a href="/restaurantDetail.do?restaurantId=25" data-value="25"><img src="/assets/image/restaurant_images/하남돼지집.jpg" alt="Image 7"></a>
-                        <a href="/restaurantDetail.do?restaurantId=26" data-value="26"><img src="/assets/image/restaurant_images/고향맛손칼국수.jpg" alt="Image 8"></a>
-                        <a href="/restaurantDetail.do?restaurantId=27" data-value="27"><img src="/assets/image/restaurant_images/고인돌 김치떡삼겹.jpg" alt="Image 9"></a>
-                    </div>
-                    <button class="prev" onclick="changeSlide('slide3', -1)">&#10094;</button>
-                    <button class="next" onclick="changeSlide('slide3', 1)">&#10095;</button>
+                    <c:forEach var="restaurant" items="${japaneseRestaurants}" varStatus="status">
+                        <c:if test="${status.index % 3 == 0}">
+                            <div class="slide">
+                        </c:if>
+                        <a href="/restaurantDetail.do?restaurantId=${restaurant.restaurantNo}" data-value="${restaurant.restaurantNo}">
+                            <c:if test="${restaurant.imgName != null && fn:contains(restaurant.imgName, 'https')}">
+                                <img src="${restaurant.imgName}" alt="${restaurant.restaurantName}">
+                            </c:if>
+                            <c:if test="${restaurant.imgName != null && !fn:contains(restaurant.imgName, 'https')}">
+                                <img src="/assets/image/restaurant_images/${restaurant.imgName}" alt="${restaurant.restaurantName}">
+                            </c:if>
+                            <div>${restaurant.restaurantName}</div>
+                        </a>
+                        <c:if test="${status.index % 3 == 2 || status.last}">
+                            </div>
+                        </c:if>
+                    </c:forEach>
+                    <button class="prev" onclick="changeSlide('slide2', -1)">❮</button>
+                    <button class="next" onclick="changeSlide('slide2', 1)">❯</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Add similar sections for 중식, 디저트, 패스트푸드 -->
+
+        <section class="unique-food-category" id="slide3">
+            <div class="sli_con">
+                <h2 onclick="location.href='/category.do?category=3'">#중식</h2>
+            </div>
+            <div class="slider">
+                <div class="slides">
+                    <c:forEach var="restaurant" items="${chineseRestaurants}" varStatus="status">
+                        <c:if test="${status.index % 3 == 0}">
+                            <div class="slide">
+                        </c:if>
+                        <a href="/restaurantDetail.do?restaurantId=${restaurant.restaurantNo}" data-value="${restaurant.restaurantNo}">
+                            <c:if test="${restaurant.imgName != null && fn:contains(restaurant.imgName, 'https')}">
+                                <img src="${restaurant.imgName}" alt="${restaurant.restaurantName}">
+                            </c:if>
+                            <c:if test="${restaurant.imgName != null && !fn:contains(restaurant.imgName, 'https')}">
+                                <img src="/assets/image/restaurant_images/${restaurant.imgName}" alt="${restaurant.restaurantName}">
+                            </c:if>
+                            <div>${restaurant.restaurantName}</div>
+                        </a>
+                        <c:if test="${status.index % 3 == 2 || status.last}">
+                            </div>
+                        </c:if>
+                    </c:forEach>
+                    <button class="prev" onclick="changeSlide('slide3', -1)">❮</button>
+                    <button class="next" onclick="changeSlide('slide3', 1)">❯</button>
                 </div>
             </div>
         </section>
 
         <section class="unique-food-category" id="slide4">
             <div class="sli_con">
-                <h2 onclick="location.href='/category.do?category=4'">#일식</h2>
+                <h2 onclick="location.href='/category.do?category=4'">#디저트</h2>
             </div>
             <div class="slider">
                 <div class="slides">
-                    <div class="slide">
-                        <a href="/restaurantDetail.do?restaurantId=28" data-value="28"><img src="/assets/image/restaurant_images/김볶스.jpg" alt="Image 1"></a>
-                        <a href="/restaurantDetail.do?restaurantId=29" data-value="29"><img src="/assets/image/restaurant_images/24시한방전주콩나물국밥.jpg" alt="Image 2"></a>
-                        <a href="/restaurantDetail.do?restaurantId=30" data-value="30"><img src="/assets/image/restaurant_images/김밥스토리.jpg" alt="Image 3"></a>
-                    </div>
-                    <div class="slide">
-                        <a href="/restaurantDetail.do?restaurantId=31" data-value="31"><img src="/assets/image/restaurant_images/비아김밥.jpg" alt="Image 4"></a>
-                        <a href="/restaurantDetail.do?restaurantId=32" data-value="32"><img src="/assets/image/restaurant_images/안양 감자탕.jpg" alt="Image 5"></a>
-                        <a href="/restaurantDetail.do?restaurantId=33" data-value="33"><img src="/assets/image/restaurant_images/형제들감자탕 안양점.jpg" alt="Image 6"></a>
-                    </div>
-                    <div class="slide">
-                        <a href="/restaurantDetail.do?restaurantId=34" data-value="34"><img src="/assets/image/restaurant_images/하남돼지집.jpg" alt="Image 7"></a>
-                        <a href="/restaurantDetail.do?restaurantId=35" data-value="35"><img src="/assets/image/restaurant_images/고향맛손칼국수.jpg" alt="Image 8"></a>
-                        <a href="/restaurantDetail.do?restaurantId=36" data-value="36"><img src="/assets/image/restaurant_images/고인돌 김치떡삼겹.jpg" alt="Image 9"></a>
-                    </div>
-                    <button class="prev" onclick="changeSlide('slide4', -1)">&#10094;</button>
-                    <button class="next" onclick="changeSlide('slide4', 1)">&#10095;</button>
+                    <c:forEach var="restaurant" items="${dessertRestaurants}" varStatus="status">
+                        <c:if test="${status.index % 3 == 0}">
+                            <div class="slide">
+                        </c:if>
+                        <a href="/restaurantDetail.do?restaurantId=${restaurant.restaurantNo}" data-value="${restaurant.restaurantNo}">
+                            <c:if test="${restaurant.imgName != null && fn:contains(restaurant.imgName, 'https')}">
+                                <img src="${restaurant.imgName}" alt="${restaurant.restaurantName}">
+                            </c:if>
+                            <c:if test="${restaurant.imgName != null && !fn:contains(restaurant.imgName, 'https')}">
+                                <img src="/assets/image/restaurant_images/${restaurant.imgName}" alt="${restaurant.restaurantName}">
+                            </c:if>
+                            <div>${restaurant.restaurantName}</div>
+                        </a>
+                        <c:if test="${status.index % 3 == 2 || status.last}">
+                            </div>
+                        </c:if>
+                    </c:forEach>
+                    <button class="prev" onclick="changeSlide('slide4', -1)">❮</button>
+                    <button class="next" onclick="changeSlide('slide4', 1)">❯</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="unique-food-category" id="slide5">
+            <div class="sli_con">
+                <h2 onclick="location.href='/category.do?category=5'">#패스트푸드</h2>
+            </div>
+            <div class="slider">
+                <div class="slides">
+                    <c:forEach var="restaurant" items="${fastFoodRestaurants}" varStatus="status">
+                        <c:if test="${status.index % 3 == 0}">
+                            <div class="slide">
+                        </c:if>
+                        <a href="/restaurantDetail.do?restaurantId=${restaurant.restaurantNo}" data-value="${restaurant.restaurantNo}">
+                            <c:if test="${restaurant.imgName != null && fn:contains(restaurant.imgName, 'https')}">
+                                <img src="${restaurant.imgName}" alt="${restaurant.restaurantName}">
+                            </c:if>
+                            <c:if test="${restaurant.imgName != null && !fn:contains(restaurant.imgName, 'https')}">
+                                <img src="/assets/image/restaurant_images/${restaurant.imgName}" alt="${restaurant.restaurantName}">
+                            </c:if>
+                            <div>${restaurant.restaurantName}</div>
+                        </a>
+                        <c:if test="${status.index % 3 == 2 || status.last}">
+                            </div>
+                        </c:if>
+                    </c:forEach>
+                    <button class="prev" onclick="changeSlide('slide5', -1)">❮</button>
+                    <button class="next" onclick="changeSlide('slide5', 1)">❯</button>
                 </div>
             </div>
         </section>
