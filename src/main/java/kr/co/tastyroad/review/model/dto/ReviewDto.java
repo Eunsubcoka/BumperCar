@@ -14,18 +14,7 @@ public class ReviewDto {
 	
 	private String filePath; // 파일경로
 	private String fileName; // 파일이름
-	
-	private int likeCount; //좋아요 횟수
-	
 
-
-	public int getLikeCount() {
-		return likeCount;
-	}
-	public void setLikeCount(int likeCount) {
-		this.likeCount = likeCount;
-	}
-	
 	public String getFilePath() {
 		return filePath;
 	}

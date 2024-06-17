@@ -41,14 +41,6 @@
 										<span class="user-name"><strong>${item.userName}</strong></span>
 										<span class="rating"><i class="fas fa-star"></i>${item.ratings}점</span>
 									</div>
-									<!-- 좋아요 기능 -->
-                                    <div class="heart_area">
-                                        <a href="javascript:void(0);" class="heartA" data-reviewNo="${item.reviewNo}">
-                                            <span class="heart heartEmpty">♡</span>
-                                            <span class="heart heartFull">♥</span>
-                                        </a>
-                                    </div>
-                                    <span class="heartCount"> like ${likeCount} </span>
 								</div>
 								<div class="date">${item.reviewDate}</div>
 								<div class="title" required>
