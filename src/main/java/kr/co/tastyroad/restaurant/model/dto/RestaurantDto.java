@@ -45,7 +45,7 @@ public void setFileName(String fileName) {
 private int restaurantNo;
 private int category;
 private String location;
-private String restaurantPhone;
+private String restaurantPhone = "";
 private String restaurantName;
 private String menu;
 private int price;

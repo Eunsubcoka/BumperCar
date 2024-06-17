@@ -436,19 +436,25 @@ public class RestaurantDao {
     
     public int addRestaurants(RestaurantDto restaurant) {
         String query = "insert into restaurant values(restaurant_seq.nextval,?,?,?,?)";
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
         try {
             pstmt = con.prepareStatement(query);
             pstmt.setInt(1, restaurant.getCategory());
             pstmt.setString(2, restaurant.getLocation());
-            pstmt.setString(3, restaurant.getRestaurantPhone());
+            pstmt.setString(3, restaurant.getRestaurantPhone() != null ? restaurant.getRestaurantPhone() : ""); // Null 처리
             pstmt.setString(4, restaurant.getRestaurantName());
+            		
             pstmt.executeUpdate();
-
-            int result = addResNo();
+            		
+            int result = addResNo(); 
             pstmt.close();
-            return result;
+            return result;         		
+            
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            closeResources(pstmt, rs);
         }
         return 0;
     }
@@ -476,15 +482,21 @@ public class RestaurantDao {
     }
 
     public void uploadImage(RestaurantDto resDto) {
+        if (resDto == null) {
+            return;
+        }
+
         String query = "INSERT INTO res_img (imgName, restaurantNo) VALUES (?, ?)";
+        PreparedStatement pstmt = null;
         try {
             pstmt = con.prepareStatement(query);
             pstmt.setString(1, resDto.getFileName());
             pstmt.setInt(2, resDto.getRestaurantNo());
             pstmt.executeUpdate();
-            pstmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            closeResources(pstmt, null);
         }
     }
 
@@ -535,6 +547,8 @@ public class RestaurantDao {
                 }
             }
 
+
+            // 이미지 정보 삽입
             // 이미지 정보 삽입
             if (item.getImgName() != null) {
                 RestaurantDto imgDto = new RestaurantDto();
@@ -542,6 +556,13 @@ public class RestaurantDao {
                 imgDto.setRestaurantNo(restaurantNo);
                 uploadImage(imgDto); // 개별 RestaurantDto 객체 전달
             }
+            if (item.getImageName() != null) {
+                RestaurantDto imgDto = new RestaurantDto();
+                imgDto.setFileName(item.getImageName());
+                imgDto.setRestaurantNo(restaurantNo);
+                uploadImage(imgDto); // 개별 RestaurantDto 객체 전달
+            }
+
 
             // 태그 정보 삽입
             if (item.getTag() != null) {
