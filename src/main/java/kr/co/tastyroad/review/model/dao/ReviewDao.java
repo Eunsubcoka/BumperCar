@@ -22,7 +22,7 @@ public class ReviewDao {
 	
 	
 	public int enroll(ReviewDto reviewDto) {
-		String query = "INSERT INTO reviews VALUES(reviewsSeq.nextval, ?, ?, default, ?, ?, ?)";
+		String query = "INSERT INTO reviews VALUES(reviewsSeq.nextval, ?, ?, default, ?, ?, ?, default)";
 	
 		try {
 			pstmt = con.prepareStatement(query);
@@ -128,7 +128,7 @@ public class ReviewDao {
     ArrayList<ReviewDto> result = new ArrayList<>();
     
    
-    String query = "select r.reviewNo, r.reviewTitle, r.reviewContent, r.reviewDate, r.ratings, r.user_no, r.restaurantNo, res.restaurantname, tm.profile, tm.user_name "
+    String query = "select r.reviewNo, r.reviewTitle, r.reviewContent, r.reviewDate, r.ratings, r.user_no, r.restaurantNo, r.like_count, res.restaurantname, tm.profile, tm.user_name "
     			 + "from reviews r "
                  + "join TASTY_MEMBER tm on r.user_no = tm.user_no "
                  + "join restaurant res on r.restaurantNo = res.restaurantNo "
@@ -152,6 +152,7 @@ public class ReviewDao {
 			String resName = rs.getString("restaurantname");
 			String profile = rs.getString("profile");
 			String userName = rs.getString("user_name");
+			int likeCount = rs.getInt("like_count");
             
             ReviewDto reviewDto = new ReviewDto();
             reviewDto.setReviewNo(reviewNo);
@@ -164,6 +165,7 @@ public class ReviewDao {
 			reviewDto.setRestaurantName(resName);
 			reviewDto.setProfile(profile);
 			reviewDto.setUserName(userName);
+			reviewDto.setLikeCount(likeCount);
             
             result.add(reviewDto);
             
@@ -404,4 +406,58 @@ public class ReviewDao {
     }
 
 
+    // 좋아요 수 업데이트 메서드 ( increment 매개변수를 사용하여 좋아요 수를 증가 혹은 감소 )
+    public void updateLikeCount(int reviewNo, int increment) {
+        String query = "UPDATE reviews SET like_count = like_count + ? WHERE reviewNo = ?";
+        try {
+            pstmt = con.prepareStatement(query);
+            
+            pstmt.setInt(1, increment);
+            pstmt.setInt(2, reviewNo);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } 
+    }
+    
+    // 좋아요를 추가하는 메서드
+    public boolean addLike(int reviewNo, int userNo) {
+        String query = "INSERT INTO review_likes VALUES (review_likes_seq.NEXTVAL, ?, ?)";
+        try {
+            pstmt = con.prepareStatement(query);
+            
+            pstmt.setInt(1, reviewNo);
+            pstmt.setInt(2, userNo);
+            
+            int result = pstmt.executeUpdate();
+            
+            return result > 0;
+            //  result가 0보다 크면 true를 반환 -> 좋아요 추가 성공
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } 
+        return false;
+    }
+    
+    // 유저가 특정 리뷰를 좋아요 했는지 체크하는 메서드
+    public boolean isUserLikedReview(int reviewNo, int userNo) {
+        String query = "SELECT COUNT(*) FROM review_likes WHERE reviewNo = ? AND user_no = ?";
+        try {
+            pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, reviewNo);
+            pstmt.setInt(2, userNo);
+            
+            ResultSet rs = pstmt.executeQuery();
+            
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+                // rs.getInt(1) -> 첫 번째 열의 값(count(*)) 좋아요가 한개라도 있을 경우 true 반환 
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } 
+        return false;
+    }
+	
 }
