@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!doctype html>
 <html lang="en">
@@ -38,7 +38,7 @@
                                 <img src="${restaurant.imgName}" alt="${restaurant.restaurantName}">
                             </c:if>
                             <c:if test="${restaurant.imgName != null && !fn:contains(restaurant.imgName, 'https')}">
-                                <img src="/assets/image/restaurant_images/${restaurant.imgName}" alt="${restaurant.restaurantName}">
+                                <img src="/assets/image/${restaurant.imgName}" alt="${restaurant.restaurantName}">
                             </c:if>
                             <div>${restaurant.restaurantName}</div>
                         </a>
@@ -69,7 +69,7 @@
                                 <img src="${restaurant.imgName}" alt="${restaurant.restaurantName}">
                             </c:if>
                             <c:if test="${restaurant.imgName != null && !fn:contains(restaurant.imgName, 'https')}">
-                                <img src="/assets/image/restaurant_images/${restaurant.imgName}" alt="${restaurant.restaurantName}">
+                                <img src="/assets/image/${restaurant.imgName}" alt="${restaurant.restaurantName}">
                             </c:if>
                             <div>${restaurant.restaurantName}</div>
                         </a>
@@ -100,7 +100,7 @@
                                 <img src="${restaurant.imgName}" alt="${restaurant.restaurantName}">
                             </c:if>
                             <c:if test="${restaurant.imgName != null && !fn:contains(restaurant.imgName, 'https')}">
-                                <img src="/assets/image/restaurant_images/${restaurant.imgName}" alt="${restaurant.restaurantName}">
+                                <img src="/assets/image/${restaurant.imgName}" alt="${restaurant.restaurantName}">
                             </c:if>
                             <div>${restaurant.restaurantName}</div>
                         </a>
@@ -129,7 +129,7 @@
                                 <img src="${restaurant.imgName}" alt="${restaurant.restaurantName}">
                             </c:if>
                             <c:if test="${restaurant.imgName != null && !fn:contains(restaurant.imgName, 'https')}">
-                                <img src="/assets/image/restaurant_images/${restaurant.imgName}" alt="${restaurant.restaurantName}">
+                                <img src="/assets/image/${restaurant.imgName}" alt="${restaurant.restaurantName}">
                             </c:if>
                             <div>${restaurant.restaurantName}</div>
                         </a>
@@ -158,7 +158,7 @@
                                 <img src="${restaurant.imgName}" alt="${restaurant.restaurantName}">
                             </c:if>
                             <c:if test="${restaurant.imgName != null && !fn:contains(restaurant.imgName, 'https')}">
-                                <img src="/assets/image/restaurant_images/${restaurant.imgName}" alt="${restaurant.restaurantName}">
+                                <img src="/assets/image/${restaurant.imgName}" alt="${restaurant.restaurantName}">
                             </c:if>
                             <div>${restaurant.restaurantName}</div>
                         </a>
