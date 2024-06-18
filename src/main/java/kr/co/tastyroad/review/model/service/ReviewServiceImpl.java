@@ -86,31 +86,33 @@ public class ReviewServiceImpl implements ReviewService {
 		return reviewDao.getReviewListOnce(restaurantList);
 	}
 	
+	
+	@Override
+	public boolean likeReview(int reviewNo, int userNo) {
+        // 중복 좋아요 체크  (isUserLikedReview -> 유저가 특정 리뷰를 좋아요 했는지 체크하는 메서드)
+        if (reviewDao.isUserLikedReview(reviewNo, userNo)) {
+        	// 이미 좋아요한 경우 - > 좋아요 취소
+        	reviewDao.removeLike(userNo, reviewNo);
+        	
+        	//리뷰 좋아요 수 업데이트 (-1)
+        	reviewDao.updateLikeCount(reviewNo, -1);
+        	
+            return false; // 좋아요 취소 완료
+        }
 
-	// 좋아요 했는지 체크
-	@Override
-	public boolean checkIfLiked(ReviewDto reviewDto) {
-		return reviewDao.checkIfLiked(reviewDto);
-	}
+        // 좋아요 추가
+        boolean success = reviewDao.addLike(reviewNo, userNo);
+        if (success) {
+            // 리뷰의 좋아요 수 업데이트 (+1)
+            reviewDao.updateLikeCount(reviewNo, 1);
+        }
+        return success;
+    }
 	
-	// 리뷰 좋아요
-	@Override
-	public int addLike(ReviewDto reviewDto) {
-		return reviewDao.addLike(reviewDto);
-	}
-	
-	// 좋아요 취소
-	@Override
-	public int removeLike(ReviewDto reviewDto) {
-		return reviewDao.removeLike(reviewDto);
-	}
-	
-	// 리뷰 좋아요 갯수
-	@Override
-	// 리뷰 좋아요 갯수
 	public int getLikeCount(int reviewNo) {
 		return reviewDao.getLikeCount(reviewNo);
 	}
-	
 }
+
+
 

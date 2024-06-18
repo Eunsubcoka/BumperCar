@@ -30,8 +30,8 @@
 				<c:otherwise>
 					<c:forEach var="item" items="${list}">
 					<form action="/review/delete.do" method="POST">
-					<input type="hidden" name="restaurantNo" value="${restaurantNo}">                                    
-					<input type="hidden" name="reviewNo" id="reviewNo" value="${item.reviewNo}"> 
+					<input type="hidden" name="restaurantNo" value="${restaurantNo}"/>                                    
+					<input type="hidden" name="reviewNo" id="reviewNo" value="${item.reviewNo}"/> 
 					<input type="hidden" name="ratings" value="${result.ratings}"/>
 						<div class="container-review">
 							<div class="review">
@@ -48,7 +48,7 @@
                                             <span class="heart heartFull">♥</span>
                                         </a>
                                     </div>
-                                    <span class="heartCount"> like ${likeCount} </span>
+                                    <span class="heartCount"> like ${item.likeCount} </span>
 								</div>
 								<div class="date">${item.reviewDate}</div>
 								<div class="title" required>
