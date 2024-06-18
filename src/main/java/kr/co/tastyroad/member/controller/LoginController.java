@@ -24,7 +24,7 @@ public class LoginController extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+	
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -38,11 +38,8 @@ public class LoginController extends HttpServlet {
 			Member member = new Member();
 			member.setUserId(userId);
 			member.setUserPwd(userPwd);
-			
-
 			Member hashPassword = memberService.getHashPassword(userId);
-			
-			
+
 			if(BCrypt.checkpw(userPwd, hashPassword.getUserPwd())) {
 				HttpSession session = request.getSession();
 				session.setAttribute("userNo", hashPassword.getUserNo());
@@ -52,15 +49,14 @@ public class LoginController extends HttpServlet {
 				RequestDispatcher view = request.getRequestDispatcher("/");
 				view.forward(request, response);
 			} else {
-	            request.setAttribute("loginError", "아이디 또는 비밀번호가 올바르지 않습니다.");
-	            RequestDispatcher view = request.getRequestDispatcher("/views/member/login.jsp");
-	            view.forward(request, response);
-	        }
+				request.setAttribute("loginError", "아이디 또는 비밀번호가 올바르지 않습니다.");
+				RequestDispatcher view = request.getRequestDispatcher("/views/member/login.jsp");
+				view.forward(request, response);
+			}
 		}catch(Exception e) {
 			e.printStackTrace();
 			response.sendRedirect("/views/error.html");
 		}
 		
-	
 	}
 }

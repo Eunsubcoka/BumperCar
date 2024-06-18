@@ -25,9 +25,9 @@ body {
     margin-left: 20%;
 }
 button.left_btn {
-    float: right;
-    right: 100px;
+	float:left;
     position: relative;
+    left:200px;
     top: 30px;
 }
 .form-select {
