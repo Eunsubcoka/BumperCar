@@ -30,13 +30,13 @@
 					<option value="ratings"
 						<c:if test="${seleType == 'ratings'}">selected</c:if>>별점순</option>
 				</select>
-			</form>
 			<c:choose>
 				<c:when test="${sessionScope.userType == 'admin'}">
 					<button type="button"
 						onclick="location.href='/tastyForm/resAdd.do'" class="left_btn">등록하기</button>
 				</c:when>
 			</c:choose>
+			</form>
 		<div class="list_type">
 			<h2 class="title02">음식점 목록</h2>
 
@@ -78,7 +78,16 @@
 			</ul>
 		</div>
 	</div>
-
+	
+<script async
+      data-adbreak-test="on"
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-123456789"
+      crossorigin="anonymous">
+</script>
+<script>
+   window.adsbygoogle = window.adsbygoogle || [];
+   var adBreak = adConfig = function(o) {adsbygoogle.push(o);}
+</script>
 	<%@ include file="/views/common/footer.jsp"%>
 </body>
 </html>

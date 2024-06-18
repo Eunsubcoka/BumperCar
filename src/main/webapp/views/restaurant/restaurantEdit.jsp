@@ -47,10 +47,11 @@
                 <div class="input-container">
                     <label for="title">카테고리:</label>
          <select class="res_category" name="category" id = "category">
-          <option value = "1">중식</option>
-          <option value = "2">한식</option>
-          <option value = "3">양식</option>
-          <option value = "4">양식</option>
+          <option value = "1">한식</option>
+          <option value = "2">일식</option>
+          <option value = "3">중식</option>
+          <option value = "4">디저트</option>
+          <option value = "5">패스트푸드</option>
         </select>
                 </div>
                 <div class="input-container">

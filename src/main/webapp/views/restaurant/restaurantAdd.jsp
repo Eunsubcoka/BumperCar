@@ -32,7 +32,8 @@
 							<div id="image_container"></div>
 							<label for="inputFile" class="btn-upload">이미지추가</label>
 							<!-- accept 특정 파일 유형만 허용, multiple 속성을 추가하면 2개 이상의 파일을 추가 -->
-							<input type="file" name="file" id="inputFile" onchange="getImageFiles(event);" multiple>
+							<input type="file" name="file" id="inputFile"
+								onchange="getImageFiles(event);" multiple>
 						</div>
 						<div class="input-container">
 							<label for="name">상호명:</label> <input type="text" id="name"
@@ -41,10 +42,11 @@
 						<div class="input-container">
 							<label for="category">카테고리:</label> <select class="res_category"
 								name="category" id="category">
-								<option value="1">중식</option>
-								<option value="2">한식</option>
-								<option value="3">양식</option>
-								<option value="4">일식</option>
+								<option value="1">한식</option>
+								<option value="2">일식</option>
+								<option value="3">중식</option>
+								<option value="4">디저트</option>
+								<option value="5">패스트푸드</option>
 							</select>
 						</div>
 						<div class="input-container">
@@ -99,8 +101,10 @@
 
 	<script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
 
-	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=597a12321ce91d26c9101324b5955ebd&libraries=services"></script>
+	<script
+		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=597a12321ce91d26c9101324b5955ebd&libraries=services"></script>
 	<script>
     var mapContainer = document.getElementById('map'), // 지도를 표시할 div
         mapOption = {
