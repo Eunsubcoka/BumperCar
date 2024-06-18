@@ -40,12 +40,12 @@
         <div class="search-tab" id="restaurant">
             <h3>레스토랑</h3>
             <div class="sort-options">
-                정렬 :
-                <button onclick="sortResults('latest')" selected>최신순</button>
-                <button onclick="sortResults('distance')">거리순</button>
+                거리순으로 50개까지만 표시됩니다.
+                <!-- <button onclick="sortResults('latest')">최신순</button>
+                <button onclick="sortResults('distance')">거리순</button> -->
             </div>
             <!-- 추가된 부분 -->
-            <input type="hidden" id="sortOrder" value="latest">
+            <input type="hidden" id="sortOrder" value="distance">
             <c:if test="${not empty restaurantList}">
                 <div class="search-results">
                     <ul class="restaurant-list" id="restaurant-list">
@@ -54,7 +54,7 @@
                                 <div class="restaurant-image">
                                     <c:choose>
                                         <c:when test="${not empty restaurant.imgName}">
-                                            <img src="/assets/image/${restaurant.imgName}" alt="${restaurant.restaurantName}">
+                                            <img src="${restaurant.imgName}" alt="${restaurant.restaurantName}">
                                         </c:when>
                                         <c:otherwise>
                                             <p>사진 추가 예정</p>
@@ -170,10 +170,11 @@
             navigator.geolocation.getCurrentPosition(function(position) {
                 document.getElementById('userLat').value = position.coords.latitude;
                 document.getElementById('userLon').value = position.coords.longitude;
-                console.log(position.coords.latitude);
-                console.log(position.coords.longitude);
+/*                 console.log(position.coords.latitude);
+                console.log(position.coords.longitude); */
             });
         }
+        
     </script>
 </body>
 </html>

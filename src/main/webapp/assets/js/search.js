@@ -29,7 +29,7 @@ function initializeMap() {
 
             map = new kakao.maps.Map(mapContainer, {
                 center: userLocation,
-                level: 5
+                level: 6
             });
 
             // 사용자 위치에 마커 추가
@@ -58,8 +58,7 @@ function initializeMap() {
                 }
             });
 
-            // 지도에 다른 마커들 추가, 초기 로딩 시 최신순으로 표시
-            addMarkers('latest');
+            addMarkers('distance');
         }, function(error) {
             console.error('Error occurred. Error code: ' + error.code);
             initializeDefaultMap();
@@ -75,21 +74,20 @@ function initializeDefaultMap() {
     userLocation = new kakao.maps.LatLng(37.3987966098124, 126.920790701382);
     map = new kakao.maps.Map(mapContainer, {
         center: userLocation,
-        level: 5 // 확대 레벨
+        level: 6 // 확대 레벨
     });
 
-    // 지도에 다른 마커들 추가, 초기 로딩 시 최신순으로 표시
-    addMarkers('latest');
+    addMarkers('distance');
 }
 
 // 지도에 마커 추가
-function addMarkers(sortOrder = 'latest', page = 1) {
+function addMarkers(sortOrder = 'distance', page = 1) {
     var geocoder = new kakao.maps.services.Geocoder();
     var searchMain = document.getElementById('search-main');
     var locations = JSON.parse(searchMain.dataset.locations);
 
     var distances = [];
-    var itemsPerPage = 5;
+    var itemsPerPage = 50;
     var startIndex = (page - 1) * itemsPerPage;
     var endIndex = startIndex + itemsPerPage;
 
@@ -98,9 +96,9 @@ function addMarkers(sortOrder = 'latest', page = 1) {
             if (status === kakao.maps.services.Status.OK) {
                 var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
                 var distance = calculateDistance(userLocation.getLat(), userLocation.getLng(), coords.getLat(), coords.getLng());
-                console.log(coords.getLat());
+/*                console.log(coords.getLat());
                 console.log(coords.getLng());
-                console.log('------');
+                console.log('------');*/
                 distances.push({
                     location: location,
                     coords: coords,
@@ -130,7 +128,7 @@ function addMarkers(sortOrder = 'latest', page = 1) {
                             tags = tags.substring(0, 20) + '...';
                         }
 
-                        var imgSrc = item.location.imgName ? '/assets/image/' + item.location.imgName : 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/thumnail.png';
+                        var imgSrc = item.location.imgName ?  item.location.imgName : 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/thumnail.png';
 
                         var content = document.createElement('div');
                         content.className = 'wrap';
@@ -176,7 +174,7 @@ function addMarkers(sortOrder = 'latest', page = 1) {
                     updateRestaurantList(distances.slice(0, endIndex), sortOrder); // 첫 페이지 리스트로 업데이트
 
                     if (distances.length > endIndex) {
-                        showLoadMoreButton(); // 더보기 버튼 표시
+                        hideLoadMoreButton(); // 더보기 버튼 표시
                     } else {
                         hideLoadMoreButton(); // 더보기 버튼 숨기기
                     }
@@ -206,7 +204,7 @@ function updateRestaurantList(distances, sortOrder) {
         restaurantItem.className = 'restaurant-item';
         restaurantItem.innerHTML = `
             <div class="restaurant-image">
-                ${item.location.imgName ? `<img src="/assets/image/${item.location.imgName}" alt="${item.location.name}">` : '<p>사진 추가 예정</p>'}
+                ${item.location.imgName ? `<img src="${item.location.imgName}" alt="${item.location.name}">` : '<p>사진 추가 예정</p>'}
             </div>
             <div class="restaurant-info">
                 <div style="display:inline-block;">

@@ -52,10 +52,10 @@ public class searchDao {
                      + "LISTAGG(t.tag, ',') WITHIN GROUP (ORDER BY t.tag) AS tags "
                      + "FROM restaurant r "
                      + "LEFT JOIN res_tag t ON r.restaurantNo = t.restaurantNo "
-                     + "LEFT JOIN res_img ri ON ri.restaurantNo = r.restaurantNo "
+                     + "LEFT JOIN (select restaurantNo ,MIN(imgName) as imgName From res_img Group by restaurantNo) ri on r.restaurantNo = ri.restaurantNo "
                      + "WHERE r.restaurantName LIKE ? OR r.category LIKE ? OR t.tag LIKE ? OR r.location LIKE ? "
                      + "GROUP BY r.restaurantNo, r.restaurantName, r.category, r.location, ri.imgName "
-                     + "ORDER BY " + (sortOrder.equals("latest") ? "r.restaurantNo DESC" : "r.restaurantNo ASC");
+                     ;
 
         try {
             pstmt = con.prepareStatement(query);

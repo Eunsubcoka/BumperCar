@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import kr.co.tastyroad.restaurant.model.dao.RestaurantDao;
 import kr.co.tastyroad.restaurant.model.dto.RestaurantDto;
 
-@WebServlet("/index.do")
+@WebServlet("")
 public class IndexController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -37,5 +37,8 @@ public class IndexController extends HttpServlet {
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
+    }
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	doGet(request,response);
     }
 }
