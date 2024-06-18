@@ -123,7 +123,7 @@ public class RestaurantDao {
     }
 
     public ArrayList<RestaurantDto> ratingsList(ArrayList<RestaurantDto> resDto) {
-        String query = "SELECT AVG(r2.RATINGS) FROM RESTAURANT r " + "JOIN REVIEWS r2  ON r2.RESTAURANTNO = ?";
+        String query = "SELECT AVG(r2.RATINGS) FROM RESTAURANT r " + "JOIN REVIEWS r2 ON r2.RESTAURANTNO = ?";
 
         ResultSet rs = null;
         try {
@@ -133,16 +133,13 @@ public class RestaurantDao {
 
                 rs = pstmt.executeQuery();
                 while (rs.next()) {
-                    item.setRatings(rs.getFloat("AVG(r2.RATINGS)"));
+                    float ratings = rs.getFloat("AVG(r2.RATINGS)");
+                    item.setRatings(Math.round(ratings * 10) / 10.0f); // 소수점 첫째 자리까지 반올림하여 설정
                 }
             }
             return resDto;
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-//            try { if (rs != null) rs.close(); } catch (SQLException e) { e.printStackTrace(); }
-//            try { if (pstmt != null) pstmt.close(); } catch (SQLException e) { e.printStackTrace(); }
-//            try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); }
         }
         return null;
     }
@@ -150,7 +147,14 @@ public class RestaurantDao {
     public ArrayList<RestaurantDto> getRestaurantList(int category, String seleType) {
         ArrayList<RestaurantDto> result = new ArrayList<RestaurantDto>();
 
-        String query = "SELECT r.restaurantNo, r.restaurantName, r2.imgName,"
+        String orderByClause = "ORDER BY ";
+        if ("ratings".equals(seleType)) {
+            orderByClause += "ratings DESC";
+        } else {
+            orderByClause += "NLSSORT(r.restaurantName, 'NLS_SORT=KOREAN_M')";
+        }
+
+        String query = "SELECT r.restaurantNo, r.restaurantName, r2.imgName, "
                 + "COALESCE(AVG(r3.ratings), 0) AS ratings "
                 + "FROM restaurant r "
                 + "JOIN (SELECT r2.restaurantNo, MIN(r2.imgName) AS imgName "
@@ -158,7 +162,8 @@ public class RestaurantDao {
                 + "GROUP BY r2.restaurantNo) r2 ON r2.restaurantNo = r.restaurantNo "
                 + "LEFT OUTER JOIN reviews r3 ON r.restaurantNo = r3.restaurantNo "
                 + "WHERE r.category = ? "
-                + "GROUP BY r.restaurantNo, r.restaurantName, r2.imgName ";
+                + "GROUP BY r.restaurantNo, r.restaurantName, r2.imgName "
+                + orderByClause;
 
         ResultSet rs = null;
         try {
@@ -169,24 +174,25 @@ public class RestaurantDao {
                 RestaurantDto resList = new RestaurantDto();
                 String imgName = rs.getString("imgName");
                 int resNo = rs.getInt("restaurantNo");
-                String Name = rs.getString("restaurantName");
-                resList.setRestaurantName(Name);
+                String name = rs.getString("restaurantName");
+                float ratings = rs.getFloat("ratings");
+
+                resList.setRestaurantName(name);
                 resList.setImgName(imgName);
                 resList.setCategory(category);
                 resList.setRestaurantNo(resNo);
+                resList.setRatings(ratings);
+                
                 result.add(resList);
             }
             return result;
 
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-//            try { if (rs != null) rs.close(); } catch (SQLException e) { e.printStackTrace(); }
-//            try { if (pstmt != null) pstmt.close(); } catch (SQLException e) { e.printStackTrace(); }
-//            try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); }
-        }
+        } 
         return result;
     }
+
 
     public int addMenu(ArrayList<RestaurantDto> menu) {
         String query = "insert into menu values(menu_seq.nextval,?,?,?)";
