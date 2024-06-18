@@ -10,20 +10,21 @@
 </head>
 <body>
     <%@ include file="/views/common/header.jsp"%>
-    <%@ include file="/views/common/nav.jsp"%>
-    <div class="form-container">
-        <h2>비밀번호 재설정</h2>
-        <form action="${pageContext.request.contextPath}/resetPassword.do" method="post" onsubmit="return validateForm()">
-            <input type="hidden" name="token" value="${param.token}">
-            <label for="newPassword">새 비밀번호:</label>
-            <input type="password" id="newPassword" name="newPassword" required>
-            <div id="password-msg"></div>
-            <label for="confirmPassword">새 비밀번호 확인:</label>
-            <input type="password" id="confirmPassword" name="confirmPassword" required>
-            <div id="confirm-password-msg"></div>
-            <button type="submit">비밀번호 재설정</button>
-        </form>
-    </div>
+    <main>
+        <div class="form-container">
+            <h2>비밀번호 재설정</h2>
+            <form action="${pageContext.request.contextPath}/resetPassword.do" method="post" onsubmit="return validateForm()">
+                <input type="hidden" name="token" value="${param.token}">
+                <label for="newPassword">새 비밀번호:</label>
+                <input type="password" id="newPassword" name="newPassword" required>
+                <div id="password-msg"></div>
+                <label for="confirmPassword">새 비밀번호 확인:</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required>
+                <div id="confirm-password-msg"></div>
+                <button type="submit">비밀번호 재설정</button>
+            </form>
+        </div>
+    </main>
     <%@ include file="/views/common/footer.jsp"%>
 </body>
 </html>
