@@ -61,11 +61,11 @@ window.onload = function() {
         });
     });
 };
-
-$(document).ready(function() { // 페이지의 DOM이 모두 로드된 후에 실행
+$(document).ready(function() {
     $(".heartA").click(function() {
         let reviewNo = $(this).data("reviewno");
-		
+        let clickedButton = $(this); // 클릭된 좋아요 버튼을 변수에 저장
+        
         $.ajax({
             url: '/review/reviewLike.do',
             type: 'POST',
@@ -73,11 +73,25 @@ $(document).ready(function() { // 페이지의 DOM이 모두 로드된 후에 �
                 "reviewNo": reviewNo
             },
             success: function(response) {
-                if(response.liked) {
+                if (response.liked) {
                     alert("좋아요 성공!");
+                    // 좋아요 버튼의 상태를 업데이트
+                    let heartEmpty = clickedButton.find('.heartEmpty');
+                    let heartFull = clickedButton.find('.heartFull');
+                    heartEmpty.css('display', 'none');
+                    heartFull.css('display', 'inline');
                 } else {
-                    alert("이미 좋아요를 눌렀습니다.");
+                    alert("좋아요 취소!");
+                    // 좋아요 버튼의 상태를 업데이트
+                    let heartEmpty = clickedButton.find('.heartEmpty');
+                    let heartFull = clickedButton.find('.heartFull');
+                    heartEmpty.css('display', 'inline');
+                    heartFull.css('display', 'none');
                 }
+                
+                // 좋아요 수 업데이트
+                let likeCountSpan = clickedButton.closest('.user-container').find('.heartCount');
+                likeCountSpan.text('like ' + response.likeCount);
             }, 
             error: function(error) {
                 console.error(error);
@@ -86,3 +100,5 @@ $(document).ready(function() { // 페이지의 DOM이 모두 로드된 후에 �
         });
     });
 });
+
+

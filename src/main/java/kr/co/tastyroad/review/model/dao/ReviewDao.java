@@ -459,5 +459,43 @@ public class ReviewDao {
         } 
         return false;
     }
+    
+    // 좋아요 취소
+    public void removeLike(int userNo, int reviewNo) {
+    	String query = "delete from review_likes WHERE reviewNo = ? AND user_no = ?";
+    	
+    	try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, reviewNo);
+			pstmt.setInt(2, userNo);
+			
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    }
 	
+    public int getLikeCount(int reviewNo) {
+        String query = "SELECT like_count FROM reviews WHERE reviewNo = ?";
+        int likeCount = 0; // 초기화
+        
+        try {
+            pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, reviewNo);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                likeCount = rs.getInt("like_count");
+            }
+            
+            rs.close();
+            pstmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return likeCount;
+    }
 }
+

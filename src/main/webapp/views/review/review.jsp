@@ -30,8 +30,8 @@
 				<c:otherwise>
 					<c:forEach var="item" items="${list}">
 					<form action="/review/delete.do" method="POST">
-					<input type="hidden" name="restaurantNo" value="${restaurantNo}">                                    
-					<input type="hidden" name="reviewNo" id="reviewNo" value="${item.reviewNo}"> 
+					<input type="hidden" name="restaurantNo" value="${restaurantNo}"/>                                    
+					<input type="hidden" name="reviewNo" id="reviewNo" value="${item.reviewNo}"/> 
 					<input type="hidden" name="ratings" value="${result.ratings}"/>
 						<div class="container-review">
 							<div class="review">

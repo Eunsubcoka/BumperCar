@@ -36,4 +36,7 @@ public interface ReviewService {
 	// 좋아요 
 	public boolean likeReview(int reviewNo, int userNo);
 	
+	// 좋아요 갯수 
+	public int getLikeCount(int reviewNo);
+	
 }

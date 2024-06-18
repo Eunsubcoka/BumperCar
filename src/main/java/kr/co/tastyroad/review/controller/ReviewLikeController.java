@@ -31,11 +31,13 @@ public class ReviewLikeController extends HttpServlet {
         // 서비스 클래스를 통해 좋아요 처리를 합니다.
         ReviewServiceImpl reviewService = new ReviewServiceImpl();
         boolean isLiked = reviewService.likeReview(reviewNo, userNo);
+        
+        int likeCount = reviewService.getLikeCount(reviewNo);
 
-        // 결과를 JSON 형식으로 반환합니다.
+        // JSON 형식으로 반환합니다.
+        String jsonResponse = "{\"liked\":" + isLiked + ", \"likeCount\":" + likeCount + "}";
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        response.getWriter().write("{\"liked\":" + isLiked + "}");
-        //  JSON 형식으로 { "liked": true } 또는 { "liked": false } 반환
-    }
+        response.getWriter().write(jsonResponse);
+	}
 }
