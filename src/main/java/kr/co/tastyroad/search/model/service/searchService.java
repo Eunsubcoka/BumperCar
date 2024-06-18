@@ -7,7 +7,8 @@ import kr.co.tastyroad.review.model.dto.ReviewDto;
 
 public interface searchService {
     ArrayList<noticeDto> searchNotices(String searchText);
-    public ArrayList<RestaurantDto> searchRestaurants(String searchText, String sortOrder, double userLat, double userLon);
+    ArrayList<RestaurantDto> searchRestaurants(String searchText, String sortOrder, double userLat, double userLon);
     ArrayList<ReviewDto> getReviewsRestaurant(int restaurantNo);
     ArrayList<String> getTagsForRestaurant(int restaurantNo);
+    ArrayList<String> getLocationForRestaurant(int restaurantNo);
 }

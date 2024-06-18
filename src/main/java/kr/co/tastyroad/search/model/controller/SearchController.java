@@ -29,6 +29,7 @@ public class SearchController extends HttpServlet {
             String searchText = request.getParameter("search-text");
             String tag = request.getParameter("tag");
             String sortOrder = request.getParameter("sortOrder");
+            String location = request.getParameter("location");
 
             // 위도와 경도를 파라미터로 받기
             String latParam = request.getParameter("lat");
@@ -57,6 +58,7 @@ public class SearchController extends HttpServlet {
 
             searchServiceImpl searchService = new searchServiceImpl();
             ArrayList<noticeDto> noticeList = searchService.searchNotices(searchText);
+            int totalNotices = noticeList.size();  // 총 공지사항 개수 계산
             ArrayList<RestaurantDto> allRestaurantList = new ArrayList<>();
             ArrayList<RestaurantDto> paginatedRestaurantList = new ArrayList<>();
 
@@ -66,10 +68,10 @@ public class SearchController extends HttpServlet {
 
             // 페이징 로직
             int startIndex = (cpage - 1) * 5;
-            int endIndexNotices = Math.min(startIndex + 5, noticeList.size());
-            int endIndexRestaurants = Math.min(startIndex + 5, allRestaurantList.size());
+            int endIndexNotices = Math.min(startIndex + 5, totalNotices);
+            int endIndexRestaurants = Math.min(startIndex + 1000, allRestaurantList.size());
 
-            if (startIndex < noticeList.size()) {
+            if (startIndex < totalNotices) {
                 ArrayList<noticeDto> paginatedNoticeList = new ArrayList<>(noticeList.subList(startIndex, endIndexNotices));
                 request.setAttribute("noticeList", paginatedNoticeList);
             } else {
@@ -88,6 +90,7 @@ public class SearchController extends HttpServlet {
             HashMap<Integer, Float> ratingsMap = new HashMap<>();
             HashMap<Integer, ArrayList<ReviewDto>> top3ReviewsMap = new HashMap<>();
             HashMap<Integer, ArrayList<String>> tagsMap = new HashMap<>();
+            HashMap<Integer, ArrayList<String>> locationMap = new HashMap<>();
             ArrayList<String> addressList = new ArrayList<>();  // 주소 리스트 추가
 
             for (RestaurantDto restaurant : allRestaurantList) {
@@ -100,17 +103,21 @@ public class SearchController extends HttpServlet {
 
                 ArrayList<String> tags = searchService.getTagsForRestaurant(resNo);
                 tagsMap.put(resNo, tags);
-
+                
+                ArrayList<String> locations = searchService.getLocationForRestaurant(resNo);
+                locationMap.put(resNo, locations);
+                
                 addressList.add(restaurant.getLocation());  // 주소 추가
             }
 
             request.setAttribute("searchText", searchText);
             request.setAttribute("tag", tag);
+            request.setAttribute("location", location);
             request.setAttribute("sortOrder", sortOrder); // 정렬 기준 설정
             request.setAttribute("ratingsMap", ratingsMap);
             request.setAttribute("top3ReviewsMap", top3ReviewsMap);
             request.setAttribute("tagsMap", tagsMap);
-            request.setAttribute("totalNotices", noticeList.size());
+            request.setAttribute("totalNotices", totalNotices);  // 총 공지사항 개수 설정
             request.setAttribute("totalRestaurants", allRestaurantList.size());
             request.setAttribute("addressList", addressList);  // 주소 리스트 설정
             request.setAttribute("cpage", cpage);

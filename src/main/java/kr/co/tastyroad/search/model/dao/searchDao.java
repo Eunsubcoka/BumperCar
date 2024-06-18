@@ -54,8 +54,7 @@ public class searchDao {
                      + "LEFT JOIN res_tag t ON r.restaurantNo = t.restaurantNo "
                      + "LEFT JOIN (select restaurantNo ,MIN(imgName) as imgName From res_img Group by restaurantNo) ri on r.restaurantNo = ri.restaurantNo "
                      + "WHERE r.restaurantName LIKE ? OR r.category LIKE ? OR t.tag LIKE ? OR r.location LIKE ? "
-                     + "GROUP BY r.restaurantNo, r.restaurantName, r.category, r.location, ri.imgName "
-                     ;
+                     + "GROUP BY r.restaurantNo, r.restaurantName, r.category, r.location, ri.imgName";
 
         try {
             pstmt = con.prepareStatement(query);
@@ -132,5 +131,25 @@ public class searchDao {
         }
 
         return tags;
+    }
+
+    public ArrayList<String> getLocationForRestaurant(int restaurantNo) {
+        ArrayList<String> location = new ArrayList<>();
+        String query = "SELECT location FROM restaurant WHERE restaurantNo = ?";
+
+        try {
+            pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, restaurantNo);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                location.add(rs.getString("location"));
+            }
+            rs.close();
+            pstmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return location;
     }
 }

@@ -1,44 +1,40 @@
 var mapContainer = document.getElementById('map');
 var map;
-var userInfoWindow; // 내 위치 인포윈도우 변수
-var userMarker; // 내 위치 마커 변수
-var markers = []; // 모든 마커를 저장할 배열
-var overlays = []; // 모든 오버레이를 저장할 배열
-var userLocation; // 사용자의 위치
-var initialLoad = true; // 초기 로드 여부
+var userInfoWindow;
+var userMarker;
+var markers = [];
+var overlays = [];
+var userLocation;
+var initialLoad = true;
 
-// Haversine 공식을 사용하여 거리 계산 함수 추가
 function calculateDistance(lat1, lon1, lat2, lon2) {
-    const R = 6371; // 지구의 반지름 (단위: km)
+    const R = 6371;
     const dLat = (lat2 - lat1) * Math.PI / 180;
     const dLon = (lon2 - lon1) * Math.PI / 180;
     const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
               Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
               Math.sin(dLon / 2) * Math.sin(dLon / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    return R * c; // 두 좌표 간의 거리 (단위: km)
+    return R * c;
 }
 
-// 사용자 위치를 가져옴
 function initializeMap() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
-            var lat = position.coords.latitude; // 위도
-            var lon = position.coords.longitude; // 경도
-            userLocation = new kakao.maps.LatLng(lat, lon); // -> 나의 (위도, 경도)
+            var lat = position.coords.latitude;
+            var lon = position.coords.longitude;
+            userLocation = new kakao.maps.LatLng(lat, lon);
 
             map = new kakao.maps.Map(mapContainer, {
                 center: userLocation,
-                level: 6
+                level: 5
             });
 
-            // 사용자 위치에 마커 추가
             userMarker = new kakao.maps.Marker({
                 map: map,
                 position: userLocation
             });
 
-            // 사용자 위치에 인포윈도우 추가
             var userInfoContent = '<div class="user-info-content">내 위치</div>';
 
             userInfoWindow = new kakao.maps.InfoWindow({
@@ -49,7 +45,6 @@ function initializeMap() {
 
             userInfoWindow.open(map, userMarker);
 
-            // 사용자 위치 마커 클릭 이벤트 추가
             kakao.maps.event.addListener(userMarker, 'click', function() {
                 if (userInfoWindow.getMap()) {
                     userInfoWindow.close();
@@ -69,18 +64,16 @@ function initializeMap() {
     }
 }
 
-// 내 위치가 입력되지 않았을 때 기본 중심 좌표로 지도 초기화
 function initializeDefaultMap() {
     userLocation = new kakao.maps.LatLng(37.3987966098124, 126.920790701382);
     map = new kakao.maps.Map(mapContainer, {
         center: userLocation,
-        level: 6 // 확대 레벨
+        level: 5
     });
 
     addMarkers('distance');
 }
 
-// 지도에 마커 추가
 function addMarkers(sortOrder = 'distance', page = 1) {
     var geocoder = new kakao.maps.services.Geocoder();
     var searchMain = document.getElementById('search-main');
@@ -96,9 +89,7 @@ function addMarkers(sortOrder = 'distance', page = 1) {
             if (status === kakao.maps.services.Status.OK) {
                 var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
                 var distance = calculateDistance(userLocation.getLat(), userLocation.getLng(), coords.getLat(), coords.getLng());
-/*                console.log(coords.getLat());
-                console.log(coords.getLng());
-                console.log('------');*/
+
                 distances.push({
                     location: location,
                     coords: coords,
@@ -116,7 +107,7 @@ function addMarkers(sortOrder = 'distance', page = 1) {
                         });
                     }
 
-                    distances.forEach(function(item) {
+                    distances.slice(startIndex, endIndex).forEach(function(item) {
                         var marker = new kakao.maps.Marker({
                             map: map,
                             position: item.coords
@@ -128,11 +119,11 @@ function addMarkers(sortOrder = 'distance', page = 1) {
                             tags = tags.substring(0, 20) + '...';
                         }
 
-                        var imgSrc = item.location.imgName ?  item.location.imgName : 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/thumnail.png';
+                        var imgSrc = item.location.imgName ? item.location.imgName : 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/thumnail.png';
 
                         var content = document.createElement('div');
                         content.className = 'wrap';
-                        content.innerHTML = 
+                        content.innerHTML =
                             '<div class="info">' +
                             '    <div class="title">' +
                             item.location.name +
@@ -171,33 +162,28 @@ function addMarkers(sortOrder = 'distance', page = 1) {
                         });
                     });
 
-                    updateRestaurantList(distances.slice(0, endIndex), sortOrder); // 첫 페이지 리스트로 업데이트
+                    updateRestaurantList(distances.slice(0, endIndex), sortOrder);
 
-                    if (distances.length > endIndex) {
-                        hideLoadMoreButton(); // 더보기 버튼 표시
-                    } else {
-                        hideLoadMoreButton(); // 더보기 버튼 숨기기
-                    }
                 }
+            } else {
+                // If geocoding fails, set a maximum distance to indicate an error
+                distances.push({
+                    location: location,
+                    coords: null,
+                    distance: Number.MAX_VALUE
+                });
             }
         });
     });
 }
 
-function showLoadMoreButton() {
-    const loadMoreButton = document.getElementById('load-more-restaurants');
-    loadMoreButton.style.display = 'block';
-}
 
-function hideLoadMoreButton() {
-    const loadMoreButton = document.getElementById('load-more-restaurants');
-    loadMoreButton.style.display = 'none';
-}
 
-// 레스토랑 리스트 업데이트 함수
+
+
 function updateRestaurantList(distances, sortOrder) {
     const restaurantList = document.querySelector('#restaurant-list');
-    restaurantList.innerHTML = ''; // 기존 리스트 초기화
+    restaurantList.innerHTML = '';
 
     distances.forEach(function(item) {
         const restaurantItem = document.createElement('li');
@@ -216,7 +202,7 @@ function updateRestaurantList(distances, sortOrder) {
                 </div>
                 <div class="font-down">태그: ${item.location.tags.join(', ')}</div>
                 <div class="font-down">위치: ${item.location.location}</div>
-                <div class="font-down">거리: ${item.distance.toFixed(2)} km</div>
+                <div class="font-down">거리: ${item.distance !== Number.MAX_VALUE ? item.distance.toFixed(2) + ' km' : '거리 계산 실패'}</div>
                 <button class="toggle-review-btn" onclick="toggleReview(this)">리뷰 열기</button>
                 <div class="review-box font-down-2" style="display: none;" onclick="navigateToReviews(${item.location.restaurantNo})">
                     ${item.location.reviews.length > 0 ? item.location.reviews.map(review => `
@@ -237,8 +223,9 @@ function updateRestaurantList(distances, sortOrder) {
     });
 }
 
-// 지도 초기화
 initializeMap();
+
+
 
 function loadMoreRestaurants() {
     const loadMoreButton = document.querySelector('#load-more-restaurants');
@@ -260,27 +247,32 @@ function loadMoreRestaurants() {
                 const locationElement = restaurant.querySelector('.restaurant-info > .font-down:nth-child(4)');
                 if (locationElement) {
                     const locationText = locationElement.textContent.split(': ')[1];
-                    const coords = new kakao.maps.LatLng(locationText.split(', ')[0], locationText.split(', ')[1]);
-                    const distance = calculateDistance(userLocation.getLat(), userLocation.getLng(), coords.getLat(), coords.getLng());
-                    const distanceElement = restaurant.querySelector('.font-down:nth-child(5)');
-                    if (distanceElement) {
-                        distanceElement.textContent = `거리: ${distance.toFixed(2)} km`;
-                    }
+                    geocoder.addressSearch(locationText, function(result, status) {
+                        if (status === kakao.maps.services.Status.OK) {
+                            const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+                            const distance = calculateDistance(userLocation.getLat(), userLocation.getLng(), coords.getLat(), coords.getLng());
+                            const distanceElement = restaurant.querySelector('.font-down:nth-child(5)');
+                            if (distanceElement) {
+                                distanceElement.textContent = `거리: ${distance.toFixed(2)} km`;
+                            }
+                        }
+                    });
                 }
                 restaurantList.appendChild(restaurant);
             });
 
             if (newRestaurants.length < 5) {
-                hideLoadMoreButton(); // 더보기 버튼 숨기기
+                hideLoadMoreButton();
             } else {
                 loadMoreButton.dataset.page = nextPage;
             }
         })
         .catch(error => {
             console.error('Error loading more restaurants:', error);
-            hideLoadMoreButton(); // 에러 발생 시 더보기 버튼 숨기기
+            hideLoadMoreButton();
         });
 }
+
 
 function loadMoreNotices() {
     const loadMoreButton = document.querySelector('#load-more-notices');
@@ -295,10 +287,13 @@ function loadMoreNotices() {
             const parser = new DOMParser();
             const doc = parser.parseFromString(html, 'text/html');
             const newNotices = doc.querySelectorAll('#notice-list .notice-item');
+            const noticeList = document.querySelector('#notice-list');
             newNotices.forEach(notice => {
-                document.querySelector('#notice-list').appendChild(notice);
+                noticeList.appendChild(notice);
             });
-            if (newNotices.length < 5) {
+
+            const totalNotices = parseInt(doc.querySelector('#totalNotices').value);
+            if (newNotices.length < 5 || noticeList.children.length >= totalNotices) {
                 loadMoreButton.style.display = 'none';
             } else {
                 loadMoreButton.dataset.page = nextPage;
@@ -309,6 +304,9 @@ function loadMoreNotices() {
             loadMoreButton.style.display = 'none';
         });
 }
+
+
+
 
 function navigateToReviews(restaurantNo) {
     window.location.href = "/review/review.do?restaurantNo=" + restaurantNo;
@@ -325,7 +323,6 @@ function toggleReview(btn) {
     }
 }
 
-// sortResults 함수 수정
 function sortResults(sortOrder) {
     document.getElementById('sortOrder').value = sortOrder;
     const searchText = encodeURIComponent(document.querySelector('#load-more-restaurants').dataset.searchText || '');
@@ -345,12 +342,16 @@ function sortResults(sortOrder) {
                 const locationElement = restaurant.querySelector('.restaurant-info > .font-down:nth-child(4)');
                 if (locationElement) {
                     const locationText = locationElement.textContent.split(': ')[1];
-                    const coords = new kakao.maps.LatLng(locationText.split(', ')[0], locationText.split(', ')[1]);
-                    const distance = calculateDistance(userLocation.getLat(), userLocation.getLng(), coords.getLat(), coords.getLng());
-                    const distanceElement = restaurant.querySelector('.font-down:nth-child(5)');
-                    if (distanceElement) {
-                        distanceElement.textContent = `거리: ${distance.toFixed(2)} km`;
-                    }
+                    geocoder.addressSearch(locationText, function(result, status) {
+                        if (status === kakao.maps.services.Status.OK) {
+                            const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+                            const distance = calculateDistance(userLocation.getLat(), userLocation.getLng(), coords.getLat(), coords.getLng());
+                            const distanceElement = restaurant.querySelector('.font-down:nth-child(5)');
+                            if (distanceElement) {
+                                distanceElement.textContent = `거리: ${distance.toFixed(2)} km`;
+                            }
+                        }
+                    });
                 }
                 restaurantList.appendChild(restaurant);
             });
@@ -360,9 +361,13 @@ function sortResults(sortOrder) {
                     const locationElement = restaurant.querySelector('.restaurant-info > .font-down:nth-child(4)');
                     if (locationElement) {
                         const locationText = locationElement.textContent.split(': ')[1];
-                        const coords = new kakao.maps.LatLng(locationText.split(', ')[0], locationText.split(', ')[1]);
-                        const distance = calculateDistance(userLocation.getLat(), userLocation.getLng(), coords.getLat(), coords.getLng());
-                        return { restaurant, distance };
+                        geocoder.addressSearch(locationText, function(result, status) {
+                            if (status === kakao.maps.services.Status.OK) {
+                                const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+                                const distance = calculateDistance(userLocation.getLat(), userLocation.getLng(), coords.getLat(), coords.getLng());
+                                return { restaurant, distance };
+                            }
+                        });
                     }
                 }).filter(item => item !== undefined);
                 distances.sort((a, b) => a.distance - b.distance).forEach(({ restaurant }) => restaurantList.appendChild(restaurant));
@@ -377,9 +382,11 @@ function sortResults(sortOrder) {
             }
 
             if (newRestaurants.length > 0) {
-                showLoadMoreButton(); // 정렬의 경우도 더보기 버튼 표시
-            } else {
-                hideLoadMoreButton(); // 더 이상 항목이 없을 때 더보기 버튼 숨기기
+                hideLoadMoreButton();
+            } else if(newRestaurants.length=0) {
+                hideLoadMoreButton();
+            }else {
+                hideLoadMoreButton();
             }
         })
         .catch(error => {
