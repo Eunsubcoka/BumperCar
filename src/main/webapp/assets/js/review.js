@@ -35,9 +35,8 @@ let moreBtn = document.getElementById('more');
     }
 })
 
-
 /* 좋아요 기능 */
-//window.onload -> 페이지가 완전히 로드된 후에 실행되는 함수
+// 페이지가 완전히 로드된 후에 실행되는 함수
 window.onload = function() {
     // 모든 하트 아이콘 요소를 선택합니다.
     let likeBtns = document.querySelectorAll('.heartA');
@@ -55,48 +54,44 @@ window.onload = function() {
             if (likeBtn.classList.contains('active')) {
                 heartEmpty.style.display = 'none'; // 빈 하트 숨김
                 heartFull.style.display = 'inline'; // 꽉 찬 하트 표시
-            } 
-			else {
+            } else {
                 heartEmpty.style.display = 'inline'; // 빈 하트 표시
                 heartFull.style.display = 'none'; // 꽉 찬 하트 숨김
             }
         });
     });
 };
-
-// 좋아요 버튼 클릭 이벤트 핸들러
 $(document).ready(function() {
-	$("#likeBtn").click(function() {
-        // AJAX를 통해 서버에 좋아요 요청 보내기
+    $(".heartA").click(function() {
+        let reviewNo = $(this).data("reviewno");
+        let clickedButton = $(this); // 클릭된 좋아요 버튼을 변수에 저장
+        
         $.ajax({
-            url: '/review/reviewLike.do', // 좋아요를 처리할 서버의 URL
+            url: '/review/reviewLike.do',
             type: 'POST',
-            data: { "reviewNo": $("#reviewNo").val()},
+            data: { 
+                "reviewNo": reviewNo
+            },
             success: function(response) {
-                // 서버 응답을 받아 처리
-                console.log(response);
-            }, 
-            error: function(error) {
-                console.error(error);
-                alert("좋아요 실패!!");
-            }
-		});
-	});
-})
-
-/*document.querySelectorAll('.heartA').forEach(function(likeBtn) {
-    likeBtn.addEventListener('click', function() {
-        // 좋아요를 누른 리뷰번호 가져오기
-        const reviewNo = likeBtn.dataset.reviewNo;
-
-        // AJAX를 통해 서버에 좋아요 요청 보내기
-        $.ajax({
-            url: '/review/reviewLike.do', // 좋아요를 처리할 서버의 URL
-            type: 'POST',
-            data: { reviewNo: reviewNo },
-            success: function(response) {
-                // 서버 응답을 받아 처리
-                console.log(response);
+                if (response.liked) {
+                    alert("좋아요 성공!");
+                    // 좋아요 버튼의 상태를 업데이트
+                    let heartEmpty = clickedButton.find('.heartEmpty');
+                    let heartFull = clickedButton.find('.heartFull');
+                    heartEmpty.css('display', 'none');
+                    heartFull.css('display', 'inline');
+                } else {
+                    alert("좋아요 취소!");
+                    // 좋아요 버튼의 상태를 업데이트
+                    let heartEmpty = clickedButton.find('.heartEmpty');
+                    let heartFull = clickedButton.find('.heartFull');
+                    heartEmpty.css('display', 'inline');
+                    heartFull.css('display', 'none');
+                }
+                
+                // 좋아요 수 업데이트
+                let likeCountSpan = clickedButton.closest('.user-container').find('.heartCount');
+                likeCountSpan.text('like ' + response.likeCount);
             }, 
             error: function(error) {
                 console.error(error);
@@ -105,11 +100,5 @@ $(document).ready(function() {
         });
     });
 });
-*/
-
-
-
-
-
 
 

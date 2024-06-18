@@ -11,21 +11,12 @@ public class ReviewDto {
 	private String restaurantName;
 	private String profile;
 	private String userName;
+	private int likeCount; // 좋아요 수
+	private int likeId;
 	
 	private String filePath; // 파일경로
 	private String fileName; // 파일이름
-	
-	private int likeCount; //좋아요 횟수
-	
 
-
-	public int getLikeCount() {
-		return likeCount;
-	}
-	public void setLikeCount(int likeCount) {
-		this.likeCount = likeCount;
-	}
-	
 	public String getFilePath() {
 		return filePath;
 	}
@@ -101,6 +92,19 @@ public class ReviewDto {
 	}
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+	
+	public int getLikeCount() {
+		return likeCount;
+	}
+	public void setLikeCount(int likeCount) {
+		this.likeCount = likeCount;
+	}
+	public int getLikeId() {
+		return likeId;
+	}
+	public void setLikeId(int likeId) {
+		this.likeId = likeId;
 	}
 }
 

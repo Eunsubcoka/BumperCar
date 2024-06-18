@@ -33,18 +33,10 @@ public interface ReviewService {
 	// 수정 업로드 파일 삭제
 	public int delete(ReviewDto reviewDto, String removeImageName);
 	
+	// 좋아요 
+	public boolean likeReview(int reviewNo, int userNo);
 	
-	// 좋아요 했는지 체크
-	public boolean checkIfLiked(ReviewDto reviewDto);
-	
-	// 리뷰 좋아요
-	public int addLike(ReviewDto reviewDto);
-	
-	// 좋아요 취소
-	public int removeLike(ReviewDto reviewDto);
-	
-	// 리뷰 좋아요 갯수
+	// 좋아요 갯수 
 	public int getLikeCount(int reviewNo);
-	
 	
 }
