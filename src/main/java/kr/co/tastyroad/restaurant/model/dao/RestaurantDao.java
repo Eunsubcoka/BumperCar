@@ -40,7 +40,6 @@ public class RestaurantDao {
                 String phone = rs.getString("restaurantPhone");
                 String name = rs.getString("restaurantName");
                 String imgName = rs.getString("imgName");
-                System.out.println(No);
                 result.setRestaurantNo(No);
                 result.setCategory(category);
                 result.setLocation(location);
@@ -442,50 +441,47 @@ public class RestaurantDao {
     
     public int addRestaurants(RestaurantDto restaurant) {
         String query = "insert into restaurant values(restaurant_seq.nextval,?,?,?,?)";
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-        try {
-            pstmt = con.prepareStatement(query);
+        try (PreparedStatement pstmt = con.prepareStatement(query, new String[]{"restaurantNo"})) {
             pstmt.setInt(1, restaurant.getCategory());
             pstmt.setString(2, restaurant.getLocation());
-            pstmt.setString(3, restaurant.getRestaurantPhone() != null ? restaurant.getRestaurantPhone() : ""); // Null 처리
+            pstmt.setString(3, restaurant.getRestaurantPhone());
             pstmt.setString(4, restaurant.getRestaurantName());
-            		
-            pstmt.executeUpdate();
-            		
-            int result = addResNo(); 
-            pstmt.close();
-            return result;         		
-            
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            closeResources(pstmt, rs);
-        }
-        return 0;
-    }
 
-    public void addMenus(List<RestaurantDto> menu) {
-        if (menu == null || menu.isEmpty()) {
-            return;
-        }
+            int affectedRows = pstmt.executeUpdate();
 
-        String query = "insert into menu values(menu_seq.nextval,?,?,?)";
-        PreparedStatement pstmt = null;
-        try {
-            pstmt = con.prepareStatement(query);
-            for (RestaurantDto item : menu) {
-                pstmt.setString(1, item.getFoodName());
-                pstmt.setInt(2, item.getPrice());
-                pstmt.setInt(3, item.getRestaurantNo());
-                pstmt.executeUpdate();
+            if (affectedRows == 0) {
+                throw new SQLException("Creating restaurant failed, no rows affected.");
+            }
+
+            try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    return generatedKeys.getInt(1);
+                } else {
+                    throw new SQLException("Creating restaurant failed, no ID obtained.");
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            closeResources(pstmt, null);
+        }
+
+        return 0;
+    }
+
+    public void addMenus(ArrayList<RestaurantDto> menus) {
+        String query = "insert into menu values(menu_seq.nextval,?,?,?)";
+        try (PreparedStatement pstmt = con.prepareStatement(query)) {
+            for (RestaurantDto menu : menus) {
+                pstmt.setString(1, menu.getFoodName());
+                pstmt.setInt(2, menu.getPrice());
+                pstmt.setInt(3, menu.getRestaurantNo());
+                pstmt.addBatch();
+            }
+            pstmt.executeBatch();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
+
 
     public void uploadImage(RestaurantDto resDto) {
         if (resDto == null) {
@@ -506,29 +502,20 @@ public class RestaurantDao {
         }
     }
 
-    public void addTags(List<RestaurantDto> tag) {
-        if (tag == null || tag.isEmpty()) {
-            return;
-        }
-
-        String query = "INSERT INTO res_tag (tag, restaurantNo) VALUES (?, ?)";
-        PreparedStatement pstmt = null;
-        try {
-            pstmt = con.prepareStatement(query);
-            for (RestaurantDto item : tag) {
-                if (item.getTag() == null || item.getTag().isEmpty()) {
-                    continue;
-                }
-                pstmt.setString(1, item.getTag());
-                pstmt.setInt(2, item.getRestaurantNo());
-                pstmt.executeUpdate();
+    public void addTags(List<RestaurantDto> tags) {
+        String query = "insert into res_tag values(?,?)";
+        try (PreparedStatement pstmt = con.prepareStatement(query)) {
+            for (RestaurantDto tag : tags) {
+                pstmt.setString(1, tag.getTag());
+                pstmt.setInt(2, tag.getRestaurantNo());
+                pstmt.addBatch();
             }
+            pstmt.executeBatch();
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            closeResources(pstmt, null);
         }
     }
+
 
     public void addRestaurantsWithDetails(List<RestaurantSampleDto> items) {
         for (RestaurantSampleDto item : items) {
@@ -553,8 +540,6 @@ public class RestaurantDao {
                 }
             }
 
-
-            // 이미지 정보 삽입
             // 이미지 정보 삽입
             if (item.getImgName() != null) {
                 RestaurantDto imgDto = new RestaurantDto();
@@ -569,12 +554,10 @@ public class RestaurantDao {
                 uploadImage(imgDto); // 개별 RestaurantDto 객체 전달
             }
 
-
             // 태그 정보 삽입
-            if (item.getTag() != null) {
-                String[] tags = item.getTag().split(",");
+            if (item.getTags() != null) {
                 List<RestaurantDto> tagList = new ArrayList<>();
-                for (String tag : tags) {
+                for (String tag : item.getTags()) {
                     RestaurantDto tagDto = new RestaurantDto();
                     tagDto.setTag(tag.trim());
                     tagDto.setRestaurantNo(restaurantNo);

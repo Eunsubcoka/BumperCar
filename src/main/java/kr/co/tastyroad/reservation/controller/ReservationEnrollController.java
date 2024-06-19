@@ -40,7 +40,7 @@ public class ReservationEnrollController extends HttpServlet {
     		
     		HttpSession session = request.getSession();
     		int memberNo = (int)session.getAttribute("userNo");
-
+    		int resNo = Integer.parseInt(request.getParameter("resNo"));
     		
     		String name = request.getParameter("name");
     		resDto.setUserName(name); 
@@ -56,13 +56,13 @@ public class ReservationEnrollController extends HttpServlet {
     		System.out.println(date);
     		resDto.setDate(date);
     		resDto.setUserNo(memberNo);
-    		
+    		resDto.setResNo(resNo);
     		ReservationServiceImpl resService = new ReservationServiceImpl();
     		
     		int result = resService.resEnroll(resDto);
     		
     		if(result == 1) {
-    			RequestDispatcher view = request.getRequestDispatcher("/index.jsp");
+    			RequestDispatcher view = request.getRequestDispatcher("/");
     			view.forward(request,response);
     			
     		}
