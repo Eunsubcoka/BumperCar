@@ -22,14 +22,14 @@
         </c:choose>
     </div>
     <!-- 아래 코드는 가장 최근에 올라온 공지사항을 출력하고 클릭시 해당 게시글로 이동하는 코드 -->
-    <div class="nav-align-right">
+    <div class="nav-align-right" style="color:white;">
         <%
             noticeService service = new noticeServiceImpl();
             noticeDto latestNotice = service.getLatestNotice();
             if (latestNotice != null) {
         %>
             <span>최신 공지사항: </span>
-            <a href="/notice/detail.do?boardno=<%= latestNotice.getNoticeNo() %>"><%= latestNotice.getNoticeTitle() %></a>
+            <a href="/notice/detail.do?boardno=<%= latestNotice.getNoticeNo() %>" style="color:white;"><%= latestNotice.getNoticeTitle() %></a>
         <% } %>
     </div>
 </nav>
