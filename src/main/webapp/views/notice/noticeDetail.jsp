@@ -56,7 +56,7 @@
 <!-- 최신 공지사항 목록 표로 출력 -->
 <div class="latest-notices">
     <h3>최신 공지사항</h3>
-    <table class="table table-hover notice-table" style="margin-top: 10px;">
+    <table class="table table-hover notice-table" style="margin-top: 10px; min-width:850px;">
         <thead>
             <tr>
                 <th scope="col" class="title title-center">제목</th>
@@ -68,7 +68,7 @@
             <c:forEach var="item" items="${latestNotices}">
                 <tr onclick="location.href='/notice/detail.do?boardno=${item.noticeNo}'">
                     <td class="title title-padding">${item.noticeTitle}</td>
-                    <td class="date">${item.noticeDate}</td>
+                    <td class="date" style="font-size:18px;">${item.noticeDate}</td>
                     <td class="views">${item.noticeView}</td>
                 </tr>
             </c:forEach>
