@@ -82,7 +82,7 @@ public class noticeDao {
 	public ArrayList<noticeDto> getList(PageInfo pi, String category, String searchText) {
 		ArrayList<noticeDto> result = new ArrayList<>();
 		String query = "SELECT * FROM notice nt " + "JOIN Tasty_member m ON m.user_no = nt.user_no " + "WHERE "
-				+ category + " LIKE '%'||?||'%'" + "ORDER BY nt.noticeDate DESC "
+				+ category + " LIKE '%'|| ? ||'%'" + "ORDER BY nt.noticeDate DESC "
 				+ "OFFSET ? ROWS FETCH FIRST ? ROWS ONLY";
 
 		try {
