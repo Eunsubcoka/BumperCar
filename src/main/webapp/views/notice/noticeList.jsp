@@ -37,7 +37,7 @@
                             class="form-control" name="search-text" placeholder="검색어를 입력해주세요."
                             aria-label="Recipient's username" aria-describedby="button-addon2">
                         <button class="btn btn-outline-secondary" type="submit"
-                            id="button-addon2" style="height: 46px;">검색</button>
+                            id="button-addon2" style="height: 46px; background-color:#ff9800; color:white;">검색</button>
                     </form>
                 </div>
                 <c:choose>

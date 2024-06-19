@@ -39,7 +39,9 @@ body {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-	background-color: #FAFAFA;
+	background-color: #fffbec;
+	height:100%;
+	
 }
 
 .unique-header {
@@ -184,10 +186,6 @@ main{
 	min-width: 800px;
 }
 
-body {
-    background-color: #06060640;
-    height:100%;
-}
 
 header{
 	width:100% !important;
