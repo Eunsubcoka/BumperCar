@@ -26,7 +26,7 @@
 
 
 <form class="quick-reservation" action="/reservation/resEnroll.do" method = "get">
-   
+ <input type="hidden" value="${result.restaurantNo }" name = "resNo">
 <div class="container">
    <div class="quick-reservation__header">
       <h1 class="title">
