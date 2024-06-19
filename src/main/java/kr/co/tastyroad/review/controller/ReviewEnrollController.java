@@ -41,8 +41,6 @@ public class ReviewEnrollController extends HttpServlet {
     		HttpSession session = request.getSession();
     		int userNo = (int)session.getAttribute("userNo");
 
-    		
-
     		ReviewDto reviewDto = new ReviewDto();
     		reviewDto.setReviewTitle(reviewTitle);
     		reviewDto.setReviewContent(reviewContent);
@@ -50,9 +48,7 @@ public class ReviewEnrollController extends HttpServlet {
     		reviewDto.setRatings(reviewRating);
     		reviewDto.setRestaurantNo(restaurantNo);
     		
-    		//파일 업로드
     		Collection<Part> parts = request.getParts();
-//    		String uploadDirectory = "C:\\dev\\work-space\\semiProject\\BumperCar\\src\\main\\webapp\\assets\\uploads\\review";
     		String uploadDirectory = request.getServletContext().getRealPath("/assets/uploads/review");
     		
     		//파일 업로드 디렉토리가 존재하지 않으면 생성
