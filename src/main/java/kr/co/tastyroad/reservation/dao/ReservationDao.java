@@ -23,7 +23,7 @@ public class ReservationDao {
 
     public int resEnroll(ReservationDto resDto) {
         int result = 0;
-        String query = "Insert into reservation values (reservationSeq.nextval,?,?,?,default,default,?)";
+        String query = "Insert into reservation values (reservationSeq.nextval,?,?,?,default,default,?,?)";
 
         try {
             pstmt = con.prepareStatement(query);
@@ -31,6 +31,7 @@ public class ReservationDao {
             pstmt.setString(2, resDto.getDate());
             pstmt.setString(3, resDto.getPhone());
             pstmt.setInt(4, resDto.getUserNo());
+            pstmt.setInt(5, resDto.getResNo());
 
             result = pstmt.executeUpdate();
             return result;

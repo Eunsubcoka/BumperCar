@@ -38,7 +38,7 @@ public class RestaurantDataController extends HttpServlet {
 
             // 파싱된 데이터를 요청 속성에 추가하고 JSP로 포워딩
             request.setAttribute("items", items);
-            request.getRequestDispatcher("/index.do").forward(request, response);
+            request.getRequestDispatcher("/").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

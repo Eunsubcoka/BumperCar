@@ -10,8 +10,8 @@ public class RestaurantSampleDto {
     private List<MenuDto> menus;
     private String imgName; // 첫 번째 이미지
     private String imageName; // 두 번째 이미지
-    private String tag;
-
+    private List<String> tags; // 태그 리스트
+    
     // Getter 및 Setter 메서드
     public int getCategory() {
         return category;
@@ -69,12 +69,12 @@ public class RestaurantSampleDto {
         this.imageName = imageName;
     }
 
-    public String getTag() {
-        return tag;
+    public List<String> getTags() {
+        return tags;
     }
 
-    public void setTag(String tag) {
-        this.tag = tag;
+    public void setTags(List<String> tags) {
+        this.tags = tags;
     }
 
     public static class MenuDto {
