@@ -61,6 +61,7 @@ window.onload = function() {
         });
     });
 };
+
 $(document).ready(function() {
     $(".heartA").click(function() {
         let reviewNo = $(this).data("reviewno");
@@ -95,10 +96,11 @@ $(document).ready(function() {
             }, 
             error: function(error) {
                 console.error(error);
-                alert("좋아요 실패!!");
+                alert("좋아요 실패!! 로그인 후 가능합니다.");
             }
         });
     });
 });
+
 
 
