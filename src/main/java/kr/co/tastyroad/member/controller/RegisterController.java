@@ -102,12 +102,6 @@ public class RegisterController extends HttpServlet {
             return;
         }
         if (result == 1) {
-//            String subject = "이메일 인증 요청";
-//            String content = "다음 링크를 클릭하여 이메일을 인증하세요: " +
-//                             "http://yourdomain.com/verify?token=" + token;
-//            EmailUtil.sendEmail(userEmail, subject, content);
-
-//            response.getWriter().write("회원가입이 완료되었습니다. 이메일을 확인해 주세요.");
             RequestDispatcher view = request.getRequestDispatcher("/views/member/login.jsp");
             view.forward(request, response);
         } else {

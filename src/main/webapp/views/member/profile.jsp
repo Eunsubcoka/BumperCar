@@ -112,7 +112,7 @@
 	        new daum.Postcode({
 	            oncomplete : function(data) {
 	                const address = data.address;
-	                document.getElementById("userAddress").value = address;
+	                document.getElementById("new-address").value = address;
 	                getCoordinates(address);
 	            }
 	        }).open();
@@ -122,7 +122,7 @@
 	            type : "GET",
 	            url : `https://dapi.kakao.com/v2/local/search/address.json?query=${address}`,
 	            headers : {
-	                "Authorization" : "KakaoAK YOUR_API_KEY"
+	                "Authorization" : "b57304e32c7237fdd33fc966d2ca828b"
 	            },
 	            success : function(res) {
 	                if (res.documents.length > 0) {
@@ -160,6 +160,7 @@
 	    document.getElementById('userName').addEventListener('input', validateUsername);
 	    document.getElementById('userEmail').addEventListener('input', validateEmail);
 	    document.getElementById('userPhone').addEventListener('input', validatePhone);
-	</script>
+	    </script>
+	
 </body>
 </html>
