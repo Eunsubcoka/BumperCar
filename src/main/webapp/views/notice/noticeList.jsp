@@ -30,20 +30,20 @@
                         <input type="hidden" name="cpage" value="1">
                         <select class="form-select" id="inputGroupSelect02" name="category"
                             style="width: 100px; height: 46px; flex: 0 0 auto;">
-                            <option value="noticeTitle" selected>제목</option>
-                            <option value="noticeContent">내용</option>
+                            <option value="noticeTitle" <c:if test="${category == 'noticeTitle'}">selected</c:if>>제목</option>
+                            <option value="noticeContent" <c:if test="${category == 'noticeContent'}">selected</c:if>>내용</option>
                         </select>
                         <input type="text" style="width: 300px; flex: 0 0 auto;"
                             class="form-control" name="search-text" placeholder="검색어를 입력해주세요."
-                            aria-label="Recipient's username" aria-describedby="button-addon2">
+                            aria-label="Recipient's username" aria-describedby="button-addon2" value="${searchText}">
                         <button class="btn btn-outline-secondary" type="submit"
-                            id="button-addon2" style="height: 46px; background-color:#ff9800; color:white;">검색</button>
+                            id="button-addon2" style="height: 46px; background-color:#ffbb55; color:white; border:none; margin-left:5px;">검색</button>
                     </form>
                 </div>
                 <c:choose>
                     <c:when test="${sessionScope.userType == 'admin'}">
                         <button onclick="window.location.href = '/tastyForm/noticeEnrollForm.do'"
-                            style="background-color : #ff9800;">등록</button>
+                            style="background-color : #ffbb55;">등록</button>
                     </c:when>
                 </c:choose>
             </div>

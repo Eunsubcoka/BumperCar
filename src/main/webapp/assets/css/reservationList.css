@@ -2,14 +2,14 @@
 	margin: 20px;
 	margin-left: 10%;
 	margin-right: 10%;
-	padding: 20px;
+	padding: 0px;
 	border: 1px solid #0000002b;
 	border-radius: 20px;
-	background-color: #f9f9f9;
+	background-color: white;
 }
 
 .reservation-items {
-	background-color: #f0f0f0;
+	background-color: #f5cd8d;
 	border: 1px solid #0000002b;
 	border-radius: 20px;
 	width: 30%;
@@ -22,7 +22,7 @@
 }
 
 .reservation-items:hover {
-	background-color: #06060620;
+	background-color: #ffbb55;
 }
 
 .respaystatus-Y {
@@ -109,7 +109,8 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	background-color: #9194972b;
+	background-color: #ff9800;
+	color:white;
 	padding: 20px;
 	padding-bottom: 8px;
 	border-radius: 20px 20px 0px 0px;
