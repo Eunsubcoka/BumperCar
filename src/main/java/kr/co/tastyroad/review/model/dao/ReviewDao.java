@@ -25,6 +25,7 @@ public class ReviewDao {
 		String query = "INSERT INTO reviews VALUES(reviewsSeq.nextval, ?, ?, default, ?, ?, ?, default)";
 	
 		try {
+			System.out.println(reviewDto.getUserNo());
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, reviewDto.getReviewTitle());
 			pstmt.setString(2, reviewDto.getReviewContent());

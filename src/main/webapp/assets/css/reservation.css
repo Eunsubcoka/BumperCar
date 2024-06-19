@@ -542,6 +542,9 @@ input[type=submit]:active {
    grid-column: 1 / 4;
    justify-self: end;
 }
+.quick-reservation .container .form__footer .footer-wrapper input{
+   background: #ffc801;
+}
 
 @media only screen and (max-width: 992px) {
    .quick-reservation .container .form__footer .footer-wrapper {
@@ -600,3 +603,10 @@ input[type=submit]:active {
     transition: all 0.3s ease-out;
     z-index: -1;
 } */
+
+
+.ele.first-name.a h6{
+	text-align: center;
+	  
+	
+}

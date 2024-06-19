@@ -33,7 +33,7 @@
          ${result.restaurantName}
       </h1>
       
-      <div class="close-icon" onclick="location.href='/views/restaurant/restaurantDetail.jsp'">
+      <div class="close-icon" onclick="location.href='/restaurantDetail.do?restaurantId=${result.restaurantNo}'">
          <span></span>
          <span></span>
       </div>
@@ -47,7 +47,7 @@
 			<input type="text" id="datepicker" name="datepicker"  onchange="printDate()">
             </div>
             <div class="ele first-name a">
-               <h6>9시부터 11시까지 가능합니다.<h6>
+               <h6>9시부터 11시<h6>
             </div>
             </div>
          <div class="row-wrapper">
