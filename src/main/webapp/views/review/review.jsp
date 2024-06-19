@@ -86,8 +86,17 @@
 	</section>
 
 	<%@ include file="/views/common/footer.jsp"%>
-
-
+<!-- 
+	<script>
+			function checkLoginAndlike(restaurantNo) {
+			<c:if test="${empty sessionScope.userNo}">
+				alert("로그인이 필요합니다.");
+			</c:if>
+		}
+	</script> -->
+	
+	
+	
 	<script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
 	<script type="text/javascript" src="/assets/js/review.js"></script> 
 
