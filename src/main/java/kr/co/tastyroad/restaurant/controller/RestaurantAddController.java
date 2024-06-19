@@ -97,7 +97,7 @@ public class RestaurantAddController extends HttpServlet {
             }
         }
 
-        response.sendRedirect("/index.jsp");
+        response.sendRedirect("/");
     }
 
     private String getFileName(Part part) {

@@ -86,7 +86,7 @@ public class RestaurantEditController extends HttpServlet {
                 }
             }
 
-            response.sendRedirect("/index.jsp");
+            response.sendRedirect("/");
         } catch (Exception e) {
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
