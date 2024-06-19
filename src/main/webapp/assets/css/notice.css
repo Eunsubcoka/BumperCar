@@ -17,10 +17,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #f5cd8d;
+    background-color: #ff9800;
     padding: 20px;
     padding-bottom: 0px;
     border-radius: 20px 20px 0px 0px;
+    color:white;
 }
 
 .search-form {

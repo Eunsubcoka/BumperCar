@@ -22,7 +22,7 @@
 }
 
 .reservation-items:hover {
-	background-color: #f5cd8d90;;
+	background-color: #ffbb55;;
 }
 
 .respaystatus-Y {
@@ -109,7 +109,8 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	background-color: #f5cd8d;
+	background-color: #ff9800;
+	color:white;
 	padding: 20px;
 	padding-bottom: 8px;
 	border-radius: 20px 20px 0px 0px;

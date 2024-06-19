@@ -18,7 +18,8 @@ body {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	background-color: #f5cd8d;;
+	background-color: #ff9800;
+	color:white;
 	padding: 20px;
 	padding-bottom: 8px;
 	border-radius: 20px 20px 0px 0px;
@@ -381,7 +382,7 @@ body {
 
 
 .more-btn{
-	background-color:#ff9800;
+	background-color:#f5cd8d;
 	color:white;
 	border:none;
 	padding:8px;
