@@ -146,7 +146,7 @@
 					type : "GET",
 					url : `https://dapi.kakao.com/v2/local/search/address.json?query=${address} `,
 					headers : {
-						"Authorization" : "KakaoAK YOUR_API_KEY"
+						"Authorization" : "b57304e32c7237fdd33fc966d2ca828b"
 					},
 					success : function(res) {
 						if (res.documents.length > 0) {
@@ -352,22 +352,4 @@
 			validateAddress);
 	document.getElementById('new-address1').addEventListener('input',
 			validateAddress);
-
-/* 	document.getElementById('register-form').addEventListener(
-			'submit',
-			function(event) {
-				validateUsername();
-				validateUserid();
-				validateEmail();
-				validatePhone();
-				validatePassword();
-				validateConfirmPassword();
-				validateAddress();
-
-				const invalidElements = document
-						.querySelectorAll('.error-msg:not(:empty)');
-				if (invalidElements.length > 0) {
-					event.preventDefault();
-				}
-			}); */
 </script>
