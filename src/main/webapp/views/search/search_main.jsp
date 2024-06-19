@@ -82,7 +82,7 @@
     </c:if>
     <c:if test="${totalNotices > cpage * 5}">
         <div class="d-flex justify-content-end">
-            <button id="load-more-notices" data-page="${cpage}" data-search-text="${searchText}" data-category="notice" onclick="loadMoreNotices()">>>더보기</button>
+            <button class="more-btn" id="load-more-notices" data-page="${cpage}" data-search-text="${searchText}" data-category="notice" onclick="loadMoreNotices()">>>더보기</button>
         </div>
     </c:if>
 </div>

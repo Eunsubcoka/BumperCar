@@ -9,7 +9,7 @@ body {
 	padding: 20px;
 	border: 1px solid #0000002b;
 	border-radius: 20px;
-	background-color: #f9f9f9;
+	background-color: white;
 	min-height: 600px;
 }
 
@@ -18,7 +18,7 @@ body {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	background-color: #9194972b;
+	background-color: #f5cd8d;;
 	padding: 20px;
 	padding-bottom: 8px;
 	border-radius: 20px 20px 0px 0px;
@@ -379,3 +379,11 @@ body {
 	display:inline-block;
 }
 
+
+.more-btn{
+	background-color:#ff9800;
+	color:white;
+	border:none;
+	padding:8px;
+	border-radius:5px;
+}
