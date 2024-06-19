@@ -40,6 +40,7 @@ public class ReviewEnrollController extends HttpServlet {
     		//어떤 회원이 글작성했는지 
     		HttpSession session = request.getSession();
     		int userNo = (int)session.getAttribute("userNo");
+    		System.out.println(userNo);
 
     		
 
@@ -65,7 +66,6 @@ public class ReviewEnrollController extends HttpServlet {
     		
     		ReviewServiceImpl reviewService = new ReviewServiceImpl();
     		int result = reviewService.enroll(reviewDto);
-    		
 
     		ReviewDto resultDto = reviewService.selectNo(reviewDto);
 
