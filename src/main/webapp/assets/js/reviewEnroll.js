@@ -110,6 +110,34 @@ function getImageFiles(event) {
         reader.readAsDataURL(image);
     }
 }
+// 폼 유효성 검사 함수
+function validateForm() {
+	const title = document.getElementById("title").value;
+	const reviewContent = document.getElementById("reviewContent").value;
+	const ratingStars = document.getElementById("stars").value;
+	
+	if (!title) {
+		alert("제목을 입력해주세요.");
+		return false;
+	}
+
+	if (!reviewContent) {
+		alert("내용을 입력해주세요.");
+		return false;
+	}
+	if (!ratingStars) {
+		alert("별점을 선택해주세요.");
+		return false;
+	}
+	return true;
+}
+
+// 작성 버튼 클릭 이벤트 핸들러
+document.getElementById("submitReviewButton").addEventListener("click", function() {
+	if (validateForm()) {
+		imageCheck(); // 유효성 검사 후 imageCheck 함수 호출
+	}
+});
 
 
 //이미지 함수 + 데이터 전송 함수

@@ -58,7 +58,7 @@
                     <div id="image_container"></div>
                     <label for="inputFile" class="btn-upload">이미지추가</label>		<!-- accept 특정 파일 유형만 허용, multiple 속성을 추가하면 2개 이상의 파일을 추가 -->
                     <input type="file" name="file" id="inputFile" onchange="getImageFiles(event);"  multiple>
-                    <button type="button" onclick="imageCheck();">작성</button>
+                    <button type="button" id="submitReviewButton">작성</button>
                 </div>
             </div>
         </div>
@@ -68,7 +68,6 @@
 
 
 	<%@ include file="/views/common/footer.jsp"%>
-
 
 	<script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
 	<script type="text/javascript" src="/assets/js/reviewEnroll.js"></script> 

@@ -22,8 +22,7 @@ public class ReviewDao {
 	
 	
 	public int enroll(ReviewDto reviewDto) {
-		String query = "INSERT INTO reviews VALUES(reviewsSeq.nextval, ?, ?, default, ?, ?, ?, default)";
-	
+		String query = "INSERT INTO reviews VALUES(reviewsSeq.nextval, ?, ?, default, ?, default, ?, ?)";
 		try {
 			System.out.println(reviewDto.getUserNo());
 			pstmt = con.prepareStatement(query);
@@ -283,12 +282,13 @@ public class ReviewDao {
 	
 	// 리뷰 삭제
 	public int reviewDelete(ReviewDto reviewDto) {
-		String query = "delete from reviews where reviewNo = ? and restaurantNo = ?";
+		String query = "delete from reviews where reviewNo = ? and restaurantNo = ? and user_no = ?";
 		
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, reviewDto.getReviewNo());
 			pstmt.setInt(2, reviewDto.getRestaurantNo());
+			pstmt.setInt(3, reviewDto.getUserNo());
 			
 			int result = pstmt.executeUpdate();
 			

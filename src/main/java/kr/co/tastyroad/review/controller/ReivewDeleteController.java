@@ -41,8 +41,11 @@ public class ReivewDeleteController extends HttpServlet {
     		ReviewServiceImpl reviewService = new ReviewServiceImpl();
     		int result = reviewService.reviewDelete(reviewDto);
     		
+    		System.out.println("삭제 " + result);
+    		
     		if(result == 1) {
-    			response.sendRedirect("/review/review.do?reviewNo=" + reviewNo + "&restaurantNo=" + restaurantNo);	
+    																					//  // 삭제 성공 시 deleteSuccess=true 매개변수를 추가하여 리다이렉트
+    			response.sendRedirect("/review/review.do?reviewNo=" + reviewNo + "&restaurantNo=" + restaurantNo + "&deleteSuccess=true");	
     		}
     		else {
     			response.sendRedirect("/");
