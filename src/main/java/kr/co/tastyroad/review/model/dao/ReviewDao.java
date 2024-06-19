@@ -442,7 +442,7 @@ public class ReviewDao {
     
     // 유저가 특정 리뷰를 좋아요 했는지 체크하는 메서드
     public boolean isUserLikedReview(int reviewNo, int userNo) {
-        String query = "SELECT COUNT(*) FROM review_likes WHERE reviewNo = ? AND user_no = ?";
+        String query = "SELECT COUNT(*) as cnt FROM review_likes WHERE reviewNo = ? AND user_no = ?";
         try {
             pstmt = con.prepareStatement(query);
             pstmt.setInt(1, reviewNo);
@@ -450,10 +450,15 @@ public class ReviewDao {
             
             ResultSet rs = pstmt.executeQuery();
             
-            if (rs.next()) {
-                return rs.getInt(1) > 0;
-                // rs.getInt(1) -> 첫 번째 열의 값(count(*)) 좋아요가 한개라도 있을 경우 true 반환 
-            }
+        	while(rs.next()) {
+				boolean result = rs.getInt("cnt") > 0; // 별칭(AS cnt)으로 가져옴
+				return result; // 열의 값(count(*)) 좋아요가 한개라도 있을 경우 true 반환 
+			}
+			
+//            if (rs.next()) {
+//                return rs.getInt(1) > 0;
+//                // rs.getInt(1) -> 첫 번째 열의 값(count(*)) 좋아요가 한개라도 있을 경우 true 반환 
+//            }
         } catch (SQLException e) {
             e.printStackTrace();
         } 
@@ -476,6 +481,7 @@ public class ReviewDao {
 		}
     }
 	
+    // 좋아요 갯수
     public int getLikeCount(int reviewNo) {
         String query = "SELECT like_count FROM reviews WHERE reviewNo = ?";
         int likeCount = 0; // 초기화
@@ -483,6 +489,7 @@ public class ReviewDao {
         try {
             pstmt = con.prepareStatement(query);
             pstmt.setInt(1, reviewNo);
+            
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
@@ -491,6 +498,7 @@ public class ReviewDao {
             
             rs.close();
             pstmt.close();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }

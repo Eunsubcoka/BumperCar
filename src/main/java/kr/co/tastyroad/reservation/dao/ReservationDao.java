@@ -44,7 +44,7 @@ public class ReservationDao {
 
     public List<ReservationDto> getReservations(int userNo) {
         List<ReservationDto> reservationList = new ArrayList<>();
-        String query = "SELECT * FROM reservation res JOIN restaurant ret ON res.restaurantNo = ret.restaurantNo JOIN TASTY_MEMBER tm ON res.USER_NO = tm.USER_NO WHERE res.user_no = ? ORDER BY reservationno ASC";
+        String query = "SELECT * FROM reservation res JOIN restaurant ret ON res.restaurantNo = ret.restaurantNo JOIN TASTY_MEMBER tm ON res.USER_NO = tm.USER_NO WHERE res.user_no = ? ORDER BY res.reservationno ASC";
 
         try {
             pstmt = con.prepareStatement(query);
