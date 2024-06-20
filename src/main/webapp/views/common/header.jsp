@@ -16,7 +16,7 @@
             <a id="main_header" href="/views/member/register.jsp" class="no-underline">회원가입</a>
           </c:when>
           <c:otherwise>
-            <a id="main_header" href="/" class="no-underline" onclick="logoutalert()">로그아웃</a>
+            <a id="main_header" class="no-underline" style="cursor:pointer;" onclick="logoutalert()">로그아웃</a>
             <a id="main_header" href="/tastyForm/profile.do" class="no-underline">내 정보</a>
           </c:otherwise>
         </c:choose>
