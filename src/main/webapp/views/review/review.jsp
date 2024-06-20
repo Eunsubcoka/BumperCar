@@ -36,7 +36,12 @@
 						<div class="container-review">
 							<div class="review">
 								<div class="user-container">
-									<img class="user-img" src="/assets/image/member_profile/${item.profile}" alt="사용자프로필">
+									<c:if test="${item.profile == null}">
+										<img class="user-img" src="/assets/image/default-profile.png" alt="프로필 사진 미리보기">
+									</c:if>
+									<c:if test="${item.profile != null}">
+										<img class="user-img" src="/assets/image/member_profile/${item.profile}" alt="사용자프로필">
+									</c:if>
 									<div class="user-info">
 										<span class="user-name"><strong>${item.userName}</strong></span>
 										<span class="rating"><i class="fas fa-star"></i>${item.ratings}점</span>

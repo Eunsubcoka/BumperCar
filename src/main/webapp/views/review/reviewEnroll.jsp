@@ -42,7 +42,7 @@
                 </div>
                 <div class="input-container">
                     <label for="author">작성자:</label>
-                    <input type="text" id="author" value="${sessionScope.userName}" disabled>
+                    <input type="text" id="author" value="${userName}" disabled>
                 </div>                
                 <div class="input-container">
                     <label for="title">제목:</label>
