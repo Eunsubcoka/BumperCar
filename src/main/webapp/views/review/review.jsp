@@ -86,17 +86,17 @@
 	</section>
 
 	<%@ include file="/views/common/footer.jsp"%>
-<!-- 
+	
 	<script>
-			function checkLoginAndlike(restaurantNo) {
-			<c:if test="${empty sessionScope.userNo}">
-				alert("로그인이 필요합니다.");
-			</c:if>
-		}
-	</script> -->
-	
-	
-	
+	    document.addEventListener("DOMContentLoaded", function() {
+	    	// 웹페이지 주소에서 단어를 찾는 도구 사용
+	        const urlParams = new URLSearchParams(window.location.search);
+	     	// 만약 주소에 'deleteSuccess=true'라는 단어가 있으면,
+	        if (urlParams.get('deleteSuccess') === 'true') {
+	            alert('리뷰가 성공적으로 삭제되었습니다.');
+	        }
+	    });
+	</script>
 	<script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
 	<script type="text/javascript" src="/assets/js/review.js"></script> 
 

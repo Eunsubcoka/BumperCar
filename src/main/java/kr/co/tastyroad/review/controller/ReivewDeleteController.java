@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import kr.co.tastyroad.review.model.dto.ReviewDto;
 import kr.co.tastyroad.review.model.service.ReviewServiceImpl;
@@ -30,19 +31,23 @@ public class ReivewDeleteController extends HttpServlet {
         try {
         	int reviewNo = Integer.parseInt(request.getParameter("reviewNo"));
     		int restaurantNo = Integer.parseInt(request.getParameter("restaurantNo"));
-    		
+    		HttpSession session = request.getSession();
+    		int userNo = (int)session.getAttribute("userNo");
     		String fileName = request.getParameter("fileName"); 
     		
     		ReviewDto reviewDto = new ReviewDto();
     		reviewDto.setReviewNo(reviewNo);
     		reviewDto.setFileName(fileName);
     		reviewDto.setRestaurantNo(restaurantNo);
+    		reviewDto.setUserNo(userNo);
+    		
     		
     		ReviewServiceImpl reviewService = new ReviewServiceImpl();
     		int result = reviewService.reviewDelete(reviewDto);
     		
     		if(result == 1) {
-    			response.sendRedirect("/review/review.do?reviewNo=" + reviewNo + "&restaurantNo=" + restaurantNo);	
+    																					//  // 삭제 성공 시 deleteSuccess=true 매개변수를 추가하여 리다이렉트
+    			response.sendRedirect("/review/review.do?reviewNo=" + reviewNo + "&restaurantNo=" + restaurantNo + "&deleteSuccess=true");	
     		}
     		else {
     			response.sendRedirect("/");
