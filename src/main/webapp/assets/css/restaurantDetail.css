@@ -304,3 +304,8 @@ word-wrap: break-word;
 .res_wrapper > h5{
 padding: 10px 0 0 10px;
 }
+.share_flex >ul > li > p {
+    font-size: small;
+    width: max-content;
+    margin: 0px 10px;
+}
