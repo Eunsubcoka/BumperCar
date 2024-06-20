@@ -1,7 +1,22 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ page import="java.io.InputStream" %>
+<%@ page import="java.util.Properties" %>
+
+<%
+    InputStream input = application.getResourceAsStream("/WEB-INF/appKey.properties");
+    Properties properties = new Properties();
+    
+    if (input != null) {
+        properties.load(input);
+    } else {
+        throw new RuntimeException("appKey.properties not found");
+    }
+
+    String apiKey = properties.getProperty("KAKAO_APP_KEY");
+%>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -11,14 +26,8 @@
     <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
         integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4"
         crossorigin="anonymous"></script>
-    <script>
-        Kakao.init('597a12321ce91d26c9101324b5955ebd'); // 사용하려는 앱의 JavaScript 키 입력
-    </script>
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
     <%@ include file="/views/common/head.jsp"%>
-
 </head>
 <body id="body" style="font-family: 'GmarketSans'">
     <%@ include file="/views/common/header.jsp"%>
@@ -45,21 +54,18 @@
                     <div class="details">
                         <h1 class="">${result.restaurantName}</h1>
                         <div class="rating">
-                            <span class="rating"><i class="fas fa-star"
-                                    style="color: #ff9800"></i>${ratings}점</span>
+                            <span class="rating"><i class="fas fa-star" style="color: #ff9800"></i>${ratings}점</span>
                         </div>
                         <div id="share_pop" class="layer_pop">
                             <img alt="" src="/assets/image/close.png" onclick="closePop()">
                             <div class="share_flex">
                                 <h4>공유하기</h4>
                                 <ul>
-                                    <li><img alt="" src="/assets/image/icon-insta.png">
-                                        <p>인스타</p></li>
-                                    <li><img alt="" src="/assets/image/icon-kakao.png"
-                                            onclick="shareMessage()">
+                                    <li> <img alt="링크 복사" src="/assets/image/icon-link.png"  onclick="copyLink()">
+                                        <p>링크복사</p></li>
+                                    <li><img alt="" src="/assets/image/icon-kakao.png" id="kakaotalk-sharing-btn">
                                         <p>카카오</p></li>
-                                    <li><img alt="" src="/assets/image/icon-twitter.png"
-                                            onclick="shareTwitter()">
+                                    <li><img alt="" src="/assets/image/icon-twitter.png" onclick="shareTwitter()">
                                         <p>트위터</p></li>
                                 </ul>
                             </div>
@@ -81,12 +87,10 @@
                     </div>
                 </div>
                 <div class="res_menu_wrap">
-
                     <div class="details">
                         <h1>메뉴 정보</h1>
                         <div class="share" onclick="checkLoginAndReserve(${resNo});">예약하기</div>
                     </div>
-
                     <div class="recommendations">
                         <c:forEach var="menuList" items="${menuList}">
                             <c:if test="${menuList.restaurantNo == result.restaurantNo}">
@@ -102,16 +106,13 @@
             </div>
 
             <div class="res_right_container">
-
                 <div class="mapContainer">
                     <div id="map" style="width: 200px; height: 200px;"></div>
                 </div>
 
-                <div class="res_review_wrap"
-                    onclick="location.href='/review/review.do?restaurantNo=${resNo}'">
+                <div class="res_review_wrap" onclick="location.href='/review/review.do?restaurantNo=${resNo}'">
                     <c:choose>
                         <c:when test="${empty list}">
-                            <!-- 조건: list객체가 비워져 있을때 -->
                             <p>등록된 글이 없습니다.</p>
                         </c:when>
                         <c:otherwise>
@@ -125,8 +126,7 @@
                                     <div class="res_review_img">
                                         <c:forEach var="fileList" items="${fileList}">
                                             <c:if test="${fileList.reviewNo == item.reviewNo}">
-                                                <img src="/assets/uploads/review/${fileList.fileName}"
-                                                    alt="리뷰 사진 1">
+                                                <img src="/assets/uploads/review/${fileList.fileName}" alt="리뷰 사진 1">
                                             </c:if>
                                         </c:forEach>
                                     </div>
@@ -142,9 +142,14 @@
         </div>
     </div>
 
+    <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
+        integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4"
+        crossorigin="anonymous"></script>
     <script type="text/javascript"
-        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=597a12321ce91d26c9101324b5955ebd&libraries=services"></script>
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=<%= apiKey %>&libraries=services"></script>
     <script>
+        Kakao.init('<%= apiKey %>');
+        
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
             mapOption = {
                 center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
@@ -190,22 +195,21 @@
         }
 
         function openPop() {
-            const popEle = document.getElementsByClassName("layer_pop")[0];
+            const popEle = document.getElementById("share_pop");
             const bg = document.getElementsByClassName("bg")[0];
             const body = document.getElementById("body");
             popEle.style.display = "block";
-            body.style.overflow = "hidden";
             bg.style.display = "block";
-            bg.style.zIndex = "10";
+            body.style.overflow = "hidden";
         }
 
         function closePop() {
-            const popEle = document.getElementsByClassName("layer_pop")[0];
-            const body = document.getElementById("body");
+            const popEle = document.getElementById("share_pop");
             const bg = document.getElementsByClassName("bg")[0];
+            const body = document.getElementById("body");
             popEle.style.display = "none";
-            body.style.overflow = "auto";
             bg.style.display = "none";
+            body.style.overflow = "auto";
         }
 
         function shareTwitter() {
@@ -213,17 +217,48 @@
             var sendUrl = "http://localhost/restaurantDetail.do?restaurantId=" + "${result.restaurantNo}"; // 전달할 URL
             window.open("https://twitter.com/intent/tweet?text=" + sendText + "&url=" + sendUrl);
         }
-
-        function shareMessage() {
-            Kakao.Share.sendScrap({
-                requestUrl: 'http://localhost/restaurantDetail.do?restaurantId=' + '${result.restaurantNo}'
+        function copyLink() {
+            var dummy = document.createElement('textarea');
+            document.body.appendChild(dummy);
+            dummy.value = window.location.href; // 현재 페이지의 URL
+            dummy.select();
+            document.execCommand('copy');
+            document.body.removeChild(dummy);
+            alert("링크가 복사되었습니다!");
+        }
+        function loginWithKakao() {
+            Kakao.Auth.authorize({
+                redirectUri: 'https://developers.kakao.com/tool/demo/oauth'
             });
         }
+
+        Kakao.Share.createDefaultButton({
+            container: '#kakaotalk-sharing-btn',
+            objectType: 'feed',
+            content: {
+                title: '${result.restaurantName}',
+                description: '${tag.toString()}',
+                imageUrl: '${imgList[0]}',
+                link: {
+                    mobileWebUrl: 'http://localhost/restaurantDetail.do?restaurantId=' + '${result.restaurantNo}',
+                    webUrl: 'http://localhost/restaurantDetail.do?restaurantId=' + '${result.restaurantNo}'
+                },
+            },
+            buttons: [
+                {
+                    title: '웹으로 보기',
+                    link: {
+                        mobileWebUrl: 'http://localhost/restaurantDetail.do?restaurantId=' + '${result.restaurantNo}',
+                        webUrl: 'http://localhost/restaurantDetail.do?restaurantId=' + '${result.restaurantNo}'
+                    }
+                }
+            ]
+        });
     </script>
 
     <script src="/assets/js/bootstrap.bundle.min.js"></script>
 
-    <div class="bg"></div>
+    <div class="bg" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5); z-index:9;"></div>
     <%@ include file="/views/common/footer.jsp"%>
 </body>
 </html>
