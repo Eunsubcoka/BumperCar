@@ -41,12 +41,10 @@
                         <c:forEach var="imgList" items="${imgList}">
                             <c:choose>
                                 <c:when test="${fn:contains(imgList, 'https')}">
-                                    <img src="${imgList}" class="photo_img"
-                                        onclick="location.href='/restaurantDetail.do?restaurantId=${restaurant.restaurantNo}'">
+                                    <img src="${imgList}" class="photo_img">
                                 </c:when>
                                 <c:otherwise>
-                                    <img src="/assets/image/${imgList}" class="photo_img"
-                                        onclick="location.href='/restaurantDetail.do?restaurantId=${restaurant.restaurantNo}'">
+                                    <img src="/assets/image/${imgList}" class="photo_img">
                                 </c:otherwise>
                             </c:choose>
                         </c:forEach>
