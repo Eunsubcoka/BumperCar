@@ -66,12 +66,12 @@ public class ReviewServiceImpl implements ReviewService {
 		
 	}
 	
-	// 리뷰 삭제 
+	// 리뷰 삭제 (리뷰 이미지, 좋아요, 리뷰 삭제)
 	@Override
 	public int reviewDelete(ReviewDto reviewDto) {
 		
 		reviewDao.reviewFileDelete(reviewDto);
-		
+		reviewDao.likeDelete(reviewDto);
 		return reviewDao.reviewDelete(reviewDto);
 	}
 	

@@ -156,13 +156,13 @@ body {
 
 
 footer{
-	background-color : #ececec !important;
+	background-color : #f5cd8d !important;
 	height:14rem !important;
 	width:100%;
 	min-width:1000px !important;
 }
 .spliter{
-	background-color:#212529;
+	background-color: #6c757d;
 	height:15px;
 	width:1px;
 	position:flex;
@@ -317,7 +317,7 @@ header{
 	font-size: 14px;
 	font-weight:bold;
 	text-decoration:none;
-	color:black;
+	color:#6c757d;
 	margin-top:5px;
 	margin-bottom:5px;
 	margin-left:20px;
@@ -326,7 +326,7 @@ header{
 	display:inline-block;
 }
 .footer-policyinfo:hover{
-	color:black;
+	color:#adb5bd;
 }
 
 .privacy-content ul li a{

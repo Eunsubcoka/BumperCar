@@ -40,7 +40,6 @@ public class ReviewEnrollController extends HttpServlet {
     		//어떤 회원이 글작성했는지 
     		HttpSession session = request.getSession();
     		int userNo = (int)session.getAttribute("userNo");
-    		System.out.println(userNo);
 
     		ReviewDto reviewDto = new ReviewDto();
     		reviewDto.setReviewTitle(reviewTitle);

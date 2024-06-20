@@ -101,6 +101,37 @@ function getImageFiles(event) {
     }
 }
 
+// 폼 유효성 검사 함수
+function validateForm() {
+	const title = document.getElementById("title").value;
+	const reviewContent = document.getElementById("reviewContent").value;
+	const currentImageCount = document.querySelectorAll("div#image_container img.photo").length;
+
+	if (!title) {
+		alert("제목을 입력해주세요.");
+		return false;
+	}
+
+	if (!reviewContent) {
+		alert("내용을 입력해주세요.");
+		return false;
+	}
+	    // 이미지 개수 확인
+    if (currentImageCount == 0) {
+        alert(`이미지는 1장이상 업로드해야 합니다.`);
+        return false;
+    }
+	return true;
+}
+
+// 작성 버튼 클릭 이벤트 핸들러
+document.getElementById("submitReviewButton").addEventListener("click", function() {
+	if (validateForm()) {
+		submitReview(); // 유효성 검사 후 imageCheck 함수 호출
+	}
+});
+
+
 // "리뷰 수정" 버튼 클릭 시 실행되는 함수
 function submitReview() {
     // FormData에 추가할 데이터 가져오기
