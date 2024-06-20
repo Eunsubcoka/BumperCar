@@ -59,7 +59,10 @@ public class ProfileController extends HttpServlet {
         member.setUserAddress(Addr);
         member.setUserPhone(userPhone);
         member.setUserNo(userNo);
-
+        
+        
+        session.setAttribute("userName",userName );
+        
         int result = memberService.userUpdate(member);
 
 
