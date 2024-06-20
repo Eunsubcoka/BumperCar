@@ -116,8 +116,11 @@ public class FormController extends HttpServlet {
 		// 혜미
 		else if(action.equals("/enrollReviewForm.do")) { // 리뷰 등록 페이지
 			int restaurantNo = Integer.parseInt(request.getParameter("restaurantNo"));
+			HttpSession session = request.getSession();
+			String userName = (String) session.getAttribute("userName");
 			
 			request.setAttribute("restaurantNo", restaurantNo);
+			request.setAttribute("userName", userName);
 			
 			nextPage = "/views/review/reviewEnroll.jsp"; 
 		}else if(action.equals("/editReviewForm.do")) { // 리뷰 수정 페이지
