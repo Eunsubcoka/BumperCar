@@ -1,5 +1,3 @@
-![image](https://github.com/Eunsubcoka/BumperCar/assets/91008927/453d5421-019c-4861-95b2-e23b6ee862ea)# GreenAcademi SemiProject
-> 세미 프로젝트를 진행하는 구간입니다.
 
 맛집 리뷰 사이트를 만들어 보았습니다.
 
